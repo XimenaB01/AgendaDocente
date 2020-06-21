@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/itemHorario"
+        android:title="@string/horario" />
+    <item
+        android:id="@+id/itemPeriodo"
+        android:title="@string/periodo" />
+    <item
+        android:id="@+id/itemTarea"
+        android:title="@string/tarea" />
+    <item
+        android:id="@+id/itemEvaluacion"
+        android:title="@string/evaluacion" />
+    <item
+        android:id="@+id/itemCuestionario"
+        android:title="@string/cuestionario" />
+</menu>

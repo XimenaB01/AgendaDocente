@@ -1,0 +1,143 @@
+<resources>
+    <string name="app_name">Agenda Docente</string>
+
+    <!--Cadenas Activity Main -->
+
+    <string name="asignatura">Asignatura</string>
+    <string name="paralelo">Paralelo</string>
+    <string name="docente">Docente</string>
+    <string name="horario">Horario</string>
+    <string name="periodo">Periodo Academico</string>
+    <string name="cuestionario">Cuestionario</string>
+    <string name="tarea">Tarea</string>
+    <string name="evaluacion">Evaluación</string>
+
+    <!-- Asignatura -->
+    <string name="nombre">Nombre</string>
+    <string name="creditos">Créditos</string>
+    <string name="descripcion">Descripción</string>
+    <string name="nivel">Nivel</string>
+    <string name="agregarAsignatura">Agregar Asignatura</string>
+    <string name="ms_listaA_vacia">Lista de Asignatura Vacia</string>
+
+    <!-- Docente-->
+    <string name="nombres">Nombres</string>
+    <string name="apellidos">Apellidos</string>
+    <string name="correo">Correo</string>
+    <string name="cedula">Cédula</string>
+    <string name="agregarDocente">Agregar Docente</string>
+    <string name="ms_listaD_vacia">Lista de Docentes Vacia</string>
+
+    <!--Cuestionario-->
+    <string name="listacuestionario">LISTA CUESTIONARIOS</string>
+    <string name="ms_listaC_vacia">Lista de Cuestioniario Vacia</string>
+    <string name="preguntas">Preguntas</string>
+
+    <!--Periodo -->
+    <string name="listaperiodo">LISTA DE PERIODOS</string>
+    <string name="ms_listaP_vacia">Lista de Periodos Vacia</string>
+    <string name="periodoinicio">Fecha Inicio</string>
+    <string name="periodofin">Fecha Fin</string>
+    <string name="agregarPeriodo">Agregar Periodo</string>
+
+    <!--Horario-->
+    <string name="listahorario">LISTA DE HORARIOS</string>
+    <string name="ms_listaH_vacia">Lista de Horarios Vacia</string>
+    <string name="HorarioEntada">Hora de Entrada</string>
+    <string name="HorarioSalida">Hora de Salida</string>
+    <string name="agregarHorario">Agregar Horario</string>
+    <string name="aula">Aula</string>
+
+    <!--Tarea -->
+    <string name="fechaentreda">Fecha de Entrega </string>
+    <string name="ms_listaT_vacia">Lista de Tareas Vacia</string>
+    <string name="listatarea">LISTA TAREA</string>
+    <string name="agregarTarea">Agregar Tarea</string>
+
+    <!--Evaluacion-->
+    <string name="rb1B">1er Bimestre</string>
+    <string name="rb2B">2do Bimestre</string>
+    <string name="formatofecha"> mm / dd / y</string>
+    <string name="observacion">Observación</string>
+    <string name="listaevaluacion">LISTA EVALUACIONES</string>
+    <string name="ms_listaE_vacia">Lista de Evaluaciones Vacia</string>
+    <string name="tipo">Tipo </string>
+    <string name="bimestre">Bimestre </string>
+    <string name="fechaevaluacion">Fecha de Evaluación </string>
+    <string name="agregarEvaluacion">Agregar Evaluacion</string>
+
+    <!-- Paralelo -->
+    <string name="detalleParalelo">Detalle Paralelo</string>
+    <string name="numeroalumnos">Nº de alumnos</string>
+    <string name="horas">Horas</string>
+    <string name="carrera">Carrera</string>
+    <string name="area">Área</string>
+    <string name="ms_listaPa_vacia">Lista de Paralelos Vacia</string>
+
+
+    <!-- Otras Constante-->
+
+    <string name="guardar">Guardar</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="actualizar">Actualizar</string>
+    <string name="eliminar">Eliminar</string>
+    <string name="editar">Editar</string>
+    <string name="replicar">Replicar</string>
+    <string name="detalle">Detalle</string>
+    <string name="opcion">Opciones</string>
+
+    <string name="selectArea">Seleccionar Area</string>
+    <string name="selectCarrera">Seleccionar Carrera</string>
+
+    <string name="btnactualizar">Actualizar paralelo</string>
+    <string name="btneliminar">Eliminar paralelo</string>
+    <string name="eliminarDoc">Eliminar Docente</string>
+    <string name="editarDoc">Editar Docente</string>
+    <string name="editarHor">Editar Horario</string>
+    <string name="eliminarHor">Eliminar Horario</string>
+    <string name="_0">0</string>
+
+
+    <string-array name="areas">
+        <item>Técnica</item>
+        <item>Adminitrativa</item>
+        <item>Socio-Humanística</item>
+        <item>Biológica y Biomédica</item>
+    </string-array>
+
+    <string-array name="tecnica">
+        <item>Sis. Informáticos y Computación</item>
+        <item>Arquitectura</item>
+        <item>Arte y Diseño</item>
+        <item>Electrónica y Telecomunicaciones</item>
+        <item>Geología y Minas</item>
+        <item>Ingeniería Civil</item>
+    </string-array>
+
+    <string-array name="administrativa">
+        <item>Admin. de Empresas</item>
+        <item>Admin. en Banca y Finanzas</item>
+        <item>Admin. en Hotelería y Turismo</item>
+        <item>Contabilidad y Auditoría</item>
+        <item>Economía</item>
+        <item>Asis. Gerencial y Relaciones Públicas</item>
+    </string-array>
+
+    <string-array name="sociohumanistica">
+        <item>Comunicación</item>
+        <item>Derecho</item>
+        <item>Psicología</item>
+        <item>Inglés</item>
+    </string-array>
+
+    <string-array name="biologica">
+        <item>Bioquímica y Farmacia</item>
+        <item>Gestión Ambiental</item>
+        <item>Industrias agropecuarias</item>
+        <item>Ingeniería Agropecuaria</item>
+        <item>Ingeniería Química</item>
+        <item>Medicina</item>
+        <item>Biología</item>
+    </string-array>
+
+</resources>

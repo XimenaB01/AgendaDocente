@@ -1,0 +1,151 @@
+package com.utpl.agendadocente.DataBase;
+
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
+import android.widget.Toast;
+
+import com.utpl.agendadocente.Entidades.Tarea;
+import com.utpl.agendadocente.Utilidades.utilidades;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class OperacionesTarea {
+
+    private Context context;
+
+    public OperacionesTarea(Context context) {
+        this.context = context;
+    }
+
+    private ConexionSQLiteHelper conexionDB;
+
+    public long InsertarTar(Tarea tarea){
+        long operacion= 0;
+        conexionDB = ConexionSQLiteHelper.getInstance(context);
+        SQLiteDatabase db = conexionDB.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(utilidades.CAMPO_NOM_TAR,tarea.getNombreTarea());
+        contentValues.put(utilidades.CAMPO_DES_TAR,tarea.getDescripcionTarea());
+        contentValues.put(utilidades.CAMPO_FEC_TAR,tarea.getFechaTarea());
+        contentValues.put(utilidades.CAMPO_OBS_TAR,tarea.getObservacionTarea());
+        try {
+            operacion = db.insert(utilidades.TABLA_TAREA, utilidades.CAMPO_ID_TAR,contentValues);
+        }catch (SQLiteException e) {
+            Toast.makeText(context, "La Tarea ya existe!!", Toast.LENGTH_LONG).show();
+        } finally {
+            db.close();
+        }
+        return operacion;
+    }
+
+    public List<Tarea> ListarTar(){
+        conexionDB = ConexionSQLiteHelper.getInstance(context);
+        SQLiteDatabase db = conexionDB.getReadableDatabase();
+
+        List<Tarea> listaTar = new ArrayList<>();
+        Cursor cursor = null;
+
+        try {
+            cursor =  db.query(utilidades.TABLA_TAREA,null, null, null, null, null, null, null);
+            if(cursor!=null){
+                if (cursor.moveToFirst()){
+                    do{
+                        Tarea tar = new Tarea();
+                        tar.setId_tarea(cursor.getInt(0));
+                        tar.setNombreTarea(cursor.getString(1));
+                        tar.setDescripcionTarea(cursor.getString(2));
+                        tar.setFechaTarea(cursor.getString(3));
+                        tar.setObservacionTarea(cursor.getString(4));
+
+                        listaTar.add(tar);
+                    }while (cursor.moveToNext());
+                }
+            }
+        }catch (SQLiteException e)
+        {
+            Toast.makeText(context, "Operacion fallida", Toast.LENGTH_SHORT).show();
+        }finally {
+            if (cursor!=null)
+                cursor.close();
+            db.close();
+        }
+        return listaTar;
+    }
+
+    public Tarea obtenerTar(long idTarea){
+
+        conexionDB = ConexionSQLiteHelper.getInstance(context);
+        SQLiteDatabase db = conexionDB.getReadableDatabase();
+
+        Tarea tar = new Tarea();
+        Cursor cursor = null;
+        try{
+            cursor = db.query(utilidades.TABLA_TAREA, null,
+                    utilidades.CAMPO_ID_TAR + " = ? ",new String[]{String.valueOf(idTarea)},
+                    null,null,null);
+            if (cursor.moveToFirst()){
+                tar.setId_tarea(cursor.getInt(0));
+                tar.setNombreTarea(cursor.getString(1));
+                tar.setDescripcionTarea(cursor.getString(2));
+                tar.setFechaTarea(cursor.getString(3));
+                tar.setObservacionTarea(cursor.getString(4));
+            }
+        }catch (Exception e){
+            Toast.makeText(context, "Operacion fallida", Toast.LENGTH_SHORT).show();
+        }finally {
+            if (cursor!=null)
+                cursor.close();
+            db.close();
+        }
+        return tar;
+    }
+
+    public long eliminarTar (long codigo){
+        long operacion = 0;
+
+        conexionDB = ConexionSQLiteHelper.getInstance(context);
+        SQLiteDatabase db = conexionDB.getWritableDatabase();
+
+        try {
+            operacion = db.delete(utilidades.TABLA_TAREA,
+                    utilidades.CAMPO_ID_TAR + " = ? ",
+                    new String[]{String.valueOf(codigo)});
+        }catch (SQLiteException e)
+        {
+            Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
+        }finally {
+            db.close();
+        }
+        return operacion;
+    }
+
+    public long ModificarTar (Tarea tarea){
+
+        long operacion = 0;
+
+        conexionDB = ConexionSQLiteHelper.getInstance(context);
+        SQLiteDatabase db = conexionDB.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(utilidades.CAMPO_NOM_TAR,tarea.getNombreTarea());
+        contentValues.put(utilidades.CAMPO_DES_TAR,tarea.getDescripcionTarea());
+        contentValues.put(utilidades.CAMPO_FEC_TAR,tarea.getFechaTarea());
+        contentValues.put(utilidades.CAMPO_OBS_TAR,tarea.getObservacionTarea());
+
+        try{
+            operacion = db.update(utilidades.TABLA_TAREA,contentValues,
+                    utilidades.CAMPO_ID_TAR + " = ? ",
+                    new String[]{String.valueOf(tarea.getId_tarea())});
+        } catch (SQLiteException e){
+            Toast.makeText(context, "La Tarea ya existe!!", Toast.LENGTH_LONG).show();
+        } finally {
+            db.close();
+        }
+        return operacion;
+    }
+}
