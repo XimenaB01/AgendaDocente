@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +29,7 @@ import java.util.Objects;
 public class DocentePager extends Fragment implements DocenteCreateListener {
 
     private TextView ListaDocentesVacia;
-    private DocentLisaRecycleViewAdapter docenteListaRecycleViewAdapter;
+    private DocenteListaRecycleViewAdapter docenteListaRecycleViewAdapter;
 
     private List<Docente> listaDocentes = new ArrayList<>();
 
@@ -51,7 +50,7 @@ public class DocentePager extends Fragment implements DocenteCreateListener {
 
         listaDocentes = operacionesDocente.listarDoc();
 
-        docenteListaRecycleViewAdapter = new DocentLisaRecycleViewAdapter(getContext(), listaDocentes);
+        docenteListaRecycleViewAdapter = new DocenteListaRecycleViewAdapter(getContext(), listaDocentes);
         lisDocRV.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         lisDocRV.setAdapter(docenteListaRecycleViewAdapter);
 

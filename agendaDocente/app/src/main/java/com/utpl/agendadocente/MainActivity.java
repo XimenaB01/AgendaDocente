@@ -5,24 +5,17 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
-import com.utpl.agendadocente.DataBase.OperacionesDocente;
-import com.utpl.agendadocente.Entidades.Docente;
 import com.utpl.agendadocente.Features.Cuestionario.PresentarCuestionario.CuestionarioListarActivity;
-import com.utpl.agendadocente.Features.Docente.PresentarDocente.DocentLisaRecycleViewAdapter;
-import com.utpl.agendadocente.Features.Docente.PresentarDocente.DocentePager;
 import com.utpl.agendadocente.Features.Evaluacion.PresentarEvaluacion.EvaluacionListarActivity;
 import com.utpl.agendadocente.Features.Horario.PresentarHorario.HorarioListarActivity;
 import com.utpl.agendadocente.Features.PagerController;
 import com.utpl.agendadocente.Features.Periodo.PresentarPeriodo.PeriodoListarActivity;
 import com.utpl.agendadocente.Features.Tarea.PresentarTarea.TareaListarActivity;
-
-import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {

@@ -78,6 +78,7 @@
     <!-- Otras Constante-->
 
     <string name="guardar">Guardar</string>
+    <string name="agregar">Agregar</string>
     <string name="cancelar">Cancelar</string>
     <string name="actualizar">Actualizar</string>
     <string name="eliminar">Eliminar</string>
@@ -95,8 +96,15 @@
     <string name="editarDoc">Editar Docente</string>
     <string name="editarHor">Editar Horario</string>
     <string name="eliminarHor">Eliminar Horario</string>
-    <string name="_0">0</string>
 
+<!-- todos estos se van a quitar-->
+    <string name="nuevaAsignatura">Nueva Asignatura</string>
+    <string name="nuevoDocente">Nuevo Docente</string>
+    <string name="nuevoHorario">Nuevo Horario</string>
+    <string name="nuevoPeriodo">Nuevo Periodo</string>
+    <string name="nuevaTarea">Nueva Tarea</string>
+    <string name="nuevaEvaluacion">Nueva Evaluación</string>
+    <string name="nuevoCuestionario">Nuevo Cuestionario</string>
 
     <string-array name="areas">
         <item>Técnica</item>

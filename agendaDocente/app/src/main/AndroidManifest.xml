@@ -37,7 +37,7 @@
         <activity android:name=".Features.Periodo.CrearPeriodo.PeriodoCrearActivity" />
         <activity android:name=".Features.Asignatura.ActualizarAsignatura.AsignaturaActualizarActivity" />
         <activity android:name=".Features.Docente.ActualizarDocente.actualizarDocente" />
-        <activity android:name=".Features.Docente.PresentarDocente.DocentLisaRecycleViewAdapter" />
+        <activity android:name=".Features.Docente.PresentarDocente.DocenteListaRecycleViewAdapter" />
         <activity android:name=".Features.Cuestionario.PresentarCuestionario.CuestionarioListarActivity" />
         <activity android:name=".Features.Evaluacion.CrearEvaluacion.EvaluacionCrearActivity" />
         <activity android:name=".Features.Tarea.PresentarTarea.TareaListarActivity" />

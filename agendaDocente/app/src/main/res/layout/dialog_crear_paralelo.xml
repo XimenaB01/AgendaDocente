@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="10dp">
+            android:padding="15dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -71,224 +71,176 @@
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
 
-            <TextView
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginTop="5dp"
-                android:background="#03A9F4"/>
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp">
 
-            <LinearLayout
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="15dp"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/agregarDocente"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:background="#FFFFFF"
+                        android:textColor="#2196F3"
+                        android:textSize="20sp"
+                        android:text="@string/agregarDocente"
+                        android:drawableStart="@drawable/ic_docente_black"
+                        android:drawableTint="#FFC107"/>
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="15dp"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/agregarAsignatura"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:background="#FFFFFF"
+                        android:textColor="#2196F3"
+                        android:textSize="20sp"
+                        android:text="@string/agregarAsignatura"
+                        android:drawableStart="@drawable/ic_asignatura_black"
+                        android:drawableTint="#FFC107"/>
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="15dp"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/agregarHorario"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textSize="20sp"
+                        android:background="#FFFFFF"
+                        android:textColor="#2196F3"
+                        android:text="@string/agregarHorario"
+                        android:drawableStart="@drawable/ic_horas"
+                        android:drawableTint="#FFC107"/>
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="15dp"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/agregarPeriodo"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:background="#FFFFFF"
+                        android:textColor="#2196F3"
+                        android:text="@string/agregarPeriodo"
+                        android:drawableStart="@drawable/ic_area"
+                        android:drawableTint="#FFC107"
+                        android:textSize="20sp"/>
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="15dp"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/agregarTarea"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:background="#FFFFFF"
+                        android:textColor="#2196F3"
+                        android:text="@string/agregarTarea"
+                        android:textSize="20sp"
+                        android:drawableStart="@drawable/ic_tarea"
+                        android:drawableTint="#FFC107"/>
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:gravity="center">
+                android:layout_marginBottom="5dp">
 
-                <TextView
-                    android:id="@+id/agregarDocente"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:background="#FFFFFF"
-                    android:layout_marginEnd="7dp"
-                    android:textColor="#2196F3"
-                    android:textSize="20sp"
-                    android:text="@string/agregarDocente"/>
-
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/docenteAddBFA"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:tint="#FFFFFF"
-                    app:backgroundTint="#FFC107"
-                    app:fabSize="mini"
-                    app:srcCompat="@drawable/ic_docent_add_black"
-                    />
-            </LinearLayout>
+                    android:orientation="horizontal"
+                    android:padding="15dp"
+                    android:gravity="center">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginTop="5dp"
-                android:background="#03A9F4"/>
+                    <TextView
+                        android:id="@+id/agregarEvaluacion"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:background="#FFFFFF"
+                        android:textColor="#2196F3"
+                        android:text="@string/agregarEvaluacion"
+                        android:textSize="20sp"
+                        android:drawableStart="@drawable/ic_evaluacion"
+                        android:drawableTint="#FFC107"/>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal"
-                android:gravity="center">
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
-                <TextView
-                    android:id="@+id/agregarAsignatura"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:layout_weight="1"
-                    android:background="#FFFFFF"
-                    android:layout_marginEnd="7dp"
-                    android:textColor="#2196F3"
-                    android:textSize="20sp"
-                    android:text="@string/agregarAsignatura"/>
-
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/asignaturaAddBFA"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:tint="#FFFFFF"
-                    app:backgroundTint="#FFC107"
-                    app:fabSize="mini"
-                    app:srcCompat="@drawable/ic_asignatura_black"/>
-
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginTop="5dp"
-                android:background="#03A9F4"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="5dp"
-                android:gravity="center">
-
-                <TextView
-                    android:id="@+id/agregarHorario"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="7dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:textSize="20sp"
-                    android:background="#FFFFFF"
-                    android:textColor="#2196F3"
-                    android:text="@string/agregarHorario"/>
-
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/horarioAddBFA"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:tint="#FFFFFF"
-                    app:backgroundTint="#FFC107"
-                    app:fabSize="mini"
-                    app:srcCompat="@drawable/ic_hor_add_white" />
-
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginTop="5dp"
-                android:background="#03A9F4"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal"
-                android:gravity="center">
-
-                <TextView
-                    android:id="@+id/agregarPeriodo"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:background="#FFFFFF"
-                    android:layout_marginEnd="7dp"
-                    android:textColor="#2196F3"
-                    android:text="@string/agregarPeriodo"
-                    android:textSize="20sp"/>
-
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/periodoAddBFA"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:backgroundTint="#FFC107"
-                    app:fabSize="mini"
-                    app:srcCompat="@android:drawable/ic_menu_today" />
-
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginTop="5dp"
-                android:background="#03A9F4"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="5dp"
-                android:gravity="center">
-
-                <TextView
-                    android:id="@+id/agregarTarea"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:background="#FFFFFF"
-                    android:layout_marginEnd="7dp"
-                    android:textColor="#2196F3"
-                    android:text="@string/agregarTarea"
-                    android:textSize="20sp"/>
-
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/tareaAddBFA"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:tint="#FFFFFF"
-                    app:backgroundTint="#FFC107"
-                    app:fabSize="mini"
-                    app:srcCompat="?attr/actionModePasteDrawable" />
-
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginTop="5dp"
-                android:background="#03A9F4"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="5dp"
-                android:gravity="center">
-
-                <TextView
-                    android:id="@+id/agregarEvaluacion"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:background="#FFFFFF"
-                    android:layout_marginEnd="7dp"
-                    android:textColor="#2196F3"
-                    android:text="@string/agregarEvaluacion"
-                    android:textSize="20sp"/>
-
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/evaluacionAddBFA"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:backgroundTint="#FFC107"
-                    app:fabSize="mini"
-                    app:srcCompat="@android:drawable/ic_menu_edit" />
-
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginTop="5dp"
-                android:background="#03A9F4"/>
         </LinearLayout>
     </ScrollView>
 

@@ -13,36 +13,23 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.utpl.agendadocente.DataBase.OperacionesAsignatura;
 import com.utpl.agendadocente.DataBase.OperacionesDocente;
-import com.utpl.agendadocente.DataBase.OperacionesEvaluacion;
 import com.utpl.agendadocente.DataBase.OperacionesHorario;
 import com.utpl.agendadocente.DataBase.OperacionesParalelo;
 import com.utpl.agendadocente.DataBase.OperacionesPeriodo;
-import com.utpl.agendadocente.DataBase.OperacionesTarea;
 import com.utpl.agendadocente.Entidades.Docente;
-import com.utpl.agendadocente.Entidades.Evaluacion;
 import com.utpl.agendadocente.Entidades.Paralelo;
 import com.utpl.agendadocente.Entidades.PeriodoAcademico;
-import com.utpl.agendadocente.Entidades.Tarea;
 import com.utpl.agendadocente.Entidades.Asignatura;
 import com.utpl.agendadocente.Entidades.Horario;
-import com.utpl.agendadocente.Features.Asignatura.CrearAsignatura.AsignaturaCrearActivity;
-import com.utpl.agendadocente.Features.Asignatura.CrearAsignatura.AsignaturaCreateListener;
-import com.utpl.agendadocente.Features.Docente.CrearDocente.CrearDocenteActivity;
-import com.utpl.agendadocente.Features.Docente.CrearDocente.DocenteCreateListener;
-import com.utpl.agendadocente.Features.Evaluacion.CrearEvaluacion.EvaluacionCrearActivity;
-import com.utpl.agendadocente.Features.Evaluacion.CrearEvaluacion.EvaluacionCrearListener;
-import com.utpl.agendadocente.Features.Horario.CrearHorario.HorarioCrearActivity;
-import com.utpl.agendadocente.Features.Horario.CrearHorario.HorarioCrearListener;
-import com.utpl.agendadocente.Features.Paralelo.DialogMultiCheck;
-import com.utpl.agendadocente.Features.Paralelo.DialogSingleCheck;
-import com.utpl.agendadocente.Features.Periodo.CrearPeriodo.PeriodoCrearActivity;
-import com.utpl.agendadocente.Features.Periodo.CrearPeriodo.PeriodoCreateListener;
-import com.utpl.agendadocente.Features.Tarea.CrearTarea.TareaCrearActivity;
-import com.utpl.agendadocente.Features.Tarea.CrearTarea.TareaCrearListener;
+import com.utpl.agendadocente.Features.Paralelo.DialogAgregarAsignatura;
+import com.utpl.agendadocente.Features.Docente.PresentarDocente.DialogAgregarDocentes;
+import com.utpl.agendadocente.Features.Paralelo.DialogAgregarEvaluacion;
+import com.utpl.agendadocente.Features.Paralelo.DialogAgregarHorario;
+import com.utpl.agendadocente.Features.Paralelo.DialogAgregarPeriodo;
+import com.utpl.agendadocente.Features.Paralelo.DialogAgregarTarea;
 import com.utpl.agendadocente.R;
 import com.utpl.agendadocente.Utilidades.utilidades;
 
@@ -50,8 +37,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class crearParaleloActivity extends DialogFragment implements DialogSingleCheck.DialogSingleCheckListener, DialogMultiCheck.DialogMultiCheckListener,
-        DocenteCreateListener, AsignaturaCreateListener, TareaCrearListener, HorarioCrearListener, PeriodoCreateListener, EvaluacionCrearListener {
+public class crearParaleloActivity extends DialogFragment implements DialogAgregarDocentes.AgregarItemsListener {
 
     private static ParaleloCrearListener paraleloCrearListener;
 
@@ -59,30 +45,22 @@ public class crearParaleloActivity extends DialogFragment implements DialogSingl
     private TextView docenteAdd, tareaAdd, evaluacionAdd;
     private TextView asignaturaAdd, periodoAdd, horarioAdd;
 
-    private OperacionesEvaluacion operacionesEvaluacion = new OperacionesEvaluacion(getContext());
     private OperacionesHorario operacionesHorario = new OperacionesHorario(getContext());
     private OperacionesParalelo operacionesParalelo = new OperacionesParalelo(getContext());
-    private OperacionesTarea operacionesTarea = new OperacionesTarea(getContext());
-    private OperacionesDocente operacionesDocente = new OperacionesDocente(getContext());
     private OperacionesAsignatura operacionesAsignatura = new OperacionesAsignatura(getContext());
     private OperacionesPeriodo operacionesPeriodo = new OperacionesPeriodo(getContext());
+    private OperacionesDocente operacionesDocente = new OperacionesDocente(getContext());
 
-    private boolean [] estadoItemCheck, estadoItemCheckTar, estadoItemCheckEva;
-    private String [] listaItemsMultiChecksDocentes;
-    private String [] listaItemsMultiChecksTareas;
-    private String [] listaItemsMultiChecksEvaluaciones;
-    private String [] listaItems;
+    private String tipoComponente;
+    private String [] itemAgregados;
     private List<Integer>IdsDoc = new ArrayList<>();
     private List<Integer>IdsTar = new ArrayList<>();
     private List<Integer>IdsEva = new ArrayList<>();
-    private List<Docente> docList = operacionesDocente.listarDoc();
+    private List<String> listItemMultiCkeck = new ArrayList<>();
+    private List<Docente> docenteList = operacionesDocente.listarDoc();
     private List<Asignatura> asignaturaList = operacionesAsignatura.ListarAsig();
     private List<Horario> horarioList = operacionesHorario.ListarHor();
     private List<PeriodoAcademico> periodoAcademicoList = operacionesPeriodo.ListarPer();
-    private List<Tarea> tareaList = operacionesTarea.ListarTar();
-    private List<Evaluacion> evaList = operacionesEvaluacion.ListarEva();
-
-    private int posicionItem = -1;
 
     public crearParaleloActivity(){}
 
@@ -100,19 +78,12 @@ public class crearParaleloActivity extends DialogFragment implements DialogSingl
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.dialog_crear_paralelo, container, false);
 
         Toolbar toolbar = view.findViewById(R.id.toolbarPar);
-        FloatingActionButton newDocente = view.findViewById(R.id.docenteAddBFA);
-        FloatingActionButton newAsignatura = view.findViewById(R.id.asignaturaAddBFA);
-        FloatingActionButton newTarea = view.findViewById(R.id.tareaAddBFA);
-        FloatingActionButton newHorario = view.findViewById(R.id.horarioAddBFA);
-        FloatingActionButton newPeriodo = view.findViewById(R.id.periodoAddBFA);
-        FloatingActionButton newEvaluacion = view.findViewById(R.id.evaluacionAddBFA);
-
         nombre = view.findViewById(R.id.nomPar);
         alunmos = view.findViewById(R.id.numAlu);
         docenteAdd = view.findViewById(R.id.agregarDocente);
@@ -128,11 +99,30 @@ public class crearParaleloActivity extends DialogFragment implements DialogSingl
         }
         toolbar.setTitle(title);
 
-        obtenerDocentes();
         docenteAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                llamarDialogMultiChecks(listaItemsMultiChecksDocentes,estadoItemCheck,"Docente");
+                String docentes = docenteAdd.getText().toString();
+                tipoComponente = "Docente";
+                String docente;
+                //llena la lista con los nombres y apellidos de cada docente
+                for (int i = 0; i < docenteList.size(); i++){
+                    docente = (String.format("%s %s",docenteList.get(i).getNombreDocente(),docenteList.get(i).getApellidoDocente()));
+                    //verificar si no existe el docente, para agregarlo
+                    if (!listItemMultiCkeck.contains(docente)){
+                        listItemMultiCkeck.add(docente);
+                    }
+                }
+                //verifica si en la variable docentes no existe las siguiente cadena "Agregar Docente"
+                if (!docentes.contains("Agregar Docente")){
+                    //divide o separa la cadena cada que encuentra ", " y guarda cada separacion en un array
+                    String [] parts = docentes.split(", ");
+                    itemAgregados = new String[parts.length];
+                    System.arraycopy(parts, 0, itemAgregados, 0, parts.length);
+                    llamarDialogAgregarDocentes(tipoComponente, listItemMultiCkeck, itemAgregados);
+                }else {
+                    llamarDialogAgregarDocentes(tipoComponente, listItemMultiCkeck,itemAgregados);
+                }
             }
         });
 
@@ -140,67 +130,37 @@ public class crearParaleloActivity extends DialogFragment implements DialogSingl
         asignaturaAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                listaItems = new String[asignaturaList.size()];
-
-                for (int i = 0; i < asignaturaList.size(); i++){
-                    listaItems[i] = asignaturaList.get(i).getNombreAsignatura();
-                    if (asignaturaAdd.getText().toString().equals(listaItems[i])){
-                        posicionItem = i;
-                    }
-                }
-
-                llamarDialogSingleCheck(listaItems,"Asignatura",  posicionItem);
+                llamarDialogAgregarAsignatura();
             }
         });
 
         horarioAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                listaItems = new String[horarioList.size()];
-
-                for (int i = 0; i < horarioList.size(); i++){
-                    listaItems[i] = String.format("%s - %s", horarioList.get(i).getHora_entrada(), horarioList.get(i).getHora_salida());
-                    if (horarioAdd.getText().toString().equals(listaItems[i])){
-                        posicionItem = i;
-                    }
-                }
-
-                llamarDialogSingleCheck(listaItems,"Horario",  posicionItem);
+                llamarDialogAgregarHorario();
             }
         });
 
         periodoAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                listaItems = new String[periodoAcademicoList.size()];
-
-                for (int i = 0; i < periodoAcademicoList.size(); i++){
-                    listaItems[i] = String.format("%s - %s", periodoAcademicoList.get(i).getFechaInicio(), periodoAcademicoList.get(i).getFechaFin());
-                    if (periodoAdd.getText().toString().equals(listaItems[i])){
-                        posicionItem = i;
-                    }
-                }
-
-                llamarDialogSingleCheck(listaItems,"Periodo",  posicionItem);
+                llamarDialogAgregarPeriodo();
             }
         });
 
-        obtenerTarea();
         tareaAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                llamarDialogMultiChecks(listaItemsMultiChecksTareas,estadoItemCheckTar,"Tarea");
+                tipoComponente = "Tarea";
+
+                llamarDialogAgregarTareas();
             }
         });
 
-        obtenerEvaluacion();
         evaluacionAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                llamarDialogMultiChecks(listaItemsMultiChecksEvaluaciones,estadoItemCheckEva,"Evaluación");
+                llamarDialogAgregarEvaluaciones();
             }
         });
 
@@ -220,80 +180,7 @@ public class crearParaleloActivity extends DialogFragment implements DialogSingl
             }
         });
 
-        newDocente.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                llamarDialogoCrearNuevoDocente();
-            }
-        });
-
-       newAsignatura.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                llamarDialogoCrearNuevoAsignatura();
-            }
-       });
-
-       newEvaluacion.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                llamarDialogoCrearNuevoEvaluacion();
-            }
-       });
-
-       newHorario.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                llamarDialogoCrearNuevoHorario();
-            }
-       });
-
-       newPeriodo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                llamarDialogoCrearNuevoPeriodo();
-            }
-       });
-
-       newTarea.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                llamarDialogoCrearNuevoTarea();
-            }
-       });
-
       return view;
-    }
-
-    private void obtenerDocentes(){
-
-        listaItemsMultiChecksDocentes = new String[docList.size()];
-
-        for (int i = 0; i < docList.size(); i++){
-            listaItemsMultiChecksDocentes[i] = String.format("%s %s",docList.get(i).getNombreDocente(),docList.get(i).getApellidoDocente());
-        }
-
-        estadoItemCheck = new boolean[listaItemsMultiChecksDocentes.length];
-    }
-
-    private void obtenerTarea() {
-        listaItemsMultiChecksTareas = new String[tareaList.size()];
-
-        for (int i = 0; i < tareaList.size(); i++){
-            listaItemsMultiChecksTareas[i] = tareaList.get(i).getNombreTarea();
-        }
-
-        estadoItemCheckTar = new boolean[listaItemsMultiChecksTareas.length];
-    }
-
-    private void obtenerEvaluacion() {
-        listaItemsMultiChecksEvaluaciones = new String[evaList.size()];
-
-        for (int i = 0; i < evaList.size(); i++){
-            listaItemsMultiChecksEvaluaciones[i] = evaList.get(i).getNombreEvaluacion();
-        }
-
-        estadoItemCheckEva = new boolean[listaItemsMultiChecksEvaluaciones.length];
     }
 
     private void CrearParalelo(){
@@ -363,25 +250,6 @@ public class crearParaleloActivity extends DialogFragment implements DialogSingl
         }
     }
 
-    private void llamarDialogSingleCheck(String [] listaItems, String Componente, int position){
-        DialogSingleCheck dialogSingleCheck = DialogSingleCheck.newInstance(listaItems, Componente, position);
-        dialogSingleCheck.setTargetFragment(crearParaleloActivity.this,22);
-        dialogSingleCheck.setCancelable(false);
-        if (getFragmentManager() != null) {
-            dialogSingleCheck.show(getFragmentManager(),"tag");
-        }
-    }
-
-    private void llamarDialogMultiChecks(String [] listaItems, boolean [] estadosLista, String Componente) {
-
-        DialogMultiCheck dialogMultiCheck = DialogMultiCheck.newInstance(listaItems, estadosLista,Componente);
-        dialogMultiCheck.setTargetFragment(crearParaleloActivity.this,22);
-        dialogMultiCheck.setCancelable(false);
-        if (getFragmentManager() != null) {
-            dialogMultiCheck.show(getFragmentManager(),"tag");
-        }
-    }
-
     //Crea el Dialogo con el formulacion del paralelo
     @Override
     public void onStart() {
@@ -395,150 +263,67 @@ public class crearParaleloActivity extends DialogFragment implements DialogSingl
         }
     }
 
-    @Override
-    public void resutadoDialogSingle(String item, String componente) {
-        switch (componente) {
-            case "Asignatura":
-                asignaturaAdd.setText(item);
-                break;
-            case "Horario":
-                horarioAdd.setText(item);
-                break;
-            case "Periodo":
-                periodoAdd.setText(item);
-                break;
+    private void llamarDialogAgregarDocentes(String Componente, List<String> ListItemsMultiChecks,String [] listaItemsAsignados){
+        DialogAgregarDocentes agregarDocentes = DialogAgregarDocentes.newInstance(Componente, ListItemsMultiChecks, listaItemsAsignados);
+        agregarDocentes.setTargetFragment(crearParaleloActivity.this,22);
+        if (getFragmentManager() != null) {
+            agregarDocentes.show(getFragmentManager(),utilidades.CREAR);
+        }
+    }
+
+    private void llamarDialogAgregarAsignatura(){
+        DialogAgregarAsignatura agregarAsignatura = new DialogAgregarAsignatura();
+        agregarAsignatura.setTargetFragment(crearParaleloActivity.this,22);
+        if (getFragmentManager() != null) {
+            agregarAsignatura.show(getFragmentManager(),utilidades.CREAR);
+        }
+    }
+    private void llamarDialogAgregarHorario(){
+        DialogAgregarHorario agregarHorario = new DialogAgregarHorario();
+        agregarHorario.setTargetFragment(crearParaleloActivity.this,22);
+        if (getFragmentManager() != null) {
+            agregarHorario.show(getFragmentManager(),utilidades.CREAR);
+        }
+    }
+    private void llamarDialogAgregarPeriodo(){
+        DialogAgregarPeriodo agregarPeriodo = new DialogAgregarPeriodo();
+        agregarPeriodo.setTargetFragment(crearParaleloActivity.this,22);
+        if (getFragmentManager() != null) {
+            agregarPeriodo.show(getFragmentManager(),utilidades.CREAR);
+        }
+    }
+    private void llamarDialogAgregarTareas(){
+        DialogAgregarTarea agregarTarea = new DialogAgregarTarea();
+        agregarTarea.setTargetFragment(crearParaleloActivity.this,22);
+        if (getFragmentManager() != null) {
+            agregarTarea.show(getFragmentManager(),utilidades.CREAR);
+        }
+    }
+    private void llamarDialogAgregarEvaluaciones(){
+        DialogAgregarEvaluacion agregarEvaluacion = new DialogAgregarEvaluacion();
+        agregarEvaluacion.setTargetFragment(crearParaleloActivity.this,22);
+        if (getFragmentManager() != null) {
+            agregarEvaluacion.show(getFragmentManager(),utilidades.CREAR);
         }
     }
 
     @Override
-    public void resutadoDialogMultiCheck(StringBuilder item, List<String> listaItems, String componente, boolean [] estado) {
-        switch (componente){
-            case "Docente":
-                docenteAdd.setText(item);
-                estadoItemCheck = estado;
-                IdsDoc.clear();
-                for (int i = 0; i < listaItems.size();i++){
-                    for (int y = 0; y <docList.size(); y++ ){
-                        String docente = String.format("%s %s",docList.get(y).getNombreDocente(), docList.get(y).getApellidoDocente());
-                        if (listaItems.get(i).equals(docente)){
-                            IdsDoc.add(docList.get(y).getId_docente());
-                        }
-                    }
+    //public void onAgregarDocente(List<Docente> docentes) {
+    public void onAgregarItems(List<String> docentes) {
+        StringBuilder docentesAsignados = new StringBuilder();
+        if(docentes.size() != 0){
+            for (int i = 0; i<docentes.size(); i++){
+                //docentesAsignados.append(String.format("%s %s",docentes.get(i).getNombreDocente(),docentes.get(i).getApellidoDocente()));
+                docentesAsignados.append(String.format("%s",docentes.get(i)));
+                if (i < docentes.size()-1){
+                    docentesAsignados.append(", ");
                 }
-                break;
-            case "Tarea":
-                tareaAdd.setText(item);
-                estadoItemCheckTar = estado;
-                IdsTar.clear();
-                for (int i = 0; i < listaItems.size();i++){
-                    for (int y = 0; y <tareaList.size(); y++ ){
-                        String tarea = tareaList.get(y).getNombreTarea();
-                        if (listaItems.get(i).equals(tarea)){
-                            IdsTar.add(tareaList.get(y).getId_tarea());
-                        }
-                    }
-                }
-                break;
-            case "Evaluación":
-                evaluacionAdd.setText(item);
-                estadoItemCheckEva = estado;
-                IdsEva.clear();
-                for (int i = 0; i < listaItems.size();i++){
-                    for (int y = 0; y <evaList.size(); y++ ){
-                        String evaluacion = evaList.get(y).getNombreEvaluacion();
-                        if (listaItems.get(i).equals(evaluacion)){
-                            IdsEva.add(evaList.get(y).getId_evaluacion());
-                        }
-                    }
-                }
-                break;
+            }
+            docenteAdd.setText(docentesAsignados);
+        }else {
+            docentesAsignados.append("Agregar Docente");
+            docenteAdd.setText(docentesAsignados);
         }
-    }
 
-    private void llamarDialogoCrearNuevoDocente() {
-        CrearDocenteActivity crearDocenteActivity = CrearDocenteActivity.newInstance("Nuevo Docente",null);
-        crearDocenteActivity.setTargetFragment(crearParaleloActivity.this,22);
-        crearDocenteActivity.setCancelable(false);
-        if (getFragmentManager() != null) {
-            crearDocenteActivity.show(getFragmentManager(), utilidades.CREAR);
-        }
-    }
-
-    private void llamarDialogoCrearNuevoAsignatura() {
-        AsignaturaCrearActivity asignaturaCrearActivity = AsignaturaCrearActivity.newInstance("Nuevo Asignatura",null);
-        asignaturaCrearActivity.setTargetFragment(crearParaleloActivity.this,22);
-        asignaturaCrearActivity.setCancelable(false);
-        if (getFragmentManager() != null) {
-            asignaturaCrearActivity.show(getFragmentManager(), utilidades.CREAR);
-        }
-    }
-
-    private void llamarDialogoCrearNuevoEvaluacion() {
-        EvaluacionCrearActivity evaluacionCrearActivity = EvaluacionCrearActivity.newInstance("Nuevo Evaluación",null);
-        evaluacionCrearActivity.setTargetFragment(crearParaleloActivity.this,22);
-        evaluacionCrearActivity.setCancelable(false);
-        if (getFragmentManager() != null) {
-            evaluacionCrearActivity.show(getFragmentManager(), utilidades.CREAR);
-        }
-    }
-
-    private void llamarDialogoCrearNuevoHorario() {
-        HorarioCrearActivity horarioCrearActivity = HorarioCrearActivity.newInstance("Nuevo Horario",null);
-        horarioCrearActivity.setTargetFragment(crearParaleloActivity.this,22);
-        horarioCrearActivity.setCancelable(false);
-        if (getFragmentManager() != null) {
-            horarioCrearActivity.show(getFragmentManager(), utilidades.CREAR);
-        }
-    }
-
-    private void llamarDialogoCrearNuevoPeriodo() {
-        PeriodoCrearActivity periodoCrearActivity = PeriodoCrearActivity.newInstance("Nuevo Periodo",null);
-        periodoCrearActivity.setTargetFragment(crearParaleloActivity.this,22);
-        periodoCrearActivity.setCancelable(false);
-        if (getFragmentManager() != null) {
-            periodoCrearActivity.show(getFragmentManager(), utilidades.CREAR);
-        }
-    }
-
-    private void llamarDialogoCrearNuevoTarea() {
-        TareaCrearActivity tareaCrearActivity = TareaCrearActivity.newInstance("Nuevo Tarea",null);
-        tareaCrearActivity.setTargetFragment(crearParaleloActivity.this,22);
-        tareaCrearActivity.setCancelable(false);
-        if (getFragmentManager() != null) {
-            tareaCrearActivity.show(getFragmentManager(), utilidades.CREAR);
-        }
-    }
-
-    @Override
-    public void onCrearAsignatura(Asignatura asignatura) {
-        asignaturaList.add(asignatura);
-    }
-
-    @Override
-    public void onCrearDocente(Docente docente) {
-        docList.add(docente);
-        obtenerDocentes();
-    }
-
-    @Override
-    public void onCrearTarea(Tarea tarea) {
-        tareaList.add(tarea);
-        obtenerTarea();
-    }
-
-    @Override
-    public void onCrearEvaluacion(Evaluacion evaluacion) {
-        evaList.add(evaluacion);
-        obtenerEvaluacion();
-    }
-
-    @Override
-    public void onCrearHorario(Horario horario) {
-        horarioList.add(horario);
-    }
-
-    @Override
-    public void onCrearPeriodo(PeriodoAcademico periodoAcademico) {
-        periodoAcademicoList.add(periodoAcademico);
     }
 }

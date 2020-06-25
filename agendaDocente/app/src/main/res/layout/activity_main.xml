@@ -14,7 +14,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tabIndicatorColor="#FFFF">
+        app:tabIconTint="@color/design_default_color_background"
+        app:tabIndicatorColor="#FFFF"
+        app:tabRippleColor="#00BCD4"
+        app:tabSelectedTextColor="#00BCD4"
+        app:tabTextColor="#FFFFFF">
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/idParalelos"

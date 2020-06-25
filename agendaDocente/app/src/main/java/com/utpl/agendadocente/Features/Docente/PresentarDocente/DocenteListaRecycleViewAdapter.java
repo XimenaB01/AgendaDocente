@@ -21,15 +21,15 @@ import com.utpl.agendadocente.Utilidades.utilidades;
 
 import java.util.List;
 
-public class DocentLisaRecycleViewAdapter extends RecyclerView.Adapter<DocenteViewHolder>{
+public class DocenteListaRecycleViewAdapter extends RecyclerView.Adapter<DocenteViewHolder>{
 
     private Context context;
     private List<Docente> docenteLista;
     private OperacionesDocente operacionesDocente;
 
-    public DocentLisaRecycleViewAdapter(){}
+    public DocenteListaRecycleViewAdapter(){}
 
-    public DocentLisaRecycleViewAdapter(Context context, List<Docente> docentLisa){
+    public DocenteListaRecycleViewAdapter(Context context, List<Docente> docentLisa){
         this.context = context;
         this.docenteLista = docentLisa;
         operacionesDocente = new OperacionesDocente(context);
