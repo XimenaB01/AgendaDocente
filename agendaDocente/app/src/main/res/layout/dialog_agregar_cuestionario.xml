@@ -25,7 +25,7 @@
         android:id="@+id/btnNCuestionario"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/nuevoCuestionario"
+
         android:drawableStart="@drawable/ic_list_add"
         android:drawableTint="#000"
         android:textSize="20sp"

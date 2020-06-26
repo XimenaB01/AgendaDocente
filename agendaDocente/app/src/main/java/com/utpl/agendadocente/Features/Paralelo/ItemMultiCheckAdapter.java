@@ -1,4 +1,4 @@
-package com.utpl.agendadocente.Features.Docente.PresentarDocente;
+package com.utpl.agendadocente.Features.Paralelo;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -14,16 +14,16 @@ import com.utpl.agendadocente.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ItemDocenteCheckAdapter extends RecyclerView.Adapter<ItemDocenteCheckAdapter.ItemDocenteViewHolder> {
+public class ItemMultiCheckAdapter extends RecyclerView.Adapter<ItemMultiCheckAdapter.ItemDocenteViewHolder> {
 
     private Context context;
     private List<Boolean> listEstados = new ArrayList<>();
     private List<String> itemsListNew = new ArrayList<>();
     private List<String> ListaItemMultiCkecks = new ArrayList<>();
 
-    public ItemDocenteCheckAdapter(){}
+    public ItemMultiCheckAdapter(){}
 
-    public ItemDocenteCheckAdapter(Context context,  List<String> listaItemMultiCkecks, List<Boolean> estados){
+    public ItemMultiCheckAdapter(Context context, List<String> listaItemMultiCkecks, List<Boolean> estados){
         this.context = context;
         this.listEstados = estados;
         this.ListaItemMultiCkecks = listaItemMultiCkecks;
@@ -31,13 +31,13 @@ public class ItemDocenteCheckAdapter extends RecyclerView.Adapter<ItemDocenteChe
 
     @NonNull
     @Override
-    public ItemDocenteCheckAdapter.ItemDocenteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_check_docente,parent,false);
+    public ItemMultiCheckAdapter.ItemDocenteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.item_check_box,parent,false);
         return new ItemDocenteViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final ItemDocenteCheckAdapter.ItemDocenteViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final ItemMultiCheckAdapter.ItemDocenteViewHolder holder, final int position) {
 
         holder.docenteItem.setText(ListaItemMultiCkecks.get(position));
 
