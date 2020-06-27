@@ -41,10 +41,13 @@ public class ItemMultiCheckAdapter extends RecyclerView.Adapter<ItemMultiCheckAd
 
         holder.docenteItem.setText(ListaItemMultiCkecks.get(position));
 
-        holder.checkDocente.setChecked(listEstados.get(position));
-        if (holder.checkDocente.isChecked()){
-            itemsListNew.add(ListaItemMultiCkecks.get(position));
+        if (listEstados.get(position)){
+            holder.checkDocente.setChecked(true);
+            if (holder.checkDocente.isChecked()){
+                itemsListNew.add(ListaItemMultiCkecks.get(position));
+            }
         }
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

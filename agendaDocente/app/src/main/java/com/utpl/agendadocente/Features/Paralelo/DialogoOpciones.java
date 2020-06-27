@@ -72,6 +72,7 @@ public class DialogoOpciones extends BottomSheetDialogFragment implements Replic
                         dialogoOpcionesListener.onDialogoOpcionesParalelo(paralelo,position,"Editar");
                     }
                 });
+                paraleloActualizarActivity.setCancelable(false);
                 paraleloActualizarActivity.show(((MainActivity) Objects.requireNonNull(getContext())).getSupportFragmentManager(), utilidades.ACTUALIZAR);
             }
         });
@@ -81,6 +82,7 @@ public class DialogoOpciones extends BottomSheetDialogFragment implements Replic
             public void onClick(View view) {
                 Paralelo paralelo = operacionesParalelo.obtenerPar(NomParalelo,IdAsignatura);
                 ReplicarActivity replicarActivity = ReplicarActivity.newInstance(paralelo.getNombreParalelo(), paralelo.getAsignaturaID());
+                replicarActivity.setCancelable(false);
                 replicarActivity.setTargetFragment(DialogoOpciones.this,22);
                 if (getFragmentManager() != null) {
                     replicarActivity.show(getFragmentManager(),utilidades.REPLICAR);
