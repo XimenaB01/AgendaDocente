@@ -270,6 +270,7 @@ public class crearParaleloActivity extends DialogFragment implements DialogAgreg
         for (int i = 0; i< asignaturaList.size(); i++){
             if (asignaturaAdd.getText().toString().equals(asignaturaList.get(i).getNombreAsignatura())){
                 asigIdPar = asignaturaList.get(i).getId_asignatura();
+                Log.e("asigIdPar",asigIdPar+"");
             }
         }
 
@@ -278,6 +279,7 @@ public class crearParaleloActivity extends DialogFragment implements DialogAgreg
             String horario = String.format("%s - %s", horarioList.get(i).getHora_entrada(), horarioList.get(i).getHora_salida());
             if (horarioAdd.getText().toString().equals(horario)){
                 hoIdPar = horarioList.get(i).getId_horario();
+                Log.e("hoIdPar",hoIdPar+"");
             }
         }
 
@@ -286,13 +288,10 @@ public class crearParaleloActivity extends DialogFragment implements DialogAgreg
             String periodo = String.format("%s - %s", periodoAcademicoList.get(i).getFechaInicio(), periodoAcademicoList.get(i).getFechaFin());
             if (periodoAdd.getText().toString().equals(periodo)){
                 perIdPar = periodoAcademicoList.get(i).getId_periodo();
+                Log.e("perIdPar",perIdPar+"");
             }
         }
-
-        for (int i = 0; i < IdsDoc.size(); i++){
-            Log.e("id"+i,IdsDoc.get(i)+"");
-        }
-
+        
         Paralelo paralelo = new Paralelo();
 
         if (!nomPar.isEmpty()){
@@ -324,6 +323,7 @@ public class crearParaleloActivity extends DialogFragment implements DialogAgreg
         }else {
             Toast.makeText(getContext(),"Ingresa el paralelo",Toast.LENGTH_LONG).show();
         }
+
     }
 
     //Crea el Dialogo con el formulacion del paralelo
@@ -363,6 +363,7 @@ public class crearParaleloActivity extends DialogFragment implements DialogAgreg
                 if(ItemsSeleccionados.size() != 0){
                     ItemsAsignados.append(obtnerItems(ItemsSeleccionados));
                     docenteAdd.setText(ItemsAsignados);
+                    IdsComponentesSeleccionados(Componente,ItemsSeleccionados);
                 }else {
                     ItemsAsignados.append(String.format("Agregar %s",Componente));
                     docenteAdd.setText(ItemsAsignados);
@@ -372,6 +373,7 @@ public class crearParaleloActivity extends DialogFragment implements DialogAgreg
                 if (ItemsSeleccionados.size() != 0){
                     ItemsAsignados.append(obtnerItems(ItemsSeleccionados));
                     tareaAdd.setText(ItemsAsignados);
+                    IdsComponentesSeleccionados(Componente,ItemsSeleccionados);
                 }else {
                     ItemsAsignados.append(String.format("Agregar %s",Componente));
                     tareaAdd.setText(ItemsAsignados);
@@ -381,6 +383,7 @@ public class crearParaleloActivity extends DialogFragment implements DialogAgreg
                 if (ItemsSeleccionados.size() != 0){
                     ItemsAsignados.append(obtnerItems(ItemsSeleccionados));
                     evaluacionAdd.setText(ItemsAsignados);
+                    IdsComponentesSeleccionados(Componente,ItemsSeleccionados);
                 }else {
                     ItemsAsignados.append(String.format("Agregar %s",Componente));
                     evaluacionAdd.setText(ItemsAsignados);
@@ -388,6 +391,22 @@ public class crearParaleloActivity extends DialogFragment implements DialogAgreg
                 break;
         }
 
+    }
+
+    private void IdsComponentesSeleccionados(String Componente, List<String> ItemsSeleccionados){
+        for (int i = 0; i < listItemMultiCkeck.size(); i++){
+            for (int j = 0; j < ItemsSeleccionados.size();j++){
+                if (listItemMultiCkeck.get(i).equals(ItemsSeleccionados.get(j))){
+                    if (Componente.equals("Docente")){
+                        IdsDoc.add(docenteList.get(i).getId_docente());
+                    }else if (Componente.equals("Tarea")){
+                        IdsTar.add(tareaList.get(i).getId_tarea());
+                    }else {
+                        IdsEva.add(evaluacionList.get(i).getId_evaluacion());
+                    }
+                }
+            }
+        }
     }
 
     private StringBuilder obtnerItems(List<String> ItemsSeleccionados){
@@ -410,8 +429,8 @@ public class crearParaleloActivity extends DialogFragment implements DialogAgreg
             case "Horario":
                 horarioAdd.setText(ItemAsignado);
                 break;
-            case "Evaluación":
-                evaluacionAdd.setText(ItemAsignado);
+            case "Periodo":
+                periodoAdd.setText(ItemAsignado);
                 break;
         }
     }
