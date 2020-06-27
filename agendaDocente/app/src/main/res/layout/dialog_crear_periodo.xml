@@ -52,6 +52,8 @@
                 android:textColor="#FFF"
                 android:background="#FFC107"
                 android:textStyle="bold"
+                android:layout_marginStart="10dp"
+                android:drawableStart="@drawable/ic_fecha"
                 android:text="@string/formatofecha"
                 android:textAlignment="center"
                 android:textSize="20sp" />
@@ -81,6 +83,8 @@
                 android:gravity="center"
                 android:textColor="#FFF"
                 android:background="#FFC107"
+                android:layout_marginStart="10dp"
+                android:drawableStart="@drawable/ic_fecha"
                 android:textStyle="bold"
                 android:text="@string/formatofecha"
                 android:textAlignment="center"

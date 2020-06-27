@@ -20,22 +20,33 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-
-    <TextView
-        android:id="@+id/btnNAsignatura"
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp">
 
-        android:drawableStart="@drawable/ic_list_add"
-        android:drawableTint="#000"
-        android:textSize="20sp"
-        android:textColor="#000"
-        android:padding="16dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFC107">
+
+            <TextView
+                android:id="@+id/btnNItemSingleCheck"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_list_add"
+                android:drawableTint="#000"
+                android:textSize="20sp"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:padding="16dp"/>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/checkListAsignatura"
+        android:id="@+id/checkListItemsSingleCheck"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="200dp"
         android:padding="16dp"/>
 
 </LinearLayout>

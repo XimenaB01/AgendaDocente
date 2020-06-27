@@ -59,7 +59,7 @@ public class DialogAgregarMultiItems extends DialogFragment implements DocenteCr
         View view = inflater.inflate(R.layout.dialog_agregar_multi_items,container,false);
 
         Toolbar toolbar = view.findViewById(R.id.toolbarAgreDoc);
-        TextView nuevoDocente = view.findViewById(R.id.btnNDocente);
+        TextView nuevoItem = view.findViewById(R.id.btnNDocente);
         RecyclerView listaDocentes = view.findViewById(R.id.checkListDocente);
 
         String title = null;
@@ -69,8 +69,8 @@ public class DialogAgregarMultiItems extends DialogFragment implements DocenteCr
         }
         toolbar.setTitle(title);
 
-        nuevoDocente.setText(String.format("Añadir Nuevo %s",getArguments().getString(utilidades.TITULO)));
-        nuevoDocente.setOnClickListener(new View.OnClickListener() {
+        nuevoItem.setText(String.format("Añadir Nuevo %s",getArguments().getString(utilidades.TITULO)));
+        nuevoItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 switch (Componente){
