@@ -96,7 +96,7 @@ public class CuestionarioCrearActivity extends DialogFragment {
 
                 Cuestionario cuest = new Cuestionario();
 
-                if(!nombreC.isEmpty() && !preguntasC.isEmpty()){
+                if(!nombreC.isEmpty()){
                     cuest.setNombreCuestionario(nombreC);
                     cuest.setPreguntas(preguntasC);
 
@@ -109,14 +109,15 @@ public class CuestionarioCrearActivity extends DialogFragment {
                         cuest.setId_cuestionario(inser);
                         if (cuestionarioCrearListener != null) {
                             cuestionarioCrearListener.onCrearCuestionario(cuest);
+                            dismiss();
                         }else {
                             listener.onCrearCuestionario(cuest);
+                            dismiss();
                         }
                     }
                 }else {
                     Toast.makeText(getContext(),"Agregue el nombre del cuestionario",Toast.LENGTH_LONG).show();
                 }
-                dismiss();
                 return true;
             }
         });
