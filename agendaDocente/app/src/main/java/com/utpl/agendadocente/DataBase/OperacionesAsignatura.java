@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.utpl.agendadocente.Entidades.Asignatura;
@@ -12,6 +13,7 @@ import com.utpl.agendadocente.Utilidades.utilidades;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class OperacionesAsignatura {
 
@@ -43,7 +45,8 @@ public class OperacionesAsignatura {
             operacion = db.insertOrThrow(utilidades.TABLA_ASIGNATURA, null,contentValues);
         }
         catch (SQLiteException e){
-            Toast.makeText(context, "Ya existe ese nombre de Asignatura!!" + e.getMessage(), Toast.LENGTH_LONG).show();
+            Log.e("error", Objects.requireNonNull(e.getMessage()));
+            Toast.makeText(context, "Ya existe ese nombre de Asignatura!!", Toast.LENGTH_LONG).show();
         }finally{
             db.close();
         }

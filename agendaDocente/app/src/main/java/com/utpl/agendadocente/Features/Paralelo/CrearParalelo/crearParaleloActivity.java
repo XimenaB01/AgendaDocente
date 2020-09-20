@@ -137,11 +137,22 @@ public class crearParaleloActivity extends DialogFragment implements DialogAgreg
             public void onClick(View view) {
                 listItemMultiCkeck.clear();
                 tipoComponente = "Asignatura";
-                for (int i = 0; i < asignaturaList.size(); i++){
-                    if (!listItemMultiCkeck.contains(asignaturaList.get(i).getNombreAsignatura())){
-                        listItemMultiCkeck.add(asignaturaList.get(i).getNombreAsignatura());
+                if(!asignaturaAdd.getText().equals("Agregar Asignatura")){
+                    asignaturaList.clear();
+                    asignaturaList = operacionesAsignatura.ListarAsig();
+                    for (int i = 0; i < asignaturaList.size(); i++){
+                        if (!listItemMultiCkeck.contains(asignaturaList.get(i).getNombreAsignatura())){
+                            listItemMultiCkeck.add(asignaturaList.get(i).getNombreAsignatura());
+                        }
+                    }
+                }else {
+                    for (int i = 0; i < asignaturaList.size(); i++){
+                        if (!listItemMultiCkeck.contains(asignaturaList.get(i).getNombreAsignatura())){
+                            listItemMultiCkeck.add(asignaturaList.get(i).getNombreAsignatura());
+                        }
                     }
                 }
+
                 String Asignatura = asignaturaAdd.getText().toString();
                 if (!Asignatura.equals("Agregar Asignatura")){
                     itemAgregado = Asignatura;
@@ -149,7 +160,6 @@ public class crearParaleloActivity extends DialogFragment implements DialogAgreg
                 }else {
                     llamarDialogAgregarSingleItem(tipoComponente, listItemMultiCkeck, itemAgregado);
                 }
-
             }
         });
 
@@ -158,12 +168,24 @@ public class crearParaleloActivity extends DialogFragment implements DialogAgreg
             public void onClick(View view) {
                 listItemMultiCkeck.clear();
                 tipoComponente = "Horario";
-                for (int i = 0; i < horarioList.size();i++){
-                    String horario = String.format("%s - %s",horarioList.get(i).getHora_entrada(),horarioList.get(i).getHora_salida());
-                    if (!listItemMultiCkeck.contains(horario)){
-                        listItemMultiCkeck.add(horario);
+                if (!horarioAdd.getText().equals("Agregar Horario")){
+                    horarioList.clear();
+                    horarioList = operacionesHorario.ListarHor();
+                    for (int i = 0; i < horarioList.size();i++){
+                        String horario = String.format("%s - %s",horarioList.get(i).getHora_entrada(),horarioList.get(i).getHora_salida());
+                        if (!listItemMultiCkeck.contains(horario)){
+                            listItemMultiCkeck.add(horario);
+                        }
+                    }
+                }else {
+                    for (int i = 0; i < horarioList.size();i++){
+                        String horario = String.format("%s - %s",horarioList.get(i).getHora_entrada(),horarioList.get(i).getHora_salida());
+                        if (!listItemMultiCkeck.contains(horario)){
+                            listItemMultiCkeck.add(horario);
+                        }
                     }
                 }
+
                 String Horario = horarioAdd.getText().toString();
                 if (!Horario.equals("Agregar Horario")){
                     itemAgregado = Horario;
@@ -179,10 +201,22 @@ public class crearParaleloActivity extends DialogFragment implements DialogAgreg
             public void onClick(View view) {
                 listItemMultiCkeck.clear();
                 tipoComponente = "Periodo";
-                for (int i = 0; i < periodoAcademicoList.size(); i++){
-                    String periodo = String.format("%s - %s",periodoAcademicoList.get(i).getFechaInicio(),periodoAcademicoList.get(i).getFechaFin());
-                    if (!listItemMultiCkeck.contains(periodo)){
-                        listItemMultiCkeck.add(periodo);
+                if (periodoAdd.getText().equals("Agregar Periodo")){
+                    periodoAcademicoList.clear();
+                    periodoAcademicoList = operacionesPeriodo.ListarPer();
+                    for (int i = 0; i < periodoAcademicoList.size(); i++){
+                        String periodo = String.format("%s - %s",periodoAcademicoList.get(i).getFechaInicio(),periodoAcademicoList.get(i).getFechaFin());
+                        if (!listItemMultiCkeck.contains(periodo)){
+                            listItemMultiCkeck.add(periodo);
+                        }
+                    }
+                }
+                else {
+                    for (int i = 0; i < periodoAcademicoList.size(); i++){
+                        String periodo = String.format("%s - %s",periodoAcademicoList.get(i).getFechaInicio(),periodoAcademicoList.get(i).getFechaFin());
+                        if (!listItemMultiCkeck.contains(periodo)){
+                            listItemMultiCkeck.add(periodo);
+                        }
                     }
                 }
                 String Periodo = periodoAdd.getText().toString();
@@ -399,10 +433,16 @@ public class crearParaleloActivity extends DialogFragment implements DialogAgreg
             for (int j = 0; j < ItemsSeleccionados.size();j++){
                 if (listItemMultiCkeck.get(i).equals(ItemsSeleccionados.get(j))){
                     if (Componente.equals("Docente")){
+                        docenteList.clear();
+                        docenteList = operacionesDocente.listarDoc();
                         IdsDoc.add(docenteList.get(i).getId_docente());
                     }else if (Componente.equals("Tarea")){
+                        tareaList.clear();
+                        tareaList = operacionesTarea.ListarTar();
                         IdsTar.add(tareaList.get(i).getId_tarea());
                     }else {
+                        evaluacionList.clear();
+                        evaluacionList = operacionesEvaluacion.ListarEva();
                         IdsEva.add(evaluacionList.get(i).getId_evaluacion());
                     }
                 }

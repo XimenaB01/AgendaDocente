@@ -265,8 +265,8 @@ public class OperacionesParalelo {
         }
         return ListaDocentes;
     }
-
-    public List<DocenteAsignado> obtenerDocentesPorEstado(String NomPar, int IdAsig) {
+//Método docente por estado
+    /*public List<DocenteAsignado> obtenerDocentesPorEstado(String NomPar, int IdAsig) {
         conexionDB = ConexionSQLiteHelper.getInstance(context);
         SQLiteDatabase db = conexionDB.getReadableDatabase();
 
@@ -303,7 +303,7 @@ public class OperacionesParalelo {
             db.close();
         }
         return docenteAsignados;
-    }
+    }*/
 
     private void eliminarDocentesAsignados(String NomPar, int IdAsig){
 
@@ -389,7 +389,7 @@ public class OperacionesParalelo {
         }
         return ListaTareas;
     }
-
+//comentar
     public List<TareaAsignada> obtenerTareasPorEstado(String NomPar, int IdAsig){
         conexionDB = ConexionSQLiteHelper.getInstance(context);
         SQLiteDatabase db = conexionDB.getReadableDatabase();
@@ -500,7 +500,7 @@ public class OperacionesParalelo {
         }
         return ListaEvaluacion;
     }
-
+//comentar
     public List<EvaluacionAsignada> obtenerEvaluacionesPorEstado(String NomPar, int IdAsig){
         conexionDB = ConexionSQLiteHelper.getInstance(context);
         SQLiteDatabase db = conexionDB.getReadableDatabase();

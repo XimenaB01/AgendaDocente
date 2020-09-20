@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin:'org.sonarqube'
 
 android {
     compileSdkVersion 29
@@ -29,4 +30,18 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+}
+
+sonarqube {
+    properties {
+        property "sonar.projectName", "AgendaDocente"
+        property "sonar.projectKey", "AgendaDocente"
+        property "sonar.host.url", "http://localhost:9000"
+        property "sonar.language", "java"
+        property "sonar.sources", "src/main/java"
+        property "sonar.java.source","src/main/java"
+        property "sonar.sourceEncoding", "UTF-8"
+        property "sonar.login", "admin"
+        property "sonar.password", "admin"
+    }
 }
