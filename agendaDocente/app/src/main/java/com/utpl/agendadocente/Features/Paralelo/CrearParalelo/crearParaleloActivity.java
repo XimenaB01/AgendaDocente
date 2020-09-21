@@ -303,7 +303,6 @@ public class crearParaleloActivity extends DialogFragment implements DialogAgreg
         for (int i = 0; i< asignaturaList.size(); i++){
             if (asignaturaAdd.getText().toString().equals(asignaturaList.get(i).getNombreAsignatura())){
                 asigIdPar = asignaturaList.get(i).getId_asignatura();
-                Log.e("asigIdPar",asigIdPar+"");
             }
         }
 
@@ -312,7 +311,6 @@ public class crearParaleloActivity extends DialogFragment implements DialogAgreg
             String horario = String.format("%s - %s", horarioList.get(i).getHora_entrada(), horarioList.get(i).getHora_salida());
             if (horarioAdd.getText().toString().equals(horario)){
                 hoIdPar = horarioList.get(i).getId_horario();
-                Log.e("hoIdPar",hoIdPar+"");
             }
         }
 
@@ -321,7 +319,6 @@ public class crearParaleloActivity extends DialogFragment implements DialogAgreg
             String periodo = String.format("%s - %s", periodoAcademicoList.get(i).getFechaInicio(), periodoAcademicoList.get(i).getFechaFin());
             if (periodoAdd.getText().toString().equals(periodo)){
                 perIdPar = periodoAcademicoList.get(i).getId_periodo();
-                Log.e("perIdPar",perIdPar+"");
             }
         }
 
@@ -450,15 +447,17 @@ public class crearParaleloActivity extends DialogFragment implements DialogAgreg
         }
     }
 
-    private StringBuilder obtnerItems(List<String> ItemsSeleccionados){
+    private String obtnerItems(List<String> ItemsSeleccionados){
         StringBuilder item = new StringBuilder();
         for (int i = 0; i<ItemsSeleccionados.size(); i++){
-            item.append(String.format("%s",ItemsSeleccionados.get(i)));
-            if (i < ItemsSeleccionados.size()-1){
-                item.append(", ");
+            if (!item.toString().contains(ItemsSeleccionados.get(i))){
+                item.append(ItemsSeleccionados.get(i));
+                if (i < ItemsSeleccionados.size()-1){
+                    item.append(", ");
+                }
             }
         }
-        return item;
+        return item.toString();
     }
 
     @Override

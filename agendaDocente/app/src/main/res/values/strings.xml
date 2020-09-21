@@ -57,8 +57,6 @@
     <!--Evaluacion-->
     <string name="rb1B">1er Bimestre</string>
     <string name="rb2B">2do Bimestre</string>
-    <!--ojo el formato-->
-    <string name="formatofecha"> mm / dd / y</string>
     <string name="observacion">Observación</string>
     <string name="listaevaluacion">LISTA EVALUACIONES</string>
     <string name="ms_listaE_vacia">Lista de Evaluaciones Vacia</string>

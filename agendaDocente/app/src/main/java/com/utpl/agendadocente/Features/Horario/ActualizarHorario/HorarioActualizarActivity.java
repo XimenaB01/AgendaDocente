@@ -11,8 +11,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.Button;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -33,7 +32,7 @@ public class HorarioActualizarActivity extends DialogFragment implements DialogT
 
     private Horario horario;
 
-    private TextView TimeEntradaAddAct, TimeSalidaAddAct;
+    private Button TimeEntradaAddAct, TimeSalidaAddAct;
     private TextInputEditText txtAula;
 
     private String Aula = "";
@@ -103,7 +102,7 @@ public class HorarioActualizarActivity extends DialogFragment implements DialogT
                             horario.setHora_entrada(HoraEntrada);
                             horario.setHora_salida(HoraSalida);
 
-                            if(operacionesHorario.HorarioRepetido(Aula,HoraEntrada,HoraSalida)){
+                            if(!operacionesHorario.HorarioRepetido(Aula,HoraEntrada,HoraSalida)){
                                 long insercion = operacionesHorario.ModificarHor(horario);
 
                                 if (insercion > 0){

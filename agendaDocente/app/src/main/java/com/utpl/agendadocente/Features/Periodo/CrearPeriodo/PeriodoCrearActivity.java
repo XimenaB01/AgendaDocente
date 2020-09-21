@@ -30,8 +30,7 @@ public class PeriodoCrearActivity extends DialogFragment implements DialogDatePi
     private static PeriodoCreateListener periodoCreateListener;
     private PeriodoCreateListener listener;
 
-    private TextView periodoInicioAdd, periodoFinAdd;
-    private int mYear, mMonth, mDay;
+    private Button btnFechaIn, btnFechaFin;
 
     private String FechaInicio = "";
     private String FechaFin = "";
@@ -73,10 +72,8 @@ public class PeriodoCrearActivity extends DialogFragment implements DialogDatePi
         operacionesPeriodo = new OperacionesPeriodo(getContext());
 
         Toolbar toolbar = view.findViewById(R.id.toolbarP);
-        periodoInicioAdd = view.findViewById(R.id.textInicio);
-        periodoFinAdd = view.findViewById(R.id.textFin);
-        Button btnFechaIn = view.findViewById(R.id.btnFInicio);
-        Button btnFechaFin = view.findViewById(R.id.btnFFin);
+        btnFechaIn = view.findViewById(R.id.btnFInicio);
+        btnFechaFin = view.findViewById(R.id.btnFFin);
 
         String title = null;
         if (getArguments() != null) {
@@ -95,8 +92,8 @@ public class PeriodoCrearActivity extends DialogFragment implements DialogDatePi
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
-                FechaInicio = periodoInicioAdd.getText().toString();
-                FechaFin = periodoFinAdd.getText().toString();
+                FechaInicio = btnFechaIn.getText().toString();
+                FechaFin = btnFechaFin.getText().toString();
 
                 PeriodoAcademico periodoAcademico = new PeriodoAcademico();
                 if (!FechaInicio.isEmpty() && !FechaFin.isEmpty()){
@@ -167,10 +164,10 @@ public class PeriodoCrearActivity extends DialogFragment implements DialogDatePi
     public void onDateSet(DatePicker datePicker, int year, int month, int day, String tipo) {
         switch (tipo){
             case "Inicio":
-                periodoInicioAdd.setText(String.format("%s/%s/%s",day,month,year));
+                btnFechaIn.setText(String.format("%s/%s/%s",day,month,year));
                 break;
             case "Fin":
-                periodoFinAdd.setText(String.format("%s/%s/%s",day,month,year));
+                btnFechaFin.setText(String.format("%s/%s/%s",day,month,year));
                 break;
         }
     }

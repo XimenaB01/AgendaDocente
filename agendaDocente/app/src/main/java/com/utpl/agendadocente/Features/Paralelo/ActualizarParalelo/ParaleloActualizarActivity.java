@@ -451,14 +451,20 @@ public class ParaleloActualizarActivity extends DialogFragment implements Dialog
                 if (listItemMultiCkeck.get(i).equals(ItemsSeleccionados.get(j))){
                     if (Componente.equals("Docente")){
                         if (!IdsDoc.contains(docenteList.get(i).getId_docente())){
+                            docenteList.clear();
+                            docenteList = operacionesDocente.listarDoc();
                             IdsDoc.add(docenteList.get(i).getId_docente());
                         }
                     }else if (Componente.equals("Tarea")){
                         if (!IdsTar.contains(tareaList.get(i).getId_tarea())){
+                            tareaList.clear();
+                            tareaList = operacionesTarea.ListarTar();
                             IdsTar.add(tareaList.get(i).getId_tarea());
                         }
                     }else {
                         if (!IdsEva.contains(evaluacionList.get(i).getId_evaluacion())){
+                            evaluacionList.clear();
+                            evaluacionList = operacionesEvaluacion.ListarEva();
                             IdsEva.add(evaluacionList.get(i).getId_evaluacion());
                         }
                     }

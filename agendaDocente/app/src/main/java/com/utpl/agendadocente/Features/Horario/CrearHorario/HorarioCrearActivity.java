@@ -11,8 +11,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.Button;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -29,7 +28,7 @@ import java.util.Objects;
 
 public class HorarioCrearActivity extends DialogFragment implements DialogTimePicker.TimePickerListener {
 
-    private TextView TimeEntradaAdd, TimeSalidaAdd;
+    private Button TimeEntradaAdd, TimeSalidaAdd;
     private TextInputEditText txtAula;
 
     private String Aula ="";

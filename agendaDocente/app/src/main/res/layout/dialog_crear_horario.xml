@@ -49,33 +49,35 @@
             android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
-            <TextView
+            <Button
                 android:id="@+id/in_time1"
-                android:layout_width="0dp"
-                android:layout_height="35dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginEnd="5dp"
                 android:text="@string/HorarioEntada"
                 android:layout_weight="1"
                 android:textColor="#FFF"
                 android:textStyle="bold"
-                android:background="#FFC107"
+                android:backgroundTint="#FFC107"
                 android:textAlignment="center"
-                android:drawableStart="@drawable/ic_hor_add_white"
-                android:textSize="20sp" />
+                app:icon="@drawable/ic_hor_add_white"
+                android:textSize="20sp"
+                style="?android:attr/buttonBarButtonStyle"/>
 
-            <TextView
+            <Button
                 android:id="@+id/in_time2"
-                android:layout_width="0dp"
-                android:layout_height="35dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginStart="5dp"
                 android:textColor="#FFF"
                 android:textStyle="bold"
-                android:background="#FFC107"
+                android:backgroundTint="#FFC107"
                 android:text="@string/HorarioSalida"
-                android:drawableStart="@drawable/ic_hor_add_white"
+                app:icon="@drawable/ic_hor_add_white"
                 android:textAlignment="center"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                style="?android:attr/buttonBarButtonStyle"/>
         </LinearLayout>
 
     </LinearLayout>

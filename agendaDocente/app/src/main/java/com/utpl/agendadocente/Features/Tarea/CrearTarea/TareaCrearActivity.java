@@ -131,7 +131,11 @@ public class TareaCrearActivity extends DialogFragment implements DialogDatePick
                 desTar = Objects.requireNonNull(descTarea.getText()).toString();
                 obsTar = Objects.requireNonNull(obsTarea.getText()).toString();
                 fecEntTar = btnFechaEn.getText().toString();
-                estadoTar = estados.getText().toString();
+                if (!estados.getText().toString().equals("Estado")){
+                    estadoTar = estados.getText().toString();
+                }else {
+                    estadoTar = "Sin Estado";
+                }
 
                 Tarea tarea = new Tarea();
                 if (!nomTar.isEmpty()){

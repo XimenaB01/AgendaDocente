@@ -29,68 +29,30 @@
         android:orientation="vertical"
         android:padding="10dp">
 
-        <LinearLayout
+        <Button
+            android:id="@+id/btnFInicio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_weight="1"
+            android:textColor="#FFF"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:backgroundTint="#FFC107"
+            app:icon="@drawable/ic_fecha"
+            android:text="@string/periodoinicio" />
 
-            <Button
-                android:id="@+id/btnFInicio"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textColor="#FFF"
-                android:backgroundTint="#00BCD4"
-                android:text="@string/periodoinicio" />
 
-            <TextView
-                android:id="@+id/textInicio"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:textColor="#FFF"
-                android:background="#FFC107"
-                android:textStyle="bold"
-                android:layout_marginStart="10dp"
-                android:drawableStart="@drawable/ic_fecha"
-                android:text="@string/formatofecha"
-                android:textAlignment="center"
-                android:textSize="20sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
+        <Button
+            android:id="@+id/btnFFin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="5dp">
-
-            <Button
-                android:id="@+id/btnFFin"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:backgroundTint="#00BCD4"
-                android:textColor="#FFF"
-                android:text="@string/periodofin" />
-
-            <TextView
-                android:id="@+id/textFin"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:textColor="#FFF"
-                android:background="#FFC107"
-                android:layout_marginStart="10dp"
-                android:drawableStart="@drawable/ic_fecha"
-                android:textStyle="bold"
-                android:text="@string/formatofecha"
-                android:textAlignment="center"
-                android:textSize="20sp" />
-
-        </LinearLayout>
+            android:layout_weight="1"
+            android:backgroundTint="#FFC107"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#FFF"
+            app:icon="@drawable/ic_fecha"
+            android:text="@string/periodofin" />
 
     </LinearLayout>
 

@@ -14,10 +14,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
@@ -41,7 +39,7 @@ public class EvaluacionActualizarActivity extends DialogFragment implements Dial
 
     private Evaluacion evaluacion;
 
-    private TextView txtFechEAct;
+    private Button fechEvaAct1;
     private TextInputEditText txtnomEvaAct, txtObsEvaAct;
     private Spinner tipoEvaActSp, cuesEvaActSp;
     private RadioButton rb1BimEAct, rb2BimEAct;
@@ -92,10 +90,9 @@ public class EvaluacionActualizarActivity extends DialogFragment implements Dial
 
 
         txtnomEvaAct = view.findViewById(R.id.textNomEvaAct);
-        txtFechEAct = view.findViewById(R.id.tvfechAct);
         tipoEvaActSp = view.findViewById(R.id.spinnerTipoAct);
         cuesEvaActSp = view.findViewById(R.id.spinnerEvaAct);
-        Button fechEvaAct1 = view.findViewById(R.id.btnfecEvAct);
+        fechEvaAct1 = view.findViewById(R.id.btnfecEvAct);
         rb1BimEAct = view.findViewById(R.id.rb1BAct);
         rb2BimEAct = view.findViewById(R.id.rb2BAct);
         txtObsEvaAct = view.findViewById(R.id.textObsEvaAct);
@@ -106,14 +103,16 @@ public class EvaluacionActualizarActivity extends DialogFragment implements Dial
             spinnersTipoEvaluacion();
             spinnercuestio();
             txtnomEvaAct.setText(evaluacion.getNombreEvaluacion());
-            txtFechEAct.setText(evaluacion.getFechaEvaluacion());
+            fechEvaAct1.setText(evaluacion.getFechaEvaluacion());
             txtObsEvaAct.setText(evaluacion.getObservacion());
 
-            for (int i = 0; i < cuestListAct.size(); i++){
-                if (evaluacion.getCuestionarioID().equals(cuestListAct.get(i).getId_cuestionario())){
-                    cuesEvaActSp.setSelection(i);
+
+                for (int i = 0; i < cuestListAct.size(); i++){
+                    if (evaluacion.getCuestionarioID().equals(cuestListAct.get(i).getId_cuestionario())){
+                        cuesEvaActSp.setSelection(i);
+                    }
                 }
-            }
+
 
             final String Tipo = evaluacion.getTipo();
             tipoEvaActSp.setSelection(obtenerPositionItem(tipoEvaActSp,Tipo));
@@ -148,8 +147,10 @@ public class EvaluacionActualizarActivity extends DialogFragment implements Dial
                 public boolean onMenuItemClick(MenuItem item) {
                     nomEvaAct = Objects.requireNonNull(txtnomEvaAct.getText()).toString();
                     tipoEvaAct = tipoEvaActSp.getSelectedItem().toString();
-                    fechEvaAct = txtFechEAct.getText().toString();
-                    String cuest = cuesEvaActSp.getSelectedItem().toString();
+                    fechEvaAct = fechEvaAct1.getText().toString();
+
+                    String cuest =cuesEvaActSp.getSelectedItem().toString();
+
                     for (int i = 0; i < cuestListAct.size(); i++){
                         if (cuestListAct.get(i).getNombreCuestionario().equals(cuest)){
                             cuesEvaAct = cuestListAct.get(i).getId_cuestionario();
@@ -205,7 +206,7 @@ public class EvaluacionActualizarActivity extends DialogFragment implements Dial
     }
 
     private void spinnercuestio(){
-
+        listCuetAct.add("Seleccione Cuestionario");
         for (int i = 0; i< cuestListAct.size(); i++){
             listCuetAct.add(cuestListAct.get(i).getNombreCuestionario());
         }
@@ -227,6 +228,6 @@ public class EvaluacionActualizarActivity extends DialogFragment implements Dial
 
     @Override
     public void onDateSet(DatePicker datePicker, int year, int month, int day, String tipo) {
-        txtFechEAct.setText(String.format("%s/%s/%s",day,month,year));
+        fechEvaAct1.setText(String.format("%s/%s/%s",day,month,year));
     }
 }

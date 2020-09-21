@@ -75,34 +75,16 @@
 
         </RadioGroup>
 
-        <LinearLayout
+        <Button
+            android:id="@+id/btnfecEvAct"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/btnfecEvAct"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#00BCD4"
-                android:layout_weight="1"
-                android:text="@string/fechaevaluacion"/>
-
-            <TextView
-                android:id="@+id/tvfechAct"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:background="#FFC107"
-                android:textColor="#FFFF"
-                android:textStyle="bold"
-                android:text="@string/formatofecha"
-                android:textAlignment="center"
-                android:textSize="20sp" />
-
-        </LinearLayout>
+            android:backgroundTint="#00BCD4"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            app:icon="@drawable/ic_fecha"
+            android:text="@string/fechaevaluacion"/>
 
         <Spinner
             android:id="@+id/spinnerEvaAct"

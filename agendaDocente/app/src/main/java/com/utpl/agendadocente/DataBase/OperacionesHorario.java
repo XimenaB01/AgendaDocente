@@ -164,9 +164,9 @@ public class OperacionesHorario {
         Cursor cursor =db.rawQuery(query,null);
         try {
             while (cursor.moveToNext()){
-                String a = cursor.getString(1);
-                String h1 = cursor.getString(2);
-                String h2 = cursor.getString( 3);
+                String a = cursor.getString(0);
+                String h1 = cursor.getString(1);
+                String h2 = cursor.getString( 2);
 
                 if (aula.equals(a) && Hor1.equals(h1) && Hor2.equals(h2)){
                     operacion = true;

@@ -43,7 +43,7 @@ public class EvaluacionCrearActivity extends DialogFragment implements DialogDat
     private OperacionesEvaluacion operacionesEvaluacion = new OperacionesEvaluacion(getContext());
     private OperacionesCuestionario operacionesCuestionario = new OperacionesCuestionario(getContext());
     private TextInputEditText nomE, obsE;
-    private TextView tvfech;
+    private Button btnFechaEva;
     private Spinner tipoE, cuest;
     private RadioButton rb1BimE, rb2BimE;
 
@@ -100,12 +100,11 @@ public class EvaluacionCrearActivity extends DialogFragment implements DialogDat
 
         nomE = view.findViewById(R.id.textNomE);
         tipoE = view.findViewById(R.id.spinnerTipo);
-        tvfech = view.findViewById(R.id.tvfech);
         cuest = view.findViewById(R.id.spinnerEva);
         rb1BimE = view.findViewById(R.id.rb1B);
         rb2BimE = view.findViewById(R.id.rb2B);
         obsE = view.findViewById(R.id.textObsEva);
-        Button btnFechaEva = view.findViewById(R.id.btnfecE);
+        btnFechaEva = view.findViewById(R.id.btnfecE);
         FloatingActionButton floatingActionButton = view.findViewById(R.id.FABQNew);
 
         spinners();
@@ -155,7 +154,7 @@ public class EvaluacionCrearActivity extends DialogFragment implements DialogDat
                 }else if (rb2BimE.isChecked()){
                     bimEva = rb2BimE.getText().toString();
                 }
-                fechEva = tvfech.getText().toString();
+                fechEva = btnFechaEva.getText().toString();
                 obserEva = Objects.requireNonNull(obsE.getText()).toString();
 
                 Evaluacion eva = new Evaluacion();
@@ -231,7 +230,7 @@ public class EvaluacionCrearActivity extends DialogFragment implements DialogDat
 
     @Override
     public void onDateSet(DatePicker datePicker, int year, int month, int day, String tipo) {
-        tvfech.setText(String.format("%s/%s/%s",day,month,year));
+        btnFechaEva.setText(String.format("%s/%s/%s",day,month,year));
     }
 
     @Override

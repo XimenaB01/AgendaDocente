@@ -110,10 +110,8 @@ public class DialogAgregarMultiItems extends DialogFragment implements DocenteCr
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 List<String> list = itemMultiCheckAdapter.getSelectedItems();
-                Log.e("list",list+"");
                 listener.onAgregarItems(list, Componente);
                 dismiss();
-                /**/
                 return true;
             }
         });

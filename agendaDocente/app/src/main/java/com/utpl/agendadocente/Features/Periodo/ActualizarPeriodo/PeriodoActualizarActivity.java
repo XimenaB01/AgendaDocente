@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
@@ -28,7 +27,7 @@ public class PeriodoActualizarActivity extends DialogFragment implements DialogD
 
     private PeriodoAcademico periodoAcademico;
 
-    private TextView FechaInicioAct, FechaFinAct;
+    private Button btnPerIn, btnPerFin;
 
     private String FechaInicio = "";
     private String FechaFin = "";
@@ -56,10 +55,8 @@ public class PeriodoActualizarActivity extends DialogFragment implements DialogD
 
         operacionesPeriodo = new OperacionesPeriodo(getContext());
         Toolbar toolbar = view.findViewById(R.id.toolbarPer);
-        FechaInicioAct = view.findViewById(R.id.textInicioA);
-        FechaFinAct = view.findViewById(R.id.textFinA);
-        Button btnPerIn = view.findViewById(R.id.btnFInicioA);
-        Button btnPerFin = view.findViewById(R.id.btnFFinA);
+        btnPerIn = view.findViewById(R.id.btnFInicioA);
+        btnPerFin = view.findViewById(R.id.btnFFinA);
 
         String title = null;
         if (getArguments() != null) {
@@ -69,8 +66,8 @@ public class PeriodoActualizarActivity extends DialogFragment implements DialogD
 
         periodoAcademico = operacionesPeriodo.obtenerPer(idPeriodo);
         if (periodoAcademico!=null){
-                FechaInicioAct.setText(periodoAcademico.getFechaInicio());
-                FechaFinAct.setText(periodoAcademico.getFechaFin());
+            btnPerIn.setText(periodoAcademico.getFechaInicio());
+            btnPerFin.setText(periodoAcademico.getFechaFin());
 
             toolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
@@ -83,8 +80,8 @@ public class PeriodoActualizarActivity extends DialogFragment implements DialogD
             toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {
-                    FechaInicio = FechaInicioAct.getText().toString();
-                    FechaFin = FechaFinAct.getText().toString();
+                    FechaInicio = btnPerIn.getText().toString();
+                    FechaFin = btnPerFin.getText().toString();
 
                     if (!FechaInicio.isEmpty()){
                         periodoAcademico.setFechaInicio(FechaInicio);
@@ -151,6 +148,13 @@ public class PeriodoActualizarActivity extends DialogFragment implements DialogD
 
     @Override
     public void onDateSet(DatePicker datePicker, int year, int month, int day, String tipo) {
-
+        switch (tipo){
+            case "Inicio":
+                btnPerIn.setText(String.format("%s/%s/%s",day,month,year));
+                break;
+            case "Fin":
+                btnPerFin.setText(String.format("%s/%s/%s",day,month,year));
+                break;
+        }
     }
 }
