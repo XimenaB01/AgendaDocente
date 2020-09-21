@@ -57,6 +57,7 @@
     <!--Evaluacion-->
     <string name="rb1B">1er Bimestre</string>
     <string name="rb2B">2do Bimestre</string>
+    <!--ojo el formato-->
     <string name="formatofecha"> mm / dd / y</string>
     <string name="observacion">Observación</string>
     <string name="listaevaluacion">LISTA EVALUACIONES</string>
@@ -96,6 +97,7 @@
     <string name="editarDoc">Editar Docente</string>
     <string name="editarHor">Editar Horario</string>
     <string name="eliminarHor">Eliminar Horario</string>
+    <string name="estado">Estado</string>
 
     <string-array name="areas">
         <item>Técnica</item>
@@ -138,5 +140,10 @@
         <item>Medicina</item>
         <item>Biología</item>
     </string-array>
+
+    <string name="enviada">Enviada</string>
+    <string name="sin_enviar">Sin Enviar</string>
+    <string name="revisada">Revisada</string>
+    <string name="sin_revisar">Sin Revisar</string>
 
 </resources>

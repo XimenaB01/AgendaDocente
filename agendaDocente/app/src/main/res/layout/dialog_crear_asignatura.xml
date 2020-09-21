@@ -22,139 +22,155 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp">
+        android:layout_height="wrap_content">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/outlinedTextField1"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:startIconDrawable="@drawable/ic_asignatura_black"
-            android:hint="@string/asignatura"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            android:orientation="vertical">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/nomAsig"
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textCapSentences"/>
+                android:padding="10dp">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/outlinedTextField1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:startIconDrawable="@drawable/ic_asignatura_black"
+                    android:hint="@string/asignatura"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-    </LinearLayout>
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/nomAsig"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textCapSentences"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp">
+                </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/outlinedTextField2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:startIconDrawable="@drawable/ic_description"
-            android:hint="@string/descripcion"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            </LinearLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/desAsig"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textCapSentences"/>
+                android:padding="10dp">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/outlinedTextField2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:startIconDrawable="@drawable/ic_description"
+                    android:hint="@string/descripcion"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-    </LinearLayout>
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/desAsig"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textCapSentences"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="10dp"
-        android:baselineAligned="false">
+                </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/outlinedTextField3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            app:startIconDrawable="@drawable/ic_nivel"
-            android:hint="@string/nivel"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            </LinearLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/nivAsig"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number"/>
+                android:orientation="horizontal"
+                android:padding="10dp"
+                android:baselineAligned="false">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/outlinedTextField3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="3dp"
+                    android:layout_weight="1"
+                    app:startIconDrawable="@drawable/ic_nivel"
+                    android:hint="@string/nivel"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/outlinedTextField4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            app:startIconDrawable="@drawable/ic_creditos"
-            android:hint="@string/creditos"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/nivAsig"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"/>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/credAsig"
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/outlinedTextField4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginEnd="3dp"
+                    android:layout_weight="1"
+                    app:startIconDrawable="@drawable/ic_creditos"
+                    android:hint="@string/creditos"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/credAsig"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/outlinedTextField5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:startIconDrawable="@drawable/ic_horas"
+                    android:hint="@string/horas"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/horAsig"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="3dp"
+                        android:inputType="number"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number"/>
+                android:padding="10dp">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <Spinner
+                    android:id="@+id/sparea"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:spinnerMode="dropdown"
+                    android:prompt="@string/selectArea" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/outlinedTextField5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            app:startIconDrawable="@drawable/ic_horas"
-            android:hint="@string/horas"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            </LinearLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/horAsig"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number"/>
+                android:padding="10dp">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <Spinner
+                    android:id="@+id/spcarrera"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="1dp"
+                    android:prompt="@string/selectCarrera"
+                    android:spinnerMode="dropdown" />
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp">
-
-        <Spinner
-            android:id="@+id/sparea"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:spinnerMode="dialog"
-            android:prompt="@string/selectArea" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp">
-
-        <Spinner
-            android:id="@+id/spcarrera"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="1dp"
-            android:prompt="@string/selectCarrera"
-            android:spinnerMode="dialog" />
-
-    </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

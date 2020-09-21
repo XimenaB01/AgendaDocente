@@ -55,13 +55,15 @@ public class utilidades {
     public static final String CAMPO_DES_TAR="descripcionTarea";
     public static final String CAMPO_FEC_TAR="fechaTarea";
     public static final String CAMPO_OBS_TAR="observacionTarea";
+    public static final String CAMPO_EST_TAR="estadoTarea";
 
     public static final String CREAR_TABLA_TAREA = "create table "+TABLA_TAREA+" ("
             + CAMPO_ID_TAR+" INTEGER PRIMARY KEY AUTOINCREMENT, "
             + CAMPO_NOM_TAR+" TEXT NOT NULL UNIQUE, "
             + CAMPO_DES_TAR+" TEXT, "
-            + CAMPO_FEC_TAR+" TEXT,"
-            + CAMPO_OBS_TAR+" TEXT"
+            + CAMPO_FEC_TAR+" TEXT, "
+            + CAMPO_OBS_TAR+" TEXT, "
+            + CAMPO_EST_TAR+" TEXT "
             + ")";
 
     //Constantes campos tabla Evaluacion

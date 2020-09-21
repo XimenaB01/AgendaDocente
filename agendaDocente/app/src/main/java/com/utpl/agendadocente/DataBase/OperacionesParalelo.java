@@ -376,7 +376,7 @@ public class OperacionesParalelo {
                     int idTar = cursor.getInt(cursor.getColumnIndex(utilidades.CAMPO_ID_TAR));
                     String tarNom = cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_NOM_TAR));
 
-                    Tarea tarea = new Tarea(idTar, tarNom, null, null, null);
+                    Tarea tarea = new Tarea(idTar, tarNom, null, null, null, null);
                     ListaTareas.add(tarea);
                 }while (cursor.moveToNext());
             }
@@ -414,7 +414,7 @@ public class OperacionesParalelo {
                         estado = true;
                     }
 
-                    TareaAsignada TarAsig = new TareaAsignada(idTar,nomTar,null,null,null, estado);
+                    TareaAsignada TarAsig = new TareaAsignada(idTar,nomTar,null,null,null, null, estado);
                     tareaAsignadas.add(TarAsig);
 
                 }while (cursor.moveToNext());

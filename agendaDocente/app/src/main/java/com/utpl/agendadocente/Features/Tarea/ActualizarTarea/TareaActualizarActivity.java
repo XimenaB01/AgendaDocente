@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,13 +38,14 @@ public class TareaActualizarActivity extends DialogFragment implements DialogDat
 
     private Tarea tarea;
 
-    private TextView FecEntTarAct;
+    private Button btnFechAct, estadoTareaAct;
     private TextInputEditText nomTareaAct, descTareaAct, obsTareaAct;
 
     private String nomTarAct = "";
     private String desTarAct = "";
     private String obsTarAct = "";
     private String fecEntTarAct = "";
+    private String estadoTarAct = "";
 
     private OperacionesTarea operacionesTarea;
 
@@ -69,11 +71,12 @@ public class TareaActualizarActivity extends DialogFragment implements DialogDat
         View view =inflater.inflate(R.layout.dialog_actualizar_tarea, container,false);
 
         Toolbar toolbar = view.findViewById(R.id.toolbarAT);
+
         nomTareaAct = view.findViewById(R.id.nomTarAct);
         descTareaAct = view.findViewById(R.id.desTarAct);
-        FecEntTarAct = view.findViewById(R.id.fechTarAct);
         obsTareaAct = view.findViewById(R.id.obsTarAct);
-        Button btnFechAct = view.findViewById(R.id.btnFechEAct);
+        btnFechAct = view.findViewById(R.id.btnFechEAct);
+        estadoTareaAct = view.findViewById(R.id.estadosTareaAct);
 
         operacionesTarea = new OperacionesTarea(getContext());
 
@@ -88,8 +91,27 @@ public class TareaActualizarActivity extends DialogFragment implements DialogDat
         if (tarea!=null){
             nomTareaAct.setText(tarea.getNombreTarea());
             descTareaAct.setText(tarea.getDescripcionTarea());
-            FecEntTarAct.setText(tarea.getFechaTarea());
+            btnFechAct.setText(tarea.getFechaTarea());
             obsTareaAct.setText(tarea.getObservacionTarea());
+            estadoTareaAct.setText(tarea.getEstadoTarea());
+
+            estadoTareaAct.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    PopupMenu popupMenuEstados = new PopupMenu(getContext(),estadoTareaAct);
+                    popupMenuEstados.getMenuInflater().inflate(R.menu.estados,popupMenuEstados.getMenu());
+
+                    popupMenuEstados.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem menuItem) {
+                            estadoTareaAct.setText(menuItem.getTitle());
+                            return true;
+                        }
+                    });
+
+                    popupMenuEstados.show();
+                }
+            });
 
             toolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
@@ -103,15 +125,16 @@ public class TareaActualizarActivity extends DialogFragment implements DialogDat
                 public boolean onMenuItemClick(MenuItem item) {
                     nomTarAct = Objects.requireNonNull(nomTareaAct.getText()).toString();
                     desTarAct = Objects.requireNonNull(descTareaAct.getText()).toString();
-                    fecEntTarAct = FecEntTarAct.getText().toString();
+                    fecEntTarAct = btnFechAct.getText().toString();
                     obsTarAct = Objects.requireNonNull(obsTareaAct.getText()).toString();
+                    estadoTarAct = estadoTareaAct.getText().toString();
 
                     if (!nomTarAct.isEmpty() && !fecEntTarAct.isEmpty()){
                         tarea.setNombreTarea(nomTarAct);
                         tarea.setDescripcionTarea(desTarAct);
                         tarea.setFechaTarea(fecEntTarAct);
                         tarea.setObservacionTarea(obsTarAct);
-
+                        tarea.setEstadoTarea(estadoTarAct);
 
                         long insercion = operacionesTarea.ModificarTar(tarea);
                         if (insercion > 0){
@@ -153,6 +176,6 @@ public class TareaActualizarActivity extends DialogFragment implements DialogDat
 
     @Override
     public void onDateSet(DatePicker datePicker, int year, int month, int day, String tipo) {
-        FecEntTarAct.setText(String.format("%s/%s/%s",day,month,year));
+        btnFechAct.setText(String.format("%s/%s/%s",day,month,year));
     }
 }

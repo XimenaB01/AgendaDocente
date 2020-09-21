@@ -52,6 +52,7 @@ public class TareaDetalle extends DialogFragment {
         TextView fechaTarea = view.findViewById(R.id.fechTarDet);
         TextView descripcionTarea = view.findViewById(R.id.DescTarDet);
         TextView observacionTarea = view.findViewById(R.id.ObsTarDet);
+        TextView estadoTarea = view.findViewById(R.id.estadoTarea);
 
         Tarea tarea = operacionesTarea.obtenerTar(idTarea);
 
@@ -71,6 +72,7 @@ public class TareaDetalle extends DialogFragment {
                 String mensaje = "No agrego Observaciones";
                 observacionTarea.setText(mensaje);
             }
+            estadoTarea.setText(tarea.getEstadoTarea());
 
         }else {
             Toast.makeText(getContext(),"No se encontro la Tarea",Toast.LENGTH_LONG).show();

@@ -76,25 +76,30 @@
             <Button
                 android:id="@+id/btnFechEAct"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#00BCD4"
+                android:layout_height="match_parent"
                 android:textColor="#FFF"
                 android:layout_weight="1"
                 android:drawableStart="@drawable/ic_fecha"
-                android:text="@string/fechaentreda" />
+                android:backgroundTint="#FFC107"
+                android:text="@string/fechaentreda"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                app:icon="@drawable/ic_fecha"
+                style="?android:attr/buttonBarButtonStyle"/>
 
-            <TextView
-                android:id="@+id/fechTarAct"
+            <Button
+                android:id="@+id/estadosTareaAct"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center"
                 android:layout_weight="1"
-                android:background="#FFC107"
+                android:backgroundTint="#FFC107"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:text="@string/estado"
+                android:textAlignment="textStart"
                 android:textColor="#FFF"
-                android:textStyle="bold"
-                android:text="@string/formatofecha"
-                android:textAlignment="center"
-                android:textSize="20sp"/>
+                style="?android:attr/buttonBarButtonStyle"
+                android:drawableEnd="@android:drawable/arrow_down_float"/>
         </LinearLayout>
 
         <com.google.android.material.textfield.TextInputLayout

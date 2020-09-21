@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/itemEnviado"
+        android:title="@string/enviada" />
+    <item
+        android:id="@+id/itemSinEnviado"
+        android:title="@string/sin_enviar" />
+    <item
+        android:id="@+id/itemRevisado"
+        android:title="@string/revisada" />
+    <item
+        android:id="@+id/itemSinRevisar"
+        android:title="@string/sin_revisar" />
+</menu>

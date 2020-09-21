@@ -14,8 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
@@ -31,14 +30,14 @@ public class TareaCrearActivity extends DialogFragment implements DialogDatePick
 
     private static TareaCrearListener tareaCrearListener;
     private TareaCrearListener listener;
-
-    private TextView FecEntTar;
+    private Button btnFechaEn;
     private TextInputEditText nomTarea, descTarea, obsTarea;
 
     private String nomTar = "";
     private String desTar = "";
     private String obsTar = "";
     private String fecEntTar = "";
+    private String estadoTar = "";
 
     private OperacionesTarea operacionesTarea = new OperacionesTarea(getContext());
 
@@ -78,9 +77,9 @@ public class TareaCrearActivity extends DialogFragment implements DialogDatePick
         Toolbar toolbar = view.findViewById(R.id.toolbarT);
         nomTarea = view.findViewById(R.id.nomTar);
         descTarea = view.findViewById(R.id.desTar);
-        FecEntTar = view.findViewById(R.id.fechTar);
         obsTarea = view.findViewById(R.id.obsTar);
-        Button btnFechaEn = view.findViewById(R.id.btnFechEn);
+        btnFechaEn = view.findViewById(R.id.btnFechEn);
+        final Button estados = view.findViewById(R.id.estadosTarea);
 
         String title = null;
         if (getArguments() != null) {
@@ -100,6 +99,24 @@ public class TareaCrearActivity extends DialogFragment implements DialogDatePick
             }
         });
 
+        estados.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PopupMenu popupMenuEstados = new PopupMenu(getContext(),estados);
+                popupMenuEstados.getMenuInflater().inflate(R.menu.estados,popupMenuEstados.getMenu());
+
+                popupMenuEstados.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+                        estados.setText(menuItem.getTitle());
+                        return true;
+                    }
+                });
+
+                popupMenuEstados.show();
+            }
+        });
+
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -113,7 +130,8 @@ public class TareaCrearActivity extends DialogFragment implements DialogDatePick
                 nomTar = Objects.requireNonNull(nomTarea.getText()).toString();
                 desTar = Objects.requireNonNull(descTarea.getText()).toString();
                 obsTar = Objects.requireNonNull(obsTarea.getText()).toString();
-                fecEntTar = FecEntTar.getText().toString();
+                fecEntTar = btnFechaEn.getText().toString();
+                estadoTar = estados.getText().toString();
 
                 Tarea tarea = new Tarea();
                 if (!nomTar.isEmpty()){
@@ -121,6 +139,7 @@ public class TareaCrearActivity extends DialogFragment implements DialogDatePick
                     tarea.setDescripcionTarea(desTar);
                     tarea.setFechaTarea(fecEntTar);
                     tarea.setObservacionTarea(obsTar);
+                    tarea.setEstadoTarea(estadoTar);
 
                     long insercion = operacionesTarea.InsertarTar(tarea);
                     if (insercion > 0){
@@ -156,6 +175,6 @@ public class TareaCrearActivity extends DialogFragment implements DialogDatePick
 
     @Override
     public void onDateSet(DatePicker datePicker, int year, int month, int day, String tipo) {
-        FecEntTar.setText(String.format("%s/%s/%s",day,month,year));
+        btnFechaEn.setText(String.format("%s/%s/%s",day,month,year));
     }
 }

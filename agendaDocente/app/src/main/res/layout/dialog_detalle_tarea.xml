@@ -48,56 +48,104 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <com.google.android.material.card.MaterialCardView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="horizontal"
             android:layout_marginTop="10dp">
 
-            <LinearLayout
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#FFC107"
-                android:padding="5dp"
-                android:orientation="vertical">
+                android:layout_height="match_parent"
+                android:layout_marginEnd="5dp"
+                android:layout_weight="1">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:background="#FFC107"
+                    android:padding="5dp"
+                    android:orientation="vertical">
 
-                    <ImageView
-                        android:layout_width="50dp"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:src="@drawable/ic_fecha"
-                        android:contentDescription="@string/fechaevaluacion" />
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:src="@drawable/ic_fecha"
+                            android:contentDescription="@string/fechaevaluacion" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="@string/fechaentreda"
+                            android:layout_weight="1"
+                            android:layout_marginStart="5dp"
+                            android:textSize="15sp"
+                            android:textStyle="italic"
+                            android:textColor="#FFF"/>
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/fechTarDet"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="30dp"
+                        android:textColor="#FFF"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        tools:text="23/02/2020"/>
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#FFC107"
+                    android:padding="5dp"
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="@string/fechaentreda"
+                        android:text="@string/estado"
                         android:layout_weight="1"
                         android:layout_marginStart="5dp"
                         android:textSize="15sp"
                         android:textStyle="italic"
                         android:textColor="#FFF"/>
 
+                    <TextView
+                        android:id="@+id/estadoTarea"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:layout_marginStart="5dp"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="#FFF"
+                        tools:text="Estado"/>
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/fechTarDet"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="30dp"
-                    android:textColor="#FFF"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    tools:text="23/02/2020"/>
+            </com.google.android.material.card.MaterialCardView>
 
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"

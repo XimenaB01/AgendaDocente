@@ -33,6 +33,8 @@ public class OperacionesTarea {
         contentValues.put(utilidades.CAMPO_DES_TAR,tarea.getDescripcionTarea());
         contentValues.put(utilidades.CAMPO_FEC_TAR,tarea.getFechaTarea());
         contentValues.put(utilidades.CAMPO_OBS_TAR,tarea.getObservacionTarea());
+        contentValues.put(utilidades.CAMPO_EST_TAR,tarea.getEstadoTarea());
+
         try {
             operacion = db.insert(utilidades.TABLA_TAREA, utilidades.CAMPO_ID_TAR,contentValues);
         }catch (SQLiteException e) {
@@ -61,6 +63,7 @@ public class OperacionesTarea {
                         tar.setDescripcionTarea(cursor.getString(2));
                         tar.setFechaTarea(cursor.getString(3));
                         tar.setObservacionTarea(cursor.getString(4));
+                        tar.setEstadoTarea(cursor.getString(5));
 
                         listaTar.add(tar);
                     }while (cursor.moveToNext());
@@ -94,6 +97,7 @@ public class OperacionesTarea {
                 tar.setDescripcionTarea(cursor.getString(2));
                 tar.setFechaTarea(cursor.getString(3));
                 tar.setObservacionTarea(cursor.getString(4));
+                tar.setEstadoTarea(cursor.getString(5));
             }
         }catch (Exception e){
             Toast.makeText(context, "Operacion fallida", Toast.LENGTH_SHORT).show();
@@ -136,6 +140,7 @@ public class OperacionesTarea {
         contentValues.put(utilidades.CAMPO_DES_TAR,tarea.getDescripcionTarea());
         contentValues.put(utilidades.CAMPO_FEC_TAR,tarea.getFechaTarea());
         contentValues.put(utilidades.CAMPO_OBS_TAR,tarea.getObservacionTarea());
+        contentValues.put(utilidades.CAMPO_EST_TAR,tarea.getEstadoTarea());
 
         try{
             operacion = db.update(utilidades.TABLA_TAREA,contentValues,

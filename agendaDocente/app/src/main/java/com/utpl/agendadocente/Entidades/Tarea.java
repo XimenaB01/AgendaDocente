@@ -8,13 +8,15 @@ public class Tarea implements Serializable {
     private String descripcionTarea;
     private String fechaTarea;
     private String observacionTarea;
+    private String estadoTarea;
 
-    public Tarea(Integer id_tarea, String nombreTarea, String descripcionTarea, String fechaTarea, String observacionTarea) {
+    public Tarea(Integer id_tarea, String nombreTarea, String descripcionTarea, String fechaTarea, String observacionTarea, String estadoTarea) {
         this.id_tarea = id_tarea;
         this.nombreTarea = nombreTarea;
         this.descripcionTarea = descripcionTarea;
         this.fechaTarea = fechaTarea;
         this.observacionTarea = observacionTarea;
+        this.estadoTarea = estadoTarea;
     }
 
     public Tarea() {
@@ -58,5 +60,13 @@ public class Tarea implements Serializable {
 
     public void setObservacionTarea(String observacionTarea) {
         this.observacionTarea = observacionTarea;
+    }
+
+    public String getEstadoTarea() {
+        return estadoTarea;
+    }
+
+    public void setEstadoTarea(String estadoTarea) {
+        this.estadoTarea = estadoTarea;
     }
 }
