@@ -5,9 +5,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.utpl.agendadocente.Entidades.Tarea;
+import com.utpl.agendadocente.Entidades.TareaAsignada;
 import com.utpl.agendadocente.Utilidades.utilidades;
 
 import java.util.ArrayList;
@@ -153,4 +155,97 @@ public class OperacionesTarea {
         }
         return operacion;
     }
+
+    public List<TareaAsignada> ListarTareas(){
+        conexionDB = ConexionSQLiteHelper.getInstance(context);
+        SQLiteDatabase db = conexionDB.getReadableDatabase();
+
+        String query = "SELECT T."+utilidades.CAMPO_ID_TAR +", T."+utilidades.CAMPO_NOM_TAR + ", PT."+utilidades.CAMPO_PARALELO_NOM_FK2 + ", PT."+utilidades.CAMPO_PARALELO_ASIG_FK2
+                + " FROM " + utilidades.TABLA_TAREA + " as T LEFT JOIN " + utilidades.TABLA_PARALELO_TAREA + " as PT ON T."+utilidades.CAMPO_ID_TAR
+                + " = PT."+utilidades.CAMPO_TAREA_ID_FK;
+
+
+        List<TareaAsignada> listaTareas = new ArrayList<>();
+        Cursor cursor = null;
+
+        try {
+            cursor =  db.rawQuery(query,null);
+            if(cursor!=null){
+                if (cursor.moveToFirst()){
+                    do{
+                        int idTar = cursor.getInt(cursor.getColumnIndex(utilidades.CAMPO_ID_TAR));
+                        String nomTar = cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_NOM_TAR));
+
+                        boolean estado = false;
+
+                        int idAsig = cursor.getInt(cursor.getColumnIndex(utilidades.CAMPO_PARALELO_ASIG_FK2));
+                        String nomPar = cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_PARALELO_NOM_FK2));
+                        if ( idAsig > 0){
+                            estado = true;
+                        }
+                        TareaAsignada TarAsig = new TareaAsignada(idTar,nomTar,null,null,null, null, estado, idAsig,nomPar);
+                        listaTareas.add(TarAsig);
+                    }while (cursor.moveToNext());
+                }
+            }
+        }catch (SQLiteException e)
+        {
+            Log.e("",e.getMessage()+"");
+        }finally {
+            if (cursor!=null)
+                cursor.close();
+            db.close();
+        }
+        return listaTareas;
+    }
+
+
+    public List<TareaAsignada> ListarTareasPorParalelo(long IdTar){
+        conexionDB = ConexionSQLiteHelper.getInstance(context);
+        SQLiteDatabase db = conexionDB.getReadableDatabase();
+
+        String query = "SELECT T."+utilidades.CAMPO_ID_TAR +", T."+utilidades.CAMPO_NOM_TAR + ", T."+utilidades.CAMPO_FEC_TAR
+                + ", T."+utilidades.CAMPO_DES_TAR + ", T."+utilidades.CAMPO_OBS_TAR + ", T."+utilidades.CAMPO_EST_TAR
+                + ", PT."+utilidades.CAMPO_PARALELO_NOM_FK2 + ", PT."+utilidades.CAMPO_PARALELO_ASIG_FK2
+                + " FROM " + utilidades.TABLA_TAREA + " as T LEFT JOIN " + utilidades.TABLA_PARALELO_TAREA + " as PT ON T."+utilidades.CAMPO_ID_TAR
+                + " = PT."+utilidades.CAMPO_TAREA_ID_FK + " WHERE T."+utilidades.CAMPO_ID_TAR + " = ?" ;
+
+        List<TareaAsignada> listaTareas = new ArrayList<>();
+        Cursor cursor = null;
+
+        try {
+            cursor =  db.rawQuery(query,new String[]{String.valueOf(IdTar)});
+            if(cursor!=null){
+                if (cursor.moveToFirst()){
+                    do{
+                        int idTar = cursor.getInt(cursor.getColumnIndex(utilidades.CAMPO_ID_TAR));
+                        String nomTar = cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_NOM_TAR));
+                        String fechTar = cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_FEC_TAR));
+                        String descTar = cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_DES_TAR));
+                        String obsTar = cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_OBS_TAR));
+                        String estaTar = cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_EST_TAR));
+
+                        boolean estado = false;
+
+                        int idAsig = cursor.getInt(cursor.getColumnIndex(utilidades.CAMPO_PARALELO_ASIG_FK2));
+                        String nomPar = cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_PARALELO_NOM_FK2));
+                        if ( idAsig > 0){
+                            estado = true;
+                        }
+                        TareaAsignada TarAsig = new TareaAsignada(idTar,nomTar,descTar,fechTar,obsTar, estaTar, estado, idAsig,nomPar);
+                        listaTareas.add(TarAsig);
+                    }while (cursor.moveToNext());
+                }
+            }
+        }catch (SQLiteException e)
+        {
+            Log.e("",e.getMessage()+"");
+        }finally {
+            if (cursor!=null)
+                cursor.close();
+            db.close();
+        }
+        return listaTareas;
+    }
+
 }

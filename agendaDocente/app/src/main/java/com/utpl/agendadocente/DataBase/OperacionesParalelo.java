@@ -390,7 +390,7 @@ public class OperacionesParalelo {
         return ListaTareas;
     }
 //comentar
-    public List<TareaAsignada> obtenerTareasPorEstado(String NomPar, int IdAsig){
+    /*public List<TareaAsignada> obtenerTareasPorEstado(String NomPar, int IdAsig){
         conexionDB = ConexionSQLiteHelper.getInstance(context);
         SQLiteDatabase db = conexionDB.getReadableDatabase();
 
@@ -427,7 +427,7 @@ public class OperacionesParalelo {
             db.close();
         }
         return tareaAsignadas;
-    }
+    }*/
 
     // PARALELO EVALUACION
 

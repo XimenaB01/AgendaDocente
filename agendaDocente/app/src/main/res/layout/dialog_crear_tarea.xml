@@ -98,6 +98,11 @@
 
         </LinearLayout>
 
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </Spinner>
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/outlinedTextField3"
             android:layout_width="match_parent"

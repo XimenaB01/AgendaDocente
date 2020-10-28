@@ -446,27 +446,30 @@ public class ParaleloActualizarActivity extends DialogFragment implements Dialog
     }
 
     private void IdsComponentesSeleccionados(String Componente, List<String> ItemsSeleccionados){
-        for (int i = 0; i < listItemMultiCkeck.size(); i++){
-            for (int j = 0; j < ItemsSeleccionados.size();j++){
-                if (listItemMultiCkeck.get(i).equals(ItemsSeleccionados.get(j))){
+
+        if (Componente.equals("Docente")){
+            IdsDoc.clear();
+            docenteList.clear();
+            docenteList = operacionesDocente.listarDoc();
+        }else if (Componente.equals("Tarea")){
+            IdsTar.clear();
+            tareaList.clear();
+            tareaList = operacionesTarea.ListarTar();
+        }else {
+            IdsEva.clear();
+            evaluacionList.clear();
+            evaluacionList = operacionesEvaluacion.ListarEva();
+        }
+
+        for (int i = 0; i < ItemsSeleccionados.size(); i++){
+            for (int j = 0; j < listItemMultiCkeck.size(); j++){
+                if (listItemMultiCkeck.get(j).equals(ItemsSeleccionados.get(i))){
                     if (Componente.equals("Docente")){
-                        if (!IdsDoc.contains(docenteList.get(i).getId_docente())){
-                            docenteList.clear();
-                            docenteList = operacionesDocente.listarDoc();
-                            IdsDoc.add(docenteList.get(i).getId_docente());
-                        }
+                        IdsDoc.add(docenteList.get(j).getId_docente());
                     }else if (Componente.equals("Tarea")){
-                        if (!IdsTar.contains(tareaList.get(i).getId_tarea())){
-                            tareaList.clear();
-                            tareaList = operacionesTarea.ListarTar();
-                            IdsTar.add(tareaList.get(i).getId_tarea());
-                        }
+                        IdsTar.add(tareaList.get(j).getId_tarea());
                     }else {
-                        if (!IdsEva.contains(evaluacionList.get(i).getId_evaluacion())){
-                            evaluacionList.clear();
-                            evaluacionList = operacionesEvaluacion.ListarEva();
-                            IdsEva.add(evaluacionList.get(i).getId_evaluacion());
-                        }
+                        IdsEva.add(evaluacionList.get(j).getId_evaluacion());
                     }
                 }
             }
@@ -511,6 +514,7 @@ public class ParaleloActualizarActivity extends DialogFragment implements Dialog
                 }else {
                     ItemsAsignados.append(String.format("Agregar %s",Componente));
                     docenteAddAct.setText(ItemsAsignados);
+                    IdsDoc.clear();
                 }
                 break;
             case "Tarea":
@@ -521,6 +525,7 @@ public class ParaleloActualizarActivity extends DialogFragment implements Dialog
                 }else {
                     ItemsAsignados.append(String.format("Agregar %s",Componente));
                     tareaAddAct.setText(ItemsAsignados);
+                    IdsTar.clear();
                 }
                 break;
             case "Evaluación":
@@ -531,6 +536,7 @@ public class ParaleloActualizarActivity extends DialogFragment implements Dialog
                 }else {
                     ItemsAsignados.append(String.format("Agregar %s",Componente));
                     evaluacionAddAct.setText(ItemsAsignados);
+                    IdsEva.clear();
                 }
                 break;
         }
