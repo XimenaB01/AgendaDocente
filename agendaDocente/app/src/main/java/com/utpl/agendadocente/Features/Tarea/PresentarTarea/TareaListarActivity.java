@@ -20,7 +20,6 @@ import com.utpl.agendadocente.Features.Horario.PresentarHorario.HorarioListarAct
 import com.utpl.agendadocente.Features.Periodo.PresentarPeriodo.PeriodoListarActivity;
 import com.utpl.agendadocente.Features.Tarea.CrearTarea.TareaCrearActivity;
 import com.utpl.agendadocente.Features.Tarea.CrearTarea.TareaCrearListener;
-import com.utpl.agendadocente.MainActivity;
 import com.utpl.agendadocente.R;
 import com.utpl.agendadocente.Utilidades.utilidades;
 

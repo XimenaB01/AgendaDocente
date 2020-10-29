@@ -322,7 +322,7 @@ public class OperacionesParalelo {
 
     // PARALELO TAREA
 
-    private void CrearTareasAsignadas(String NomPar, int IdAsig, Integer IdTarea) {
+    public void CrearTareasAsignadas(String NomPar, int IdAsig, Integer IdTarea) {
 
         conexionDB = ConexionSQLiteHelper.getInstance(context);
         SQLiteDatabase db = conexionDB.getWritableDatabase();

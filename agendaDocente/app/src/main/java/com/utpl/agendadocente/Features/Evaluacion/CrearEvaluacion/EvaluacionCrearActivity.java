@@ -210,7 +210,6 @@ public class EvaluacionCrearActivity extends DialogFragment implements DialogDat
     }
 
     private void llenarListaAdapter(){
-
         listCuet.add("Seleccione Cuestionario");
         for (int i = 0; i< cuestList.size(); i++){
             listCuet.add(cuestList.get(i).getNombreCuestionario());

@@ -22,10 +22,11 @@ public class OperacionesTarea {
     public OperacionesTarea(Context context) {
         this.context = context;
     }
+    private OperacionesParalelo operacionesParalelo = new OperacionesParalelo(context);
 
     private ConexionSQLiteHelper conexionDB;
 
-    public long InsertarTar(Tarea tarea){
+    public long InsertarTar(Tarea tarea, String NomPar, Integer IdAsig){
         long operacion= 0;
         conexionDB = ConexionSQLiteHelper.getInstance(context);
         SQLiteDatabase db = conexionDB.getWritableDatabase();
@@ -39,6 +40,8 @@ public class OperacionesTarea {
 
         try {
             operacion = db.insert(utilidades.TABLA_TAREA, utilidades.CAMPO_ID_TAR,contentValues);
+            Integer Id = (int)(operacion);
+            operacionesParalelo.CrearTareasAsignadas(NomPar,IdAsig,Id);
         }catch (SQLiteException e) {
             Toast.makeText(context, "La Tarea ya existe!!", Toast.LENGTH_LONG).show();
         } finally {

@@ -98,10 +98,13 @@
 
         </LinearLayout>
 
-        <Spinner
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/paraleloTarea"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        </Spinner>
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:prompt="@string/selectArea"
+            android:spinnerMode="dropdown"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/outlinedTextField3"
