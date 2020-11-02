@@ -5,29 +5,33 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.DialogFragment;
 
-import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.PopupMenu;
-import android.widget.TextView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.utpl.agendadocente.DataBase.OperacionesAsignatura;
+import com.utpl.agendadocente.DataBase.OperacionesParalelo;
 import com.utpl.agendadocente.DataBase.OperacionesTarea;
+import com.utpl.agendadocente.Entidades.Asignatura;
+import com.utpl.agendadocente.Entidades.Paralelo;
 import com.utpl.agendadocente.Entidades.Tarea;
-import com.utpl.agendadocente.Features.Evaluacion.ActualizarEvaluacion.EvaluacionActualizarActivity;
+import com.utpl.agendadocente.Entidades.TareaAsignada;
 import com.utpl.agendadocente.Features.Periodo.DialogDatePicker;
 import com.utpl.agendadocente.R;
 import com.utpl.agendadocente.Utilidades.utilidades;
 
-import java.util.Calendar;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class TareaActualizarActivity extends DialogFragment implements DialogDatePicker.DatePickerListener {
@@ -40,14 +44,22 @@ public class TareaActualizarActivity extends DialogFragment implements DialogDat
 
     private Button btnFechAct, estadoTareaAct;
     private TextInputEditText nomTareaAct, descTareaAct, obsTareaAct;
+    private Spinner ParTareaAct;
 
     private String nomTarAct = "";
     private String desTarAct = "";
     private String obsTarAct = "";
     private String fecEntTarAct = "";
     private String estadoTarAct = "";
+    private List<String> Paralelos = new ArrayList<>();
 
-    private OperacionesTarea operacionesTarea;
+    private OperacionesTarea operacionesTarea = new OperacionesTarea(getContext());
+    private OperacionesParalelo operacionesParalelo = new OperacionesParalelo(getContext());
+    private OperacionesAsignatura operacionesAsignatura = new OperacionesAsignatura(getContext());
+
+    private List<TareaAsignada> ListaTareasAsignadas = operacionesTarea.ListarTareas();
+    private List<Asignatura> ListaAsignaturas = operacionesAsignatura.ListarAsig();
+    private List<Paralelo> ListaParalelos = operacionesParalelo.ListarPar();
 
     public TareaActualizarActivity(){}
 
@@ -77,14 +89,15 @@ public class TareaActualizarActivity extends DialogFragment implements DialogDat
         obsTareaAct = view.findViewById(R.id.obsTarAct);
         btnFechAct = view.findViewById(R.id.btnFechEAct);
         estadoTareaAct = view.findViewById(R.id.estadosTareaAct);
-
-        operacionesTarea = new OperacionesTarea(getContext());
+        ParTareaAct = view.findViewById(R.id.paraleloTareaAct);
 
         String title = null;
         if (getArguments() != null) {
             title = getArguments().getString(utilidades.TITULO);
         }
         toolbar.setTitle(title);
+
+        obtenerParalelosSpinner();
 
         tarea = operacionesTarea.obtenerTar(idTarea);
 
@@ -94,6 +107,8 @@ public class TareaActualizarActivity extends DialogFragment implements DialogDat
             btnFechAct.setText(tarea.getFechaTarea());
             obsTareaAct.setText(tarea.getObservacionTarea());
             estadoTareaAct.setText(tarea.getEstadoTarea());
+
+            obtenerParaleloAsignado();
 
             estadoTareaAct.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -178,4 +193,49 @@ public class TareaActualizarActivity extends DialogFragment implements DialogDat
     public void onDateSet(DatePicker datePicker, int year, int month, int day, String tipo) {
         btnFechAct.setText(String.format("%s/%s/%s",day,month,year));
     }
+
+    private void obtenerParalelosSpinner(){
+
+        //rellenado del spinner con los Paralelos
+        Paralelos.add("Selecionar Paralelo");
+        for (int i = 0; i < ListaParalelos.size(); i++){
+            for (int j = 0; j < ListaAsignaturas.size(); j++){
+                if (ListaParalelos.get(i).getAsignaturaID().equals(ListaAsignaturas.get(j).getId_asignatura())){
+                    Paralelos.add(ListaAsignaturas.get(j).getNombreAsignatura() + " - " + ListaParalelos.get(i).getNombreParalelo());
+                }
+            }
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()),R.layout.spinner_item_style_pesonal,Paralelos);
+        ParTareaAct.setAdapter(adapter);
+    }
+
+    private void obtenerParaleloAsignado(){
+        //Obtenemos el ParaleoAsignado de la Tarea como la opción seleccionada del Spinner
+        String PA = "";
+        for (int i = 0; i < ListaTareasAsignadas.size(); i++){
+            if (ListaTareasAsignadas.get(i).getId_tarea() == idTarea){
+                for (int j = 0; j < ListaAsignaturas.size(); j++){
+                    if (ListaTareasAsignadas.get(i).getId_asig().equals(ListaAsignaturas.get(j).getId_asignatura())){
+                        PA = ListaAsignaturas.get(j).getNombreAsignatura() + " - " + ListaTareasAsignadas.get(i).getNomPar();
+                    }
+                }
+            }
+        }
+
+        ParTareaAct.setSelection(obtenerPositionItem(ParTareaAct,PA));
+    }
+
+    private static int obtenerPositionItem(Spinner spinnerPA, String tipo){
+        //Buscamos de todas las opciones del Spinner en que posicion se encuentra el Paralelo Asignado
+        int pos = 0;
+        for (int i = 0; i <spinnerPA.getCount(); i++){
+            if (spinnerPA.getItemAtPosition(i).toString().equalsIgnoreCase(tipo)){
+                pos=i;
+            }
+        }
+        return pos;
+    }
+
+    //Enviar a Actualizar en la base de datos y subir al git
 }

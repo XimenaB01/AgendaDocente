@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteException;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.utpl.agendadocente.Entidades.Asignatura;
 import com.utpl.agendadocente.Entidades.Tarea;
 import com.utpl.agendadocente.Entidades.TareaAsignada;
 import com.utpl.agendadocente.Utilidades.utilidades;
@@ -202,6 +203,36 @@ public class OperacionesTarea {
         return listaTareas;
     }
 
+    public TareaAsignada ObtenerTareaAsignada(long Id){
+        conexionDB = ConexionSQLiteHelper.getInstance(context);
+        SQLiteDatabase db = conexionDB.getReadableDatabase();
+
+        TareaAsignada tareaAsignada = new TareaAsignada();
+
+        String query = "SELECT T."+utilidades.CAMPO_ID_TAR + ", PT."+utilidades.CAMPO_PARALELO_NOM_FK2 + ", PT."+utilidades.CAMPO_PARALELO_ASIG_FK2
+                + " FROM " + utilidades.TABLA_TAREA + " as T LEFT JOIN " + utilidades.TABLA_PARALELO_TAREA + " as PT ON T."+utilidades.CAMPO_ID_TAR
+                + " = PT."+utilidades.CAMPO_TAREA_ID_FK + " WHERE T."+utilidades.CAMPO_ID_TAR + " = ?" ;
+
+        Cursor cursor = null;
+        try {
+            cursor = db.rawQuery(query,new String[]{String.valueOf(Id)});
+            if(cursor!=null){
+                if (cursor.moveToFirst()){
+                    tareaAsignada.setId_asig(cursor.getInt(cursor.getColumnIndex(utilidades.CAMPO_PARALELO_ASIG_FK2)));
+                    tareaAsignada.setNomPar(cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_PARALELO_NOM_FK2)));
+                    tareaAsignada.setId_tarea(cursor.getInt(cursor.getColumnIndex(utilidades.CAMPO_ID_TAR)));
+                }
+            }
+        }catch (SQLiteException e)
+        {
+            Log.e("",e.getMessage()+"");
+        }finally {
+            if (cursor!=null)
+                cursor.close();
+            db.close();
+        }
+        return tareaAsignada;
+    }
 
     public List<TareaAsignada> ListarTareasPorParalelo(long IdTar){
         conexionDB = ConexionSQLiteHelper.getInstance(context);

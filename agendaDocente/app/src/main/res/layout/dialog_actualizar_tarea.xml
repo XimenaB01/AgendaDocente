@@ -102,6 +102,15 @@
                 android:drawableEnd="@android:drawable/arrow_down_float"/>
         </LinearLayout>
 
+        <Spinner
+            android:id="@+id/paraleloTareaAct"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:prompt="@string/selectArea"
+            android:backgroundTint="#FFC107"
+            android:spinnerMode="dropdown"/>
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/outlinedTextField3"
             android:layout_width="match_parent"

@@ -104,6 +104,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:prompt="@string/selectArea"
+            android:backgroundTint="#FFC107"
             android:spinnerMode="dropdown"/>
 
         <com.google.android.material.textfield.TextInputLayout
