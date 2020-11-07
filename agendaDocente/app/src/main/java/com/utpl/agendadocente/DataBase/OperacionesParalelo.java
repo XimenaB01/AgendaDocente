@@ -265,45 +265,6 @@ public class OperacionesParalelo {
         }
         return ListaDocentes;
     }
-//Método docente por estado
-    /*public List<DocenteAsignado> obtenerDocentesPorEstado(String NomPar, int IdAsig) {
-        conexionDB = ConexionSQLiteHelper.getInstance(context);
-        SQLiteDatabase db = conexionDB.getReadableDatabase();
-
-        String query = "SELECT D."+utilidades.CAMPO_ID_DOC +" , D."+utilidades.CAMPO_NOM_DOC + " , D."+utilidades.CAMPO_APE_DOC + " , PD."+utilidades.CAMPO_PARALELO_NOM_FK +" , PD."+utilidades.CAMPO_PARALELO_ASIG_FK
-                + " FROM " + utilidades.TABLA_DOCENTE + " as D LEFT JOIN " + utilidades.TABLA_PARALELO_DOCENTE + " as PD ON D."+utilidades.CAMPO_ID_DOC
-                + " = PD."+utilidades.CAMPO_DOCENTE_ID_FK + " AND PD."+utilidades.CAMPO_PARALELO_NOM_FK + " = '" + NomPar + "' AND PD."+utilidades.CAMPO_PARALELO_ASIG_FK + " = " + IdAsig;
-
-        List<DocenteAsignado> docenteAsignados = new ArrayList<>();
-        Cursor cursor = null;
-
-        try {
-            cursor = db.rawQuery(query,null);
-            if (cursor.moveToFirst()){
-                do {
-                    int idDoc = cursor.getInt(cursor.getColumnIndex(utilidades.CAMPO_ID_DOC));
-                    String nomDoc = cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_NOM_DOC));
-                    String apelDoc = cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_APE_DOC));
-
-                    boolean estado = false;
-
-                    if ( cursor.getInt(cursor.getColumnIndex(utilidades.CAMPO_PARALELO_ASIG_FK))> 0){
-                        estado = true;
-                    }
-
-                    DocenteAsignado DocAsig = new DocenteAsignado(idDoc,nomDoc,apelDoc,null,null, estado);
-                    docenteAsignados.add(DocAsig);
-                }while (cursor.moveToNext());
-            }
-        }catch (SQLiteException e){
-            Log.e("ErrorDocEs",e.getMessage()+"");
-        }finally {
-            if (cursor != null)
-                cursor.close();
-            db.close();
-        }
-        return docenteAsignados;
-    }*/
 
     private void eliminarDocentesAsignados(String NomPar, int IdAsig){
 
@@ -341,7 +302,21 @@ public class OperacionesParalelo {
         }
     }
 
-    private void eliminarTareasAsignados(String NomPar, int IdAsig){
+    public void eliminarTareaAsignada(String NomPar, int IdAsig, int IdTar){
+        conexionDB = ConexionSQLiteHelper.getInstance(context);
+        SQLiteDatabase db = conexionDB.getWritableDatabase();
+
+        try {
+            db.delete(utilidades.TABLA_PARALELO_TAREA,utilidades.CAMPO_PARALELO_NOM_FK2 + " = ? AND " + utilidades.CAMPO_PARALELO_ASIG_FK2 + " = ? AND "
+                    + utilidades.CAMPO_TAREA_ID_FK + " = ?", new String[]{NomPar, String.valueOf(IdAsig), String.valueOf(IdTar)});
+        }catch (SQLiteException e){
+            e.getMessage();
+        }finally {
+            db.close();
+        }
+    }
+
+    public void eliminarTareasAsignados(String NomPar, int IdAsig){
 
         conexionDB = ConexionSQLiteHelper.getInstance(context);
         SQLiteDatabase db = conexionDB.getWritableDatabase();
@@ -389,45 +364,6 @@ public class OperacionesParalelo {
         }
         return ListaTareas;
     }
-//comentar
-    /*public List<TareaAsignada> obtenerTareasPorEstado(String NomPar, int IdAsig){
-        conexionDB = ConexionSQLiteHelper.getInstance(context);
-        SQLiteDatabase db = conexionDB.getReadableDatabase();
-
-        String query ="SELECT T."+utilidades.CAMPO_ID_TAR +", T."+utilidades.CAMPO_NOM_TAR + ", PT."+utilidades.CAMPO_PARALELO_NOM_FK2 + ", PT."+utilidades.CAMPO_PARALELO_ASIG_FK2
-                + " FROM " + utilidades.TABLA_TAREA + " as T LEFT JOIN " + utilidades.TABLA_PARALELO_TAREA + " as PT ON T."+utilidades.CAMPO_ID_TAR
-                + " = PT."+utilidades.CAMPO_TAREA_ID_FK + " AND PT."+utilidades.CAMPO_PARALELO_NOM_FK2 + " = '" + NomPar +"' AND PT."+utilidades.CAMPO_PARALELO_ASIG_FK2 +" = " + IdAsig;
-
-        List<TareaAsignada> tareaAsignadas = new ArrayList<>();
-        Cursor cursor = null;
-        try {
-            cursor = db.rawQuery(query, null);
-            if (cursor.moveToFirst()){
-                do {
-
-                    int idTar = cursor.getInt(cursor.getColumnIndex(utilidades.CAMPO_ID_TAR));
-                    String nomTar = cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_NOM_TAR));
-
-                    boolean estado = false;
-
-                    if ( cursor.getInt(cursor.getColumnIndex(utilidades.CAMPO_PARALELO_ASIG_FK2))> 0){
-                        estado = true;
-                    }
-
-                    TareaAsignada TarAsig = new TareaAsignada(idTar,nomTar,null,null,null, null, estado);
-                    tareaAsignadas.add(TarAsig);
-
-                }while (cursor.moveToNext());
-            }
-        }catch (SQLiteException e){
-            e.getMessage();
-        }finally {
-            if (cursor!=null)
-                cursor.close();
-            db.close();
-        }
-        return tareaAsignadas;
-    }*/
 
     // PARALELO EVALUACION
 

@@ -8,7 +8,6 @@ import android.database.sqlite.SQLiteException;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.utpl.agendadocente.Entidades.Asignatura;
 import com.utpl.agendadocente.Entidades.Tarea;
 import com.utpl.agendadocente.Entidades.TareaAsignada;
 import com.utpl.agendadocente.Utilidades.utilidades;
@@ -134,7 +133,7 @@ public class OperacionesTarea {
         return operacion;
     }
 
-    public long ModificarTar (Tarea tarea){
+    public long ModificarTar (Tarea tarea, String NomPar, Integer IdAsig){
 
         long operacion = 0;
 
@@ -152,6 +151,14 @@ public class OperacionesTarea {
             operacion = db.update(utilidades.TABLA_TAREA,contentValues,
                     utilidades.CAMPO_ID_TAR + " = ? ",
                     new String[]{String.valueOf(tarea.getId_tarea())});
+
+            Log.e("id",tarea.getId_tarea()+"");//Esta intentando borrar algo que no existe y lo crea de nuevo
+            // primero hay que validar si los ids cambiaron para luego ver si se los borra o no
+
+            operacionesParalelo.eliminarTareaAsignada(NomPar,IdAsig,tarea.getId_tarea());
+
+            operacionesParalelo.CrearTareasAsignadas(NomPar,IdAsig,tarea.getId_tarea());
+
         } catch (SQLiteException e){
             Toast.makeText(context, "La Tarea ya existe!!", Toast.LENGTH_LONG).show();
         } finally {

@@ -7,6 +7,7 @@ import androidx.fragment.app.DialogFragment;
 
 import android.app.Dialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -51,6 +52,8 @@ public class TareaActualizarActivity extends DialogFragment implements DialogDat
     private String obsTarAct = "";
     private String fecEntTarAct = "";
     private String estadoTarAct = "";
+    private Integer IdAsignaura = -1;
+    private String NomPar = "";
     private List<String> Paralelos = new ArrayList<>();
 
     private OperacionesTarea operacionesTarea = new OperacionesTarea(getContext());
@@ -108,7 +111,7 @@ public class TareaActualizarActivity extends DialogFragment implements DialogDat
             obsTareaAct.setText(tarea.getObservacionTarea());
             estadoTareaAct.setText(tarea.getEstadoTarea());
 
-            obtenerParaleloAsignado();
+            obtenerParaleloAsignadoSpinner();
 
             estadoTareaAct.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -143,19 +146,21 @@ public class TareaActualizarActivity extends DialogFragment implements DialogDat
                     fecEntTarAct = btnFechAct.getText().toString();
                     obsTarAct = Objects.requireNonNull(obsTareaAct.getText()).toString();
                     estadoTarAct = estadoTareaAct.getText().toString();
+                    obtenerIdParaleloAsignado(ParTareaAct.getSelectedItem().toString());
 
-                    if (!nomTarAct.isEmpty() && !fecEntTarAct.isEmpty()){
+                    if (!nomTarAct.isEmpty()){
                         tarea.setNombreTarea(nomTarAct);
                         tarea.setDescripcionTarea(desTarAct);
                         tarea.setFechaTarea(fecEntTarAct);
                         tarea.setObservacionTarea(obsTarAct);
                         tarea.setEstadoTarea(estadoTarAct);
 
-                        long insercion = operacionesTarea.ModificarTar(tarea);
+                        long insercion = operacionesTarea.ModificarTar(tarea, NomPar, IdAsignaura);
                         if (insercion > 0){
                             actualizarTareaListener.onActualizarTarea(tarea,tareaItemPosition);
                             dismiss();
                         }
+
                     }else{
                         Toast.makeText(getContext(), "Agregar un nombre a la tarea", Toast.LENGTH_LONG).show();
                     }
@@ -210,23 +215,42 @@ public class TareaActualizarActivity extends DialogFragment implements DialogDat
         ParTareaAct.setAdapter(adapter);
     }
 
-    private void obtenerParaleloAsignado(){
+    private void obtenerParaleloAsignadoSpinner(){
+
         //Obtenemos el ParaleoAsignado de la Tarea como la opción seleccionada del Spinner
-        String PA = "";
+        String ParAsig = "";
         for (int i = 0; i < ListaTareasAsignadas.size(); i++){
             if (ListaTareasAsignadas.get(i).getId_tarea() == idTarea){
                 for (int j = 0; j < ListaAsignaturas.size(); j++){
                     if (ListaTareasAsignadas.get(i).getId_asig().equals(ListaAsignaturas.get(j).getId_asignatura())){
-                        PA = ListaAsignaturas.get(j).getNombreAsignatura() + " - " + ListaTareasAsignadas.get(i).getNomPar();
+                        ParAsig = ListaAsignaturas.get(j).getNombreAsignatura() + " - " + ListaTareasAsignadas.get(i).getNomPar();
                     }
                 }
             }
         }
 
-        ParTareaAct.setSelection(obtenerPositionItem(ParTareaAct,PA));
+        ParTareaAct.setSelection(obtenerPositionItem(ParTareaAct,ParAsig));
+    }
+
+    private void obtenerIdParaleloAsignado( String ParAsigSelecionado){
+
+        //Obtenemos el Id de ParaleoAsignado para Tarea
+        for (int i = 0; i < ListaTareasAsignadas.size(); i++){
+            for (int j = 0; j < ListaAsignaturas.size(); j++){
+                if (ListaTareasAsignadas.get(i).getId_asig().equals(ListaAsignaturas.get(j).getId_asignatura())){
+                    if (ParAsigSelecionado.equals(ListaAsignaturas.get(j).getNombreAsignatura() + " - " + ListaTareasAsignadas.get(i).getNomPar())){
+                        NomPar = ListaTareasAsignadas.get(i).getNomPar();
+                        IdAsignaura = ListaAsignaturas.get(j).getId_asignatura();
+                    }
+                }
+            }
+
+        }
+
     }
 
     private static int obtenerPositionItem(Spinner spinnerPA, String tipo){
+
         //Buscamos de todas las opciones del Spinner en que posicion se encuentra el Paralelo Asignado
         int pos = 0;
         for (int i = 0; i <spinnerPA.getCount(); i++){
@@ -237,5 +261,4 @@ public class TareaActualizarActivity extends DialogFragment implements DialogDat
         return pos;
     }
 
-    //Enviar a Actualizar en la base de datos y subir al git
 }
