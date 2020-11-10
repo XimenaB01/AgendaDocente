@@ -5,11 +5,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.utpl.agendadocente.Entidades.Tarea;
-import com.utpl.agendadocente.Entidades.TareaAsignada;
 import com.utpl.agendadocente.Utilidades.utilidades;
 
 import java.util.ArrayList;
@@ -22,11 +20,10 @@ public class OperacionesTarea {
     public OperacionesTarea(Context context) {
         this.context = context;
     }
-    private OperacionesParalelo operacionesParalelo = new OperacionesParalelo(context);
 
     private ConexionSQLiteHelper conexionDB;
 
-    public long InsertarTar(Tarea tarea, String NomPar, Integer IdAsig){
+    public long InsertarTar(Tarea tarea){
         long operacion= 0;
         conexionDB = ConexionSQLiteHelper.getInstance(context);
         SQLiteDatabase db = conexionDB.getWritableDatabase();
@@ -37,11 +34,10 @@ public class OperacionesTarea {
         contentValues.put(utilidades.CAMPO_FEC_TAR,tarea.getFechaTarea());
         contentValues.put(utilidades.CAMPO_OBS_TAR,tarea.getObservacionTarea());
         contentValues.put(utilidades.CAMPO_EST_TAR,tarea.getEstadoTarea());
+        contentValues.put(utilidades.CAMPO_PARALELO_ID_FK1,tarea.getParaleloId());
 
         try {
             operacion = db.insert(utilidades.TABLA_TAREA, utilidades.CAMPO_ID_TAR,contentValues);
-            Integer Id = (int)(operacion);
-            operacionesParalelo.CrearTareasAsignadas(NomPar,IdAsig,Id);
         }catch (SQLiteException e) {
             Toast.makeText(context, "La Tarea ya existe!!", Toast.LENGTH_LONG).show();
         } finally {
@@ -103,6 +99,7 @@ public class OperacionesTarea {
                 tar.setFechaTarea(cursor.getString(3));
                 tar.setObservacionTarea(cursor.getString(4));
                 tar.setEstadoTarea(cursor.getString(5));
+                tar.setParaleloId(cursor.getInt(6));
             }
         }catch (Exception e){
             Toast.makeText(context, "Operacion fallida", Toast.LENGTH_SHORT).show();
@@ -133,7 +130,7 @@ public class OperacionesTarea {
         return operacion;
     }
 
-    public long ModificarTar (Tarea tarea, String NomPar, Integer IdAsig){
+    public long ModificarTar (Tarea tarea){
 
         long operacion = 0;
 
@@ -146,18 +143,12 @@ public class OperacionesTarea {
         contentValues.put(utilidades.CAMPO_FEC_TAR,tarea.getFechaTarea());
         contentValues.put(utilidades.CAMPO_OBS_TAR,tarea.getObservacionTarea());
         contentValues.put(utilidades.CAMPO_EST_TAR,tarea.getEstadoTarea());
+        contentValues.put(utilidades.CAMPO_PARALELO_ID_FK1,tarea.getParaleloId());
 
         try{
             operacion = db.update(utilidades.TABLA_TAREA,contentValues,
                     utilidades.CAMPO_ID_TAR + " = ? ",
                     new String[]{String.valueOf(tarea.getId_tarea())});
-
-            Log.e("id",tarea.getId_tarea()+"");//Esta intentando borrar algo que no existe y lo crea de nuevo
-            // primero hay que validar si los ids cambiaron para luego ver si se los borra o no
-
-            operacionesParalelo.eliminarTareaAsignada(NomPar,IdAsig,tarea.getId_tarea());
-
-            operacionesParalelo.CrearTareasAsignadas(NomPar,IdAsig,tarea.getId_tarea());
 
         } catch (SQLiteException e){
             Toast.makeText(context, "La Tarea ya existe!!", Toast.LENGTH_LONG).show();
@@ -166,7 +157,7 @@ public class OperacionesTarea {
         }
         return operacion;
     }
-
+/*
     public List<TareaAsignada> ListarTareas(){
         conexionDB = ConexionSQLiteHelper.getInstance(context);
         SQLiteDatabase db = conexionDB.getReadableDatabase();
@@ -208,37 +199,6 @@ public class OperacionesTarea {
             db.close();
         }
         return listaTareas;
-    }
-
-    public TareaAsignada ObtenerTareaAsignada(long Id){
-        conexionDB = ConexionSQLiteHelper.getInstance(context);
-        SQLiteDatabase db = conexionDB.getReadableDatabase();
-
-        TareaAsignada tareaAsignada = new TareaAsignada();
-
-        String query = "SELECT T."+utilidades.CAMPO_ID_TAR + ", PT."+utilidades.CAMPO_PARALELO_NOM_FK2 + ", PT."+utilidades.CAMPO_PARALELO_ASIG_FK2
-                + " FROM " + utilidades.TABLA_TAREA + " as T LEFT JOIN " + utilidades.TABLA_PARALELO_TAREA + " as PT ON T."+utilidades.CAMPO_ID_TAR
-                + " = PT."+utilidades.CAMPO_TAREA_ID_FK + " WHERE T."+utilidades.CAMPO_ID_TAR + " = ?" ;
-
-        Cursor cursor = null;
-        try {
-            cursor = db.rawQuery(query,new String[]{String.valueOf(Id)});
-            if(cursor!=null){
-                if (cursor.moveToFirst()){
-                    tareaAsignada.setId_asig(cursor.getInt(cursor.getColumnIndex(utilidades.CAMPO_PARALELO_ASIG_FK2)));
-                    tareaAsignada.setNomPar(cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_PARALELO_NOM_FK2)));
-                    tareaAsignada.setId_tarea(cursor.getInt(cursor.getColumnIndex(utilidades.CAMPO_ID_TAR)));
-                }
-            }
-        }catch (SQLiteException e)
-        {
-            Log.e("",e.getMessage()+"");
-        }finally {
-            if (cursor!=null)
-                cursor.close();
-            db.close();
-        }
-        return tareaAsignada;
     }
 
     public List<TareaAsignada> ListarTareasPorParalelo(long IdTar){
@@ -288,5 +248,5 @@ public class OperacionesTarea {
         }
         return listaTareas;
     }
-
+*/
 }

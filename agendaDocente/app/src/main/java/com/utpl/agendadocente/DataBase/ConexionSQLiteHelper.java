@@ -36,8 +36,6 @@ public class ConexionSQLiteHelper extends SQLiteOpenHelper{
         db.execSQL(utilidades.CREAR_TABLA_HORARIOACADEMICO);
         db.execSQL(utilidades.CREAR_TABLA_PERIODO);
         db.execSQL(utilidades.CREAR_TABLA_PARALELO_DOCENTE);
-        db.execSQL(utilidades.CREAR_TABLA_PARALELO_TAREA);
-        db.execSQL(utilidades.CREAR_TABLA_PARALELO_EVALUACION);
     }
 
     @Override
@@ -51,8 +49,6 @@ public class ConexionSQLiteHelper extends SQLiteOpenHelper{
         db.execSQL("DROP TABLE IF EXISTS "+utilidades.TABLA_HORARIO_ACADEMICO);
         db.execSQL("DROP TABLE IF EXISTS "+utilidades.TABLA_PERIODO);
         db.execSQL("DROP TABLE IF EXISTS "+utilidades.TABLA_PARALELO_DOCENTE);
-        db.execSQL("DROP TABLE IF EXISTS "+utilidades.TABLA_PARALELO_TAREA);
-        db.execSQL("DROP TABLE IF EXISTS "+utilidades.TABLA_PARALELO_EVALUACION);
 
         onCreate(db);
     }

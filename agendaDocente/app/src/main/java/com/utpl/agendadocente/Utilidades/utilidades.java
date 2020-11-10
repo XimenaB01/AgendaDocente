@@ -48,44 +48,6 @@ public class utilidades {
             + CAMPO_CORREO+" TEXT "
             + ")";
 
-    //Constantes campos tabla Tarea
-    public static final String TABLA_TAREA="Tarea";
-    public static final String CAMPO_ID_TAR="id_tarea";
-    public static final String CAMPO_NOM_TAR="nombreTarea";
-    public static final String CAMPO_DES_TAR="descripcionTarea";
-    public static final String CAMPO_FEC_TAR="fechaTarea";
-    public static final String CAMPO_OBS_TAR="observacionTarea";
-    public static final String CAMPO_EST_TAR="estadoTarea";
-
-    public static final String CREAR_TABLA_TAREA = "create table "+TABLA_TAREA+" ("
-            + CAMPO_ID_TAR+" INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + CAMPO_NOM_TAR+" TEXT NOT NULL UNIQUE, "
-            + CAMPO_DES_TAR+" TEXT, "
-            + CAMPO_FEC_TAR+" TEXT, "
-            + CAMPO_OBS_TAR+" TEXT, "
-            + CAMPO_EST_TAR+" TEXT "
-            + ")";
-
-    //Constantes campos tabla Evaluacion
-    public static final String TABLA_EVALUACION="Evaluacion";
-    public static final String CAMPO_ID_EVA="id_evaluacion";
-    public static final String CAMPO_NOM_EVA="nombreEvaluacion";
-    public static final String CAMPO_TIPO="tipo";
-    public static final String CAMPO_FEC_EVA="fecha";
-    public static final String CAMPO_BIM_EVA="bimestre";
-    public static final String CAMPO_OBS_EVA="observacionEvaluacion";
-    public static final String CAMPO_CUES_ID="cuestionarioID";
-
-    public static final String CREAR_TABLA_EVALUACION = "create table "+TABLA_EVALUACION+"("
-            + CAMPO_ID_EVA+" INTEGER  PRIMARY KEY AUTOINCREMENT, "
-            + CAMPO_NOM_EVA+" TEXT NOT NULL UNIQUE, "
-            + CAMPO_TIPO+" TEXT, "
-            + CAMPO_FEC_EVA+" TEXT, "
-            + CAMPO_BIM_EVA+" TEXT, "
-            + CAMPO_OBS_EVA+" TEXT, "
-            + CAMPO_CUES_ID+" INTEGER"
-            + ")";
-
     //Constantes campos tabla Cuestionario
     public static final String TABLA_CUESTIONARIO="Cuestionario";
     public static final String CAMPO_ID_CUES="id_cuestionario";
@@ -126,6 +88,7 @@ public class utilidades {
 
     //Constantes campos tabla Paralelo
     public static final String TABLA_PARALELO="Paralelo";
+    public static final String CAMPO_ID_PAR="idParalelo";
     public static final String CAMPO_NOM_PAR="nombreParalelo";
     public static final String CAMPO_NUM_ES="num_estudiantes";
     public static final String CAMPO_HOR_ID="horarioID";
@@ -133,56 +96,70 @@ public class utilidades {
     public static final String CAMPO_PER_ID="periodoID";
 
     public static final String CREAR_TABLA_PARALELO = "create table "+TABLA_PARALELO+"("
+            + CAMPO_ID_PAR+" INTEGER  PRIMARY KEY AUTOINCREMENT, "
             + CAMPO_NOM_PAR+" TEXT NOT NULL, "
             + CAMPO_NUM_ES +" TEXT, "
             + CAMPO_HOR_ID +" INTEGER, "
             + CAMPO_ASI_ID +" INTEGER NOT NULL, "
-            + CAMPO_PER_ID +" INTEGER , "
-            + " PRIMARY KEY ( " + CAMPO_NOM_PAR +" , "+ CAMPO_ASI_ID + " )"
+            + CAMPO_PER_ID +" INTEGER"
             + ")";
 
     //Constantes tabla Paralelo_Docente
     public static final String TABLA_PARALELO_DOCENTE="Paralelo_Docente";
-    public static final String CAMPO_PARALELO_NOM_FK = "paralelo_nombre_fk";
-    public static final String CAMPO_PARALELO_ASIG_FK = "paralelo_asig_fk";
+    public static final String CAMPO_PARALELO_ID_FK3 = "paralelo_id_fk";
     public static final String CAMPO_DOCENTE_ID_FK = "docente_id_fk";
     private static final String CAMPO_PARALELO_SUB_CONSTRAINT = "paralelo_sub_unique";
     public static final String CREAR_TABLA_PARALELO_DOCENTE ="create table " + TABLA_PARALELO_DOCENTE + " ("
-            + CAMPO_PARALELO_NOM_FK + " TEXT NOT NULL, "
-            + CAMPO_PARALELO_ASIG_FK + " INTEGER NOT NULL, "
+            + CAMPO_PARALELO_ID_FK3 + " INTEGER NOT NULL, "
             + CAMPO_DOCENTE_ID_FK + " INTEGER NOT NULL, "
-            + "FOREIGN KEY (" + CAMPO_PARALELO_NOM_FK +", "+ CAMPO_PARALELO_ASIG_FK + ") REFERENCES " + TABLA_PARALELO + " (" + CAMPO_NOM_PAR + ", "+ CAMPO_ASI_ID + ") ON UPDATE CASCADE ON DELETE CASCADE, "
+            + "FOREIGN KEY (" + CAMPO_PARALELO_ID_FK3 + ") REFERENCES " + TABLA_PARALELO + " (" + CAMPO_ID_PAR + ") ON UPDATE CASCADE ON DELETE CASCADE, "
             + "FOREIGN KEY (" + CAMPO_DOCENTE_ID_FK + ") REFERENCES "+ TABLA_DOCENTE + " (" + CAMPO_ID_DOC + ") ON UPDATE CASCADE ON DELETE CASCADE, "
-            + "CONSTRAINT " + CAMPO_PARALELO_SUB_CONSTRAINT + " UNIQUE (" + CAMPO_PARALELO_NOM_FK +", "+ CAMPO_PARALELO_ASIG_FK+ ", " + CAMPO_DOCENTE_ID_FK + ")"
+            + "CONSTRAINT " + CAMPO_PARALELO_SUB_CONSTRAINT + " UNIQUE (" + CAMPO_PARALELO_ID_FK3 + ", " + CAMPO_DOCENTE_ID_FK + ")"
             +" )";
 
-    //Constantes tabla Paralelo_Tarea
-    public static final String TABLA_PARALELO_TAREA = "Paralelo_Tarea";
-    public static final String CAMPO_PARALELO_NOM_FK2 = "paralelo_nombre_fk";
-    public static final String CAMPO_PARALELO_ASIG_FK2 = "paralelo_asig_fk";
-    public static final String CAMPO_TAREA_ID_FK = "tarea_id_fk";
-    private static final String CAMPO_PARALELO_SUB_CONSTRAINT1 = "paralelo_sub_unique";
-    public static final String CREAR_TABLA_PARALELO_TAREA ="create table " + TABLA_PARALELO_TAREA + " ("
-            + CAMPO_PARALELO_NOM_FK2 + " TEXT NOT NULL, "
-            + CAMPO_PARALELO_ASIG_FK2 +" INTEGER NOT NULL,"
-            + CAMPO_TAREA_ID_FK + " INTEGER NOT NULL, "
-            + "FOREIGN KEY (" + CAMPO_PARALELO_NOM_FK2+", "+ CAMPO_PARALELO_ASIG_FK2 + ") REFERENCES " + TABLA_PARALELO + " (" + CAMPO_NOM_PAR + ", " + CAMPO_ASI_ID + ") ON UPDATE CASCADE ON DELETE CASCADE, "
-            + "FOREIGN KEY (" + CAMPO_TAREA_ID_FK + ") REFERENCES "+ TABLA_TAREA + " (" + CAMPO_ID_TAR + ") ON UPDATE CASCADE ON DELETE CASCADE, "
-            + "CONSTRAINT " + CAMPO_PARALELO_SUB_CONSTRAINT1 + " UNIQUE (" + CAMPO_PARALELO_NOM_FK2 + ", "+ CAMPO_PARALELO_ASIG_FK2 +", " + CAMPO_TAREA_ID_FK + ")"
-            +" )";
+    //Constantes campos tabla Tarea
+    public static final String TABLA_TAREA="Tarea";
+    public static final String CAMPO_ID_TAR="id_tarea";
+    public static final String CAMPO_NOM_TAR="nombreTarea";
+    public static final String CAMPO_DES_TAR="descripcionTarea";
+    public static final String CAMPO_FEC_TAR="fechaTarea";
+    public static final String CAMPO_OBS_TAR="observacionTarea";
+    public static final String CAMPO_EST_TAR="estadoTarea";
+    public static final String CAMPO_PARALELO_ID_FK1="paralelo_id_fk";
+    private static final String CAMPO_TAREA_SUB_CONSTRAINT = "tarea_sub_unique";
 
-    //Constantes tabla Paralelo_Evaluacion
-    public static final String TABLA_PARALELO_EVALUACION = "Paralelo_Evaluacion";
-    public static final String CAMPO_PARALELO_NOM_FK3 = "paralelo_nombre_fk";
-    public static final String CAMPO_PARALELO_ASIG_FK3 = "paralelo_asig_fk";
-    public static final String CAMPO_EVALUACION_ID_FK = "evaluacion_id_fk";
-    private static final String CAMPO_PARALELO_SUB_CONSTRAINT2 = "paralelo_sub_unique";
-    public static final String CREAR_TABLA_PARALELO_EVALUACION ="create table " + TABLA_PARALELO_EVALUACION + " ("
-            + CAMPO_PARALELO_NOM_FK3 + " TEXT NOT NULL, "
-            + CAMPO_PARALELO_ASIG_FK3 +" INTEGER NOT NULL,"
-            + CAMPO_EVALUACION_ID_FK + " INTEGER NOT NULL, "
-            + "FOREIGN KEY (" + CAMPO_PARALELO_NOM_FK3 + ", " + CAMPO_PARALELO_ASIG_FK3 + ") REFERENCES " + TABLA_PARALELO + " (" + CAMPO_NOM_PAR + ", " + CAMPO_ASI_ID + ") ON UPDATE CASCADE ON DELETE CASCADE, "
-            + "FOREIGN KEY (" + CAMPO_EVALUACION_ID_FK + ") REFERENCES "+ TABLA_EVALUACION + " (" + CAMPO_ID_EVA + ") ON UPDATE CASCADE ON DELETE CASCADE, "
-            + "CONSTRAINT " + CAMPO_PARALELO_SUB_CONSTRAINT2 + " UNIQUE (" + CAMPO_PARALELO_NOM_FK3 + ", "+ CAMPO_PARALELO_ASIG_FK3 +", " +CAMPO_EVALUACION_ID_FK + ")"
-            +" )";
+    public static final String CREAR_TABLA_TAREA = "create table "+TABLA_TAREA+" ("
+            + CAMPO_ID_TAR+" INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + CAMPO_NOM_TAR+" TEXT NOT NULL, "
+            + CAMPO_DES_TAR+" TEXT, "
+            + CAMPO_FEC_TAR+" TEXT, "
+            + CAMPO_OBS_TAR+" TEXT, "
+            + CAMPO_EST_TAR+" TEXT, "
+            + CAMPO_PARALELO_ID_FK1+" INTEGER, "
+            + " CONSTRAINT " + CAMPO_TAREA_SUB_CONSTRAINT + " FOREIGN KEY (" + CAMPO_PARALELO_ID_FK1 + ") REFERENCES " + TABLA_PARALELO + " (" + CAMPO_ID_PAR + ") ON UPDATE CASCADE ON DELETE CASCADE "
+            + ")";
+
+    //Constantes campos tabla Evaluacion
+    public static final String TABLA_EVALUACION="Evaluacion";
+    public static final String CAMPO_ID_EVA="id_evaluacion";
+    public static final String CAMPO_NOM_EVA="nombreEvaluacion";
+    public static final String CAMPO_TIPO="tipo";
+    public static final String CAMPO_FEC_EVA="fecha";
+    public static final String CAMPO_BIM_EVA="bimestre";
+    public static final String CAMPO_OBS_EVA="observacionEvaluacion";
+    public static final String CAMPO_CUES_ID="cuestionarioID";
+    public static final String CAMPO_PARALELO_ID_FK2="paralelo_id_fk";
+    private static final String CAMPO_EVALUACION_SUB_CONSTRAINT = "evaluacion_sub_unique";
+
+    public static final String CREAR_TABLA_EVALUACION = "create table "+TABLA_EVALUACION+"("
+            + CAMPO_ID_EVA+" INTEGER  PRIMARY KEY AUTOINCREMENT, "
+            + CAMPO_NOM_EVA+" TEXT NOT NULL, "
+            + CAMPO_TIPO+" TEXT, "
+            + CAMPO_FEC_EVA+" TEXT, "
+            + CAMPO_BIM_EVA+" TEXT, "
+            + CAMPO_OBS_EVA+" TEXT, "
+            + CAMPO_CUES_ID+" INTEGER, "
+            + CAMPO_PARALELO_ID_FK2+" INTEGER NOT NULL,"
+            + " CONSTRAINT " + CAMPO_EVALUACION_SUB_CONSTRAINT + " FOREIGN KEY (" + CAMPO_PARALELO_ID_FK2 + ") REFERENCES " + TABLA_PARALELO + " (" + CAMPO_ID_PAR + ") ON UPDATE CASCADE ON DELETE CASCADE "
+            + ")";
 }

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Features.Paralelo.PresentarParalelo.DetalleParaleloActivity">
+    tools:context=".ui.paralelo.PresentarParalelo.DetalleParaleloActivity">
 
     <TextView
         android:id="@+id/titleDetalle"

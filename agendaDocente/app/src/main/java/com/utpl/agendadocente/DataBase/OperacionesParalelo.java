@@ -9,12 +9,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.utpl.agendadocente.Entidades.Docente;
-import com.utpl.agendadocente.Entidades.DocenteAsignado;
-import com.utpl.agendadocente.Entidades.Evaluacion;
-import com.utpl.agendadocente.Entidades.EvaluacionAsignada;
 import com.utpl.agendadocente.Entidades.Paralelo;
-import com.utpl.agendadocente.Entidades.Tarea;
-import com.utpl.agendadocente.Entidades.TareaAsignada;
 import com.utpl.agendadocente.Utilidades.utilidades;
 
 import java.util.ArrayList;
@@ -45,18 +40,12 @@ public class OperacionesParalelo {
         contentValues.put(utilidades.CAMPO_HOR_ID,paralelo.getHoraioID());
         contentValues.put(utilidades.CAMPO_PER_ID,paralelo.getPeriodoID());
 
-        if (!existePrimaryKey(paralelo.getNombreParalelo(),paralelo.getAsignaturaID())){
+        if (!existeParalelo(paralelo.getNombreParalelo(),paralelo.getAsignaturaID())){
             operacion = db.insert(utilidades.TABLA_PARALELO, null, contentValues);
 
             if (operacion > 0){
                 for (int i = 0; i < ListIdDoc.size(); i++){
-                    CrearDocentesAsignados(paralelo.getNombreParalelo(), paralelo.getAsignaturaID(), ListIdDoc.get(i));
-                }
-                for (int i = 0; i < ListIdTar.size(); i++){
-                    CrearTareasAsignadas(paralelo.getNombreParalelo(), paralelo.getAsignaturaID(), ListIdTar.get(i));
-                }
-                for (int i = 0; i < ListIdEva.size(); i++){
-                    CrearEvaluacionesAsignadas(paralelo.getNombreParalelo(), paralelo.getAsignaturaID(), ListIdEva.get(i));
+                    CrearDocentesAsignados(paralelo.getId_paralelo(), ListIdDoc.get(i));
                 }
             }
         }
@@ -65,7 +54,7 @@ public class OperacionesParalelo {
 
     }
 
-    private boolean existePrimaryKey(String NomPar, int IdAsig){
+    private boolean existeParalelo(String NomPar, int IdAsig){
         SQLiteDatabase db = conexionDB.getReadableDatabase();
         boolean existe = false;
         Cursor cursor = db.query(utilidades.TABLA_PARALELO,null,
@@ -92,11 +81,12 @@ public class OperacionesParalelo {
                 if (cursor.moveToFirst()){
                     do{
                         Paralelo par = new Paralelo();
-                        par.setNombreParalelo(cursor.getString(0));
-                        par.setNum_estudiantes(cursor.getInt(1));
-                        par.setHoraioID(cursor.getInt(2));
-                        par.setAsignaturaID(cursor.getInt(3));
-                        par.setPeriodoID(cursor.getInt(4));
+                        par.setId_paralelo(cursor.getInt(0));
+                        par.setNombreParalelo(cursor.getString(1));
+                        par.setNum_estudiantes(cursor.getInt(2));
+                        par.setHoraioID(cursor.getInt(3));
+                        par.setAsignaturaID(cursor.getInt(4));
+                        par.setPeriodoID(cursor.getInt(5));
                         listaPar.add(par);
                     }while (cursor.moveToNext());
                 }
@@ -111,7 +101,7 @@ public class OperacionesParalelo {
         return listaPar;
     }
 
-    public Paralelo obtenerPar(String NomPar, Integer IdAsig){
+    public Paralelo obtenerPar(Integer IdPar){
 
         conexionDB = ConexionSQLiteHelper.getInstance(context);
         SQLiteDatabase db = conexionDB.getReadableDatabase();
@@ -121,15 +111,16 @@ public class OperacionesParalelo {
 
         try {
             cursor = db.query(utilidades.TABLA_PARALELO, null,
-                    utilidades.CAMPO_NOM_PAR + " = ? AND "+utilidades.CAMPO_ASI_ID + " = ?",new String[]{NomPar,String.valueOf(IdAsig)},
+                    utilidades.CAMPO_ID_PAR + " = ? ",new String[]{String.valueOf(IdPar)},
                     null,null,null);
 
             if (cursor.moveToFirst()){
-                par.setNombreParalelo(cursor.getString(0));
-                par.setNum_estudiantes(cursor.getInt(1));
-                par.setHoraioID(cursor.getInt(2));
-                par.setAsignaturaID(cursor.getInt(3));
-                par.setPeriodoID(cursor.getInt(4));
+                par.setId_paralelo(cursor.getInt(0));
+                par.setNombreParalelo(cursor.getString(1));
+                par.setNum_estudiantes(cursor.getInt(2));
+                par.setHoraioID(cursor.getInt(3));
+                par.setAsignaturaID(cursor.getInt(4));
+                par.setPeriodoID(cursor.getInt(5));
             }
         }catch (Exception e){
             Log.e("OpFail",e.getMessage()+"");
@@ -141,7 +132,7 @@ public class OperacionesParalelo {
         return par;
     }
 
-    public long eliminarPar (String NomPar, Integer IdAsig){
+    public long eliminarPar (Integer IdPar){
         long operacion = 0;
 
         conexionDB = ConexionSQLiteHelper.getInstance(context);
@@ -149,12 +140,10 @@ public class OperacionesParalelo {
 
         try {
             operacion = db.delete(utilidades.TABLA_PARALELO,
-                    utilidades.CAMPO_NOM_PAR + " = ? AND " + utilidades.CAMPO_ASI_ID + " = ?",
-                    new String[]{NomPar,String.valueOf(IdAsig)});
+                    utilidades.CAMPO_ID_PAR + " = ? ",
+                    new String[]{String.valueOf(IdPar)});
 
-            eliminarDocentesAsignados(NomPar, IdAsig);
-            eliminarTareasAsignados(NomPar, IdAsig);
-            eliminarEvaluacionesAsignados(NomPar, IdAsig);
+            eliminarDocentesAsignados(IdPar);
 
         }catch (SQLiteException e)
         {
@@ -165,7 +154,7 @@ public class OperacionesParalelo {
         return operacion;
     }
 
-    public long ModificarPar(String NomPar, Integer IdAsig,Paralelo paralelo, List<Integer> IdsDoc,  List<Integer> IdsTar,  List<Integer> IdsEva){
+    public long ModificarPar(Paralelo paralelo, List<Integer> IdsDoc,  List<Integer> IdsTar,  List<Integer> IdsEva){
 
         long operacion = 0;
 
@@ -181,24 +170,14 @@ public class OperacionesParalelo {
 
         try {
             operacion = db.update(utilidades.TABLA_PARALELO, contentValues,
-                    utilidades.CAMPO_NOM_PAR + " = ? AND " + utilidades.CAMPO_ASI_ID + " = ?",
-                    new String[]{NomPar,String.valueOf(IdAsig)});
+                    utilidades.CAMPO_ID_PAR + " = ? ",
+                    new String[]{String.valueOf(paralelo.getId_paralelo())});
 
             if (operacion > 0 ){
-                eliminarDocentesAsignados(paralelo.getNombreParalelo(), paralelo.getAsignaturaID());
-                eliminarTareasAsignados(paralelo.getNombreParalelo(), paralelo.getAsignaturaID());
-                eliminarEvaluacionesAsignados(paralelo.getNombreParalelo(), paralelo.getAsignaturaID());
+                eliminarDocentesAsignados(paralelo.getId_paralelo());
 
                 for (int i = 0; i < IdsDoc.size(); i++){
-                    CrearDocentesAsignados(paralelo.getNombreParalelo(), paralelo.getAsignaturaID(),IdsDoc.get(i));
-                }
-
-                for (int i = 0; i < IdsTar.size(); i++){
-                    CrearTareasAsignadas(paralelo.getNombreParalelo(), paralelo.getAsignaturaID(),IdsTar.get(i));
-                }
-
-                for (int i = 0; i < IdsEva.size(); i++){
-                    CrearEvaluacionesAsignadas(paralelo.getNombreParalelo(), paralelo.getAsignaturaID(),IdsEva.get(i));
+                    CrearDocentesAsignados(paralelo.getId_paralelo(),IdsDoc.get(i));
                 }
             }
         }catch (SQLiteException e){
@@ -211,14 +190,13 @@ public class OperacionesParalelo {
 
     //PARALELO_DOCENTE
 
-    private void CrearDocentesAsignados(String NomPAr , int IdAsig, int IdDocente){
+    private void CrearDocentesAsignados(Integer IdPar, Integer IdDocente){
 
         conexionDB = ConexionSQLiteHelper.getInstance(context);
         SQLiteDatabase db = conexionDB.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
-        contentValues.put(utilidades.CAMPO_PARALELO_NOM_FK,NomPAr);
-        contentValues.put(utilidades.CAMPO_PARALELO_ASIG_FK,IdAsig);
+        contentValues.put(utilidades.CAMPO_PARALELO_ID_FK3,IdPar);
         contentValues.put(utilidades.CAMPO_DOCENTE_ID_FK,IdDocente);
 
         try {
@@ -230,15 +208,14 @@ public class OperacionesParalelo {
         }
     }
 
-    public List<Docente> obtenerDocentesAsignadosParalelo(String NomPAr , int IdAsig){
+    public List<Docente> obtenerDocentesAsignadosParalelo(Integer IdPar){
 
         conexionDB = ConexionSQLiteHelper.getInstance(context);
         SQLiteDatabase db = conexionDB.getReadableDatabase();
 
         String query = "SELECT * FROM " + utilidades.TABLA_DOCENTE + " as D JOIN "
                 + utilidades.TABLA_PARALELO_DOCENTE + " as PD ON D."+utilidades.CAMPO_ID_DOC + " = PD."+utilidades.CAMPO_DOCENTE_ID_FK
-                + " WHERE PD."+utilidades.CAMPO_PARALELO_NOM_FK + " = '"+ NomPAr + "' AND "
-                + "PD."+utilidades.CAMPO_PARALELO_ASIG_FK + " = " + IdAsig;
+                + " WHERE PD."+utilidades.CAMPO_PARALELO_ID_FK3 + " = " + IdPar;
 
         List<Docente> ListaDocentes = new ArrayList<>();
         Cursor cursor = null;
@@ -266,216 +243,19 @@ public class OperacionesParalelo {
         return ListaDocentes;
     }
 
-    private void eliminarDocentesAsignados(String NomPar, int IdAsig){
+    private void eliminarDocentesAsignados(int IdPar){
 
         conexionDB = ConexionSQLiteHelper.getInstance(context);
         SQLiteDatabase db = conexionDB.getWritableDatabase();
 
         try {
-            db.delete(utilidades.TABLA_PARALELO_DOCENTE,utilidades.CAMPO_PARALELO_NOM_FK + " = ? AND " + utilidades.CAMPO_PARALELO_ASIG_FK + " = ?" ,
-                    new String[]{NomPar, String.valueOf(IdAsig)});
+            db.delete(utilidades.TABLA_PARALELO_DOCENTE,utilidades.CAMPO_PARALELO_ID_FK3 + " = ? " ,
+                    new String[]{String.valueOf(IdPar)});
         }catch (SQLiteException e){
             e.getMessage();
         }finally {
             db.close();
         }
-    }
-
-    // PARALELO TAREA
-
-    public void CrearTareasAsignadas(String NomPar, int IdAsig, Integer IdTarea) {
-
-        conexionDB = ConexionSQLiteHelper.getInstance(context);
-        SQLiteDatabase db = conexionDB.getWritableDatabase();
-
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(utilidades.CAMPO_PARALELO_NOM_FK2,NomPar);
-        contentValues.put(utilidades.CAMPO_PARALELO_ASIG_FK2,IdAsig);
-        contentValues.put(utilidades.CAMPO_TAREA_ID_FK,IdTarea);
-
-        try {
-            db.insertOrThrow(utilidades.TABLA_PARALELO_TAREA,null, contentValues);
-        }catch (SQLiteException e){
-            Log.e("Tarea",e.getMessage()+"");
-        }finally {
-            db.close();
-        }
-    }
-
-    public void eliminarTareaAsignada(String NomPar, int IdAsig, int IdTar){
-        conexionDB = ConexionSQLiteHelper.getInstance(context);
-        SQLiteDatabase db = conexionDB.getWritableDatabase();
-
-        try {
-            db.delete(utilidades.TABLA_PARALELO_TAREA,utilidades.CAMPO_PARALELO_NOM_FK2 + " = ? AND " + utilidades.CAMPO_PARALELO_ASIG_FK2 + " = ? AND "
-                    + utilidades.CAMPO_TAREA_ID_FK + " = ?", new String[]{NomPar, String.valueOf(IdAsig), String.valueOf(IdTar)});
-        }catch (SQLiteException e){
-            e.getMessage();
-        }finally {
-            db.close();
-        }
-    }
-
-    public void eliminarTareasAsignados(String NomPar, int IdAsig){
-
-        conexionDB = ConexionSQLiteHelper.getInstance(context);
-        SQLiteDatabase db = conexionDB.getWritableDatabase();
-
-        try {
-            db.delete(utilidades.TABLA_PARALELO_TAREA,utilidades.CAMPO_PARALELO_NOM_FK2 + " = ? AND " + utilidades.CAMPO_PARALELO_ASIG_FK2 + " = ?",
-                    new String[]{NomPar,String.valueOf(IdAsig)});
-        }catch (SQLiteException e){
-            e.getMessage();
-        }finally {
-            db.close();
-        }
-    }
-
-    public List<Tarea> obtenerTareasAsignadasParalelo( String NomPar, int IdAsig){
-
-        conexionDB = ConexionSQLiteHelper.getInstance(context);
-        SQLiteDatabase db = conexionDB.getReadableDatabase();
-
-        String query = "SELECT * FROM " + utilidades.TABLA_TAREA + " as T JOIN "
-                + utilidades.TABLA_PARALELO_TAREA + " as PT ON T."+utilidades.CAMPO_ID_TAR + " = PT."+utilidades.CAMPO_TAREA_ID_FK
-                + " WHERE PT."+utilidades.CAMPO_PARALELO_NOM_FK2 + " = '" + NomPar +"' AND PT."+utilidades.CAMPO_PARALELO_ASIG_FK2 + " = " + IdAsig;
-
-        List<Tarea> ListaTareas = new ArrayList<>();
-        Cursor cursor = null;
-
-        try{
-            cursor = db.rawQuery(query, null);
-
-            if (cursor.moveToFirst()){
-                do {
-                    int idTar = cursor.getInt(cursor.getColumnIndex(utilidades.CAMPO_ID_TAR));
-                    String tarNom = cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_NOM_TAR));
-
-                    Tarea tarea = new Tarea(idTar, tarNom, null, null, null, null);
-                    ListaTareas.add(tarea);
-                }while (cursor.moveToNext());
-            }
-        }catch (SQLiteException e){
-            e.getMessage();
-        }finally {
-            if (cursor!=null)
-                cursor.close();
-            db.close();
-        }
-        return ListaTareas;
-    }
-
-    // PARALELO EVALUACION
-
-    private void CrearEvaluacionesAsignadas(String NomPar,int IdAsig, Integer IdEvaluacion){
-
-        conexionDB = ConexionSQLiteHelper.getInstance(context);
-        SQLiteDatabase db = conexionDB.getWritableDatabase();
-
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(utilidades.CAMPO_PARALELO_NOM_FK3,NomPar);
-        contentValues.put(utilidades.CAMPO_PARALELO_ASIG_FK3,IdAsig);
-        contentValues.put(utilidades.CAMPO_EVALUACION_ID_FK,IdEvaluacion);
-
-        try {
-            db.insertOrThrow(utilidades.TABLA_PARALELO_EVALUACION,null, contentValues);
-        }catch (SQLiteException e){
-            Log.e("Evaluacion",e.getMessage()+"");
-        }finally {
-            db.close();
-        }
-    }
-
-
-    private void eliminarEvaluacionesAsignados(String NomPar, int IdAsig){
-
-        conexionDB = ConexionSQLiteHelper.getInstance(context);
-        SQLiteDatabase db = conexionDB.getWritableDatabase();
-
-        try {
-            db.delete(utilidades.TABLA_PARALELO_EVALUACION,utilidades.CAMPO_PARALELO_NOM_FK3 + " = ? AND " + utilidades.CAMPO_PARALELO_ASIG_FK3 + " = ?" ,
-                    new String[]{NomPar,String.valueOf(IdAsig)});
-        }catch (SQLiteException e){
-            e.getMessage();
-        }finally {
-            db.close();
-        }
-    }
-
-
-    public List<Evaluacion> obtenerEvaluacionesAsignadasParalalelo(String NomPar, int IdAsig){
-
-        conexionDB = ConexionSQLiteHelper.getInstance(context);
-        SQLiteDatabase db = conexionDB.getReadableDatabase();
-
-        String query = "SELECT * FROM " + utilidades.TABLA_EVALUACION + " as E JOIN "
-                + utilidades.TABLA_PARALELO_EVALUACION + " as PE ON E."+utilidades.CAMPO_ID_EVA + " = PE."+utilidades.CAMPO_EVALUACION_ID_FK
-                + " WHERE PE."+utilidades.CAMPO_PARALELO_NOM_FK3 + " = '" + NomPar +"' AND PE."+utilidades.CAMPO_PARALELO_ASIG_FK3 + " = " + IdAsig ;
-
-        List<Evaluacion> ListaEvaluacion = new ArrayList<>();
-        Cursor cursor = null;
-
-        try{
-            cursor = db.rawQuery(query, null);
-
-            if (cursor.moveToFirst()){
-                do {
-                    int evaId = cursor.getInt(cursor.getColumnIndex(utilidades.CAMPO_ID_EVA));
-                    String evaNom = cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_NOM_EVA));
-
-                    Evaluacion evaluacion = new Evaluacion(evaId, evaNom, null, null, null, null, null);
-                    ListaEvaluacion.add(evaluacion);
-                }while (cursor.moveToNext());
-            }
-        }catch (SQLiteException e){
-            e.getMessage();
-        }finally {
-            if (cursor!=null)
-                cursor.close();
-            db.close();
-        }
-        return ListaEvaluacion;
-    }
-//comentar
-    public List<EvaluacionAsignada> obtenerEvaluacionesPorEstado(String NomPar, int IdAsig){
-        conexionDB = ConexionSQLiteHelper.getInstance(context);
-        SQLiteDatabase db = conexionDB.getReadableDatabase();
-
-        String query = "SELECT E."+utilidades.CAMPO_ID_EVA +" , E."+utilidades.CAMPO_NOM_EVA + " , PE."+utilidades.CAMPO_PARALELO_NOM_FK3 + " , PE."+utilidades.CAMPO_PARALELO_ASIG_FK3
-                + " FROM " + utilidades.TABLA_EVALUACION + " as E LEFT JOIN " + utilidades.TABLA_PARALELO_EVALUACION + " as PE ON E."+utilidades.CAMPO_ID_EVA
-                + " = PE."+utilidades.CAMPO_EVALUACION_ID_FK + " AND PE."+utilidades.CAMPO_PARALELO_NOM_FK3 + " = '" + NomPar + "' AND PE."+utilidades.CAMPO_PARALELO_ASIG_FK3 + " = " + IdAsig;
-
-
-        List<EvaluacionAsignada> evaluacionAsigada = new ArrayList<>();
-        Cursor cursor = null;
-
-        try {
-            cursor = db.rawQuery(query,null);
-            if (cursor.moveToFirst()){
-                do {
-                    int idEva = cursor.getInt(cursor.getColumnIndex(utilidades.CAMPO_ID_EVA));
-                    String nomEva = cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_NOM_EVA));
-
-                    boolean estado = false;
-
-                    if ( cursor.getInt(cursor.getColumnIndex(utilidades.CAMPO_PARALELO_ASIG_FK3))> 0){
-                        estado = true;
-                    }
-
-                    EvaluacionAsignada EvaAsig = new EvaluacionAsignada(idEva,nomEva,null,null,null,null,null, estado);
-                    evaluacionAsigada.add(EvaAsig);
-                }while (cursor.moveToNext());
-            }
-        }catch (SQLiteException e){
-            e.getMessage();
-        }finally {
-            if (cursor != null)
-                cursor.close();
-            db.close();
-        }
-
-        return evaluacionAsigada;
-
     }
 
 }

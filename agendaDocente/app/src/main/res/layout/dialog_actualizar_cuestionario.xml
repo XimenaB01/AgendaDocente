@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    tools:context=".Features.Cuestionario.ActualizarCuestionario.CuestionarioActualizarActivity">
+    tools:context=".ui.cuestionario.ActualizarCuestionario.CuestionarioActualizarActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"

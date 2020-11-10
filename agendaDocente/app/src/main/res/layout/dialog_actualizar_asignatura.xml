@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    tools:context=".Features.Asignatura.ActualizarAsignatura.AsignaturaActualizarActivity">
+    tools:context=".ui.asignatura.ActualizarAsignatura.AsignaturaActualizarActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"

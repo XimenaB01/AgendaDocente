@@ -29,19 +29,16 @@
     <string name="ms_listaD_vacia">Lista de Docentes Vacia</string>
 
     <!--Cuestionario-->
-    <string name="listacuestionario">LISTA CUESTIONARIOS</string>
     <string name="ms_listaC_vacia">Lista de Cuestioniario Vacia</string>
     <string name="preguntas">Preguntas</string>
 
     <!--Periodo -->
-    <string name="listaperiodo">LISTA DE PERIODOS</string>
     <string name="ms_listaP_vacia">Lista de Periodos Vacia</string>
     <string name="periodoinicio">Fecha Inicio</string>
     <string name="periodofin">Fecha Fin</string>
     <string name="agregarPeriodo">Agregar Periodo</string>
 
     <!--Horario-->
-    <string name="listahorario">LISTA DE HORARIOS</string>
     <string name="ms_listaH_vacia">Lista de Horarios Vacia</string>
     <string name="HorarioEntada">Hora de Entrada</string>
     <string name="HorarioSalida">Hora de Salida</string>
@@ -51,14 +48,12 @@
     <!--Tarea -->
     <string name="fechaentreda">Fecha de Entrega </string>
     <string name="ms_listaT_vacia">Lista de Tareas Vacia</string>
-    <string name="listatarea">LISTA TAREA</string>
     <string name="agregarTarea">Agregar Tarea</string>
 
     <!--Evaluacion-->
     <string name="rb1B">1er Bimestre</string>
     <string name="rb2B">2do Bimestre</string>
     <string name="observacion">Observación</string>
-    <string name="listaevaluacion">LISTA EVALUACIONES</string>
     <string name="ms_listaE_vacia">Lista de Evaluaciones Vacia</string>
     <string name="tipo">Tipo </string>
     <string name="bimestre">Bimestre </string>
@@ -143,5 +138,9 @@
     <string name="sin_enviar">Sin Enviar</string>
     <string name="revisada">Revisada</string>
     <string name="sin_revisar">Sin Revisar</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="open">open</string>
+    <string name="close">close</string>
 
 </resources>

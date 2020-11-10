@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    tools:context=".Features.Tarea.CrearTarea.TareaCrearActivity">
+    tools:context=".ui.tarea.CrearTarea.TareaCrearActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"

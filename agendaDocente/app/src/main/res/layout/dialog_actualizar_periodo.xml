@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    tools:context="com.utpl.agendadocente.Features.Periodo.ActualizarPeriodo.PeriodoActualizarActivity">
+    tools:context=".ui.periodo.ActualizarPeriodo.PeriodoActualizarActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"

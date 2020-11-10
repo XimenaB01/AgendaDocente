@@ -9,14 +9,16 @@ public class Tarea implements Serializable {
     private String fechaTarea;
     private String observacionTarea;
     private String estadoTarea;
+    private Integer ParaleloId;
 
-    public Tarea(Integer id_tarea, String nombreTarea, String descripcionTarea, String fechaTarea, String observacionTarea, String estadoTarea) {
+    public Tarea(Integer id_tarea, String nombreTarea, String descripcionTarea, String fechaTarea, String observacionTarea, String estadoTarea, Integer ParaleloId) {
         this.id_tarea = id_tarea;
         this.nombreTarea = nombreTarea;
         this.descripcionTarea = descripcionTarea;
         this.fechaTarea = fechaTarea;
         this.observacionTarea = observacionTarea;
         this.estadoTarea = estadoTarea;
+        this.ParaleloId = ParaleloId;
     }
 
     public Tarea() {
@@ -68,5 +70,13 @@ public class Tarea implements Serializable {
 
     public void setEstadoTarea(String estadoTarea) {
         this.estadoTarea = estadoTarea;
+    }
+
+    public Integer getParaleloId() {
+        return ParaleloId;
+    }
+
+    public void setParaleloId(Integer paraleloId) {
+        ParaleloId = paraleloId;
     }
 }

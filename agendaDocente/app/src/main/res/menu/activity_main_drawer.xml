@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home"
+            android:title="@string/paralelo" />
+        <item
+            android:id="@+id/nav_docente"
+            android:icon="@drawable/ic_docente"
+            android:title="@string/docente" />
+        <item
+            android:id="@+id/nav_asignatura"
+            android:icon="@drawable/ic_asignatura_black"
+            android:title="@string/asignatura" />
+        <item
+            android:id="@+id/nav_horario"
+            android:icon="@drawable/ic_horario"
+            android:title="@string/horario" />
+        <item
+            android:id="@+id/nav_periodo"
+            android:icon="@drawable/ic_periodo"
+            android:title="@string/periodo" />
+        <item
+            android:id="@+id/nav_tarea"
+            android:icon="@drawable/ic_tarea"
+            android:title="@string/tarea" />
+        <item
+            android:id="@+id/nav_evaluacion"
+            android:icon="@drawable/ic_evaluacion"
+            android:title="@string/evaluacion" />
+        <item
+            android:id="@+id/nav_quiz"
+            android:icon="@drawable/ic_quiz"
+            android:title="@string/cuestionario" />
+    </group>
+
+</menu>
