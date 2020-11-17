@@ -42,13 +42,6 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <Spinner
-            android:id="@+id/spinnerTipo"
-            android:layout_width="match_parent"
-            android:spinnerMode="dialog"
-            android:layout_height="50dp"
-            android:layout_marginTop="5dp" />
-
         <RadioGroup
             android:id="@+id/radioGroup2"
             android:layout_width="match_parent"
@@ -73,15 +66,69 @@
 
         </RadioGroup>
 
-        <Button
-            android:id="@+id/btnfecE"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:backgroundTint="#00BCD4"
-            android:textSize="20sp"
-            app:icon="@drawable/ic_fecha"
-            android:text="@string/fechaevaluacion" />
+            android:orientation="horizontal"
+            android:layout_marginTop="5dp">
+
+            <Button
+                android:id="@+id/btnfecE"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="12sp"
+                android:textColor="#131313"
+                app:icon="@drawable/ic_fecha"
+                android:textAlignment="textStart"
+                android:text="@string/fechaevaluacion"
+                style="?android:attr/buttonBarButtonStyle"/>
+
+            <Button
+                android:id="@+id/tipoE"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="12sp"
+                android:text="@string/tipoE"
+                android:textColor="#131313"
+                app:icon="@drawable/ic_tipo"
+                android:layout_marginStart="5dp"
+                style="?android:attr/buttonBarButtonStyle"
+                android:drawableTint="#2196F3">
+            </Button>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/paraleloAsigEva"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:text="@string/paraAsig"
+            android:textColor="#131313"
+            android:layout_marginStart="5dp"
+            style="?android:attr/buttonBarButtonStyle"
+            android:drawableTint="#2196F3"/>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/paralelosAsignados"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                </androidx.recyclerview.widget.RecyclerView>
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -117,7 +164,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/textObsEva"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="wrap_content"
                 android:inputType="textMultiLine"/>
 
         </com.google.android.material.textfield.TextInputLayout>

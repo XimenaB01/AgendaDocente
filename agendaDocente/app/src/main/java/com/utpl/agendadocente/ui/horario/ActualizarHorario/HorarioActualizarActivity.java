@@ -143,7 +143,7 @@ public class HorarioActualizarActivity extends DialogFragment implements DialogT
         DialogTimePicker dialogTimePicker = DialogTimePicker.newInstance(TipoHora);
         dialogTimePicker.setTargetFragment(HorarioActualizarActivity.this,22);
         dialogTimePicker.setCancelable(false);
-        dialogTimePicker.show(getChildFragmentManager(),"timePicker");
+        dialogTimePicker.show(getParentFragmentManager(),"timePicker");
     }
 
 

@@ -240,7 +240,7 @@ public class TareaActualizarActivity extends DialogFragment implements DialogDat
 
     }
 
-    private static int obtenerPositionItem(Spinner spinnerPA, String tipo){
+    public static int obtenerPositionItem(Spinner spinnerPA, String tipo){
 
         //Buscamos de todas las opciones del Spinner en que posicion se encuentra el Paralelo Asignado
         int pos = 0;

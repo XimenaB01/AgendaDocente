@@ -4,19 +4,19 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.DialogFragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.PopupMenu;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
@@ -26,6 +26,7 @@ import com.utpl.agendadocente.DataBase.OperacionesTarea;
 import com.utpl.agendadocente.Entidades.Asignatura;
 import com.utpl.agendadocente.Entidades.Paralelo;
 import com.utpl.agendadocente.Entidades.Tarea;
+import com.utpl.agendadocente.ui.evaluacion.CrearEvaluacion.EvaluacionCrearActivity;
 import com.utpl.agendadocente.ui.periodo.DialogDatePicker;
 import com.utpl.agendadocente.R;
 import com.utpl.agendadocente.Utilidades.utilidades;
@@ -40,22 +41,22 @@ public class TareaCrearActivity extends DialogFragment implements DialogDatePick
     private TareaCrearListener listener;
     private Button btnFechaEn;
     private TextInputEditText nomTarea, descTarea, obsTarea;
-    private Spinner parTarea;
+    private RecyclerView recyclerViewTar;
 
     private String nomTar = "";
     private String desTar = "";
     private String obsTar = "";
     private String fecEntTar = "";
     private String estadoTar = "";
-    private String paraleloTar = "";
-    private Integer IdParalelo = null;
 
     private OperacionesTarea operacionesTarea = new OperacionesTarea(getContext());
     private OperacionesParalelo operacionesParalelo = new OperacionesParalelo(getContext());
     private OperacionesAsignatura operacionesAsignatura = new OperacionesAsignatura(getContext());
     private List<Asignatura> ListaAsignaturas = operacionesAsignatura.ListarAsig();
     private List<Paralelo> ListaParalelos = operacionesParalelo.ListarPar();
-    private List<String> Paralelos = new ArrayList<>();
+    private List<String> paralalosAsignados = new ArrayList<>();
+
+    private EvaluacionCrearActivity evaluacionCrearActivity = new EvaluacionCrearActivity();
 
     public TareaCrearActivity(){}
 
@@ -95,8 +96,11 @@ public class TareaCrearActivity extends DialogFragment implements DialogDatePick
         descTarea = view.findViewById(R.id.desTar);
         obsTarea = view.findViewById(R.id.obsTar);
         btnFechaEn = view.findViewById(R.id.btnFechEn);
-        parTarea = view.findViewById(R.id.paraleloTarea);
         final Button estados = view.findViewById(R.id.estadosTarea);
+        Button btnParaleloA = view.findViewById(R.id.paraleloAsigTar);
+        recyclerViewTar = view.findViewById(R.id.paralelosAsignadosTar);
+
+        evaluacionCrearActivity.llenarRecycleView(recyclerViewTar, getContext(), paralalosAsignados);
 
         String title = null;
         if (getArguments() != null) {
@@ -110,9 +114,7 @@ public class TareaCrearActivity extends DialogFragment implements DialogDatePick
                 DialogDatePicker dialogDatePicker = DialogDatePicker.newInstance("");
                 dialogDatePicker.setTargetFragment(TareaCrearActivity.this,22);
                 dialogDatePicker.setCancelable(false);
-                if (getFragmentManager() != null) {
-                    dialogDatePicker.show(getFragmentManager(),utilidades.CREAR);
-                }
+                dialogDatePicker.show(getParentFragmentManager(),utilidades.CREAR);
             }
         });
 
@@ -121,8 +123,6 @@ public class TareaCrearActivity extends DialogFragment implements DialogDatePick
             public void onClick(View view) {
                 PopupMenu popupMenuEstados = new PopupMenu(getContext(),estados);
                 popupMenuEstados.getMenuInflater().inflate(R.menu.estados,popupMenuEstados.getMenu());
-                //popupMenuEstados.getMenu().add(Menu.NONE, 1, 1, "Share");
-                //popupMenuEstados.getMenu().add(Menu.NONE, 2, 2, "Comment");
 
                 popupMenuEstados.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
@@ -136,7 +136,13 @@ public class TareaCrearActivity extends DialogFragment implements DialogDatePick
             }
         });
 
-        ObetnerParalelos();
+        btnParaleloA.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EvaluacionCrearActivity evaluacionCrearActivity = new EvaluacionCrearActivity();
+                paralalosAsignados = evaluacionCrearActivity.obtenerParalelos(paralalosAsignados, ListaParalelos, ListaAsignaturas, getContext(), recyclerViewTar);
+            }
+        });
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -158,34 +164,32 @@ public class TareaCrearActivity extends DialogFragment implements DialogDatePick
                     estadoTar = "Sin Estado";
                 }
 
-                paraleloTar = parTarea.getSelectedItem().toString();
-                for (int i = 0; i<ListaParalelos.size();i++){
-                    for (int j = 0; j<ListaAsignaturas.size(); j++){
-                        if (paraleloTar.equals( ListaAsignaturas.get(j).getNombreAsignatura()+ " - " + ListaParalelos.get(i).getNombreParalelo() )){
-                            IdParalelo = ListaParalelos.get(i).getId_paralelo();
-                        }
-                    }
-                }
+                List<Integer> Ids = evaluacionCrearActivity.obtenerIdsParalelos(paralalosAsignados, ListaParalelos, ListaAsignaturas);
 
-                Tarea tarea = new Tarea();
                 if (!nomTar.isEmpty()){
-                    tarea.setNombreTarea(nomTar);
-                    tarea.setDescripcionTarea(desTar);
-                    tarea.setFechaTarea(fecEntTar);
-                    tarea.setObservacionTarea(obsTar);
-                    tarea.setEstadoTarea(estadoTar);
-                    tarea.setParaleloId(IdParalelo);
+                    for (int i = 0; i<Ids.size(); i++){
+                        Tarea tarea = new Tarea();
+                        tarea.setNombreTarea(nomTar);
+                        tarea.setDescripcionTarea(desTar);
+                        tarea.setFechaTarea(fecEntTar);
+                        tarea.setObservacionTarea(obsTar);
+                        tarea.setEstadoTarea(estadoTar);
+                        tarea.setParaleloId(Ids.get(i));
 
-                    long insercion = operacionesTarea.InsertarTar(tarea);
-                    if (insercion > 0){
-                        int inser = (int)insercion;
-                        tarea.setId_tarea(inser);
-                        if (tareaCrearListener != null){
-                            tareaCrearListener.onCrearTarea(tarea);
-                        }else {
-                            listener.onCrearTarea(tarea);
+                        Log.e("id"+i, Ids.get(i)+"");
+
+                        long insercion = operacionesTarea.InsertarTar(tarea);
+                        if (insercion > 0){
+                            int inser = (int)insercion;
+                            tarea.setId_tarea(inser);
+                            if (tareaCrearListener != null){
+                                tareaCrearListener.onCrearTarea(tarea);
+                            }else {
+                                listener.onCrearTarea(tarea);
+                            }
+                            dismiss();
                         }
-                        dismiss();
+
                     }
 
                 }else{
@@ -195,21 +199,6 @@ public class TareaCrearActivity extends DialogFragment implements DialogDatePick
             }
         });
         return view;
-    }
-
-    private void ObetnerParalelos() {
-
-        Paralelos.add("Seleccionar Paralelo");
-        for (int i = 0; i<ListaParalelos.size();i++){
-            for (int j = 0; j<ListaAsignaturas.size(); j++){
-                if (ListaParalelos.get(i).getAsignaturaID().equals( ListaAsignaturas.get(j).getId_asignatura() )){
-                    Paralelos.add(ListaAsignaturas.get(j).getNombreAsignatura()+ " - " + ListaParalelos.get(i).getNombreParalelo());
-                }
-            }
-        }
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(),R.layout.spinner_item_style_pesonal,Paralelos);
-        parTarea.setAdapter(adapter);
     }
 
     @Override

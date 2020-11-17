@@ -36,6 +36,7 @@ public class OperacionesEvaluacion {
         contentValues.put(utilidades.CAMPO_BIM_EVA,evaluacion.getBimestre());
         contentValues.put(utilidades.CAMPO_OBS_EVA,evaluacion.getObservacion());
         contentValues.put(utilidades.CAMPO_CUES_ID,evaluacion.getCuestionarioID());
+        contentValues.put(utilidades.CAMPO_PARALELO_ID_FK2,evaluacion.getParaleloID());
 
         try {
             operacion = db.insert(utilidades.TABLA_EVALUACION, utilidades.CAMPO_ID_EVA,contentValues);
@@ -103,6 +104,7 @@ public class OperacionesEvaluacion {
                 eva.setBimestre(cursor.getString(4));
                 eva.setObservacion(cursor.getString(5));
                 eva.setCuestionarioID(cursor.getInt(6));
+                eva.setParaleloID(cursor.getInt(7));
             }
         }catch (Exception e){
             Toast.makeText(context, "Operacion fallida", Toast.LENGTH_SHORT).show();
@@ -144,6 +146,7 @@ public class OperacionesEvaluacion {
         contentValues.put(utilidades.CAMPO_BIM_EVA,evaluacion.getBimestre());
         contentValues.put(utilidades.CAMPO_OBS_EVA,evaluacion.getObservacion());
         contentValues.put(utilidades.CAMPO_CUES_ID,evaluacion.getCuestionarioID());
+        contentValues.put(utilidades.CAMPO_PARALELO_ID_FK2, evaluacion.getParaleloID());
 
         try{
             operacion = db.update(utilidades.TABLA_EVALUACION,contentValues,

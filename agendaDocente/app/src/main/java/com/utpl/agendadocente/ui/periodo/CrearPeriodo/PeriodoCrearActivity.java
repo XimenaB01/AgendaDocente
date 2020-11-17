@@ -143,9 +143,7 @@ public class PeriodoCrearActivity extends DialogFragment implements DialogDatePi
         DialogDatePicker dialogDatePicker = DialogDatePicker.newInstance(tipoPeriodo);
         dialogDatePicker.setTargetFragment(PeriodoCrearActivity.this,22);
         dialogDatePicker.setCancelable(false);
-        if (getFragmentManager() != null) {
-            dialogDatePicker.show(getFragmentManager(), "tag");
-        }
+        dialogDatePicker.show(getParentFragmentManager(), "tag");
     }
 
     @Override

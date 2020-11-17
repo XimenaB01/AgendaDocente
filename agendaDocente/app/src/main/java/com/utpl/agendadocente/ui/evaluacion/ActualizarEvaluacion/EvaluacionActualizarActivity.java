@@ -4,8 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.DialogFragment;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -16,16 +19,23 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.RadioButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.utpl.agendadocente.DataBase.OperacionesAsignatura;
 import com.utpl.agendadocente.DataBase.OperacionesCuestionario;
 import com.utpl.agendadocente.DataBase.OperacionesEvaluacion;
+import com.utpl.agendadocente.DataBase.OperacionesParalelo;
+import com.utpl.agendadocente.Entidades.Asignatura;
 import com.utpl.agendadocente.Entidades.Cuestionario;
 import com.utpl.agendadocente.Entidades.Evaluacion;
+import com.utpl.agendadocente.Entidades.Paralelo;
+import com.utpl.agendadocente.ui.evaluacion.CrearEvaluacion.EvaluacionCrearActivity;
 import com.utpl.agendadocente.ui.periodo.DialogDatePicker;
 import com.utpl.agendadocente.R;
 import com.utpl.agendadocente.Utilidades.utilidades;
+import com.utpl.agendadocente.ui.tarea.ActualizarTarea.TareaActualizarActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,9 +50,11 @@ public class EvaluacionActualizarActivity extends DialogFragment implements Dial
     private Evaluacion evaluacion;
 
     private Button fechEvaAct1;
+    private Button tipoEvaActButton;
     private TextInputEditText txtnomEvaAct, txtObsEvaAct;
-    private Spinner tipoEvaActSp, cuesEvaActSp;
+    private Spinner cuesEvaActSp;
     private RadioButton rb1BimEAct, rb2BimEAct;
+    private TextView parAsignado;
 
     private String nomEvaAct = "";
     private String tipoEvaAct = "";
@@ -50,10 +62,14 @@ public class EvaluacionActualizarActivity extends DialogFragment implements Dial
     private int cuesEvaAct = 0;
     private String bimEvaAct = "";
     private String obsEvaAct = "";
+    private Integer IdParalelo = null;
 
     private OperacionesCuestionario operacionesCuestionario = new OperacionesCuestionario(getContext());
+    private OperacionesAsignatura operacionesAsignatura = new OperacionesAsignatura(getContext());
+    private OperacionesParalelo operacionesParalelo = new OperacionesParalelo(getContext());
     private List<Cuestionario> cuestListAct = operacionesCuestionario.ListarCuest();
     private ArrayList<String> listCuetAct = new ArrayList<>();
+    private List<String> paralalosAsignados = new ArrayList<>();
 
     private OperacionesEvaluacion operacionesEvaluacion;
 
@@ -90,32 +106,44 @@ public class EvaluacionActualizarActivity extends DialogFragment implements Dial
 
 
         txtnomEvaAct = view.findViewById(R.id.textNomEvaAct);
-        tipoEvaActSp = view.findViewById(R.id.spinnerTipoAct);
         cuesEvaActSp = view.findViewById(R.id.spinnerEvaAct);
         fechEvaAct1 = view.findViewById(R.id.btnfecEvAct);
         rb1BimEAct = view.findViewById(R.id.rb1BAct);
         rb2BimEAct = view.findViewById(R.id.rb2BAct);
         txtObsEvaAct = view.findViewById(R.id.textObsEvaAct);
+        tipoEvaActButton = view.findViewById(R.id.tipoEvAct);
+        parAsignado = view.findViewById(R.id.paraleloAsignadoAct);
+        Button btnParalelo = view.findViewById(R.id.paraleloAsigEvaAct);
 
         evaluacion = operacionesEvaluacion.obtenerEva(idEvaluacion);
 
         if (evaluacion != null) {
-            spinnersTipoEvaluacion();
-            spinnercuestio();
+
+            final String Tipo = evaluacion.getTipo();
+            tipoEvaActButton.setText(Tipo);
+            tipoEvaActButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    EvaluacionCrearActivity evaluacionCrearActivity = new EvaluacionCrearActivity();
+                    evaluacionCrearActivity.obtenerTipoEvaluacion(Tipo, getContext());
+                }
+            });
+
+            obtenerspinnercuestio();
+
+            for (int i = 0; i < cuestListAct.size(); i++){
+                if (evaluacion.getCuestionarioID().equals(cuestListAct.get(i).getId_cuestionario())){
+                    cuesEvaActSp.setSelection(TareaActualizarActivity.obtenerPositionItem(cuesEvaActSp,cuestListAct.get(i).getNombreCuestionario()));
+                }
+            }
+
             txtnomEvaAct.setText(evaluacion.getNombreEvaluacion());
             fechEvaAct1.setText(evaluacion.getFechaEvaluacion());
             txtObsEvaAct.setText(evaluacion.getObservacion());
 
-
-                for (int i = 0; i < cuestListAct.size(); i++){
-                    if (evaluacion.getCuestionarioID().equals(cuestListAct.get(i).getId_cuestionario())){
-                        cuesEvaActSp.setSelection(i);
-                    }
-                }
-
-
-            final String Tipo = evaluacion.getTipo();
-            tipoEvaActSp.setSelection(obtenerPositionItem(tipoEvaActSp,Tipo));
+            if (evaluacion.getParaleloID() != null){
+                obtenerParaleloAsignado(evaluacion.getParaleloID());
+            }
 
             String bim = evaluacion.getBimestre();
             if (bim.equals("1er Bimestre")){
@@ -129,9 +157,17 @@ public class EvaluacionActualizarActivity extends DialogFragment implements Dial
                     DialogDatePicker dialogDatePicker = DialogDatePicker.newInstance("");
                     dialogDatePicker.setTargetFragment(EvaluacionActualizarActivity.this,22);
                     dialogDatePicker.setCancelable(false);
-                    if (getFragmentManager() != null) {
-                        dialogDatePicker.show(getFragmentManager(),utilidades.CREAR);
+                    dialogDatePicker.show(getParentFragmentManager(),utilidades.CREAR);
+                }
+            });
+
+            btnParalelo.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (paralalosAsignados.size() == 0){
+                        obtenerParalelos("");
                     }
+                    asignarParalelo(paralalosAsignados, parAsignado.getText().toString());
                 }
             });
 
@@ -146,7 +182,7 @@ public class EvaluacionActualizarActivity extends DialogFragment implements Dial
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {
                     nomEvaAct = Objects.requireNonNull(txtnomEvaAct.getText()).toString();
-                    tipoEvaAct = tipoEvaActSp.getSelectedItem().toString();
+                    tipoEvaAct = tipoEvaActButton.getText().toString();
                     fechEvaAct = fechEvaAct1.getText().toString();
 
                     String cuest =cuesEvaActSp.getSelectedItem().toString();
@@ -163,6 +199,8 @@ public class EvaluacionActualizarActivity extends DialogFragment implements Dial
                         bimEvaAct = rb2BimEAct.getText().toString();
                     }
 
+                    obtenerParalelos(parAsignado.getText().toString());
+
                     obsEvaAct = Objects.requireNonNull(txtObsEvaAct.getText()).toString();
 
                     if (!nomEvaAct.isEmpty()){
@@ -172,6 +210,7 @@ public class EvaluacionActualizarActivity extends DialogFragment implements Dial
                         evaluacion.setFechaEvaluacion(fechEvaAct);
                         evaluacion.setObservacion(obsEvaAct);
                         evaluacion.setCuestionarioID(cuesEvaAct);
+                        evaluacion.setParaleloID(IdParalelo);
 
                         long insercion = operacionesEvaluacion.ModificarEva(evaluacion);
 
@@ -189,23 +228,66 @@ public class EvaluacionActualizarActivity extends DialogFragment implements Dial
         return view;
     }
 
-    private static int obtenerPositionItem(Spinner spinnerTipo, String tipo){
-        int pos = 0;
-        for (int i = 0; i <spinnerTipo.getCount(); i++){
-            if (spinnerTipo.getItemAtPosition(i).toString().equalsIgnoreCase(tipo)){
-                pos=i;
+    private void obtenerParalelos(String itemAsignado) {
+        List<Paralelo> paraleloList = operacionesParalelo.ListarPar();
+        List<Asignatura> asignaturaList = operacionesAsignatura.ListarAsig();
+
+        for (int i = 0; i < paraleloList.size(); i++){
+            for (int j = 0; j < asignaturaList.size(); j++){
+                if (paraleloList.get(i).getAsignaturaID().equals(asignaturaList.get(j).getId_asignatura())){
+                    paralalosAsignados.add(asignaturaList.get(j).getNombreAsignatura()+" - "+paraleloList.get(i).getNombreParalelo());
+                    if (!itemAsignado.isEmpty()){
+                        if (itemAsignado.equals(asignaturaList.get(j).getNombreAsignatura()+" - "+paraleloList.get(i).getNombreParalelo())){
+                            IdParalelo = paraleloList.get(i).getId_paralelo();
+                        }
+                    }
+                }
             }
         }
-        return pos;
     }
 
-    private void spinnersTipoEvaluacion(){
-        String [] tipo = {"Presencial", "Online"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(),R.layout.spinner_item_style_pesonal,tipo);
-        tipoEvaActSp.setAdapter(adapter);
+    private void obtenerParaleloAsignado(Integer paraleloID) {
+
+        Paralelo paralelo = operacionesParalelo.obtenerPar(paraleloID);
+        Asignatura asignatura = operacionesAsignatura.obtenerAsignatura(paralelo.getAsignaturaID());
+
+        String paraleloAsignado = asignatura.getNombreAsignatura() + " - " + paralelo.getNombreParalelo();
+
+        parAsignado.setText(paraleloAsignado);
     }
 
-    private void spinnercuestio(){
+    private void asignarParalelo(List<String> Lista, String PA){
+
+        final String [] par = new String[Lista.size()];
+        int posicion = -1;
+
+        for (int i = 0; i < Lista.size(); i++){
+            par[i] = Lista.get(i);
+            if (PA.equals(par[i])){
+                posicion = i;
+            }
+        }
+
+        final AlertDialog.Builder dialog = new AlertDialog.Builder(getContext());
+        dialog.setTitle("Tipo de Evaluación");
+        dialog.setSingleChoiceItems(par, posicion, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                parAsignado.setText(par[i]);
+                dialogInterface.dismiss();
+            }
+        });
+        dialog.setNeutralButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        AlertDialog dialog1 = dialog.create();
+        dialog1.show();
+    }
+
+    private void obtenerspinnercuestio(){
         listCuetAct.add("Seleccione Cuestionario");
         for (int i = 0; i< cuestListAct.size(); i++){
             listCuetAct.add(cuestListAct.get(i).getNombreCuestionario());

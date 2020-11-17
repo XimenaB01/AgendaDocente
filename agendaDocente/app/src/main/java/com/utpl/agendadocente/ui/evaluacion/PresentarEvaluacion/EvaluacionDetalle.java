@@ -13,10 +13,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+import com.utpl.agendadocente.DataBase.OperacionesAsignatura;
 import com.utpl.agendadocente.DataBase.OperacionesCuestionario;
 import com.utpl.agendadocente.DataBase.OperacionesEvaluacion;
+import com.utpl.agendadocente.DataBase.OperacionesParalelo;
+import com.utpl.agendadocente.Entidades.Asignatura;
 import com.utpl.agendadocente.Entidades.Cuestionario;
 import com.utpl.agendadocente.Entidades.Evaluacion;
+import com.utpl.agendadocente.Entidades.Paralelo;
 import com.utpl.agendadocente.R;
 import com.utpl.agendadocente.Utilidades.utilidades;
 
@@ -56,6 +60,8 @@ public class EvaluacionDetalle extends DialogFragment {
         TextView observacionEva = view.findViewById(R.id.ObsEvaDet);
         TextView cuetTitleEva = view.findViewById(R.id.cuesTitleEvaDet);
         TextView cuestPregEva = view.findViewById(R.id.cuestAnswerEvaDet);
+        TextView asigEva = view.findViewById(R.id.asigEva);
+        TextView paraEva = view.findViewById(R.id.parEva);
 
         Evaluacion evaluacion = operacionesEvaluacion.obtenerEva(idEvaluacion);
 
@@ -89,6 +95,21 @@ public class EvaluacionDetalle extends DialogFragment {
                 String mensaje1 = "No agrego ningún Cuestionario";
                 cuetTitleEva.setText(mensaje1);
                 cuestPregEva.setText("");
+            }
+
+            if (evaluacion.getParaleloID() != null){
+                OperacionesParalelo operacionesParalelo = new OperacionesParalelo(getContext());
+                OperacionesAsignatura operacionesAsignatura = new OperacionesAsignatura(getContext());
+
+                Paralelo paralelo = operacionesParalelo.obtenerPar(evaluacion.getParaleloID());
+                Asignatura asignatura = operacionesAsignatura.obtenerAsignatura(paralelo.getAsignaturaID());
+
+                asigEva.setText(asignatura.getNombreAsignatura());
+                paraEva.setText(paralelo.getNombreParalelo());
+            }else {
+                String mensaje = "Sin Asignar";
+                asigEva.setText(mensaje);
+                paraEva.setText(" -- ");
             }
 
         }else {

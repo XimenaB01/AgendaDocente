@@ -98,14 +98,35 @@
 
         </LinearLayout>
 
-        <androidx.appcompat.widget.AppCompatSpinner
-            android:id="@+id/paraleloTarea"
+        <Button
+            android:id="@+id/paraleloAsigTar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:prompt="@string/selectArea"
-            android:backgroundTint="#FFC107"
-            android:spinnerMode="dropdown"/>
+            android:textSize="12sp"
+            android:text="@string/paraAsig"
+            android:textColor="#131313"
+            android:layout_marginStart="5dp"
+            style="?android:attr/buttonBarButtonStyle"
+            android:drawableTint="#2196F3"/>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/paralelosAsignadosTar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                </androidx.recyclerview.widget.RecyclerView>
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/outlinedTextField3"

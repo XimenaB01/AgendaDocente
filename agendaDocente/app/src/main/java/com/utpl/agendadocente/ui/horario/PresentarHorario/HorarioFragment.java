@@ -29,7 +29,6 @@ import java.util.List;
  */
 public class HorarioFragment extends Fragment implements HorarioCrearListener {
 
-    private RecyclerView listHorRV;
     private TextView ListaHorarioVacia;
 
     private List<Horario> listaHorario = new ArrayList<>();
@@ -47,7 +46,7 @@ public class HorarioFragment extends Fragment implements HorarioCrearListener {
         View view = inflater.inflate(R.layout.fragment_horario, container, false);
         OperacionesHorario operacionesHorario = new OperacionesHorario(getContext());
 
-        listHorRV = view.findViewById(R.id.listaHor);
+        RecyclerView listHorRV = view.findViewById(R.id.listaHor);
         ListaHorarioVacia = view.findViewById(R.id.emptyListHTextView);
 
         listaHorario.addAll(operacionesHorario.ListarHor());

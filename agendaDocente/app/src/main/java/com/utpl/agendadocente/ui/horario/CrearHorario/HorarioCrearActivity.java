@@ -161,9 +161,7 @@ public class HorarioCrearActivity extends DialogFragment implements DialogTimePi
         DialogTimePicker dialogTimePicker = DialogTimePicker.newInstance(TipoHora);
         dialogTimePicker.setTargetFragment(HorarioCrearActivity.this,22);
         dialogTimePicker.setCancelable(false);
-        if (getFragmentManager() != null) {
-            dialogTimePicker.show(getFragmentManager(),"timePicker");
-        }
+        dialogTimePicker.show(getParentFragmentManager(),"timePicker");
     }
 
     @Override

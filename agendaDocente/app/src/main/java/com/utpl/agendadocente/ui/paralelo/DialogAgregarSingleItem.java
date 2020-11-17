@@ -125,15 +125,15 @@ public class DialogAgregarSingleItem extends DialogFragment implements Asignatur
 
     private void llamarDialogCrearAsignatura(){
         AsignaturaCrearActivity asignaturaCrearActivity = AsignaturaCrearActivity.newInstance("Crear "+Componente,this);
-        asignaturaCrearActivity.show(getChildFragmentManager(), utilidades.CREAR);
+        asignaturaCrearActivity.show(getParentFragmentManager(), utilidades.CREAR);
     }
     private void llamarDialogCrearHorario(){
         HorarioCrearActivity horarioCrearActivity = HorarioCrearActivity.newInstance("Crear "+Componente,this);
-        horarioCrearActivity.show(getChildFragmentManager(), utilidades.CREAR);
+        horarioCrearActivity.show(getParentFragmentManager(), utilidades.CREAR);
     }
     private void llamarDialogCrearPeriodo(){
         PeriodoCrearActivity periodoCrearActivity = PeriodoCrearActivity.newInstance("Crear "+Componente, this);
-        periodoCrearActivity.show(getChildFragmentManager(), utilidades.CREAR);
+        periodoCrearActivity.show(getParentFragmentManager(), utilidades.CREAR);
     }
 
     public interface RecibirItemListener{

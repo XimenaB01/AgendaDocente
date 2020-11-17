@@ -377,14 +377,14 @@ public class crearParaleloActivity extends DialogFragment implements DialogAgreg
         DialogAgregarMultiItems agregarMultiItems = DialogAgregarMultiItems.newInstance(Componente, ListItemsMultiChecks, listaItemsAsignados);
         agregarMultiItems.setTargetFragment(crearParaleloActivity.this,22);
         agregarMultiItems.setCancelable(false);
-        agregarMultiItems.show(getChildFragmentManager(),utilidades.CREAR);
+        agregarMultiItems.show(getParentFragmentManager(),utilidades.CREAR);
     }
 
     private void llamarDialogAgregarSingleItem(String Componente, List<String> ListaItems, String ItemAsignado){
         DialogAgregarSingleItem agregarSingleItem = DialogAgregarSingleItem.newInstance(Componente, ListaItems, ItemAsignado);
         agregarSingleItem.setTargetFragment(crearParaleloActivity.this,22);
         agregarSingleItem.setCancelable(false);
-        agregarSingleItem.show(getChildFragmentManager(),utilidades.CREAR);
+        agregarSingleItem.show(getParentFragmentManager(),utilidades.CREAR);
     }
 
     @Override

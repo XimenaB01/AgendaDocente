@@ -56,9 +56,11 @@
     <string name="observacion">Observación</string>
     <string name="ms_listaE_vacia">Lista de Evaluaciones Vacia</string>
     <string name="tipo">Tipo </string>
+    <string name="tipoE">Tipo de Evaluación</string>
     <string name="bimestre">Bimestre </string>
     <string name="fechaevaluacion">Fecha de Evaluación </string>
     <string name="agregarEvaluacion">Agregar Evaluacion</string>
+    <string name="paraAsig">Asignar Paralelo</string>
 
     <!-- Paralelo -->
     <string name="detalleParalelo">Detalle Paralelo</string>

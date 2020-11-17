@@ -9,15 +9,17 @@ public class Evaluacion implements Serializable {
     private String bimestre;
     private String fechaEvaluacion;
     private String observacion;
+    private Integer paraleloID;
     private Integer cuestionarioID;
 
-    public Evaluacion(Integer id_evaluacion, String nombreEvaluacion, String tipo, String bimestre, String fechaEvaluacion, String observacion, Integer cuestionarioID) {
+    public Evaluacion(Integer id_evaluacion, String nombreEvaluacion, String tipo, String bimestre, String fechaEvaluacion, String observacion, Integer paraleloID, Integer cuestionarioID) {
         this.id_evaluacion = id_evaluacion;
         this.nombreEvaluacion = nombreEvaluacion;
         this.tipo = tipo;
         this.bimestre = bimestre;
         this.fechaEvaluacion = fechaEvaluacion;
         this.observacion = observacion;
+        this.paraleloID = paraleloID;
         this.cuestionarioID = cuestionarioID;
     }
 
@@ -78,5 +80,13 @@ public class Evaluacion implements Serializable {
 
     public void setCuestionarioID(Integer cuestionarioID) {
         this.cuestionarioID = cuestionarioID;
+    }
+
+    public Integer getParaleloID() {
+        return paraleloID;
+    }
+
+    public void setParaleloID(Integer paraleloID) {
+        this.paraleloID = paraleloID;
     }
 }
