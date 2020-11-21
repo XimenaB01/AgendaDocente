@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,7 +78,7 @@ public class DocenteListaRecycleViewAdapter extends RecyclerView.Adapter<Docente
         holder.editarDoc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                actualizarDocente actDoc = actualizarDocente.newInstance(docente.getId_docente(), itemPosition,new ActualizarDocenteListener(){
+                actualizarDocente actDoc = actualizarDocente.newInstance(docente.getId_docente(), itemPosition, new ActualizarDocenteListener(){
                     @Override
                     public void onActualizarDocente(Docente doc, int position) {
                         docenteLista.set(position,doc);

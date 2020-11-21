@@ -6,22 +6,9 @@
     android:orientation="vertical"
     tools:context=".ui.paralelo.PresentarParalelo.DetalleParaleloActivity">
 
-    <TextView
-        android:id="@+id/titleDetalle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:background="#FFC107"
-        android:textColor="#FFFFFF"
-        android:textStyle="bold"
-        android:textSize="25sp"
-        android:padding="10dp"
-        android:layout_gravity="center"
-        android:text="@string/detalleParalelo" />
-
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -31,274 +18,289 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:padding="3dp"
+                android:baselineAligned="false">
 
-                <TextView
-                    android:id="@+id/titleNomPar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/paralelo"
-                    android:textSize="18sp"
-                    android:textStyle="italic"/>
-
-                <TextView
-                    android:id="@+id/campoNombreParalelo"
+                <!-- Paralelo-->
+                <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:textStyle="bold"
-                    android:textSize="18sp"/>
+                    android:layout_marginEnd="5dp"
+                    android:backgroundTint="#FFC107"
+                    android:layout_weight="1">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/titleNomPar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/paralelo"
+                            android:textSize="15sp"
+                            android:textStyle="italic"/>
+
+                        <TextView
+                            android:id="@+id/campoNombreParalelo"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:textStyle="bold"
+                            android:textSize="18sp"/>
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:backgroundTint="#FFC107"
+                    android:layout_weight="0.4">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/titleNomAsig"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/asignatura"
+                            android:textSize="15sp"
+                            android:textStyle="italic" />
+
+                        <TextView
+                            android:id="@+id/campoNomAsi"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
 
             </LinearLayout>
-
-            <TextView
-                android:layout_width="390dp"
-                android:layout_height="2dp"
-                android:layout_gravity="center"
-                android:background="#00BCD4"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:orientation="horizontal">
+                android:padding="3dp"
+                android:orientation="horizontal"
+                android:baselineAligned="false">
 
-                <TextView
-                    android:id="@+id/titleNumAl"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/numeroalumnos"
-                    android:textSize="18sp"
-                    android:textStyle="italic"/>
-
-                <TextView
-                    android:id="@+id/campoNumAlumnos"
+                <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:textStyle="bold"
-                    android:textSize="18sp"/>
+                    android:layout_weight="1"
+                    android:backgroundTint="#FFC107"
+                    android:layout_marginEnd="5dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/titleCarAsig"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/carrera"
+                            android:textSize="15sp"
+                            android:textStyle="italic"/>
+
+                        <TextView
+                            android:id="@+id/campoCarAsi"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:textStyle="bold"
+                            android:textSize="18sp"/>
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:backgroundTint="#FFC107"
+                    android:layout_marginStart="5dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/titleNumAl"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/numeroalumnos"
+                            android:textSize="15sp"
+                            android:textStyle="italic"/>
+
+                        <TextView
+                            android:id="@+id/campoNumAlumnos"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:textStyle="bold"
+                            android:textSize="18sp"/>
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
             </LinearLayout>
-
-            <TextView
-                android:layout_width="390dp"
-                android:layout_height="2dp"
-                android:layout_gravity="center"
-                android:background="#00BCD4"/>
-
-            <!-- Asignatura-->
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="10dp">
+                android:padding="3dp"
+                android:orientation="horizontal"
+                android:baselineAligned="false">
 
-                <TextView
-                    android:id="@+id/titleNomAsig"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/asignatura"
-                    android:textSize="18sp"
-                    android:textStyle="italic" />
-
-                <TextView
-                    android:id="@+id/campoNomAsi"
+                <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="5dp"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:layout_weight="1"
+                    android:backgroundTint="#FFC107"
+                    android:layout_marginEnd="5dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:id="@+id/titleNomPer"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="@string/periodo"
+                            android:textSize="15sp"
+                            android:textStyle="italic" />
+
+                        <TextView
+                            android:id="@+id/campoNomPer"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:textStyle="bold"
+                            android:textSize="18sp"/>
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="#FFC107"
+                    android:layout_marginStart="5dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/titleNomHor"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/horario"
+                            android:textSize="15sp"
+                            android:textStyle="italic"/>
+
+                        <TextView
+                            android:id="@+id/campoNomHor"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:textStyle="bold"
+                            android:textSize="18sp"/>
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
             </LinearLayout>
 
-            <TextView
-                android:layout_width="390dp"
-                android:layout_height="2dp"
-                android:layout_gravity="center"
-                android:background="#00BCD4"/>
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#FFC107"
+                android:layout_margin="3dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/titleNomDoc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/docente"
+                        android:textSize="15sp"
+                        android:textStyle="italic" />
+
+                    <TextView
+                        android:id="@+id/campoNombreDocente"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:textStyle="bold"
+                        android:textSize="18sp"/>
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
+                android:padding="3dp"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/titleCarAsig"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/carrera"
-                    android:textSize="18sp"
-                    android:textStyle="italic"/>
-
-                <TextView
-                    android:id="@+id/campoCarAsi"
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tabActividades"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginStart="10dp"
-                    android:textStyle="bold"
-                    android:textSize="18sp"/>
-            </LinearLayout>
+                    android:background="#FFC107">
 
-            <TextView
-                android:layout_width="390dp"
-                android:layout_height="2dp"
-                android:layout_gravity="center"
-                android:background="#00BCD4"/>
-            <!--Periodo-->
+                    <com.google.android.material.tabs.TabItem
+                        android:id="@+id/tabItemTarea"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tarea"
+                        />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:orientation="vertical">
+                    <com.google.android.material.tabs.TabItem
+                        android:id="@+id/tabItemEvaluacion"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/evaluacion"
+                        />
+                </com.google.android.material.tabs.TabLayout>
 
-                <TextView
-                    android:id="@+id/titleNomPer"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="@string/periodo"
-                    android:textSize="18sp"
-                    android:textStyle="italic" />
-
-                <TextView
-                    android:id="@+id/campoNomPer"
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/viewPager"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginStart="10dp"
-                    android:textStyle="bold"
-                    android:textSize="18sp"/>
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="390dp"
-                android:layout_height="2dp"
-                android:layout_gravity="center"
-                android:background="#00BCD4"/>
-            <!--Horario-->
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/titleNomHor"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/horario"
-                    android:textSize="18sp"
-                    android:textStyle="italic"/>
-
-                <TextView
-                    android:id="@+id/campoNomHor"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginStart="10dp"
-                    android:textStyle="bold"
-                    android:textSize="18sp"/>
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="390dp"
-                android:layout_height="2dp"
-                android:layout_gravity="center"
-                android:background="#00BCD4"/>
-            <!--Docente-->
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/titleNomDoc"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/docente"
-                    android:textSize="18sp"
-                    android:textStyle="italic" />
-
-                <TextView
-                    android:id="@+id/campoNombreDocente"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginStart="10dp"
-                    android:textStyle="bold"
-                    android:textSize="18sp"/>
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="390dp"
-                android:layout_height="2dp"
-                android:layout_gravity="center"
-                android:background="#00BCD4"/>
-            <!--Evaluación-->
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/titleNomEva"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/evaluacion"
-                    android:textSize="18sp"
-                    android:textStyle="italic"/>
-
-                <TextView
-                    android:id="@+id/campoNomEva"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:textStyle="bold"
-                    android:layout_marginStart="10dp"
-                    android:textSize="18sp"/>
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="390dp"
-                android:layout_height="2dp"
-                android:layout_gravity="center"
-                android:background="#00BCD4"/>
-
-            <!--Tarea-->
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/titleNomTar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/tarea"
-                    android:textSize="18sp"
-                    android:textStyle="italic"/>
-
-                <TextView
-                    android:id="@+id/campoNomTar"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginStart="10dp"
-                    android:textStyle="bold"
-                    android:textSize="18sp"/>
+                    android:layout_height="380dp">
+                </androidx.viewpager.widget.ViewPager>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
-
 </LinearLayout>

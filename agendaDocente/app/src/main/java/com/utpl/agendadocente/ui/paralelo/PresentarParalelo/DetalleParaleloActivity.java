@@ -1,11 +1,16 @@
 package com.utpl.agendadocente.ui.paralelo.PresentarParalelo;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.tabs.TabItem;
+import com.google.android.material.tabs.TabLayout;
 import com.utpl.agendadocente.DataBase.OperacionesAsignatura;
 import com.utpl.agendadocente.DataBase.OperacionesHorario;
 import com.utpl.agendadocente.DataBase.OperacionesParalelo;
@@ -16,18 +21,20 @@ import com.utpl.agendadocente.Entidades.Horario;
 import com.utpl.agendadocente.Entidades.Paralelo;
 import com.utpl.agendadocente.Entidades.PeriodoAcademico;
 import com.utpl.agendadocente.R;
+import com.utpl.agendadocente.ui.evaluacion.PresentarEvaluacion.Evaluaciones;
+import com.utpl.agendadocente.ui.tarea.PresentarTarea.Tareas;
 
 import java.util.List;
 
 public class DetalleParaleloActivity extends AppCompatActivity {
 
-    TextView campoParalelo, campoAlumnos;
-    TextView campoNomDoc;
+    TextView campoParalelo, campoAlumnos, campoNomPer;
+    TextView campoNomDoc, campoNomHor;
     TextView campoNomAsig, campoCarAsig;
-    TextView campoNomTar;
-    TextView campoNomEva;
-    TextView campoNomHor;
-    TextView campoNomPer;
+    TabLayout tabLayout;
+    ViewPager viewPager;
+    TabItem tabItemT, tabItemE;
+    PagerController pagerController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,18 +48,39 @@ public class DetalleParaleloActivity extends AppCompatActivity {
 
         campoParalelo = findViewById(R.id.campoNombreParalelo);
         campoAlumnos = findViewById(R.id.campoNumAlumnos);
-
         campoNomDoc = findViewById(R.id.campoNombreDocente);
-
         campoNomAsig = findViewById(R.id.campoNomAsi);
         campoCarAsig = findViewById(R.id.campoCarAsi);
-
-        campoNomTar = findViewById(R.id.campoNomTar);
-
-        campoNomEva = findViewById(R.id.campoNomEva);
-
         campoNomHor = findViewById(R.id.campoNomHor);
         campoNomPer = findViewById(R.id.campoNomPer);
+
+        tabLayout = findViewById(R.id.tabActividades);
+        viewPager = findViewById(R.id.viewPager);
+        tabItemT = findViewById(R.id.tabItemTarea);
+        tabItemE = findViewById(R.id.tabItemEvaluacion);
+
+        pagerController = new PagerController(getSupportFragmentManager(), tabLayout.getTabCount());
+        viewPager.setAdapter(pagerController);
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition(), true);
+
+                if (tab.getPosition() == 0){
+                    pagerController.notifyDataSetChanged();
+                }else if (tab.getPosition() == 1){
+                    pagerController.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {}
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {}
+        });
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
         Bundle objetoEnviado = getIntent().getExtras();
         if (objetoEnviado != null){
@@ -115,37 +143,9 @@ public class DetalleParaleloActivity extends AppCompatActivity {
                     campoNomPer.setText(String.format("%s Periodo",mensaje));
                 }
 
-                //Tarea
-                /*
-                List<Tarea> listaTarea = operacionesParalelo.obtenerTareasAsignadasParalelo(NomParalelo, IdAsignatura);
-                if (listaTarea.size() != 0){
-                    StringBuilder Tareas = new StringBuilder();
-                    for (int i = 0; i < listaTarea.size(); i++) {
-                        Tareas.append(listaTarea.get(i).getNombreTarea());
-                        if (i != listaTarea.size() - 1) {
-                            Tareas.append("\n");
-                        }
-                    }
-                    campoNomTar.setText(Tareas);
-                }else {
-                    campoNomTar.setText(String.format("%s Tarea(s)",mensaje));
-                }*/
+                Tareas.newInstance(paralelo.getId_paralelo());
+                Evaluaciones.newInstance(paralelo.getId_paralelo());
 
-
-                //Evaluación
-               /* List<Evaluacion> listaEvaluacion = operacionesParalelo.obtenerEvaluacionesAsignadasParalalelo(NomParalelo, IdAsignatura);
-                if (listaEvaluacion.size() != 0){
-                    StringBuilder Evaluaciones = new StringBuilder();
-                    for (int i = 0; i < listaEvaluacion.size(); i++){
-                        Evaluaciones.append(listaEvaluacion.get(i).getNombreEvaluacion());
-                        if (i != listaEvaluacion.size()-1){
-                            Evaluaciones.append("\n");
-                        }
-                    }
-                    campoNomEva.setText(Evaluaciones);
-                }else {
-                    campoNomEva.setText(String.format("%s Evaluación(es)",mensaje));
-                }*/
             }
         }
     }

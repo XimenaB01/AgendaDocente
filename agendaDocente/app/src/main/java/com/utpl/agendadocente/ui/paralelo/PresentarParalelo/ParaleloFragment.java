@@ -51,6 +51,7 @@ public class ParaleloFragment extends Fragment implements ParaleloCrearListener 
         ListaParaleloVacia = view.findViewById(R.id.emptyListPaTextView);
 
         listaParalelo = operacionesParalelo.ListarPar();
+
         paraleloListaRecycleViewAdapter = new ParaleloListaRecycleViewAdapter(getContext(), listaParalelo);
         listParRV.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,false));
         listParRV.setAdapter(paraleloListaRecycleViewAdapter);

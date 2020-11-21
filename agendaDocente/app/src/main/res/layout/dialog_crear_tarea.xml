@@ -107,7 +107,9 @@
             android:textColor="#131313"
             android:layout_marginStart="5dp"
             style="?android:attr/buttonBarButtonStyle"
-            android:drawableTint="#2196F3"/>
+            android:drawableTint="#2196F3"
+            android:visibility="gone"
+            tools:visibility="visible" />
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
@@ -121,7 +123,9 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/paralelosAsignadosTar"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    tools:visibility="visible" >
                 </androidx.recyclerview.widget.RecyclerView>
 
             </LinearLayout>

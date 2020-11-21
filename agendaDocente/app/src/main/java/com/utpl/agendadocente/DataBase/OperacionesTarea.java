@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.utpl.agendadocente.Entidades.Tarea;
@@ -12,6 +13,7 @@ import com.utpl.agendadocente.Utilidades.utilidades;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class OperacionesTarea {
 
@@ -79,6 +81,41 @@ public class OperacionesTarea {
             db.close();
         }
         return listaTar;
+    }
+
+    public List<Tarea> obtenerTareasId(long IdParalelo){
+        conexionDB = ConexionSQLiteHelper.getInstance(context);
+        SQLiteDatabase db = conexionDB.getReadableDatabase();
+
+        List<Tarea> list = new ArrayList<>();
+        String query = "SELECT * FROM " + utilidades.TABLA_TAREA + " WHERE " + utilidades.CAMPO_PARALELO_ID_FK1 + " = " + IdParalelo;
+        Cursor cursor = null;
+
+        try {
+            cursor = db.rawQuery(query,null);
+            if (cursor.moveToFirst()){
+                do {
+                    int id = cursor.getInt(cursor.getColumnIndex(utilidades.CAMPO_ID_TAR));
+                    String tarNom = cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_NOM_TAR));
+                    String tarDes = cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_DES_TAR));
+                    String tarFec = cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_FEC_TAR));
+                    String tarObs = cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_OBS_TAR));
+                    String tarEst = cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_EST_TAR));
+                    Integer tarIdPar = cursor.getInt(cursor.getColumnIndex(utilidades.CAMPO_PARALELO_ID_FK1));
+
+                    Tarea tarea = new Tarea(id, tarNom, tarDes, tarFec, tarObs, tarEst, tarIdPar);
+                    list.add(tarea);
+                }while (cursor.moveToNext());
+            }
+        }catch (Exception e){
+            Log.e("ETarId", Objects.requireNonNull(e.getMessage()));
+        }finally {
+            if (cursor!=null)
+                cursor.close();
+            db.close();
+        }
+
+        return list;
     }
 
     public Tarea obtenerTar(long idTarea){

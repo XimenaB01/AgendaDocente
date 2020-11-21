@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.utpl.agendadocente.Entidades.Evaluacion;
@@ -12,6 +13,7 @@ import com.utpl.agendadocente.Utilidades.utilidades;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class OperacionesEvaluacion {
 
@@ -159,5 +161,41 @@ public class OperacionesEvaluacion {
         }
         return operacion;
 
+    }
+
+    public List<Evaluacion> obtenerEvaluacionesId(long IdParalelo){
+        conexionDB = ConexionSQLiteHelper.getInstance(context);
+        SQLiteDatabase db = conexionDB.getReadableDatabase();
+
+        List<Evaluacion> list = new ArrayList<>();
+        String query = "SELECT * FROM " + utilidades.TABLA_EVALUACION + " WHERE " + utilidades.CAMPO_PARALELO_ID_FK2 + " = " + IdParalelo;
+        Cursor cursor = null;
+
+        try {
+            cursor = db.rawQuery(query,null);
+            if (cursor.moveToFirst()){
+                do {
+                    int id = cursor.getInt(cursor.getColumnIndex(utilidades.CAMPO_ID_EVA));
+                    String evaNom = cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_NOM_EVA));
+                    String evaTip = cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_TIPO));
+                    String evaFec = cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_FEC_EVA));
+                    String evaObs = cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_OBS_EVA));
+                    String evaBim = cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_BIM_EVA));
+                    Integer evaIdCues = cursor.getInt(cursor.getColumnIndex(utilidades.CAMPO_CUES_ID));
+                    Integer evaIdPar = cursor.getInt(cursor.getColumnIndex(utilidades.CAMPO_PARALELO_ID_FK2));
+
+                    Evaluacion evaluacion = new Evaluacion(id, evaNom, evaTip, evaBim, evaFec, evaObs, evaIdPar, evaIdCues);
+                    list.add(evaluacion);
+                }while (cursor.moveToNext());
+            }
+        }catch (Exception e){
+            Log.e("EEvaId", Objects.requireNonNull(e.getMessage()));
+        }finally {
+            if (cursor!=null)
+                cursor.close();
+            db.close();
+        }
+
+        return list;
     }
 }

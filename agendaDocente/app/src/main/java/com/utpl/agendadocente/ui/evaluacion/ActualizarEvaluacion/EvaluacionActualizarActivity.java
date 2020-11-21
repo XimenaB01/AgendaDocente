@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.DialogFragment;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -246,7 +245,7 @@ public class EvaluacionActualizarActivity extends DialogFragment implements Dial
         }
     }
 
-    private void obtenerParaleloAsignado(Integer paraleloID) {
+    private void obtenerParaleloAsignado(long paraleloID) {
 
         Paralelo paralelo = operacionesParalelo.obtenerPar(paraleloID);
         Asignatura asignatura = operacionesAsignatura.obtenerAsignatura(paralelo.getAsignaturaID());

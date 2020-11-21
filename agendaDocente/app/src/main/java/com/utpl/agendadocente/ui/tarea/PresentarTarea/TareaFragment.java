@@ -1,12 +1,15 @@
 package com.utpl.agendadocente.ui.tarea.PresentarTarea;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,7 +54,7 @@ public class TareaFragment extends Fragment implements TareaCrearListener {
 
         listaTarea.addAll(operacionesTarea.ListarTar());
 
-        tareaListaRecycleViewAdapter = new TareaListaRecycleViewAdapter(getContext(), listaTarea);
+        tareaListaRecycleViewAdapter = new TareaListaRecycleViewAdapter(getContext(), listaTarea,"Fragment");
         listTarRV.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         listTarRV.setAdapter(tareaListaRecycleViewAdapter);
 
@@ -68,8 +71,8 @@ public class TareaFragment extends Fragment implements TareaCrearListener {
         return view;
     }
 
-    private void openTareaCreateDialog() {
-        TareaCrearActivity crearTarea = TareaCrearActivity.newInstance("Nueva Tarea",this);
+    public void openTareaCreateDialog() {
+        TareaCrearActivity crearTarea = TareaCrearActivity.newInstance("Nueva Tarea",this, null);
         crearTarea.setCancelable(false);
         crearTarea.show(getChildFragmentManager(), utilidades.CREAR);
     }

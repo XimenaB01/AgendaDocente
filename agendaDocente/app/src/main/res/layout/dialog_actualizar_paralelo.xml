@@ -85,32 +85,6 @@
                     android:gravity="center">
 
                     <TextView
-                        android:id="@+id/agregarDocenteAct"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="#FFFFFF"
-                        android:layout_marginEnd="7dp"
-                        android:textColor="#2196F3"
-                        android:textSize="20sp"
-                        android:text="@string/agregarDocente"
-                        android:textAlignment="center"
-                        android:drawableStart="@drawable/ic_docente_black"
-                        android:drawableTint="#FFC107"/>
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="15dp"
-                    android:gravity="center">
-
-                    <TextView
                         android:id="@+id/agregarAsignaturaAct"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -188,50 +162,27 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:orientation="vertical"
                     android:padding="15dp"
                     android:gravity="center">
 
-                    <TextView
-                        android:id="@+id/agregarTareaAct"
+                    <Button
+                        android:id="@+id/agregarDocenteAct"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="#FFFFFF"
-                        android:layout_marginEnd="7dp"
-                        android:textColor="#2196F3"
-                        android:text="@string/agregarTarea"
+                        app:icon="@drawable/ic_docente_black"
                         android:textSize="20sp"
+                        android:text="@string/agregarDocente"
                         android:textAlignment="center"
-                        android:drawableStart="@drawable/ic_tarea"
-                        android:drawableTint="#FFC107"/>
+                        android:textStyle="bold"
+                        >
+                    </Button>
 
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="15dp"
-                    android:gravity="center">
-
-                    <TextView
-                        android:id="@+id/agregarEvaluacionAct"
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerDocente"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="#FFFFFF"
-                        android:layout_marginEnd="7dp"
-                        android:textColor="#2196F3"
-                        android:text="@string/agregarEvaluacion"
-                        android:textSize="20sp"
-                        android:textAlignment="center"
-                        android:drawableStart="@drawable/ic_evaluacion"
-                        android:drawableTint="#FFC107"/>
-
+                        android:layout_height="wrap_content">
+                    </androidx.recyclerview.widget.RecyclerView>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 

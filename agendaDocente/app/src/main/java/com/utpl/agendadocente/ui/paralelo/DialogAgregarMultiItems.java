@@ -130,12 +130,12 @@ public class DialogAgregarMultiItems extends DialogFragment implements DocenteCr
     }
 
     private void llamarDialogCrearTarea(){
-        TareaCrearActivity tareaCrearActivity = TareaCrearActivity.newInstance("Crear "+Componente,this);
+        TareaCrearActivity tareaCrearActivity = TareaCrearActivity.newInstance("Crear "+Componente,this, null);
         tareaCrearActivity.show(getChildFragmentManager(),utilidades.CREAR);
     }
 
     private void llamarDialogCrearEvaluacion(){
-        EvaluacionCrearActivity evaluacionCrearActivity = EvaluacionCrearActivity.newInstance("Crear "+Componente,this);
+        EvaluacionCrearActivity evaluacionCrearActivity = EvaluacionCrearActivity.newInstance("Crear "+Componente,this, null);
         evaluacionCrearActivity.show(getChildFragmentManager(), utilidades.CREAR);
     }
 

@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -38,8 +37,9 @@ import java.util.Objects;
 public class TareaCrearActivity extends DialogFragment implements DialogDatePicker.DatePickerListener {
 
     private static TareaCrearListener tareaCrearListener;
+    private static Integer IdParalelo;
     private TareaCrearListener listener;
-    private Button btnFechaEn;
+    private Button btnFechaEn, btnParaleloA;
     private TextInputEditText nomTarea, descTarea, obsTarea;
     private RecyclerView recyclerViewTar;
 
@@ -60,8 +60,9 @@ public class TareaCrearActivity extends DialogFragment implements DialogDatePick
 
     public TareaCrearActivity(){}
 
-    public static TareaCrearActivity newInstance(String Title, TareaCrearListener listener){
+    public static TareaCrearActivity newInstance(String Title, TareaCrearListener listener, Integer Id){
         tareaCrearListener = listener;
+        IdParalelo = Id;
         TareaCrearActivity tarCreAct = new TareaCrearActivity();
         Bundle bundle = new Bundle();
         bundle.putString("title",Title);
@@ -97,7 +98,7 @@ public class TareaCrearActivity extends DialogFragment implements DialogDatePick
         obsTarea = view.findViewById(R.id.obsTar);
         btnFechaEn = view.findViewById(R.id.btnFechEn);
         final Button estados = view.findViewById(R.id.estadosTarea);
-        Button btnParaleloA = view.findViewById(R.id.paraleloAsigTar);
+        btnParaleloA = view.findViewById(R.id.paraleloAsigTar);
         recyclerViewTar = view.findViewById(R.id.paralelosAsignadosTar);
 
         evaluacionCrearActivity.llenarRecycleView(recyclerViewTar, getContext(), paralalosAsignados);
@@ -144,6 +145,8 @@ public class TareaCrearActivity extends DialogFragment implements DialogDatePick
             }
         });
 
+        visible();
+
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -164,7 +167,12 @@ public class TareaCrearActivity extends DialogFragment implements DialogDatePick
                     estadoTar = "Sin Estado";
                 }
 
-                List<Integer> Ids = evaluacionCrearActivity.obtenerIdsParalelos(paralalosAsignados, ListaParalelos, ListaAsignaturas);
+                List<Integer> Ids = new ArrayList<>();
+                if (btnParaleloA.getVisibility()==View.GONE && recyclerViewTar.getVisibility()==View.GONE){
+                    Ids.add(IdParalelo);
+                } else {
+                    Ids = evaluacionCrearActivity.obtenerIdsParalelos(paralalosAsignados, ListaParalelos, ListaAsignaturas);
+                }
 
                 if (!nomTar.isEmpty()){
                     for (int i = 0; i<Ids.size(); i++){
@@ -176,15 +184,14 @@ public class TareaCrearActivity extends DialogFragment implements DialogDatePick
                         tarea.setEstadoTarea(estadoTar);
                         tarea.setParaleloId(Ids.get(i));
 
-                        Log.e("id"+i, Ids.get(i)+"");
-
                         long insercion = operacionesTarea.InsertarTar(tarea);
                         if (insercion > 0){
                             int inser = (int)insercion;
                             tarea.setId_tarea(inser);
                             if (tareaCrearListener != null){
                                 tareaCrearListener.onCrearTarea(tarea);
-                            }else {
+                            }
+                            else {
                                 listener.onCrearTarea(tarea);
                             }
                             dismiss();
@@ -215,5 +222,15 @@ public class TareaCrearActivity extends DialogFragment implements DialogDatePick
     @Override
     public void onDateSet(DatePicker datePicker, int year, int month, int day, String tipo) {
         btnFechaEn.setText(String.format("%s/%s/%s",day,month,year));
+    }
+
+    private void visible(){
+        if (IdParalelo != null) {
+            btnParaleloA.setVisibility(View.GONE);
+            recyclerViewTar.setVisibility(View.GONE);
+        }else {
+            btnParaleloA.setVisibility(View.VISIBLE);
+            recyclerViewTar.setVisibility(View.VISIBLE);
+        }
     }
 }

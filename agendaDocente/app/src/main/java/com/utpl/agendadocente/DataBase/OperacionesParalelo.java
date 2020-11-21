@@ -26,7 +26,7 @@ public class OperacionesParalelo {
 
     private ConexionSQLiteHelper conexionDB;
 
-    public long InsertarPar(Paralelo paralelo, List<Integer> ListIdDoc, List<Integer> ListIdTar, List<Integer> ListIdEva){
+    public long InsertarPar(Paralelo paralelo, List<Integer> ListIdDoc){
 
         long operacion= 0;
 
@@ -41,11 +41,12 @@ public class OperacionesParalelo {
         contentValues.put(utilidades.CAMPO_PER_ID,paralelo.getPeriodoID());
 
         if (!existeParalelo(paralelo.getNombreParalelo(),paralelo.getAsignaturaID())){
-            operacion = db.insert(utilidades.TABLA_PARALELO, null, contentValues);
+            operacion = db.insertOrThrow(utilidades.TABLA_PARALELO, null, contentValues);
 
+            int Id = (int) operacion;
             if (operacion > 0){
                 for (int i = 0; i < ListIdDoc.size(); i++){
-                    CrearDocentesAsignados(paralelo.getId_paralelo(), ListIdDoc.get(i));
+                    CrearDocentesAsignados(Id, ListIdDoc.get(i));
                 }
             }
         }
@@ -101,7 +102,7 @@ public class OperacionesParalelo {
         return listaPar;
     }
 
-    public Paralelo obtenerPar(Integer IdPar){
+    public Paralelo obtenerPar(long IdPar){
 
         conexionDB = ConexionSQLiteHelper.getInstance(context);
         SQLiteDatabase db = conexionDB.getReadableDatabase();
@@ -132,7 +133,7 @@ public class OperacionesParalelo {
         return par;
     }
 
-    public long eliminarPar (Integer IdPar){
+    public long eliminarPar (long IdPar){
         long operacion = 0;
 
         conexionDB = ConexionSQLiteHelper.getInstance(context);
@@ -154,7 +155,7 @@ public class OperacionesParalelo {
         return operacion;
     }
 
-    public long ModificarPar(Paralelo paralelo, List<Integer> IdsDoc,  List<Integer> IdsTar,  List<Integer> IdsEva){
+    public long ModificarPar(Paralelo paralelo, List<Integer> IdsDoc){
 
         long operacion = 0;
 
@@ -177,6 +178,7 @@ public class OperacionesParalelo {
                 eliminarDocentesAsignados(paralelo.getId_paralelo());
 
                 for (int i = 0; i < IdsDoc.size(); i++){
+                    Log.e("idD",IdsDoc.get(i)+"");
                     CrearDocentesAsignados(paralelo.getId_paralelo(),IdsDoc.get(i));
                 }
             }
@@ -190,7 +192,7 @@ public class OperacionesParalelo {
 
     //PARALELO_DOCENTE
 
-    private void CrearDocentesAsignados(Integer IdPar, Integer IdDocente){
+    private void CrearDocentesAsignados(int IdPar, int IdDocente){
 
         conexionDB = ConexionSQLiteHelper.getInstance(context);
         SQLiteDatabase db = conexionDB.getWritableDatabase();
@@ -208,7 +210,7 @@ public class OperacionesParalelo {
         }
     }
 
-    public List<Docente> obtenerDocentesAsignadosParalelo(Integer IdPar){
+    public List<Docente> obtenerDocentesAsignadosParalelo(long IdPar){
 
         conexionDB = ConexionSQLiteHelper.getInstance(context);
         SQLiteDatabase db = conexionDB.getReadableDatabase();
@@ -243,7 +245,7 @@ public class OperacionesParalelo {
         return ListaDocentes;
     }
 
-    private void eliminarDocentesAsignados(int IdPar){
+    private void eliminarDocentesAsignados(long IdPar){
 
         conexionDB = ConexionSQLiteHelper.getInstance(context);
         SQLiteDatabase db = conexionDB.getWritableDatabase();

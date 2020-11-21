@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -109,7 +110,9 @@
             android:textColor="#131313"
             android:layout_marginStart="5dp"
             style="?android:attr/buttonBarButtonStyle"
-            android:drawableTint="#2196F3"/>
+            android:drawableTint="#2196F3"
+            android:visibility="gone"
+            tools:visibility="visible"/>
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"

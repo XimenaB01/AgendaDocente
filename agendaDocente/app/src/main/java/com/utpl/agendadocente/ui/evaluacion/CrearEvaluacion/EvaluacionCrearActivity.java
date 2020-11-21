@@ -46,6 +46,7 @@ import java.util.Objects;
 public class EvaluacionCrearActivity extends DialogFragment implements DialogDatePicker.DatePickerListener, CuestionarioCrearListener{
 
     private static EvaluacionCrearListener evaluacionCrearListener;
+    private static Integer IdParalelo;
     private EvaluacionCrearListener listener;
     private OperacionesEvaluacion operacionesEvaluacion = new OperacionesEvaluacion(getContext());
     private OperacionesCuestionario operacionesCuestionario = new OperacionesCuestionario(getContext());
@@ -53,7 +54,7 @@ public class EvaluacionCrearActivity extends DialogFragment implements DialogDat
     private OperacionesAsignatura operacionesAsignatura = new OperacionesAsignatura(getContext());
 
     private TextInputEditText nomE, obsE;
-    private Button btnFechaEva;
+    private Button btnFechaEva, btnParaleloA;
     private Button btntipoEvaluacion;
     private Spinner cuest;
     private RadioButton rb1BimE, rb2BimE;
@@ -77,7 +78,8 @@ public class EvaluacionCrearActivity extends DialogFragment implements DialogDat
 
     public EvaluacionCrearActivity (){}
 
-    public static EvaluacionCrearActivity newInstance(String Title, EvaluacionCrearListener listener){
+    public static EvaluacionCrearActivity newInstance(String Title, EvaluacionCrearListener listener, Integer Id){
+        IdParalelo = Id;
         evaluacionCrearListener = listener;
         EvaluacionCrearActivity evaluacionCrearActivity = new EvaluacionCrearActivity();
         Bundle bundle = new Bundle();
@@ -121,7 +123,7 @@ public class EvaluacionCrearActivity extends DialogFragment implements DialogDat
         rb2BimE = view.findViewById(R.id.rb2B);
         obsE = view.findViewById(R.id.textObsEva);
         btnFechaEva = view.findViewById(R.id.btnfecE);
-        Button btnParaleloA = view.findViewById(R.id.paraleloAsigEva);
+        btnParaleloA = view.findViewById(R.id.paraleloAsigEva);
         recyclerView = view.findViewById(R.id.paralelosAsignados);
         FloatingActionButton floatingActionButton = view.findViewById(R.id.FABQNew);
 
@@ -167,6 +169,8 @@ public class EvaluacionCrearActivity extends DialogFragment implements DialogDat
             }
         });
 
+        visible();
+
         toolbar.inflateMenu(R.menu.guardar);
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
@@ -188,7 +192,12 @@ public class EvaluacionCrearActivity extends DialogFragment implements DialogDat
                 fechEva = btnFechaEva.getText().toString();
                 obserEva = Objects.requireNonNull(obsE.getText()).toString();
 
-                List<Integer> Ids = obtenerIdsParalelos(paralalosAsignados, ListaParalelo, ListaAsignaturas);
+                List<Integer> Ids = new ArrayList<>();
+                if (btnParaleloA.getVisibility()==View.GONE && recyclerView.getVisibility()==View.GONE){
+                    Ids.add(IdParalelo);
+                }else {
+                    obtenerIdsParalelos(paralalosAsignados, ListaParalelo, ListaAsignaturas);
+                }
 
                 if (!nombEva.isEmpty()){
                     for (int i = 0; i<Ids.size(); i++){
@@ -213,9 +222,7 @@ public class EvaluacionCrearActivity extends DialogFragment implements DialogDat
 
                             dismiss();
                         }
-
                     }
-
                 }else{
                     Toast.makeText(getContext(),"Agregar un nombre",Toast.LENGTH_LONG).show();
                 }
@@ -386,5 +393,15 @@ public class EvaluacionCrearActivity extends DialogFragment implements DialogDat
         llenarListaAdapter();
         adapter = new ArrayAdapter<>(requireContext(),R.layout.spinner_item_style_pesonal, listCuet);
         cuest.setAdapter(adapter);
+    }
+
+    private void visible(){
+        if (IdParalelo != null) {
+            btnParaleloA.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.GONE);
+        }else {
+            btnParaleloA.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.VISIBLE);
+        }
     }
 }

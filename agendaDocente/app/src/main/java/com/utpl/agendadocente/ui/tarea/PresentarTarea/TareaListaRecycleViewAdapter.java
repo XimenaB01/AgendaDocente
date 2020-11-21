@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.utpl.agendadocente.DataBase.OperacionesTarea;
 import com.utpl.agendadocente.Entidades.Tarea;
 import com.utpl.agendadocente.MainActivity;
+import com.utpl.agendadocente.ui.paralelo.PresentarParalelo.DetalleParaleloActivity;
 import com.utpl.agendadocente.ui.tarea.ActualizarTarea.ActualizarTareaListener;
 import com.utpl.agendadocente.ui.tarea.ActualizarTarea.TareaActualizarActivity;
 import com.utpl.agendadocente.R;
@@ -26,15 +27,17 @@ import java.util.List;
 public class TareaListaRecycleViewAdapter extends RecyclerView.Adapter<TareaListaRecycleViewAdapter.TareaViewHolder> {
 
     private Context context;
+    private String Componente;
     private List<Tarea> tareaLista;
     private OperacionesTarea operacionesTarea;
 
 
     public TareaListaRecycleViewAdapter(){}
 
-    public TareaListaRecycleViewAdapter(Context context, List<Tarea> tareaLista){
+    public TareaListaRecycleViewAdapter(Context context, List<Tarea> tareaLista, String componente){
         this.context = context;
         this.tareaLista = tareaLista;
+        this.Componente = componente;
         operacionesTarea = new OperacionesTarea(context);
     }
 
@@ -89,7 +92,11 @@ public class TareaListaRecycleViewAdapter extends RecyclerView.Adapter<TareaList
                         notifyDataSetChanged();
                     }
                 });
-                actTar.show(((MainActivity)context).getSupportFragmentManager(), utilidades.ACTUALIZAR);
+                if (Componente.equals("Fragment")){
+                    actTar.show(((MainActivity)context).getSupportFragmentManager(), utilidades.ACTUALIZAR);
+                }else if (Componente.equals("Activity")){
+                    actTar.show(((DetalleParaleloActivity)context).getSupportFragmentManager(), utilidades.ACTUALIZAR);
+                }
             }
         });
 
@@ -98,7 +105,11 @@ public class TareaListaRecycleViewAdapter extends RecyclerView.Adapter<TareaList
             public void onClick(View view) {
                 TareaDetalle tareaDetalle = TareaDetalle.newInstance(tarea.getId_tarea());
                 tareaDetalle.setCancelable(false);
-                tareaDetalle.show(((MainActivity)context).getSupportFragmentManager(),"tag");
+                if (Componente.equals("Fragment")) {
+                    tareaDetalle.show(((MainActivity) context).getSupportFragmentManager(), "tag");
+                }else if (Componente.equals("Activity")){
+                    tareaDetalle.show(((DetalleParaleloActivity)context).getSupportFragmentManager(), "tag");
+                }
             }
         });
     }
@@ -132,4 +143,6 @@ public class TareaListaRecycleViewAdapter extends RecyclerView.Adapter<TareaList
             eliminarTar = view.findViewById(R.id.eliminarTar);
         }
     }
+
+
 }

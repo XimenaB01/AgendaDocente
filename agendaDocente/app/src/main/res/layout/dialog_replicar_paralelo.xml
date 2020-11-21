@@ -88,33 +88,6 @@
                     android:gravity="center">
 
                     <TextView
-                        android:id="@+id/docenteRep"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="#FFFFFF"
-                        android:layout_marginEnd="7dp"
-                        android:textColor="#2196F3"
-                        android:textSize="20sp"
-                        android:text="@string/agregarDocente"
-                        android:textAlignment="center"
-                        android:drawableStart="@drawable/ic_docente_black"
-                        android:drawableTint="#FFC107"/>
-
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="15dp"
-                    android:gravity="center">
-
-                    <TextView
                         android:id="@+id/asignaturaRep"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -196,46 +169,16 @@
                     android:gravity="center">
 
                     <TextView
-                        android:id="@+id/tareaRep"
-                        android:layout_width="0dp"
+                        android:id="@+id/docenteRep"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:background="#FFFFFF"
                         android:layout_marginEnd="7dp"
                         android:textColor="#2196F3"
-                        android:text="@string/agregarTarea"
                         android:textSize="20sp"
+                        android:text="@string/agregarDocente"
                         android:textAlignment="center"
-                        android:drawableStart="@drawable/ic_tarea"
-                        android:drawableTint="#FFC107"/>
-
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="15dp"
-                    android:gravity="center">
-
-                    <TextView
-                        android:id="@+id/evaluacionRep"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="#FFFFFF"
-                        android:layout_marginEnd="7dp"
-                        android:textColor="#2196F3"
-                        android:text="@string/agregarEvaluacion"
-                        android:textSize="20sp"
-                        android:textAlignment="center"
-                        android:drawableStart="@drawable/ic_evaluacion"
+                        android:drawableStart="@drawable/ic_docente_black"
                         android:drawableTint="#FFC107"/>
 
                 </LinearLayout>

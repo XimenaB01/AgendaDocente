@@ -1,6 +1,7 @@
 package com.utpl.agendadocente.ui.paralelo.PresentarParalelo;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,8 +41,9 @@ public class ParaleloListaRecycleViewAdapter extends RecyclerView.Adapter<Parale
     }
 
     @Override
-    public void onBindViewHolder(ParaleloViewHolder holder, final int position) {
-        final Paralelo paralelo = listaParalelo.get(position);
+    public void onBindViewHolder(ParaleloViewHolder holder, int position) {
+        final int itemPosition = position;
+        final Paralelo paralelo = listaParalelo.get(itemPosition);
         Asignatura asignatura = operacionesAsignatura.obtenerAsignatura(paralelo.getAsignaturaID());
 
         holder.paralelo.setText(paralelo.getNombreParalelo());
@@ -51,7 +53,7 @@ public class ParaleloListaRecycleViewAdapter extends RecyclerView.Adapter<Parale
         holder.opcionesPar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DialogoOpciones dialogoOpciones = DialogoOpciones.newInstance(paralelo, position, listaParalelo, new DialogoOpcionesListener(){
+                DialogoOpciones dialogoOpciones = DialogoOpciones.newInstance(paralelo.getId_paralelo(), itemPosition, listaParalelo, new DialogoOpcionesListener(){
                     @Override
                     public void onDialogoOpcionesParalelo(Paralelo paralelo, int position, String option) {
                         switch (option){

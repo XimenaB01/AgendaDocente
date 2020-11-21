@@ -41,11 +41,11 @@ import java.util.Objects;
 
 public class ReplicarActivity extends DialogFragment implements DialogAgregarMultiItems.AgregarItemsListener, DialogAgregarSingleItem.RecibirItemListener {
 
-    private static Integer IdParalelo;
+    private static long IdParalelo;
     private ReplicarParaleloListener replicarParaleloListener;
 
     private TextInputEditText nombre, alunmos;
-    private TextView docenteRep, asignaturaRep, periodoRep, tareaRep, horarioRep, evaluacionRep;
+    private TextView docenteRep, asignaturaRep, periodoRep, horarioRep;
 
     private OperacionesDocente operacionesDocente = new OperacionesDocente(getContext());
     private OperacionesTarea operacionesTarea = new OperacionesTarea(getContext());
@@ -111,9 +111,7 @@ public class ReplicarActivity extends DialogFragment implements DialogAgregarMul
         docenteRep = view.findViewById(R.id.docenteRep);
         asignaturaRep = view.findViewById(R.id.asignaturaRep);
         periodoRep = view.findViewById(R.id.periodoRep);
-        tareaRep = view.findViewById(R.id.tareaRep);
         horarioRep = view.findViewById(R.id.horarioRep);
-        evaluacionRep = view.findViewById(R.id.evaluacionRep);
 
         String title = null;
         if (getArguments() != null) {
@@ -228,52 +226,6 @@ public class ReplicarActivity extends DialogFragment implements DialogAgregarMul
                 }
             });
 
-            //obtenerTarea();
-            tareaRep.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    listItemMultiCkeck.clear();
-                    tipoComponente = "Tarea";
-                    String tareas = tareaRep.getText().toString();
-                    for (int i = 0; i < tareaList.size(); i++){
-                        if (!listItemMultiCkeck.contains(tareaList.get(i).getNombreTarea())){
-                            listItemMultiCkeck.add(tareaList.get(i).getNombreTarea());
-                        }
-                    }
-                    if(!tareas.contains("Agregar Tarea")){
-                        String [] parts = tareas.split(", ");
-                        itemsAgregados = new String[parts.length];
-                        System.arraycopy(parts, 0, itemsAgregados, 0, parts.length);
-                        llamarDialogAgregarMultiItems(tipoComponente, listItemMultiCkeck, itemsAgregados);
-                    }else {
-                        llamarDialogAgregarMultiItems(tipoComponente, listItemMultiCkeck, itemsAgregados);
-                    }
-                }
-            });
-
-            //obtenerEvaluacion();
-            evaluacionRep.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    listItemMultiCkeck.clear();
-                    tipoComponente = "Evaluación";
-                    String evaluaciones = evaluacionRep.getText().toString();
-                    for (int i = 0; i < evaluacionList.size(); i++){
-                        if (!listItemMultiCkeck.contains(evaluacionList.get(i).getNombreEvaluacion())){
-                            listItemMultiCkeck.add(evaluacionList.get(i).getNombreEvaluacion());
-                        }
-                    }
-                    if (!evaluaciones.contains("Agregar Evaluación")){
-                        String [] parts = evaluaciones.split(", ");
-                        itemsAgregados = new String[parts.length];
-                        System.arraycopy(parts, 0, itemsAgregados, 0, parts.length);
-                        llamarDialogAgregarMultiItems(tipoComponente, listItemMultiCkeck, itemsAgregados);
-                    }else {
-                        llamarDialogAgregarMultiItems(tipoComponente, listItemMultiCkeck, itemsAgregados);
-                    }
-                }
-            });
-
             //Funcionamiento para replicar el paralelo
             toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
                 @Override
@@ -312,7 +264,7 @@ public class ReplicarActivity extends DialogFragment implements DialogAgregarMul
                                     paralelo.setAsignaturaID(asigIdPar);
                                     paralelo.setHoraioID(hoIdPar);
                                     paralelo.setPeriodoID(perIdPar);
-                                    long insercion = operacionesParalelo.InsertarPar(paralelo,IdsDoc, IdsTar, IdsEva);
+                                    long insercion = operacionesParalelo.InsertarPar(paralelo,IdsDoc);
                                     if (insercion > 0){
                                         replicarParaleloListener.onReplicarParalelo(paralelo);
                                         dismiss();
@@ -385,41 +337,7 @@ public class ReplicarActivity extends DialogFragment implements DialogAgregarMul
             horarioRep.setText(mensaje);
         }
     }
-/*
-    private void obtenerTarea() {
-        List<Tarea> tareaListRepli = operacionesParalelo.obtenerTareasAsignadasParalelo(NomParalelo,IdAsignatura);
-        StringBuilder Tareas = new StringBuilder();
-        if (tareaListRepli.size() != 0){
-            for (int i = 0; i< tareaListRepli.size(); i++){
-                Tareas.append(tareaListRepli.get(i).getNombreTarea());
-                IdsTar.add(tareaListRepli.get(i).getId_tarea());
-                if (i != tareaListRepli.size()-1){
-                    Tareas.append(", ");
-                }
-            }
-        }else {
-            Tareas.append("Agregar Tarea");
-        }
-        tareaRep.setText(Tareas);
-    }
 
-    private void obtenerEvaluacion() {
-        List<Evaluacion> evaListRepli = operacionesParalelo.obtenerEvaluacionesAsignadasParalalelo(NomParalelo,IdAsignatura);
-        StringBuilder Evaluaciones = new StringBuilder();
-        if(evaListRepli.size() != 0) {
-            for (int i = 0; i < evaListRepli.size(); i++){
-                Evaluaciones.append(evaListRepli.get(i).getNombreEvaluacion());
-                IdsEva.add(evaListRepli.get(i).getId_evaluacion());
-                if (i != evaListRepli.size()-1){
-                    Evaluaciones.append(", ");
-                }
-            }
-        }else {
-            Evaluaciones.append("Agregar Evaluación");
-        }
-        evaluacionRep.setText(Evaluaciones);
-    }
-*/
     private void llamarDialogAgregarMultiItems(String Componente, List<String> ListItemsMultiChecks, String [] listaItemsAsignados){
         DialogAgregarMultiItems agregarMultiItems = DialogAgregarMultiItems.newInstance(Componente, ListItemsMultiChecks, listaItemsAsignados);
         agregarMultiItems.setTargetFragment(ReplicarActivity.this,22);
@@ -484,37 +402,13 @@ public class ReplicarActivity extends DialogFragment implements DialogAgregarMul
     @Override
     public void onAgregarItems(List<String> ItemsSeleccionados, String Componente) {
         StringBuilder ItemsAsignados = new StringBuilder();
-        switch (Componente){
-            case "Docente":
-                if(ItemsSeleccionados.size() != 0){
-                    ItemsAsignados.append(obtnerItems(ItemsSeleccionados));
-                    docenteRep.setText(ItemsAsignados);
-                    IdsComponentesSeleccionados(Componente,ItemsSeleccionados);
-                }else {
-                    ItemsAsignados.append(String.format("Agregar %s",Componente));
-                    docenteRep.setText(ItemsAsignados);
-                }
-                break;
-            case "Tarea":
-                if (ItemsSeleccionados.size() != 0){
-                    ItemsAsignados.append(obtnerItems(ItemsSeleccionados));
-                    tareaRep.setText(ItemsAsignados);
-                    IdsComponentesSeleccionados(Componente,ItemsSeleccionados);
-                }else {
-                    ItemsAsignados.append(String.format("Agregar %s",Componente));
-                    tareaRep.setText(ItemsAsignados);
-                }
-                break;
-            case "Evaluación":
-                if (ItemsSeleccionados.size() != 0){
-                    ItemsAsignados.append(obtnerItems(ItemsSeleccionados));
-                    evaluacionRep.setText(ItemsAsignados);
-                    IdsComponentesSeleccionados(Componente,ItemsSeleccionados);
-                }else {
-                    ItemsAsignados.append(String.format("Agregar %s",Componente));
-                    evaluacionRep.setText(ItemsAsignados);
-                }
-                break;
+        if(ItemsSeleccionados.size() != 0){
+            ItemsAsignados.append(obtnerItems(ItemsSeleccionados));
+            docenteRep.setText(ItemsAsignados);
+            IdsComponentesSeleccionados(Componente,ItemsSeleccionados);
+        }else {
+            ItemsAsignados.append(String.format("Agregar %s",Componente));
+            docenteRep.setText(ItemsAsignados);
         }
     }
 

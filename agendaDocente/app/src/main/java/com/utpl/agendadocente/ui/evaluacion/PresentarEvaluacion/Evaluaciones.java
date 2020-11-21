@@ -1,12 +1,15 @@
 package com.utpl.agendadocente.ui.evaluacion.PresentarEvaluacion;
 
-
+import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,59 +27,53 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class EvaluacionFragment extends Fragment implements EvaluacionCrearListener {
+public class Evaluaciones extends Fragment implements EvaluacionCrearListener {
 
+
+    private static long IdParalelo;
     private TextView ListaPeriodoVacia;
-
-    private List<Evaluacion> listaEvaluacion = new ArrayList<>();
+    private List<Evaluacion> ListaEvaluacion = new ArrayList<>();
     private EvaluacionListaRecycleViewAdapter evaluacionListaRecycleViewAdapter;
 
-    public EvaluacionFragment() {
-        // Required empty public constructor
+    public static Evaluaciones newInstance (int id){
+        IdParalelo = id;
+        return new Evaluaciones();
     }
 
+    public Evaluaciones() {
+        // Required empty public constructor
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_evaluacion, container, false);
+        View view =  inflater.inflate(R.layout.fragment_evaluaciones, container, false);
+
+        RecyclerView recyclerView = view.findViewById(R.id.RVevaluaciones);
+        ListaPeriodoVacia = view.findViewById(R.id.emptyListEvTextView);
+
         OperacionesEvaluacion operacionesEvaluacion = new OperacionesEvaluacion(getContext());
+        ListaEvaluacion = operacionesEvaluacion.obtenerEvaluacionesId(IdParalelo);
 
-        RecyclerView listEvaRV = view.findViewById(R.id.listaEva);
-        ListaPeriodoVacia = view.findViewById(R.id.emptyListETextView);
-
-        listaEvaluacion.addAll(operacionesEvaluacion.ListarEva());
-
-        evaluacionListaRecycleViewAdapter = new EvaluacionListaRecycleViewAdapter(getContext(), listaEvaluacion, "Fragment");
-        listEvaRV.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-        listEvaRV.setAdapter(evaluacionListaRecycleViewAdapter);
+        evaluacionListaRecycleViewAdapter = new EvaluacionListaRecycleViewAdapter(getContext(), ListaEvaluacion, "Activity");
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        recyclerView.setAdapter(evaluacionListaRecycleViewAdapter);
 
         viewVisibility();
 
-        FloatingActionButton floatingActionButton = view.findViewById(R.id.evaluacionFAB);
+        FloatingActionButton floatingActionButton = view.findViewById(R.id.evaluacionPE);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 openEvaluacionCreateDialog();
             }
         });
-
         return view;
     }
 
-    @Override
-    public void onCrearEvaluacion(Evaluacion evaluacion) {
-        listaEvaluacion.add(evaluacion);
-        evaluacionListaRecycleViewAdapter.notifyDataSetChanged();
-        viewVisibility();
-    }
-
     private void viewVisibility() {
-        if (listaEvaluacion.isEmpty()) {
+        if (ListaEvaluacion.isEmpty()) {
             ListaPeriodoVacia.setVisibility(View.VISIBLE);
         }else{
             ListaPeriodoVacia.setVisibility(View.GONE);
@@ -84,8 +81,16 @@ public class EvaluacionFragment extends Fragment implements EvaluacionCrearListe
     }
 
     private void openEvaluacionCreateDialog(){
-        EvaluacionCrearActivity evaluacionCrearActivity = EvaluacionCrearActivity.newInstance("Nueva Evaluación", this, null);
+        Integer Id = (int) IdParalelo;
+        EvaluacionCrearActivity evaluacionCrearActivity = EvaluacionCrearActivity.newInstance("Nueva Evaluación", this, Id);
         evaluacionCrearActivity.setCancelable(false);
         evaluacionCrearActivity.show(getChildFragmentManager(), utilidades.CREAR);
+    }
+
+    @Override
+    public void onCrearEvaluacion(Evaluacion evaluacion) {
+        ListaEvaluacion.add(evaluacion);
+        evaluacionListaRecycleViewAdapter.notifyDataSetChanged();
+        viewVisibility();
     }
 }

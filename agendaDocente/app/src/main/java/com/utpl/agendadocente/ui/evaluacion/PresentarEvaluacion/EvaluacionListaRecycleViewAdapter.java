@@ -20,19 +20,22 @@ import com.utpl.agendadocente.ui.evaluacion.ActualizarEvaluacion.ActualizarEvalu
 import com.utpl.agendadocente.ui.evaluacion.ActualizarEvaluacion.EvaluacionActualizarActivity;
 import com.utpl.agendadocente.R;
 import com.utpl.agendadocente.Utilidades.utilidades;
+import com.utpl.agendadocente.ui.paralelo.PresentarParalelo.DetalleParaleloActivity;
 
 import java.util.List;
 
 public class EvaluacionListaRecycleViewAdapter extends RecyclerView.Adapter<EvaluacionListaRecycleViewAdapter.EvaluacionViewHolder> {
 
     private Context context;
+    private String Componente;
     private List<Evaluacion> evaluacionLista;
     private OperacionesEvaluacion operacionesEvaluacion;
 
     public EvaluacionListaRecycleViewAdapter(){}
 
-    EvaluacionListaRecycleViewAdapter(Context context, List<Evaluacion> evaluacionLista){
+    EvaluacionListaRecycleViewAdapter(Context context, List<Evaluacion> evaluacionLista, String componente){
         this.context = context;
+        this.Componente = componente;
         this.evaluacionLista = evaluacionLista;
         operacionesEvaluacion = new OperacionesEvaluacion(context);
     }
@@ -88,7 +91,11 @@ public class EvaluacionListaRecycleViewAdapter extends RecyclerView.Adapter<Eval
                         notifyDataSetChanged();
                     }
                 });
-                actEva.show(((MainActivity)context).getSupportFragmentManager(), utilidades.ACTUALIZAR);
+                if (Componente.equals("Fragment")){
+                    actEva.show(((MainActivity)context).getSupportFragmentManager(), utilidades.ACTUALIZAR);
+                }else if (Componente.equals("Activity")){
+                    actEva.show(((DetalleParaleloActivity)context).getSupportFragmentManager(), utilidades.ACTUALIZAR);
+                }
             }
         });
 
@@ -97,7 +104,11 @@ public class EvaluacionListaRecycleViewAdapter extends RecyclerView.Adapter<Eval
             public void onClick(View view) {
                 EvaluacionDetalle evaluacionDetalle = EvaluacionDetalle.newInstance(eva.getId_evaluacion());
                 evaluacionDetalle.setCancelable(false);
-                evaluacionDetalle.show(((MainActivity)context).getSupportFragmentManager(),"tag");
+                if (Componente.equals("Fragment")){
+                    evaluacionDetalle.show(((MainActivity)context).getSupportFragmentManager(),"tag");
+                }else if (Componente.equals("Activity")){
+                    evaluacionDetalle.show(((DetalleParaleloActivity)context).getSupportFragmentManager(), "tag");
+                }
             }
         });
     }

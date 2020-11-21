@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +31,7 @@ import java.util.Objects;
 
 public class DialogoOpciones extends BottomSheetDialogFragment implements ReplicarParaleloListener{
 
-    private static Integer IdParalelo;
+    private static long IdParalelo;
     private static int paraleloItemPosition;
     private static DialogoOpcionesListener dialogoOpcionesListener;
     private static List<Paralelo> paraleloList;
@@ -39,8 +40,8 @@ public class DialogoOpciones extends BottomSheetDialogFragment implements Replic
 
     public DialogoOpciones(){}
 
-    public static DialogoOpciones newInstance(Paralelo paralelo, int posicion, List<Paralelo> list, DialogoOpcionesListener listener){
-        IdParalelo = paralelo.getId_paralelo();
+    public static DialogoOpciones newInstance(Integer Id, int posicion, List<Paralelo> list, DialogoOpcionesListener listener){
+        IdParalelo = Id;
         paraleloItemPosition = posicion;
         dialogoOpcionesListener = listener;
         paraleloList = list;
