@@ -79,11 +79,11 @@ public class DialogoOpciones extends BottomSheetDialogFragment implements Replic
         replicarLL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Paralelo paralelo = operacionesParalelo.obtenerPar(IdParalelo);
-                ReplicarActivity replicarActivity = ReplicarActivity.newInstance(paralelo.getId_paralelo());
+                Integer Id = (int)IdParalelo;
+                ReplicarActivity replicarActivity = ReplicarActivity.newInstance(Id);
                 replicarActivity.setCancelable(false);
                 replicarActivity.setTargetFragment(DialogoOpciones.this,22);
-                replicarActivity.show(getChildFragmentManager(),utilidades.REPLICAR);
+                replicarActivity.show(getParentFragmentManager(),utilidades.REPLICAR);
                 dismiss();
             }
         });

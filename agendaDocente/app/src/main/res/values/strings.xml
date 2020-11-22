@@ -68,7 +68,8 @@
     <string name="carrera">Carrera</string>
     <string name="area">Área</string>
     <string name="ms_listaPa_vacia">Lista de Paralelos Vacia</string>
-
+    <string name="replytareas">Replicar Tareas</string>
+    <string name="replyevaluaciones">Replicar Evaluaciones</string>
 
     <!-- Otras Constante-->
 
@@ -140,11 +141,14 @@
     <string name="revisada">Revisada</string>
     <string name="sin_revisar">Sin Revisar</string>
 
+    <string name="dias">Día</string>
+    <string name="lunes">Lunes</string>
+    <string name="martes">Martes</string>
+    <string name="miercoles">Miércoles</string>
+    <string name="jueves">Jueves</string>
+    <string name="viernes">Viernes</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="open">open</string>
     <string name="close">close</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
 </resources>

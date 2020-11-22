@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/itemLunes"
+        android:title="@string/lunes" />
+    <item
+        android:id="@+id/itemMartes"
+        android:title="@string/martes" />
+    <item
+        android:id="@+id/itemMiercoles"
+        android:title="@string/miercoles" />
+    <item
+        android:id="@+id/itemJueves"
+        android:title="@string/jueves" />
+    <item
+        android:id="@+id/itemViernes"
+        android:title="@string/viernes" />
+</menu>

@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,18 +17,14 @@ import android.widget.Toast;
 import com.google.android.material.textfield.TextInputEditText;
 import com.utpl.agendadocente.DataBase.OperacionesAsignatura;
 import com.utpl.agendadocente.DataBase.OperacionesDocente;
-import com.utpl.agendadocente.DataBase.OperacionesEvaluacion;
 import com.utpl.agendadocente.DataBase.OperacionesHorario;
 import com.utpl.agendadocente.DataBase.OperacionesParalelo;
 import com.utpl.agendadocente.DataBase.OperacionesPeriodo;
-import com.utpl.agendadocente.DataBase.OperacionesTarea;
 import com.utpl.agendadocente.Entidades.Asignatura;
 import com.utpl.agendadocente.Entidades.Docente;
-import com.utpl.agendadocente.Entidades.Evaluacion;
 import com.utpl.agendadocente.Entidades.Horario;
 import com.utpl.agendadocente.Entidades.Paralelo;
 import com.utpl.agendadocente.Entidades.PeriodoAcademico;
-import com.utpl.agendadocente.Entidades.Tarea;
 import com.utpl.agendadocente.ui.evaluacion.CrearEvaluacion.EvaluacionCrearActivity;
 import com.utpl.agendadocente.ui.paralelo.DialogAgregarMultiItems;
 import com.utpl.agendadocente.ui.paralelo.DialogAgregarSingleItem;
@@ -55,16 +50,12 @@ public class ParaleloActualizarActivity extends DialogFragment implements Dialog
     private EvaluacionCrearActivity evaluacionCrearActivity = new EvaluacionCrearActivity();
 
     private OperacionesDocente operacionesDocente = new OperacionesDocente(getContext());
-    private OperacionesTarea operacionesTarea = new OperacionesTarea(getContext());
-    private OperacionesEvaluacion operacionesEvaluacion = new OperacionesEvaluacion(getContext());
     private OperacionesPeriodo operacionesPeriodo = new OperacionesPeriodo(getContext());
     private OperacionesParalelo operacionesParalelo = new OperacionesParalelo(getContext());
     private OperacionesAsignatura operacionesAsignatura = new OperacionesAsignatura(getContext());
     private OperacionesHorario operacionesHorario = new OperacionesHorario(getContext());
 
     private List<Docente> docenteList = operacionesDocente.listarDoc();
-    private List<Tarea> tareaList = operacionesTarea.ListarTar();
-    private List<Evaluacion> evaluacionList = operacionesEvaluacion.ListarEva();
     private List<Asignatura> asigList = operacionesAsignatura.ListarAsig();
     private List<Horario> horarioList = operacionesHorario.ListarHor();
     private List<PeriodoAcademico> periodoAcademicoList = operacionesPeriodo.ListarPer();
@@ -126,6 +117,7 @@ public class ParaleloActualizarActivity extends DialogFragment implements Dialog
 
                     listItemMultiCkeck.clear();
                     tipoComponente = "Docente";
+
                     //llena la lista con los nombres y apellidos de cada docente
                     for (int i = 0; i < docenteList.size(); i++){
                         String docente = (String.format("%s %s",docenteList.get(i).getNombreDocente(),docenteList.get(i).getApellidoDocente()));
@@ -397,8 +389,8 @@ public class ParaleloActualizarActivity extends DialogFragment implements Dialog
             itemsAgregados = new String[ItemsSeleccionados.size()];
             for (int i = 0; i < ItemsSeleccionados.size(); i++){
                 itemsAgregados[i] = ItemsSeleccionados.get(i);
-                ListaDocentesAsignados = ItemsSeleccionados;
             }
+            ListaDocentesAsignados = ItemsSeleccionados;
         }else {
             IdsDoc.clear();//si no hay Item selecionados se borra todos los Ids de la Lista
         }

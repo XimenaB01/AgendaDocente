@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.PopupMenu;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -32,10 +33,11 @@ public class HorarioActualizarActivity extends DialogFragment implements DialogT
 
     private Horario horario;
 
-    private Button TimeEntradaAddAct, TimeSalidaAddAct;
+    private Button TimeEntradaAddAct, TimeSalidaAddAct, btnDia;
     private TextInputEditText txtAula;
 
     private String Aula = "";
+    private String dia = "";
     private String HoraEntrada = "";
     private String HoraSalida = "";
 
@@ -67,6 +69,7 @@ public class HorarioActualizarActivity extends DialogFragment implements DialogT
         TimeEntradaAddAct = view.findViewById(R.id.in_time1Act);
         txtAula = view.findViewById(R.id.textAulaAct);
         TimeSalidaAddAct = view.findViewById(R.id.in_time2Act);
+        btnDia = view.findViewById(R.id.diaAct);
 
         String title = null;
         if (getArguments() != null) {
@@ -81,6 +84,25 @@ public class HorarioActualizarActivity extends DialogFragment implements DialogT
             TimeEntradaAddAct.setText(horario.getHora_entrada());
             TimeSalidaAddAct.setText(horario.getHora_salida());
 
+            btnDia.setText(horario.getDia());
+            btnDia.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    PopupMenu popupMenuDia = new PopupMenu(getContext(), btnDia);
+                    popupMenuDia.getMenuInflater().inflate(R.menu.dias, popupMenuDia.getMenu());
+
+                    popupMenuDia.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem menuItem) {
+                            btnDia.setText(menuItem.getTitle());
+                            return true;
+                        }
+                    });
+
+                    popupMenuDia.show();
+                }
+            });
+
             toolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -94,15 +116,17 @@ public class HorarioActualizarActivity extends DialogFragment implements DialogT
                 public boolean onMenuItemClick(MenuItem item) {
                     Aula = Objects.requireNonNull(txtAula.getText()).toString();
                     HoraEntrada = TimeEntradaAddAct.getText().toString();
+                    dia = btnDia.getText().toString();
                     HoraSalida = TimeSalidaAddAct.getText().toString();
 
                     if (!Aula.isEmpty()){
                         if (Aula.length() == 3){
                             horario.setAula(Aula);
+                            horario.setDia(dia);
                             horario.setHora_entrada(HoraEntrada);
                             horario.setHora_salida(HoraSalida);
 
-                            if(!operacionesHorario.HorarioRepetido(Aula,HoraEntrada,HoraSalida)){
+                            if(!operacionesHorario.HorarioRepetido(Aula, dia, HoraEntrada, HoraSalida)){
                                 long insercion = operacionesHorario.ModificarHor(horario);
 
                                 if (insercion > 0){

@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.PopupMenu;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -28,10 +29,11 @@ import java.util.Objects;
 
 public class HorarioCrearActivity extends DialogFragment implements DialogTimePicker.TimePickerListener {
 
-    private Button TimeEntradaAdd, TimeSalidaAdd;
+    private Button TimeEntradaAdd, TimeSalidaAdd, dia;
     private TextInputEditText txtAula;
 
     private String Aula ="";
+    private String Dia = "";
     private String HoraEntrada = "";
     private String HoraSalida = "";
 
@@ -85,8 +87,26 @@ public class HorarioCrearActivity extends DialogFragment implements DialogTimePi
 
         Toolbar toolbar = view.findViewById(R.id.toolbarH);
         txtAula = view.findViewById(R.id.textAula);
+        dia = view.findViewById(R.id.dia);
         TimeEntradaAdd = view.findViewById(R.id.in_time1);
         TimeSalidaAdd = view.findViewById(R.id.in_time2);
+
+        dia.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PopupMenu popupMenuDias = new PopupMenu(getContext(),dia);
+                popupMenuDias.getMenuInflater().inflate(R.menu.dias,popupMenuDias.getMenu());
+
+                popupMenuDias.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+                        dia.setText(menuItem.getTitle());
+                        return true;
+                    }
+                });
+                popupMenuDias.show();
+            }
+        });
 
         String title = null;
         if (getArguments() != null) {
@@ -115,7 +135,7 @@ public class HorarioCrearActivity extends DialogFragment implements DialogTimePi
                         horario.setAula(Aula);
                         horario.setHora_entrada(HoraEntrada);
                         horario.setHora_salida(HoraSalida);
-                        if (!operacionesHorario.HorarioRepetido(Aula,HoraEntrada,HoraSalida)){
+                        if (!operacionesHorario.HorarioRepetido(Aula, Dia, HoraEntrada, HoraSalida)){
                             long insercion = operacionesHorario.InsertarHor(horario);
                             if (insercion > 0){
                                 int inser = (int)insercion;

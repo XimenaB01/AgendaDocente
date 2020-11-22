@@ -32,6 +32,7 @@ public class OperacionesHorario {
 
         ContentValues contentValues = new ContentValues();
         contentValues.put(utilidades.CAMPO_AULA,horario.getAula());
+        contentValues.put(utilidades.CAMPO_DIA, horario.getDia());
         contentValues.put(utilidades.CAMPO_HOR_ENT,horario.getHora_entrada());
         contentValues.put(utilidades.CAMPO_HOR_SAL,horario.getHora_salida());
 
@@ -61,9 +62,10 @@ public class OperacionesHorario {
                     do{
                         Horario hor = new Horario();
                         hor.setId_horario(cursor.getInt(0));
-                        hor.setAula((cursor.getString(1)));
-                        hor.setHora_entrada(cursor.getString(2));
-                        hor.setHora_salida(cursor.getString(3));
+                        hor.setAula(cursor.getString(1));
+                        hor.setDia(cursor.getString(2));
+                        hor.setHora_entrada(cursor.getString(3));
+                        hor.setHora_salida(cursor.getString(4));
 
                         listaHor.add(hor);
                     }while (cursor.moveToNext());
@@ -95,8 +97,9 @@ public class OperacionesHorario {
             if (cursor.moveToFirst()){
                 hor.setId_horario(cursor.getInt(0));
                 hor.setAula(cursor.getString(1));
-                hor.setHora_entrada(cursor.getString(2));
-                hor.setHora_salida(cursor.getString(3));
+                hor.setDia(cursor.getString(2));
+                hor.setHora_entrada(cursor.getString(3));
+                hor.setHora_salida(cursor.getString(4));
             }
         }catch (SQLiteException e){
             Toast.makeText(context, "Operacion fallida", Toast.LENGTH_SHORT).show();
@@ -134,6 +137,7 @@ public class OperacionesHorario {
 
         ContentValues contentValues = new ContentValues();
         contentValues.put(utilidades.CAMPO_AULA,horario.getAula());
+        contentValues.put(utilidades.CAMPO_DIA,horario.getDia());
         contentValues.put(utilidades.CAMPO_HOR_ENT,horario.getHora_entrada());
         contentValues.put(utilidades.CAMPO_HOR_SAL,horario.getHora_salida());
 
@@ -150,7 +154,7 @@ public class OperacionesHorario {
 
     }
 
-    public boolean HorarioRepetido(String aula, String Hor1, String Hor2){
+    public boolean HorarioRepetido(String aula, String dia, String Hor1, String Hor2){
         conexionDB = ConexionSQLiteHelper.getInstance(context);
         SQLiteDatabase db = conexionDB.getReadableDatabase();
 
@@ -158,6 +162,7 @@ public class OperacionesHorario {
 
         String query = "SELECT * FROM " + utilidades.TABLA_HORARIO_ACADEMICO + " WHERE "
                 + utilidades.CAMPO_AULA + " = '" + aula + "' AND "
+                + utilidades.CAMPO_DIA + " = '" + dia + "' AND "
                 + utilidades.CAMPO_HOR_ENT + " = '" + Hor1 + "' AND "
                 + utilidades.CAMPO_HOR_SAL + " = '" + Hor2 + "'";
 

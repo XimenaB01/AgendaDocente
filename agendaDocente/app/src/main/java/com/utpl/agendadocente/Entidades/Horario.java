@@ -3,15 +3,17 @@ package com.utpl.agendadocente.Entidades;
 public class Horario {
     private Integer id_horario;
     private String aula;
+    private String dia;
     private String hora_entrada;
     private String hora_salida;
 
     public Horario() {
     }
 
-    public Horario(Integer id_horario, String aula, String hora_entrada, String hora_salida) {
+    public Horario(Integer id_horario, String aula, String dia, String hora_entrada, String hora_salida) {
         this.id_horario = id_horario;
         this.aula = aula;
+        this.dia = dia;
         this.hora_entrada = hora_entrada;
         this.hora_salida = hora_salida;
     }
@@ -46,5 +48,13 @@ public class Horario {
 
     public void setHora_salida(String hora_salida) {
         this.hora_salida = hora_salida;
+    }
+
+    public String getDia() {
+        return dia;
+    }
+
+    public void setDia(String dia) {
+        this.dia = dia;
     }
 }

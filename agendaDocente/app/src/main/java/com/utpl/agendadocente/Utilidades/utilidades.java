@@ -76,14 +76,16 @@ public class utilidades {
     public static final String TABLA_HORARIO_ACADEMICO="HorarioAcademico";
     public static final String CAMPO_ID_HOR="id_horario";
     public static final String CAMPO_AULA="aula";
+    public static final String CAMPO_DIA="dia";
     public static final String CAMPO_HOR_ENT="horaEntrada";
     public static final String CAMPO_HOR_SAL="horaSalida";
 
     public static final String CREAR_TABLA_HORARIOACADEMICO = "create table "+TABLA_HORARIO_ACADEMICO+" ("
-            + CAMPO_ID_HOR+" INTEGER  PRIMARY KEY AUTOINCREMENT, "
-            + CAMPO_AULA+" TEXT, "
-            + CAMPO_HOR_ENT+" TEXT, "
-            + CAMPO_HOR_SAL+" TEXT "
+            + CAMPO_ID_HOR + " INTEGER  PRIMARY KEY AUTOINCREMENT, "
+            + CAMPO_AULA + " TEXT, "
+            + CAMPO_DIA + " TEXT, "
+            + CAMPO_HOR_ENT + " TEXT, "
+            + CAMPO_HOR_SAL + " TEXT "
             + ")";
 
     //Constantes campos tabla Paralelo
