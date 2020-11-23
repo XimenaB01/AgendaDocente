@@ -114,7 +114,7 @@ public class crearParaleloActivity extends DialogFragment implements DialogAgreg
                         listItemMultiCkeck.add(docente);
                     }
                 }
-                //verifica si en la variable docentes no existe las siguiente cadena "Agregar Docente"
+
                 if (itemsAgregados.length != 0){
                     llamarDialogAgregarMultiItems(tipoComponente, listItemMultiCkeck, itemsAgregados);
                 }else {
@@ -130,17 +130,9 @@ public class crearParaleloActivity extends DialogFragment implements DialogAgreg
                 listItemMultiCkeck.clear();
                 tipoComponente = "Asignatura";
                 if(!asignaturaAdd.getText().equals("Agregar Asignatura")){
-                    for (int i = 0; i < asignaturaList.size(); i++){
-                        if (!listItemMultiCkeck.contains(asignaturaList.get(i).getNombreAsignatura())){
-                            listItemMultiCkeck.add(asignaturaList.get(i).getNombreAsignatura());
-                        }
-                    }
+                    obtenerListaAsignatura();
                 }else {
-                    for (int i = 0; i < asignaturaList.size(); i++){
-                        if (!listItemMultiCkeck.contains(asignaturaList.get(i).getNombreAsignatura())){
-                            listItemMultiCkeck.add(asignaturaList.get(i).getNombreAsignatura());
-                        }
-                    }
+                    obtenerListaAsignatura();
                 }
 
                 String Asignatura = asignaturaAdd.getText().toString();
@@ -159,19 +151,9 @@ public class crearParaleloActivity extends DialogFragment implements DialogAgreg
                 listItemMultiCkeck.clear();
                 tipoComponente = "Horario";
                 if (!horarioAdd.getText().equals("Agregar Horario")){
-                    for (int i = 0; i < horarioList.size();i++){
-                        String horario = String.format("%s - %s",horarioList.get(i).getHora_entrada(),horarioList.get(i).getHora_salida());
-                        if (!listItemMultiCkeck.contains(horario)){
-                            listItemMultiCkeck.add(horario);
-                        }
-                    }
+                    obtenerListaHorario();
                 }else {
-                    for (int i = 0; i < horarioList.size();i++){
-                        String horario = String.format("%s - %s",horarioList.get(i).getHora_entrada(),horarioList.get(i).getHora_salida());
-                        if (!listItemMultiCkeck.contains(horario)){
-                            listItemMultiCkeck.add(horario);
-                        }
-                    }
+                    obtenerListaHorario();
                 }
 
                 String Horario = horarioAdd.getText().toString();
@@ -190,20 +172,10 @@ public class crearParaleloActivity extends DialogFragment implements DialogAgreg
                 listItemMultiCkeck.clear();
                 tipoComponente = "Periodo";
                 if (periodoAdd.getText().equals("Agregar Periodo")){
-                    for (int i = 0; i < periodoAcademicoList.size(); i++){
-                        String periodo = String.format("%s - %s",periodoAcademicoList.get(i).getFechaInicio(),periodoAcademicoList.get(i).getFechaFin());
-                        if (!listItemMultiCkeck.contains(periodo)){
-                            listItemMultiCkeck.add(periodo);
-                        }
-                    }
+                    obtenerListaPeriodo();
                 }
                 else {
-                    for (int i = 0; i < periodoAcademicoList.size(); i++){
-                        String periodo = String.format("%s - %s",periodoAcademicoList.get(i).getFechaInicio(),periodoAcademicoList.get(i).getFechaFin());
-                        if (!listItemMultiCkeck.contains(periodo)){
-                            listItemMultiCkeck.add(periodo);
-                        }
-                    }
+                    obtenerListaPeriodo();
                 }
                 String Periodo = periodoAdd.getText().toString();
                 if (!Periodo.equals("Agregar Periodo")){
@@ -326,6 +298,44 @@ public class crearParaleloActivity extends DialogFragment implements DialogAgreg
         agregarSingleItem.show(getParentFragmentManager(),utilidades.CREAR);
     }
 
+    private void IdsComponentesSeleccionados(List<String> ItemsSeleccionados){
+        for (int i = 0; i < listItemMultiCkeck.size(); i++){
+            for (int j = 0; j < ItemsSeleccionados.size();j++){
+                if (listItemMultiCkeck.get(i).equals(ItemsSeleccionados.get(j))){
+                    docenteList.clear();
+                    docenteList = operacionesDocente.listarDoc();
+                    IdsDoc.add(docenteList.get(i).getId_docente());
+                }
+            }
+        }
+    }
+
+    private void obtenerListaHorario(){
+        for (int i = 0; i < horarioList.size();i++){
+            String horario = String.format("%s: %s - %s",horarioList.get(i).getDia(),horarioList.get(i).getHora_entrada(),horarioList.get(i).getHora_salida());
+            if (!listItemMultiCkeck.contains(horario)){
+                listItemMultiCkeck.add(horario);
+            }
+        }
+    }
+
+    private void obtenerListaPeriodo(){
+        for (int i = 0; i < periodoAcademicoList.size(); i++){
+            String periodo = String.format("%s - %s",periodoAcademicoList.get(i).getFechaInicio(),periodoAcademicoList.get(i).getFechaFin());
+            if (!listItemMultiCkeck.contains(periodo)){
+                listItemMultiCkeck.add(periodo);
+            }
+        }
+    }
+
+    private void obtenerListaAsignatura(){
+        for (int i = 0; i < asignaturaList.size(); i++){
+            if (!listItemMultiCkeck.contains(asignaturaList.get(i).getNombreAsignatura())){
+                listItemMultiCkeck.add(asignaturaList.get(i).getNombreAsignatura());
+            }
+        }
+    }
+
     @Override
     public void onAgregarItems(List<String> ItemsSeleccionados, String Componente) {
         if ("Docente".equals(Componente)) {
@@ -340,18 +350,6 @@ public class crearParaleloActivity extends DialogFragment implements DialogAgreg
             }
         }
 
-    }
-
-    private void IdsComponentesSeleccionados(List<String> ItemsSeleccionados){
-        for (int i = 0; i < listItemMultiCkeck.size(); i++){
-            for (int j = 0; j < ItemsSeleccionados.size();j++){
-                if (listItemMultiCkeck.get(i).equals(ItemsSeleccionados.get(j))){
-                    docenteList.clear();
-                    docenteList = operacionesDocente.listarDoc();
-                    IdsDoc.add(docenteList.get(i).getId_docente());
-                }
-            }
-        }
     }
 
     @Override

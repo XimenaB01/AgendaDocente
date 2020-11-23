@@ -68,7 +68,7 @@ public class DialogAgregarSingleItem extends DialogFragment implements Asignatur
         }
         toolbar.setTitle(Title);
 
-        nuevoItem.setText(String.format("Añadir nuevo %s",Componente));
+        nuevoItem.setText(String.format("Nuevo %s",Componente));
         nuevoItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
