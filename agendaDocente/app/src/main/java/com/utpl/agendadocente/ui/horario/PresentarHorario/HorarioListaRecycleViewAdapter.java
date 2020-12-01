@@ -50,8 +50,7 @@ public class HorarioListaRecycleViewAdapter extends RecyclerView.Adapter<Horario
         final Horario hor = horarioLista.get(position);
 
         holder.Aula.setText(hor.getAula());
-        holder.HoraEntrada.setText(hor.getHora_entrada());
-        holder.HoraSalida.setText(hor.getHora_salida());
+        holder.Dia.setText(hor.getDia());
 
         holder.eliminarHor.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -90,6 +89,15 @@ public class HorarioListaRecycleViewAdapter extends RecyclerView.Adapter<Horario
                 actHor.show(((MainActivity)context).getSupportFragmentManager(), utilidades.ACTUALIZAR);
             }
         });
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DetalleHorario detalleHorario = DetalleHorario.newInstance(hor);
+                detalleHorario.setCancelable(false);
+                detalleHorario.show(((MainActivity)context).getSupportFragmentManager(),"Tag");
+            }
+        });
     }
 
     private void eliminarHorario(int position){
@@ -110,13 +118,12 @@ public class HorarioListaRecycleViewAdapter extends RecyclerView.Adapter<Horario
     }
 
     public class HorarioViewHolder extends RecyclerView.ViewHolder {
-        TextView HoraEntrada , HoraSalida, Aula;
+        TextView Dia , Aula;
         ImageView eliminarHor, editarHor;
         HorarioViewHolder (View view){
             super(view);
             Aula = view.findViewById(R.id.AulaTV);
-            HoraEntrada = view.findViewById(R.id.HorEnTV);
-            HoraSalida = view.findViewById(R.id.HorSalTV);
+            Dia = view.findViewById(R.id.HorDia);
             editarHor= view.findViewById(R.id.editarHor);
             eliminarHor = view.findViewById(R.id.eliminarHor);
         }

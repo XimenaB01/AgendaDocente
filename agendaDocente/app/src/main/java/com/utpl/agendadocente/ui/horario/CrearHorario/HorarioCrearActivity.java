@@ -126,6 +126,7 @@ public class HorarioCrearActivity extends DialogFragment implements DialogTimePi
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
                 Aula = Objects.requireNonNull(txtAula.getText()).toString();
+                Dia = dia.getText().toString();
                 HoraEntrada = TimeEntradaAdd.getText().toString();
                 HoraSalida = TimeSalidaAdd.getText().toString();
 
@@ -133,6 +134,7 @@ public class HorarioCrearActivity extends DialogFragment implements DialogTimePi
                     if (Aula.length() == 3){
                         Horario horario = new Horario();
                         horario.setAula(Aula);
+                        horario.setDia(Dia);
                         horario.setHora_entrada(HoraEntrada);
                         horario.setHora_salida(HoraSalida);
                         if (!operacionesHorario.HorarioRepetido(Aula, Dia, HoraEntrada, HoraSalida)){

@@ -42,6 +42,8 @@
     <string name="ms_listaH_vacia">Lista de Horarios Vacia</string>
     <string name="HorarioEntada">Hora de Entrada</string>
     <string name="HorarioSalida">Hora de Salida</string>
+    <string name="Entada">Entrada</string>
+    <string name="Salida">Salida</string>
     <string name="agregarHorario">Agregar Horario</string>
     <string name="aula">Aula</string>
 
