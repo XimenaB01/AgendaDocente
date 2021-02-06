@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/item3D"
+        android:title="@string/tresdias" />
+    <item
+        android:id="@+id/item4D"
+        android:title="@string/cuatrodias" />
+    <item
+        android:id="@+id/item5D"
+        android:title="@string/cincodias" />
+</menu>

@@ -22,9 +22,9 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.utpl.agendadocente.DataBase.OperacionesAsignatura;
 import com.utpl.agendadocente.DataBase.OperacionesParalelo;
 import com.utpl.agendadocente.DataBase.OperacionesTarea;
-import com.utpl.agendadocente.Entidades.Asignatura;
-import com.utpl.agendadocente.Entidades.Paralelo;
-import com.utpl.agendadocente.Entidades.Tarea;
+import com.utpl.agendadocente.Model.Asignatura;
+import com.utpl.agendadocente.Model.Paralelo;
+import com.utpl.agendadocente.Model.Tarea;
 import com.utpl.agendadocente.ui.periodo.DialogDatePicker;
 import com.utpl.agendadocente.R;
 import com.utpl.agendadocente.Utilidades.utilidades;
@@ -188,8 +188,8 @@ public class TareaActualizarActivity extends DialogFragment implements DialogDat
     }
 
     @Override
-    public void onDateSet(DatePicker datePicker, int year, int month, int day, String tipo) {
-        btnFechAct.setText(String.format("%s/%s/%s",day,month,year));
+    public void onDateSet(DatePicker datePicker, String fecha, String tipo) {
+        btnFechAct.setText(fecha);
     }
 
     private void obtenerParalelosSpinner(){

@@ -16,9 +16,9 @@ import androidx.fragment.app.DialogFragment;
 import com.utpl.agendadocente.DataBase.OperacionesAsignatura;
 import com.utpl.agendadocente.DataBase.OperacionesParalelo;
 import com.utpl.agendadocente.DataBase.OperacionesTarea;
-import com.utpl.agendadocente.Entidades.Asignatura;
-import com.utpl.agendadocente.Entidades.Paralelo;
-import com.utpl.agendadocente.Entidades.Tarea;
+import com.utpl.agendadocente.Model.Asignatura;
+import com.utpl.agendadocente.Model.Paralelo;
+import com.utpl.agendadocente.Model.Tarea;
 import com.utpl.agendadocente.R;
 import com.utpl.agendadocente.Utilidades.utilidades;
 

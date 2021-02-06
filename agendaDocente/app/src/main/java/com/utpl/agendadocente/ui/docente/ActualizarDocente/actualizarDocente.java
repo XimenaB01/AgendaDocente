@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.utpl.agendadocente.DataBase.OperacionesDocente;
-import com.utpl.agendadocente.Entidades.Docente;
+import com.utpl.agendadocente.Model.Docente;
 import com.utpl.agendadocente.ui.docente.ValidarCorreo;
 import com.utpl.agendadocente.R;
 import com.utpl.agendadocente.Utilidades.utilidades;

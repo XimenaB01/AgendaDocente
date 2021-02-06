@@ -8,8 +8,8 @@ import android.database.sqlite.SQLiteException;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.utpl.agendadocente.Entidades.Docente;
-import com.utpl.agendadocente.Entidades.Paralelo;
+import com.utpl.agendadocente.Model.Docente;
+import com.utpl.agendadocente.Model.Paralelo;
 import com.utpl.agendadocente.Utilidades.utilidades;
 
 import java.util.ArrayList;

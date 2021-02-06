@@ -2,7 +2,6 @@
 <com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp">
@@ -58,27 +57,32 @@
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/desTarTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="@string/descripcion"
-                android:textColor="#FFFFFF"
-                android:textSize="18sp"
-                android:textStyle="italic"/>
-
-            <TextView
-                android:id="@+id/desTarTV"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:textColor="#FFFFFF"
-                android:textStyle="bold"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/desTarTitle"
-                tools:text="Mapa Conceptual de los tipos de IDE o Entornos de Programación" />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.7"
+                    android:text="@string/estado"
+                    android:textSize="18sp"
+                    android:textColor="#FFFFFF"
+                    android:textStyle="italic" />
+
+                <TextView
+                    android:id="@+id/estadoTar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    tools:text=" Enviada" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -90,20 +94,11 @@
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/editarTar"
+                android:id="@+id/opcionesTar"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_marginBottom="10dp"
-                android:contentDescription="@string/editar"
-                android:src="@drawable/ic_edit"/>
-
-            <ImageView
-                android:id="@+id/eliminarTar"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginTop="10dp"
-                android:contentDescription="@string/eliminar"
-                android:src="@drawable/ic_delete"/>
+                android:contentDescription="@string/opcion"
+                android:src="@drawable/ic_options" />
 
         </LinearLayout>
 

@@ -16,11 +16,11 @@ import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.utpl.agendadocente.Entidades.Asignatura;
-import com.utpl.agendadocente.Entidades.Horario;
-import com.utpl.agendadocente.Entidades.PeriodoAcademico;
+import com.utpl.agendadocente.Model.Asignatura;
+import com.utpl.agendadocente.Model.Horario;
+import com.utpl.agendadocente.Model.PeriodoAcademico;
 import com.utpl.agendadocente.ui.asignatura.CrearAsignatura.AsignaturaCrearActivity;
-import com.utpl.agendadocente.ui.asignatura.CrearAsignatura.AsignaturaCreateListener;
+import com.utpl.agendadocente.intef.IAsignatura;
 import com.utpl.agendadocente.ui.horario.CrearHorario.HorarioCrearActivity;
 import com.utpl.agendadocente.ui.horario.CrearHorario.HorarioCrearListener;
 import com.utpl.agendadocente.ui.periodo.CrearPeriodo.PeriodoCrearActivity;
@@ -30,7 +30,7 @@ import com.utpl.agendadocente.Utilidades.utilidades;
 
 import java.util.List;
 
-public class DialogAgregarSingleItem extends DialogFragment implements AsignaturaCreateListener, HorarioCrearListener, PeriodoCreateListener {
+public class DialogAgregarSingleItem extends DialogFragment implements IAsignatura.AsignaturaCreateListener, HorarioCrearListener, PeriodoCreateListener {
 
     private static List<String> ListaItemSingleCkeck;
     private int posicion = -1;

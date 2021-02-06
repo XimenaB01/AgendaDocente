@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.utpl.agendadocente.DataBase.OperacionesPeriodo;
-import com.utpl.agendadocente.Entidades.PeriodoAcademico;
+import com.utpl.agendadocente.Model.PeriodoAcademico;
 import com.utpl.agendadocente.R;
 import com.utpl.agendadocente.Utilidades.utilidades;
 import com.utpl.agendadocente.ui.periodo.CrearPeriodo.PeriodoCrearActivity;

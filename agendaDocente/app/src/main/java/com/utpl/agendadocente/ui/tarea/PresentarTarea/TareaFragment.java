@@ -1,15 +1,12 @@
 package com.utpl.agendadocente.ui.tarea.PresentarTarea;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +14,7 @@ import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.utpl.agendadocente.DataBase.OperacionesTarea;
-import com.utpl.agendadocente.Entidades.Tarea;
+import com.utpl.agendadocente.Model.Tarea;
 import com.utpl.agendadocente.R;
 import com.utpl.agendadocente.Utilidades.utilidades;
 import com.utpl.agendadocente.ui.tarea.CrearTarea.TareaCrearActivity;

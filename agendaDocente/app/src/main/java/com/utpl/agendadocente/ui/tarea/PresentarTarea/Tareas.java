@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.utpl.agendadocente.DataBase.OperacionesTarea;
-import com.utpl.agendadocente.Entidades.Tarea;
+import com.utpl.agendadocente.Model.Tarea;
 import com.utpl.agendadocente.R;
 import com.utpl.agendadocente.Utilidades.utilidades;
 import com.utpl.agendadocente.ui.tarea.CrearTarea.TareaCrearActivity;

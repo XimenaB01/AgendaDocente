@@ -1,25 +1,19 @@
-package com.utpl.agendadocente.Entidades;
+package com.utpl.agendadocente.Model;
 
-import java.io.Serializable;
-
-public class Asignatura implements Serializable {
+public class Asignatura {
 
     private Integer id_asignatura;
     private String nombreAsignatura;
     private String area;
     private String creditos;
-    private String descripcionAsigantura;
-    private String nivel;
     private String carrera;
     private String horario;
 
-    public Asignatura(Integer id_asignatura, String nombreAsignatura, String area, String creditos, String descripcionAsigantura, String nivel, String carrera, String horario) {
+    public Asignatura(Integer id_asignatura, String nombreAsignatura, String area, String creditos, String carrera, String horario) {
         this.id_asignatura = id_asignatura;
         this.nombreAsignatura = nombreAsignatura;
         this.area = area;
         this.creditos = creditos;
-        this.descripcionAsigantura = descripcionAsigantura;
-        this.nivel = nivel;
         this.carrera = carrera;
         this.horario = horario;
     }
@@ -63,25 +57,6 @@ public class Asignatura implements Serializable {
     public void setCreditos(String creditos) {
 
         this.creditos = creditos;
-    }
-
-    public String getDescripcionAsigantura() {
-
-        return descripcionAsigantura;
-    }
-
-    public void setDescripcionAsigantura(String descripcionAsigantura) {
-
-        this.descripcionAsigantura = descripcionAsigantura;
-    }
-
-    public String getNivel() {
-
-        return nivel;
-    }
-
-    public void setNivel(String nivel) {
-        this.nivel = nivel;
     }
 
     public String getCarrera() {

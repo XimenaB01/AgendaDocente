@@ -115,20 +115,11 @@
             android:layout_weight="1">
 
             <ImageView
-                android:id="@+id/editarAsig"
+                android:id="@+id/opcionesAsig"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_marginBottom="5dp"
-                android:contentDescription="@string/editar"
-                android:src="@drawable/ic_edit" />
-
-            <ImageView
-                android:id="@+id/eliminarAsig"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginTop="5dp"
-                android:contentDescription="@string/eliminar"
-                android:src="@drawable/ic_delete" />
+                android:contentDescription="@string/opcion"
+                android:src="@drawable/ic_options" />
 
         </LinearLayout>
 

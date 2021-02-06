@@ -26,10 +26,10 @@ import com.utpl.agendadocente.DataBase.OperacionesAsignatura;
 import com.utpl.agendadocente.DataBase.OperacionesCuestionario;
 import com.utpl.agendadocente.DataBase.OperacionesEvaluacion;
 import com.utpl.agendadocente.DataBase.OperacionesParalelo;
-import com.utpl.agendadocente.Entidades.Asignatura;
-import com.utpl.agendadocente.Entidades.Cuestionario;
-import com.utpl.agendadocente.Entidades.Evaluacion;
-import com.utpl.agendadocente.Entidades.Paralelo;
+import com.utpl.agendadocente.Model.Asignatura;
+import com.utpl.agendadocente.Model.Cuestionario;
+import com.utpl.agendadocente.Model.Evaluacion;
+import com.utpl.agendadocente.Model.Paralelo;
 import com.utpl.agendadocente.ui.evaluacion.CrearEvaluacion.EvaluacionCrearActivity;
 import com.utpl.agendadocente.ui.periodo.DialogDatePicker;
 import com.utpl.agendadocente.R;
@@ -308,7 +308,7 @@ public class EvaluacionActualizarActivity extends DialogFragment implements Dial
     }
 
     @Override
-    public void onDateSet(DatePicker datePicker, int year, int month, int day, String tipo) {
-        fechEvaAct1.setText(String.format("%s/%s/%s",day,month,year));
+    public void onDateSet(DatePicker datePicker, String fecha, String tipo) {
+        fechEvaAct1.setText(fecha);
     }
 }

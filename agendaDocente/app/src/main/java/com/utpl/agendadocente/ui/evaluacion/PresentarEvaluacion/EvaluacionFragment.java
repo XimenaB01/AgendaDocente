@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.utpl.agendadocente.DataBase.OperacionesEvaluacion;
-import com.utpl.agendadocente.Entidades.Evaluacion;
+import com.utpl.agendadocente.Model.Evaluacion;
 import com.utpl.agendadocente.R;
 import com.utpl.agendadocente.Utilidades.utilidades;
 import com.utpl.agendadocente.ui.evaluacion.CrearEvaluacion.EvaluacionCrearActivity;

@@ -7,14 +7,16 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.utpl.agendadocente.DataBase.OperacionesCuestionario;
-import com.utpl.agendadocente.Entidades.Cuestionario;
+import com.utpl.agendadocente.Model.Cuestionario;
 import com.utpl.agendadocente.MainActivity;
 import com.utpl.agendadocente.ui.cuestionario.ActualizarCuestionario.ActualizarCuestionarioListener;
 import com.utpl.agendadocente.ui.cuestionario.ActualizarCuestionario.CuestionarioActualizarActivity;
@@ -51,40 +53,51 @@ public class CuestionarioListaRecycleViewAdapter extends RecyclerView.Adapter<Cu
 
         holder.nombCuest.setText(cuest.getNombreCuestionario());
 
-        holder.eliminarCuest.setOnClickListener(new View.OnClickListener(){
+        holder.opcionesCues.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
-                alertDialogBuilder.setMessage("¿Estás seguro de que querías eliminar esté Cuestioniario ?");
-                alertDialogBuilder.setPositiveButton("Eliminar",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                eliminarCuestioniario(itemPosicion);
-                            }
+
+                PopupMenu popupMenuEstados = new PopupMenu(context,holder.opcionesCues);
+                popupMenuEstados.getMenuInflater().inflate(R.menu.estados2,popupMenuEstados.getMenu());
+
+                popupMenuEstados.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+                        if (menuItem.getTitle().equals("Editar")){
+                            CuestionarioActualizarActivity actCuest = CuestionarioActualizarActivity.newInstance(cuest.getId_cuestionario(), itemPosicion, new ActualizarCuestionarioListener(){
+                                @Override
+                                public void onActualizarCuestionario(Cuestionario cuestionario, int position) {
+                                    cuestionarioLista.set(position,cuestionario);
+                                    notifyDataSetChanged();
+                                }
+                            });
+                            actCuest.show(((MainActivity) context).getSupportFragmentManager(), utilidades.ACTUALIZAR);
+                        }else if (menuItem.getTitle().equals("Eliminar")){
+                            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+                            alertDialogBuilder.setMessage("¿Estás seguro de que querías eliminar esté Cuestioniario ?");
+                            alertDialogBuilder.setPositiveButton("Eliminar",
+                                    new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            eliminarCuestioniario(itemPosicion);
+                                        }
+                                    }
+                            );
+                            alertDialogBuilder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.dismiss();
+                                }
+                            });
+                            AlertDialog alertDialog = alertDialogBuilder.create();
+                            alertDialog.show();
                         }
-                );
-                alertDialogBuilder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
+                        return true;
                     }
                 });
-                AlertDialog alertDialog = alertDialogBuilder.create();
-                alertDialog.show();
-            }
-        });
-        holder.editarCuest.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                CuestionarioActualizarActivity actCuest = CuestionarioActualizarActivity.newInstance(cuest.getId_cuestionario(), itemPosicion, new ActualizarCuestionarioListener(){
-                    @Override
-                    public void onActualizarCuestionario(Cuestionario cuestionario, int position) {
-                        cuestionarioLista.set(position,cuestionario);
-                        notifyDataSetChanged();
-                    }
-                });
-                actCuest.show(((MainActivity) context).getSupportFragmentManager(), utilidades.ACTUALIZAR);
+
+                popupMenuEstados.show();
+
             }
         });
 
@@ -117,12 +130,11 @@ public class CuestionarioListaRecycleViewAdapter extends RecyclerView.Adapter<Cu
 
     public class CuestionarioViewHolder extends RecyclerView.ViewHolder {
         TextView nombCuest;
-        ImageView eliminarCuest, editarCuest;
+        ImageView opcionesCues;
         CuestionarioViewHolder (View view){
             super(view);
             nombCuest = view.findViewById(R.id.txttitleCuestionario);
-            editarCuest = view.findViewById(R.id.editarCuest);
-            eliminarCuest = view.findViewById(R.id.eliminarCues);
+            opcionesCues = view.findViewById(R.id.opcionesCues);
         }
     }
 

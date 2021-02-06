@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteException;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.utpl.agendadocente.Entidades.Horario;
+import com.utpl.agendadocente.Model.Horario;
 import com.utpl.agendadocente.Utilidades.utilidades;
 
 import java.util.ArrayList;

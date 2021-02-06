@@ -20,7 +20,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.utpl.agendadocente.DataBase.OperacionesHorario;
-import com.utpl.agendadocente.Entidades.Horario;
+import com.utpl.agendadocente.Model.Horario;
 import com.utpl.agendadocente.ui.horario.DialogTimePicker;
 import com.utpl.agendadocente.R;
 import com.utpl.agendadocente.Utilidades.utilidades;
@@ -185,13 +185,13 @@ public class HorarioCrearActivity extends DialogFragment implements DialogTimePi
     }
 
     @Override
-    public void onTimeSet(TimePicker timePicker, int hour, int minute, String tipoHora) {
+    public void onTimeSet(TimePicker timePicker, String hora, String tipoHora) {
         switch (tipoHora) {
             case "Entrada":
-                TimeEntradaAdd.setText(String.format("%s : %s",hour,minute));
+                TimeEntradaAdd.setText(hora);
             break;
             case "Salida":
-                TimeSalidaAdd.setText(String.format("%s : %s",hour,minute));
+                TimeSalidaAdd.setText(hora);
         }
     }
 }

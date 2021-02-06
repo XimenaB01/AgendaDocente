@@ -18,7 +18,7 @@ import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.utpl.agendadocente.DataBase.OperacionesHorario;
-import com.utpl.agendadocente.Entidades.Horario;
+import com.utpl.agendadocente.Model.Horario;
 import com.utpl.agendadocente.ui.horario.DialogTimePicker;
 import com.utpl.agendadocente.R;
 import com.utpl.agendadocente.Utilidades.utilidades;
@@ -184,13 +184,13 @@ public class HorarioActualizarActivity extends DialogFragment implements DialogT
     }
 
     @Override
-    public void onTimeSet(TimePicker timePicker, int hour, int minute, String tipo) {
+    public void onTimeSet(TimePicker timePicker, String hora, String tipo) {
         switch (tipo) {
             case "Entrada":
-                TimeEntradaAddAct.setText(String.format("%s : %s",hour,minute));
+                TimeEntradaAddAct.setText(hora);
                 break;
             case "Salida":
-                TimeSalidaAddAct.setText(String.format("%s : %s",hour,minute));
+                TimeSalidaAddAct.setText(hora);
         }
     }
 }

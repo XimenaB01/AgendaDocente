@@ -16,10 +16,13 @@
     <string name="nombre">Nombre</string>
     <string name="creditos">Créditos</string>
     <string name="descripcion">Descripción</string>
+    <string name="temas">Temas</string>
+    <string name="duracion">Duración</string>
     <string name="nivel">Nivel</string>
     <string name="agregarAsignatura">Agregar Asignatura</string>
     <string name="ms_listaA_vacia">Lista de Asignatura Vacia</string>
-
+    <string name="aNormal">Normal</string>
+    <string name="aCongreso">Congreso</string>
     <!-- Docente-->
     <string name="nombres">Nombres</string>
     <string name="apellidos">Apellidos</string>
@@ -148,6 +151,10 @@
     <string name="jueves">Jueves</string>
     <string name="viernes">Viernes</string>
 
+    <!-- Duracion Congreso -->
+    <string name="tresdias">3 Días</string>
+    <string name="cuatrodias">4 Días</string>
+    <string name="cincodias">5 Días</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="open">open</string>
     <string name="close">close</string>

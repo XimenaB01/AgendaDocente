@@ -7,14 +7,16 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.utpl.agendadocente.DataBase.OperacionesTarea;
-import com.utpl.agendadocente.Entidades.Tarea;
+import com.utpl.agendadocente.Model.Tarea;
 import com.utpl.agendadocente.MainActivity;
 import com.utpl.agendadocente.ui.paralelo.PresentarParalelo.DetalleParaleloActivity;
 import com.utpl.agendadocente.ui.tarea.ActualizarTarea.ActualizarTareaListener;
@@ -49,54 +51,63 @@ public class TareaListaRecycleViewAdapter extends RecyclerView.Adapter<TareaList
     }
 
     @Override
-    public void onBindViewHolder(TareaViewHolder holder, int position) {
+    public void onBindViewHolder(final TareaViewHolder holder, int position) {
         final int itemPosicion = position;
         final Tarea tarea = tareaLista.get(position);
 
         holder.nombreTar.setText(tarea.getNombreTarea());
-        holder.descripcionTar.setText(tarea.getDescripcionTarea());
         holder.fechaTar.setText(tarea.getFechaTarea());
+        holder.estadoTar.setText(tarea.getEstadoTarea());
 
-        holder.eliminarTar.setOnClickListener(new View.OnClickListener() {
+        holder.opcionesTar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
-                alertDialogBuilder.setMessage("¿Estás seguro de que querías eliminar esta Tarea?");
-                alertDialogBuilder.setPositiveButton("Eliminar",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                eliminarTarea(itemPosicion);
+
+                PopupMenu popupMenuEstados = new PopupMenu(context,holder.opcionesTar);
+                popupMenuEstados.getMenuInflater().inflate(R.menu.estados2,popupMenuEstados.getMenu());
+
+                popupMenuEstados.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+                        if (menuItem.getTitle().equals("Editar")){
+                            TareaActualizarActivity actTar = TareaActualizarActivity.newInstance(tarea.getId_tarea(), itemPosicion, new ActualizarTareaListener(){
+                                @Override
+                                public void onActualizarTarea(Tarea tarea1, int position) {
+                                    tareaLista.set(position,tarea1);
+                                    notifyDataSetChanged();
+                                }
+                            });
+                            if (Componente.equals("Fragment")){
+                                actTar.show(((MainActivity)context).getSupportFragmentManager(), utilidades.ACTUALIZAR);
+                            }else if (Componente.equals("Activity")){
+                                actTar.show(((DetalleParaleloActivity)context).getSupportFragmentManager(), utilidades.ACTUALIZAR);
                             }
+                        }else if (menuItem.getTitle().equals("Eliminar")){
+                            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+                            alertDialogBuilder.setMessage("¿Estás seguro de que querías eliminar esta Tarea?");
+                            alertDialogBuilder.setPositiveButton("Eliminar",
+                                    new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            eliminarTarea(itemPosicion);
+                                        }
+                                    }
+                            );
+                            alertDialogBuilder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.dismiss();
+                                }
+                            });
+                            AlertDialog alertDialog = alertDialogBuilder.create();
+                            alertDialog.show();
                         }
-                );
-                alertDialogBuilder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
+                        return true;
                     }
                 });
-                AlertDialog alertDialog = alertDialogBuilder.create();
-                alertDialog.show();
-            }
-        });
 
-        holder.editarTar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+                popupMenuEstados.show();
 
-                TareaActualizarActivity actTar = TareaActualizarActivity.newInstance(tarea.getId_tarea(), itemPosicion, new ActualizarTareaListener(){
-                    @Override
-                    public void onActualizarTarea(Tarea tarea1, int position) {
-                        tareaLista.set(position,tarea1);
-                        notifyDataSetChanged();
-                    }
-                });
-                if (Componente.equals("Fragment")){
-                    actTar.show(((MainActivity)context).getSupportFragmentManager(), utilidades.ACTUALIZAR);
-                }else if (Componente.equals("Activity")){
-                    actTar.show(((DetalleParaleloActivity)context).getSupportFragmentManager(), utilidades.ACTUALIZAR);
-                }
             }
         });
 
@@ -132,15 +143,14 @@ public class TareaListaRecycleViewAdapter extends RecyclerView.Adapter<TareaList
     }
 
     public class TareaViewHolder extends RecyclerView.ViewHolder {
-        TextView nombreTar , descripcionTar, fechaTar;
-        ImageView eliminarTar, editarTar;
+        TextView nombreTar , fechaTar, estadoTar;
+        ImageView opcionesTar;
         TareaViewHolder (View view){
             super(view);
             nombreTar = view.findViewById(R.id.nomTarTV);
-            descripcionTar = view.findViewById(R.id.desTarTV);
             fechaTar = view.findViewById(R.id.fechTarTV);
-            editarTar= view.findViewById(R.id.editarTar);
-            eliminarTar = view.findViewById(R.id.eliminarTar);
+            estadoTar = view.findViewById(R.id.estadoTar);
+            opcionesTar= view.findViewById(R.id.opcionesTar);
         }
     }
 

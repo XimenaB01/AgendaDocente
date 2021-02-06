@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +14,7 @@ import androidx.annotation.Nullable;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.utpl.agendadocente.DataBase.OperacionesParalelo;
-import com.utpl.agendadocente.Entidades.Paralelo;
+import com.utpl.agendadocente.Model.Paralelo;
 import com.utpl.agendadocente.ui.paralelo.ActualizarParalelo.ActualizarParaleloListener;
 import com.utpl.agendadocente.ui.paralelo.ActualizarParalelo.ParaleloActualizarActivity;
 import com.utpl.agendadocente.ui.paralelo.PresentarParalelo.DetalleParaleloActivity;
@@ -27,7 +26,6 @@ import com.utpl.agendadocente.R;
 import com.utpl.agendadocente.Utilidades.utilidades;
 
 import java.util.List;
-import java.util.Objects;
 
 public class DialogoOpciones extends BottomSheetDialogFragment implements ReplicarParaleloListener{
 

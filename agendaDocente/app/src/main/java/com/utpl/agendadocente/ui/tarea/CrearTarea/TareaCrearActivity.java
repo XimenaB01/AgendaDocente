@@ -22,9 +22,9 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.utpl.agendadocente.DataBase.OperacionesAsignatura;
 import com.utpl.agendadocente.DataBase.OperacionesParalelo;
 import com.utpl.agendadocente.DataBase.OperacionesTarea;
-import com.utpl.agendadocente.Entidades.Asignatura;
-import com.utpl.agendadocente.Entidades.Paralelo;
-import com.utpl.agendadocente.Entidades.Tarea;
+import com.utpl.agendadocente.Model.Asignatura;
+import com.utpl.agendadocente.Model.Paralelo;
+import com.utpl.agendadocente.Model.Tarea;
 import com.utpl.agendadocente.ui.evaluacion.CrearEvaluacion.EvaluacionCrearActivity;
 import com.utpl.agendadocente.ui.periodo.DialogDatePicker;
 import com.utpl.agendadocente.R;
@@ -220,8 +220,8 @@ public class TareaCrearActivity extends DialogFragment implements DialogDatePick
     }
 
     @Override
-    public void onDateSet(DatePicker datePicker, int year, int month, int day, String tipo) {
-        btnFechaEn.setText(String.format("%s/%s/%s",day,month,year));
+    public void onDateSet(DatePicker datePicker, String fecha, String tipo) {
+        btnFechaEn.setText(fecha);
     }
 
     private void visible(){

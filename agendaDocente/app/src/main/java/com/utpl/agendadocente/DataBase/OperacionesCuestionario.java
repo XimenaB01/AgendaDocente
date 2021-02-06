@@ -5,10 +5,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
-import android.util.Log;
 import android.widget.Toast;
 
-import com.utpl.agendadocente.Entidades.Cuestionario;
+import com.utpl.agendadocente.Model.Cuestionario;
 import com.utpl.agendadocente.Utilidades.utilidades;
 
 import java.util.ArrayList;

@@ -10,7 +10,7 @@ import com.utpl.agendadocente.R;
 
 public class AsignaturaViewHolder extends RecyclerView.ViewHolder {
     TextView nombreA, horasA, creditosA, carreraA;
-    ImageView eliminarAsig, editarAsig;
+    ImageView opcionesAsig;
     
     public AsignaturaViewHolder (View view){
         super(view);
@@ -18,7 +18,6 @@ public class AsignaturaViewHolder extends RecyclerView.ViewHolder {
         horasA = view.findViewById(R.id.horAsigTV);
         creditosA = view.findViewById(R.id.credAsigTV);
         carreraA = view.findViewById(R.id.carreraAsigTV);
-        eliminarAsig = view.findViewById(R.id.eliminarAsig);
-        editarAsig = view.findViewById(R.id.editarAsig);
+        opcionesAsig = view.findViewById(R.id.opcionesAsig);
     }
 }

@@ -1,4 +1,4 @@
-package com.utpl.agendadocente.Entidades;
+package com.utpl.agendadocente.Model;
 
 public class DocenteAsignado extends Docente {
 

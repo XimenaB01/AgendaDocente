@@ -1,4 +1,4 @@
-package com.utpl.agendadocente.Entidades;
+package com.utpl.agendadocente.Model;
 
 public class Cuestionario {
     private Integer id_cuestionario;

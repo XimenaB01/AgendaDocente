@@ -4,9 +4,11 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,7 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.utpl.agendadocente.DataBase.OperacionesPeriodo;
-import com.utpl.agendadocente.Entidades.PeriodoAcademico;
+import com.utpl.agendadocente.Model.PeriodoAcademico;
 import com.utpl.agendadocente.MainActivity;
 import com.utpl.agendadocente.ui.periodo.ActualizarPeriodo.ActualizarPeriodoListener;
 import com.utpl.agendadocente.ui.periodo.ActualizarPeriodo.PeriodoActualizarActivity;
@@ -45,51 +47,61 @@ public class PeriodoListaRecycleViewAdapter extends RecyclerView.Adapter<Periodo
     }
 
     @Override
-    public void onBindViewHolder(PeriodoViewHolder holder, int position) {
+    public void onBindViewHolder(final PeriodoViewHolder holder, int position) {
         final int itemPosicion = position;
         final PeriodoAcademico periodo = periodoLista.get(position);
 
         holder.FechaInicio.setText(periodo.getFechaInicio());
         holder.FechaFin.setText(periodo.getFechaFin());
 
-        holder.eliminarPer.setOnClickListener(new View.OnClickListener() {
+        holder.opcionesPer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
-                alertDialogBuilder.setMessage("¿Estás seguro de que querías eliminar este Periodo?");
-                alertDialogBuilder.setPositiveButton("Eliminar",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                eliminarPeriodo(itemPosicion);
-                            }
+
+                PopupMenu popupMenuEstados = new PopupMenu(context,holder.opcionesPer);
+                popupMenuEstados.getMenuInflater().inflate(R.menu.estados2,popupMenuEstados.getMenu());
+
+                popupMenuEstados.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+                        if (menuItem.getTitle().equals("Editar")){
+                            PeriodoActualizarActivity actPer = PeriodoActualizarActivity.newInstance(periodo.getId_periodo(), itemPosicion, new ActualizarPeriodoListener(){
+                                @Override
+                                public void onActualizarPeriodo(PeriodoAcademico periodo, int position) {
+                                    periodoLista.set(position,periodo);
+                                    notifyDataSetChanged();
+                                }
+                            });
+                            actPer.show(((MainActivity)context).getSupportFragmentManager(), utilidades.ACTUALIZAR);
+                        }else if (menuItem.getTitle().equals("Eliminar")){
+                            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+                            alertDialogBuilder.setMessage("¿Estás seguro de que querías eliminar este Periodo?");
+                            alertDialogBuilder.setPositiveButton("Eliminar",
+                                    new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            eliminarPeriodo(itemPosicion);
+                                        }
+                                    }
+                            );
+                            alertDialogBuilder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.dismiss();
+                                }
+                            });
+                            AlertDialog alertDialog = alertDialogBuilder.create();
+                            alertDialog.show();
                         }
-                );
-                alertDialogBuilder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
+                        return true;
                     }
                 });
-                AlertDialog alertDialog = alertDialogBuilder.create();
-                alertDialog.show();
+
+                popupMenuEstados.show();
+
             }
         });
 
-        holder.editarPer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                PeriodoActualizarActivity actPer = PeriodoActualizarActivity.newInstance(periodo.getId_periodo(), itemPosicion, new ActualizarPeriodoListener(){
-                    @Override
-                    public void onActualizarPeriodo(PeriodoAcademico periodo, int position) {
-                        periodoLista.set(position,periodo);
-                        notifyDataSetChanged();
-                    }
-                });
-                actPer.show(((MainActivity)context).getSupportFragmentManager(), utilidades.ACTUALIZAR);
-            }
-        });
     }
 
     private void eliminarPeriodo(int position){
@@ -111,14 +123,12 @@ public class PeriodoListaRecycleViewAdapter extends RecyclerView.Adapter<Periodo
 
     public class PeriodoViewHolder extends RecyclerView.ViewHolder {
         TextView FechaInicio , FechaFin;
-        ImageView eliminarPer, editarPer;
+        ImageView opcionesPer;
         PeriodoViewHolder (View view){
             super(view);
-            //context = view.getContext();
             FechaInicio = view.findViewById(R.id.PerInTV);
             FechaFin = view.findViewById(R.id.PerFinTV);
-            editarPer= view.findViewById(R.id.editarPer);
-            eliminarPer = view.findViewById(R.id.eliminarPer);
+            opcionesPer= view.findViewById(R.id.opcionesPer);
         }
     }
 }

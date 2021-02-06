@@ -39,7 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:icon="@drawable/ic_asignatura_white"
-            android:text="@string/asignatura" />
+            android:text="@string/Asignatura" />
 
     </com.google.android.material.tabs.TabLayout>
 

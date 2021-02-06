@@ -16,9 +16,9 @@ import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.utpl.agendadocente.Entidades.Docente;
-import com.utpl.agendadocente.Entidades.Evaluacion;
-import com.utpl.agendadocente.Entidades.Tarea;
+import com.utpl.agendadocente.Model.Docente;
+import com.utpl.agendadocente.Model.Evaluacion;
+import com.utpl.agendadocente.Model.Tarea;
 import com.utpl.agendadocente.ui.docente.CrearDocente.CrearDocenteActivity;
 import com.utpl.agendadocente.ui.docente.CrearDocente.DocenteCreateListener;
 import com.utpl.agendadocente.ui.evaluacion.CrearEvaluacion.EvaluacionCrearActivity;

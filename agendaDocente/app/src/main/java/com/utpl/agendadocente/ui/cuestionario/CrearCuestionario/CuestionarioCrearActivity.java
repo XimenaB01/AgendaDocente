@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.utpl.agendadocente.DataBase.OperacionesCuestionario;
-import com.utpl.agendadocente.Entidades.Cuestionario;
+import com.utpl.agendadocente.Model.Cuestionario;
 import com.utpl.agendadocente.R;
 import com.utpl.agendadocente.Utilidades.utilidades;
 

@@ -16,7 +16,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:gravity="center"
             android:layout_weight="0.3">
@@ -76,27 +76,17 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical"
+            android:gravity="center"
             android:layout_weight="1">
 
             <ImageView
-                android:id="@+id/editarPer"
+                android:id="@+id/opcionesPer"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:src="@drawable/ic_edit"
-                android:layout_gravity="center"
-                android:layout_marginBottom="5dp"
-                android:contentDescription="@string/editar" />
-
-            <ImageView
-                android:id="@+id/eliminarPer"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginTop="5dp"
-                android:src="@drawable/ic_delete"
-                android:layout_gravity="center"
-                android:contentDescription="@string/eliminar" />
+                android:contentDescription="@string/opcion"
+                android:src="@drawable/ic_options" />
 
         </LinearLayout>
 

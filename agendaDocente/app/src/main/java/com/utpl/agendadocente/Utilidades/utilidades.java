@@ -17,8 +17,6 @@ public class utilidades {
     public static final String CAMPO_AREA="area";
     public static final String CAMPO_CREDITOS="creditos";
     public static final String CAMPO_HORARIO="Horario";
-    public static final String CAMPO_NIVEL="nivel";
-    public static final String CAMPO_DESCRIPCION="descripcionAsignatura";
     public static final String CAMPO_CARRERA="carrera";
 
     public static final String CREAR_TABLA_ASIGNATURA = "create table "+TABLA_ASIGNATURA+" ("
@@ -27,9 +25,24 @@ public class utilidades {
             + CAMPO_AREA+" TEXT, "
             + CAMPO_CREDITOS+" TEXT, "
             + CAMPO_HORARIO+" TEXT, "
-            + CAMPO_DESCRIPCION+" TEXT, "
-            + CAMPO_NIVEL+" TEXT, "
             + CAMPO_CARRERA+" TEXT "
+            + ")";
+
+    //Costantes tabla Componentes
+
+    public static final String TABLA_COMPONENTES = "Componentes";
+    public static final String CAMPO_ID_COMP = "id_compontente";
+    public static final String CAMPO_NOM_COMP = "nombreComponente";
+    public static final String CAMPO_VAL_COMP = "valorComponente";
+    public static final String CAMPO_ID_ASIG_FK = "id_asignatura";
+    private static final String CAMPO_COMPONENTE_SUB_CONSTRAINT = "id_asignatura";
+
+    public static final String CREAR_TABLA_COMPONENTES = "create table " + TABLA_COMPONENTES +" ("
+            + CAMPO_ID_COMP + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + CAMPO_NOM_COMP + " TEXT NOT NULL, "
+            + CAMPO_VAL_COMP + " TEXT, "
+            + CAMPO_ID_ASIG_FK + " INTEGER NOT NULL, "
+            + " FOREIGN KEY (" + CAMPO_ID_ASIG_FK + ") REFERENCES " + TABLA_ASIGNATURA + " (" + CAMPO_ID_ASI + ") ON UPDATE CASCADE ON DELETE CASCADE "
             + ")";
 
     //Constantes campos tabla Docente

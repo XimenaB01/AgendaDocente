@@ -14,20 +14,16 @@ import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.utpl.agendadocente.DataBase.OperacionesAsignatura;
-import com.utpl.agendadocente.Entidades.Asignatura;
+import com.utpl.agendadocente.Model.Asignatura;
 import com.utpl.agendadocente.ui.asignatura.CrearAsignatura.AsignaturaCrearActivity;
-import com.utpl.agendadocente.ui.asignatura.CrearAsignatura.AsignaturaCreateListener;
 import com.utpl.agendadocente.R;
 import com.utpl.agendadocente.Utilidades.utilidades;
+import com.utpl.agendadocente.intef.IAsignatura;
 
 import java.util.ArrayList;
 import java.util.List;
 
-
-/**
- * A simple {@link Fragment} subclass.
- */
-public class AsignaturaFragment extends Fragment implements AsignaturaCreateListener {
+public class AsignaturaFragment extends Fragment implements IAsignatura.AsignaturaCreateListener{
 
     private TextView ListaAginaturaVacia;
     private AsignaturaListaRecycleViewAdapter asignaturaListaRecycleViewAdapter;
@@ -68,6 +64,7 @@ public class AsignaturaFragment extends Fragment implements AsignaturaCreateList
 
     private void openAsignaturaCreateDialog() {
         AsignaturaCrearActivity crearAsignatura = AsignaturaCrearActivity.newInstance("Crear Asignatura", this);
+        crearAsignatura.setCancelable(false);
         crearAsignatura.show(getChildFragmentManager(), utilidades.CREAR);
     }
 

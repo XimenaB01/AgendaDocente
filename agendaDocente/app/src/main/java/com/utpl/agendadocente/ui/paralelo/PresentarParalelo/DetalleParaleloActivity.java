@@ -3,10 +3,7 @@ package com.utpl.agendadocente.ui.paralelo.PresentarParalelo;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,11 +13,11 @@ import com.utpl.agendadocente.DataBase.OperacionesAsignatura;
 import com.utpl.agendadocente.DataBase.OperacionesHorario;
 import com.utpl.agendadocente.DataBase.OperacionesParalelo;
 import com.utpl.agendadocente.DataBase.OperacionesPeriodo;
-import com.utpl.agendadocente.Entidades.Asignatura;
-import com.utpl.agendadocente.Entidades.Docente;
-import com.utpl.agendadocente.Entidades.Horario;
-import com.utpl.agendadocente.Entidades.Paralelo;
-import com.utpl.agendadocente.Entidades.PeriodoAcademico;
+import com.utpl.agendadocente.Model.Asignatura;
+import com.utpl.agendadocente.Model.Docente;
+import com.utpl.agendadocente.Model.Horario;
+import com.utpl.agendadocente.Model.Paralelo;
+import com.utpl.agendadocente.Model.PeriodoAcademico;
 import com.utpl.agendadocente.R;
 import com.utpl.agendadocente.ui.evaluacion.PresentarEvaluacion.Evaluaciones;
 import com.utpl.agendadocente.ui.tarea.PresentarTarea.Tareas;
@@ -117,7 +114,7 @@ public class DetalleParaleloActivity extends AppCompatActivity {
                     campoNomAsig.setText(asignatura.getNombreAsignatura());
                     campoCarAsig.setText(asignatura.getCarrera());
                 } else {
-                    Toast.makeText(this, "La asignatura ya no existe", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "La Asignatura ya no existe", Toast.LENGTH_LONG).show();
                 }
 
                 //Horario

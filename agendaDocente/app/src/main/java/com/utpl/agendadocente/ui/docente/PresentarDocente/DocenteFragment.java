@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,7 @@ import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.utpl.agendadocente.DataBase.OperacionesDocente;
-import com.utpl.agendadocente.Entidades.Docente;
+import com.utpl.agendadocente.Model.Docente;
 import com.utpl.agendadocente.R;
 import com.utpl.agendadocente.Utilidades.utilidades;
 import com.utpl.agendadocente.ui.docente.CrearDocente.CrearDocenteActivity;
@@ -22,7 +21,6 @@ import com.utpl.agendadocente.ui.docente.CrearDocente.DocenteCreateListener;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class DocenteFragment extends Fragment implements DocenteCreateListener {
 

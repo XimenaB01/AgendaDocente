@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.utpl.agendadocente.DataBase.OperacionesHorario;
-import com.utpl.agendadocente.Entidades.Horario;
+import com.utpl.agendadocente.Model.Horario;
 import com.utpl.agendadocente.R;
 import com.utpl.agendadocente.Utilidades.utilidades;
 import com.utpl.agendadocente.ui.horario.CrearHorario.HorarioCrearActivity;

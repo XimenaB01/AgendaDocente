@@ -7,14 +7,16 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.utpl.agendadocente.DataBase.OperacionesHorario;
-import com.utpl.agendadocente.Entidades.Horario;
+import com.utpl.agendadocente.Model.Horario;
 import com.utpl.agendadocente.MainActivity;
 import com.utpl.agendadocente.ui.horario.ActualizarHorario.ActualizarHorarioListener;
 import com.utpl.agendadocente.ui.horario.ActualizarHorario.HorarioActualizarActivity;
@@ -53,41 +55,50 @@ public class HorarioListaRecycleViewAdapter extends RecyclerView.Adapter<Horario
         holder.HoraEntrada.setText(hor.getHora_entrada());
         holder.HoraSalida.setText(hor.getHora_salida());
 
-        holder.eliminarHor.setOnClickListener(new View.OnClickListener(){
+        holder.opcionesHor.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
-                alertDialogBuilder.setMessage("¿Estás seguro de que querías eliminar esté Horario ?");
-                alertDialogBuilder.setPositiveButton("Eliminar",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                eliminarHorario(itemPosicion);
-                            }
-                        }
-                );
-                alertDialogBuilder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                    }
-                });
-                AlertDialog alertDialog = alertDialogBuilder.create();
-                alertDialog.show();
-            }
-        });
-        holder.editarHor.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-                HorarioActualizarActivity actHor = HorarioActualizarActivity.newInstance(hor.getId_horario(), itemPosicion, new ActualizarHorarioListener(){
+                PopupMenu popupMenuEstados = new PopupMenu(context,holder.opcionesHor);
+                popupMenuEstados.getMenuInflater().inflate(R.menu.estados2,popupMenuEstados.getMenu());
+
+                popupMenuEstados.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
-                    public void onActualizarHorario(Horario horario, int position) {
-                        horarioLista.set(position,horario);
-                        notifyDataSetChanged();
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+                        if (menuItem.getTitle().equals("Editar")){
+                            HorarioActualizarActivity actHor = HorarioActualizarActivity.newInstance(hor.getId_horario(), itemPosicion, new ActualizarHorarioListener(){
+                                @Override
+                                public void onActualizarHorario(Horario horario, int position) {
+                                    horarioLista.set(position,horario);
+                                    notifyDataSetChanged();
+                                }
+                            });
+                            actHor.show(((MainActivity)context).getSupportFragmentManager(), utilidades.ACTUALIZAR);
+                        }else if (menuItem.getTitle().equals("Eliminar")){
+                            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+                            alertDialogBuilder.setMessage("¿Quiere eliminar esté Horario ?");
+                            alertDialogBuilder.setPositiveButton("Eliminar",
+                                    new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            eliminarHorario(itemPosicion);
+                                        }
+                                    }
+                            );
+                            alertDialogBuilder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.dismiss();
+                                }
+                            });
+                            AlertDialog alertDialog = alertDialogBuilder.create();
+                            alertDialog.show();
+                        }
+                        return true;
                     }
                 });
-                actHor.show(((MainActivity)context).getSupportFragmentManager(), utilidades.ACTUALIZAR);
+
+                popupMenuEstados.show();
             }
         });
     }
@@ -111,14 +122,13 @@ public class HorarioListaRecycleViewAdapter extends RecyclerView.Adapter<Horario
 
     public class HorarioViewHolder extends RecyclerView.ViewHolder {
         TextView HoraEntrada , HoraSalida, Aula;
-        ImageView eliminarHor, editarHor;
+        ImageView opcionesHor;
         HorarioViewHolder (View view){
             super(view);
             Aula = view.findViewById(R.id.AulaTV);
             HoraEntrada = view.findViewById(R.id.HorEnTV);
             HoraSalida = view.findViewById(R.id.HorSalTV);
-            editarHor= view.findViewById(R.id.editarHor);
-            eliminarHor = view.findViewById(R.id.eliminarHor);
+            opcionesHor= view.findViewById(R.id.opcionesHor);
         }
     }
 }

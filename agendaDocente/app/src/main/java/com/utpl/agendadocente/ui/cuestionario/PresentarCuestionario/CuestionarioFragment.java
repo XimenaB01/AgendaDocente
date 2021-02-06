@@ -4,7 +4,6 @@ package com.utpl.agendadocente.ui.cuestionario.PresentarCuestionario;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,7 +14,7 @@ import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.utpl.agendadocente.DataBase.OperacionesCuestionario;
-import com.utpl.agendadocente.Entidades.Cuestionario;
+import com.utpl.agendadocente.Model.Cuestionario;
 import com.utpl.agendadocente.R;
 import com.utpl.agendadocente.Utilidades.utilidades;
 import com.utpl.agendadocente.ui.cuestionario.CrearCuestionario.CuestionarioCrearActivity;

@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteException;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.utpl.agendadocente.Entidades.Asignatura;
+import com.utpl.agendadocente.Model.Asignatura;
 import com.utpl.agendadocente.Utilidades.utilidades;
 
 import java.util.ArrayList;
@@ -30,19 +30,12 @@ public class OperacionesAsignatura {
         conexionDB = ConexionSQLiteHelper.getInstance(context);
         SQLiteDatabase db = conexionDB.getWritableDatabase();
 
-        long operacion= 0;
+        long operacion = 0;
 
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(utilidades.CAMPO_NOM_ASI,asignatura.getNombreAsignatura());
-        contentValues.put(utilidades.CAMPO_AREA,asignatura.getArea());
-        contentValues.put(utilidades.CAMPO_CREDITOS,asignatura.getCreditos());
-        contentValues.put(utilidades.CAMPO_HORARIO,asignatura.getHorario());
-        contentValues.put(utilidades.CAMPO_NIVEL,asignatura.getNivel());
-        contentValues.put(utilidades.CAMPO_DESCRIPCION,asignatura.getDescripcionAsigantura());
-        contentValues.put(utilidades.CAMPO_CARRERA,asignatura.getCarrera());
+        ContentValues values = contentValues(asignatura);
 
         try {
-            operacion = db.insertOrThrow(utilidades.TABLA_ASIGNATURA, null,contentValues);
+            operacion = db.insertOrThrow(utilidades.TABLA_ASIGNATURA, null,values);
         }
         catch (SQLiteException e){
             Log.e("error", Objects.requireNonNull(e.getMessage()));
@@ -73,10 +66,8 @@ public class OperacionesAsignatura {
                         asig.setNombreAsignatura(cursor.getString(1));
                         asig.setArea(cursor.getString(2));
                         asig.setCreditos(cursor.getString(3));
-                        asig.setDescripcionAsigantura(cursor.getString(4));
-                        asig.setNivel(cursor.getString(5));
-                        asig.setHorario(cursor.getString(6));
-                        asig.setCarrera(cursor.getString(7));
+                        asig.setHorario(cursor.getString(4));
+                        asig.setCarrera(cursor.getString(5));
                         listaAsig.add(asig);
                     }while (cursor.moveToNext());
                 }
@@ -110,8 +101,6 @@ public class OperacionesAsignatura {
                 asig.setNombreAsignatura(cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_NOM_ASI)));
                 asig.setCreditos(cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_CREDITOS)));
                 asig.setHorario(cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_HORARIO)));
-                asig.setDescripcionAsigantura(cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_DESCRIPCION)));
-                asig.setNivel(cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_NIVEL)));
                 asig.setCarrera(cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_CARRERA)));
                 asig.setArea(cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_AREA)));
             }
@@ -133,17 +122,10 @@ public class OperacionesAsignatura {
 
         long operacion = 0;
 
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(utilidades.CAMPO_NOM_ASI,asignatura.getNombreAsignatura());
-        contentValues.put(utilidades.CAMPO_AREA,asignatura.getArea());
-        contentValues.put(utilidades.CAMPO_CREDITOS,asignatura.getCreditos());
-        contentValues.put(utilidades.CAMPO_HORARIO,asignatura.getHorario());
-        contentValues.put(utilidades.CAMPO_NIVEL,asignatura.getNivel());
-        contentValues.put(utilidades.CAMPO_DESCRIPCION,asignatura.getDescripcionAsigantura());
-        contentValues.put(utilidades.CAMPO_CARRERA,asignatura.getCarrera());
+        ContentValues values = contentValues(asignatura);
 
         try{
-            operacion = db.update(utilidades.TABLA_ASIGNATURA,contentValues,
+            operacion = db.update(utilidades.TABLA_ASIGNATURA,values,
                     utilidades.CAMPO_ID_ASI + " = ? ",
                     new String[]{String.valueOf(asignatura.getId_asignatura())});
         }
@@ -175,6 +157,19 @@ public class OperacionesAsignatura {
             db.close();
         }
         return operacion;
+    }
+
+    private ContentValues contentValues(Asignatura asignatura){
+
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(utilidades.CAMPO_NOM_ASI,asignatura.getNombreAsignatura());
+        contentValues.put(utilidades.CAMPO_AREA,asignatura.getArea());
+        contentValues.put(utilidades.CAMPO_CREDITOS,asignatura.getCreditos());
+        contentValues.put(utilidades.CAMPO_HORARIO,asignatura.getHorario());
+        contentValues.put(utilidades.CAMPO_CARRERA,asignatura.getCarrera());
+
+        return contentValues;
     }
 
 }

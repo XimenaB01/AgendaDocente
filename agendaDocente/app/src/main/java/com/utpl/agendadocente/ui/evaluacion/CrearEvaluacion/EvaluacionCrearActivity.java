@@ -29,10 +29,10 @@ import com.utpl.agendadocente.DataBase.OperacionesAsignatura;
 import com.utpl.agendadocente.DataBase.OperacionesCuestionario;
 import com.utpl.agendadocente.DataBase.OperacionesEvaluacion;
 import com.utpl.agendadocente.DataBase.OperacionesParalelo;
-import com.utpl.agendadocente.Entidades.Asignatura;
-import com.utpl.agendadocente.Entidades.Cuestionario;
-import com.utpl.agendadocente.Entidades.Evaluacion;
-import com.utpl.agendadocente.Entidades.Paralelo;
+import com.utpl.agendadocente.Model.Asignatura;
+import com.utpl.agendadocente.Model.Cuestionario;
+import com.utpl.agendadocente.Model.Evaluacion;
+import com.utpl.agendadocente.Model.Paralelo;
 import com.utpl.agendadocente.ui.cuestionario.CrearCuestionario.CuestionarioCrearActivity;
 import com.utpl.agendadocente.ui.cuestionario.CrearCuestionario.CuestionarioCrearListener;
 import com.utpl.agendadocente.ui.periodo.DialogDatePicker;
@@ -54,8 +54,7 @@ public class EvaluacionCrearActivity extends DialogFragment implements DialogDat
     private OperacionesAsignatura operacionesAsignatura = new OperacionesAsignatura(getContext());
 
     private TextInputEditText nomE, obsE;
-    private Button btnFechaEva, btnParaleloA;
-    private Button btntipoEvaluacion;
+    private Button btnFechaEva, btnParaleloA, btntipoEvaluacion;
     private Spinner cuest;
     private RadioButton rb1BimE, rb2BimE;
     private RecyclerView recyclerView;
@@ -382,8 +381,8 @@ public class EvaluacionCrearActivity extends DialogFragment implements DialogDat
     }
 
     @Override
-    public void onDateSet(DatePicker datePicker, int year, int month, int day, String tipo) {
-        btnFechaEva.setText(String.format("%s/%s/%s",day,month,year));
+    public void onDateSet(DatePicker datePicker, String fech, String tipo) {
+        btnFechaEva.setText(fech);
     }
 
     @Override

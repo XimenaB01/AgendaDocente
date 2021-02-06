@@ -48,22 +48,6 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/outlinedTextField2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:startIconDrawable="@drawable/ic_description"
-                android:hint="@string/descripcion"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/desAsigAct"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textCapSentences"/>
-
-            </com.google.android.material.textfield.TextInputLayout>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -72,27 +56,11 @@
                 android:baselineAligned="false">
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/outlinedTextField3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    app:startIconDrawable="@drawable/ic_nivel"
-                    android:hint="@string/nivel"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/nivAsigAct"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="number"/>
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/outlinedTextField4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:layout_marginEnd="2dp"
                     app:startIconDrawable="@drawable/ic_creditos"
                     android:hint="@string/creditos"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
@@ -110,6 +78,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:layout_marginStart="2dp"
                     app:startIconDrawable="@drawable/ic_horas"
                     android:hint="@string/horas"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
@@ -139,6 +108,119 @@
                 android:layout_marginTop="5dp"
                 android:prompt="@string/selectCarrera"
                 android:spinnerMode="dropdown" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/descCH"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/descripcion">
+                </com.google.android.material.checkbox.MaterialCheckBox>
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/nivCH"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/nivel">
+                </com.google.android.material.checkbox.MaterialCheckBox>
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/temCH"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/temas">
+                </com.google.android.material.checkbox.MaterialCheckBox>
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/durCH"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/duracion">
+                </com.google.android.material.checkbox.MaterialCheckBox>
+            </LinearLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/outlinedTextField2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:startIconDrawable="@drawable/ic_description"
+                android:hint="@string/descripcion"
+                android:visibility="gone"
+                tools:visibility="visible"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/desAsigAct"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapSentences"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/outlinedTextField7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:startIconDrawable="@drawable/ic_description"
+                android:hint="@string/temas"
+                android:visibility="gone"
+                tools:visibility="visible"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/temAsigAct"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapSentences"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/outlinedTextField3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="2dp"
+                    app:startIconDrawable="@drawable/ic_nivel"
+                    android:hint="@string/nivel"
+                    android:visibility="gone"
+                    tools:visibility="visible"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/nivAsigAct"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <Button
+                    android:id="@+id/durAsigAct"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:layout_weight="1"
+                    android:visibility="gone"
+                    tools:visibility="visible"
+                    android:text="@string/duracion"/>
+            </LinearLayout>
+
+
 
         </LinearLayout>
     </ScrollView>

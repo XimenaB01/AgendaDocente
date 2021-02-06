@@ -17,10 +17,10 @@ import com.utpl.agendadocente.DataBase.OperacionesAsignatura;
 import com.utpl.agendadocente.DataBase.OperacionesCuestionario;
 import com.utpl.agendadocente.DataBase.OperacionesEvaluacion;
 import com.utpl.agendadocente.DataBase.OperacionesParalelo;
-import com.utpl.agendadocente.Entidades.Asignatura;
-import com.utpl.agendadocente.Entidades.Cuestionario;
-import com.utpl.agendadocente.Entidades.Evaluacion;
-import com.utpl.agendadocente.Entidades.Paralelo;
+import com.utpl.agendadocente.Model.Asignatura;
+import com.utpl.agendadocente.Model.Cuestionario;
+import com.utpl.agendadocente.Model.Evaluacion;
+import com.utpl.agendadocente.Model.Paralelo;
 import com.utpl.agendadocente.R;
 import com.utpl.agendadocente.Utilidades.utilidades;
 

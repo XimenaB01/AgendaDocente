@@ -78,43 +78,6 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:textSize="15sp"
-                        android:drawableStart="@drawable/ic_nivel"
-                        android:textColor="#FFF"
-                        android:textStyle="italic"
-                        android:text="@string/nivel"/>
-
-                    <TextView
-                        android:id="@+id/nivelAsig"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_marginStart="10dp"
-                        android:textStyle="bold"
-                        android:textColor="#FFF"
-                        android:textSize="18sp"/>
-
-                </LinearLayout>
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_weight="1">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:background="#FFC107"
-                    android:padding="5dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:textSize="15sp"
                         android:drawableStart="@drawable/ic_horas"
                         android:backgroundTint="#fff"
                         android:textStyle="italic"
@@ -131,6 +94,46 @@
                         android:textStyle="bold"
                         android:layout_marginStart="10dp"
                         android:textSize="18sp"/>
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardNivel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_weight="1"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="#FFC107"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textSize="15sp"
+                        android:drawableStart="@drawable/ic_nivel"
+                        android:textColor="#FFF"
+                        android:textStyle="italic"
+                        android:text="@string/nivel"/>
+
+                    <TextView
+                        android:id="@+id/nivelAsig"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="10dp"
+                        android:textStyle="bold"
+                        android:textColor="#FFF"
+                        android:textSize="18sp"/>
+
                 </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>
@@ -210,7 +213,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:layout_marginStart="10dp"
                         android:drawableStart="@drawable/ic_creditos"
                         android:textSize="18sp"
                         android:textStyle="italic"
@@ -285,8 +287,11 @@
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardDescripcion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="gone"
+            tools:visibility="visible"
             android:layout_marginTop="10dp">
 
             <LinearLayout
@@ -332,6 +337,82 @@
 
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardTemas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="#FFC107"
+                android:padding="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:drawableStart="@drawable/ic_description"
+                    android:drawableTint="#ffff"
+                    android:textColor="#FFF"
+                    android:textStyle="italic"
+                    android:text="@string/temas"/>
+
+                <TextView
+                    android:id="@+id/temAsig"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:textStyle="bold"
+                    android:textColor="#FFF"
+                    android:textSize="18sp"/>
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardDuracion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="#FFC107"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="15sp"
+                        android:drawableStart="@drawable/ic_periodo"
+                        android:drawableTint="#ffff"
+                        android:textColor="#FFF"
+                        android:textStyle="italic"
+                        android:text="@string/duracion"/>
+
+                    <TextView
+                        android:id="@+id/durAsig"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:textStyle="bold"
+                        android:textColor="#FFF"
+                        android:textSize="18sp"/>
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
     </LinearLayout>
 
 </LinearLayout>

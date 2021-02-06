@@ -1,7 +1,6 @@
 package com.utpl.agendadocente.ui.paralelo.PresentarParalelo;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.utpl.agendadocente.DataBase.OperacionesAsignatura;
-import com.utpl.agendadocente.Entidades.Asignatura;
-import com.utpl.agendadocente.Entidades.Paralelo;
+import com.utpl.agendadocente.Model.Asignatura;
+import com.utpl.agendadocente.Model.Paralelo;
 import com.utpl.agendadocente.ui.paralelo.DialogoOpciones;
 import com.utpl.agendadocente.MainActivity;
 import com.utpl.agendadocente.R;

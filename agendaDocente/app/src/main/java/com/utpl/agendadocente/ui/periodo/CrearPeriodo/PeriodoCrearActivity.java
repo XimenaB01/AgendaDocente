@@ -17,7 +17,7 @@ import android.widget.DatePicker;
 import android.widget.Toast;
 
 import com.utpl.agendadocente.DataBase.OperacionesPeriodo;
-import com.utpl.agendadocente.Entidades.PeriodoAcademico;
+import com.utpl.agendadocente.Model.PeriodoAcademico;
 import com.utpl.agendadocente.ui.periodo.DialogDatePicker;
 import com.utpl.agendadocente.R;
 import com.utpl.agendadocente.Utilidades.utilidades;
@@ -158,13 +158,13 @@ public class PeriodoCrearActivity extends DialogFragment implements DialogDatePi
     }
 
     @Override
-    public void onDateSet(DatePicker datePicker, int year, int month, int day, String tipo) {
+    public void onDateSet(DatePicker datePicker, String fecha, String tipo) {
         switch (tipo){
             case "Inicio":
-                btnFechaIn.setText(String.format("%s/%s/%s",day,month,year));
+                btnFechaIn.setText(fecha);
                 break;
             case "Fin":
-                btnFechaFin.setText(String.format("%s/%s/%s",day,month,year));
+                btnFechaFin.setText(fecha);
                 break;
         }
     }

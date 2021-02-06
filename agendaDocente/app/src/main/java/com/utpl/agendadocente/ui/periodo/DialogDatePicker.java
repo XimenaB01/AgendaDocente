@@ -10,7 +10,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 import java.util.Objects;
 
 public class DialogDatePicker extends DialogFragment implements DatePickerDialog.OnDateSetListener {
@@ -23,7 +25,7 @@ public class DialogDatePicker extends DialogFragment implements DatePickerDialog
     }
 
     public interface DatePickerListener {
-        void onDateSet(DatePicker datePicker, int year, int month, int day, String tipo);
+        void onDateSet(DatePicker datePicker, String fecha, String tipo);
     }
 
     private DatePickerListener listener;
@@ -43,15 +45,19 @@ public class DialogDatePicker extends DialogFragment implements DatePickerDialog
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         Calendar calendar = Calendar.getInstance();
 
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        int y = calendar.get(Calendar.YEAR);
+        int m = calendar.get(Calendar.MONTH);
+        int d = calendar.get(Calendar.DAY_OF_MONTH);
 
-        return new DatePickerDialog(requireActivity(), this, year, month, day);
+        return new DatePickerDialog(requireActivity(), this, y, m, d);
     }
 
     @Override
     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-        listener.onDateSet(datePicker, i, i1, i2, tipo);
+        SimpleDateFormat simpledateformat = new SimpleDateFormat("dd/MM/yyyy");
+        Calendar newDate = Calendar.getInstance();
+        newDate.set(i, i1, i2);
+        String selectedDate = simpledateformat.format(newDate.getTime());
+        listener.onDateSet(datePicker, selectedDate, tipo);
     }
 }

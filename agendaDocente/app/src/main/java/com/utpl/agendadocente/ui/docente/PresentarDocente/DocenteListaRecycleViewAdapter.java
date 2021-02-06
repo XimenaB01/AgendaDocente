@@ -6,14 +6,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import com.utpl.agendadocente.DataBase.OperacionesDocente;
-import com.utpl.agendadocente.Entidades.Docente;
+import com.utpl.agendadocente.Model.Docente;
 import com.utpl.agendadocente.ui.docente.ActualizarDocente.ActualizarDocenteListener;
 import com.utpl.agendadocente.ui.docente.ActualizarDocente.actualizarDocente;
 import com.utpl.agendadocente.MainActivity;
@@ -44,7 +45,7 @@ public class DocenteListaRecycleViewAdapter extends RecyclerView.Adapter<Docente
     }
 
     @Override
-    public void onBindViewHolder(DocenteViewHolder holder, int position) {
+    public void onBindViewHolder(final DocenteViewHolder holder, int position) {
         final int itemPosition = position;
         final Docente docente = docenteLista.get(position);
 
@@ -52,40 +53,49 @@ public class DocenteListaRecycleViewAdapter extends RecyclerView.Adapter<Docente
         holder.email.setText(docente.getEmail());
         holder.cedula.setText(docente.getCedula());
 
-        holder.eliminarDoc.setOnClickListener(new View.OnClickListener() {
+        holder.opcionesDoc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
-                alertDialogBuilder.setMessage("¿Estás seguro de que querías eliminar a este DocenteParger?");
-                alertDialogBuilder.setPositiveButton("Eliminar",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                eliminateDocent(itemPosition);
-                            }
-                        });
-                alertDialogBuilder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                    }
-                });
-                AlertDialog alertDialog = alertDialogBuilder.create();
-                alertDialog.show();
-            }
-        });
 
-        holder.editarDoc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                actualizarDocente actDoc = actualizarDocente.newInstance(docente.getId_docente(), itemPosition, new ActualizarDocenteListener(){
+                PopupMenu popupMenuEstados = new PopupMenu(context,holder.opcionesDoc);
+                popupMenuEstados.getMenuInflater().inflate(R.menu.estados2,popupMenuEstados.getMenu());
+
+                popupMenuEstados.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
-                    public void onActualizarDocente(Docente doc, int position) {
-                        docenteLista.set(position,doc);
-                        notifyDataSetChanged();
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+                        if (menuItem.getTitle().equals("Editar")){
+                            actualizarDocente actDoc = actualizarDocente.newInstance(docente.getId_docente(), itemPosition, new ActualizarDocenteListener(){
+                                @Override
+                                public void onActualizarDocente(Docente doc, int position) {
+                                    docenteLista.set(position,doc);
+                                    notifyDataSetChanged();
+                                }
+                            });
+                            actDoc.show(((MainActivity) context).getSupportFragmentManager(), utilidades.ACTUALIZAR);
+                        }else if (menuItem.getTitle().equals("Eliminar")){
+                            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+                            alertDialogBuilder.setMessage("¿Quiere eliminar a este Docente?");
+                            alertDialogBuilder.setPositiveButton("Eliminar",
+                                    new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            eliminateDocent(itemPosition);
+                                        }
+                                    });
+                            alertDialogBuilder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.dismiss();
+                                }
+                            });
+                            AlertDialog alertDialog = alertDialogBuilder.create();
+                            alertDialog.show();
+                        }
+                        return true;
                     }
                 });
-                actDoc.show(((MainActivity) context).getSupportFragmentManager(), utilidades.ACTUALIZAR);
+
+                popupMenuEstados.show();
             }
         });
     }
