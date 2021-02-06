@@ -126,8 +126,6 @@ public class HorarioListaRecycleViewAdapter extends RecyclerView.Adapter<Horario
         HorarioViewHolder (View view){
             super(view);
             Aula = view.findViewById(R.id.AulaTV);
-            HoraEntrada = view.findViewById(R.id.HorEnTV);
-            HoraSalida = view.findViewById(R.id.HorSalTV);
             opcionesHor= view.findViewById(R.id.opcionesHor);
         }
     }
