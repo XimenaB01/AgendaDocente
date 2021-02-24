@@ -188,7 +188,8 @@ public class OperacionesTarea {
                     new String[]{String.valueOf(tarea.getId_tarea())});
 
         } catch (SQLiteException e){
-            Toast.makeText(context, "La Tarea ya existe!!", Toast.LENGTH_LONG).show();
+            Log.e("error",e+"");
+            Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
         } finally {
             db.close();
         }

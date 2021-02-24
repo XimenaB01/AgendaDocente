@@ -18,7 +18,7 @@ import com.utpl.agendadocente.Model.PeriodoAcademico;
 import com.utpl.agendadocente.R;
 import com.utpl.agendadocente.Utilidades.utilidades;
 import com.utpl.agendadocente.ui.periodo.CrearPeriodo.PeriodoCrearActivity;
-import com.utpl.agendadocente.ui.periodo.CrearPeriodo.PeriodoCreateListener;
+import com.utpl.agendadocente.ui.periodo.IPeriodo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PeriodoFragment extends Fragment implements PeriodoCreateListener {
+public class PeriodoFragment extends Fragment implements IPeriodo.PeriodoCreateListener {
 
     private RecyclerView listPerRV;
     private TextView ListaPeriodoVacia;

@@ -18,7 +18,7 @@ import com.utpl.agendadocente.Model.Evaluacion;
 import com.utpl.agendadocente.R;
 import com.utpl.agendadocente.Utilidades.utilidades;
 import com.utpl.agendadocente.ui.evaluacion.CrearEvaluacion.EvaluacionCrearActivity;
-import com.utpl.agendadocente.ui.evaluacion.CrearEvaluacion.EvaluacionCrearListener;
+import com.utpl.agendadocente.ui.evaluacion.IEvaluacion;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class EvaluacionFragment extends Fragment implements EvaluacionCrearListener {
+public class EvaluacionFragment extends Fragment implements IEvaluacion.EvaluacionCrearListener {
 
     private TextView ListaPeriodoVacia;
 

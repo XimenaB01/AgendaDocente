@@ -31,6 +31,7 @@ import com.utpl.agendadocente.ui.paralelo.DialogAgregarSingleItem;
 
 import com.utpl.agendadocente.R;
 import com.utpl.agendadocente.Utilidades.utilidades;
+import com.utpl.agendadocente.ui.paralelo.IParalelo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +41,7 @@ public class ParaleloActualizarActivity extends DialogFragment implements Dialog
 
     private static long IdParalelo;
     private static int paraleloItemPosition;
-    private static ActualizarParaleloListener actualizarParaleloListener;
+    private static IParalelo.ActualizarParaleloListener actualizarParaleloListener;
 
     private TextInputEditText nombre, alunmos;
     private TextView asignaturaAddAct, horarioAddAct, periodoAddAct;
@@ -69,7 +70,7 @@ public class ParaleloActualizarActivity extends DialogFragment implements Dialog
 
     public ParaleloActualizarActivity(){}
 
-    public static ParaleloActualizarActivity newInstance(Paralelo paralelo, int position, ActualizarParaleloListener listener){
+    public static ParaleloActualizarActivity newInstance(Paralelo paralelo, int position, IParalelo.ActualizarParaleloListener listener){
         IdParalelo = paralelo.getId_paralelo();
         paraleloItemPosition = position;
         actualizarParaleloListener = listener;

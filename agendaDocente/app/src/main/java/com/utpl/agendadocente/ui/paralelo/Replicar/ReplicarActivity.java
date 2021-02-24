@@ -39,6 +39,7 @@ import com.utpl.agendadocente.ui.paralelo.DialogAgregarMultiItems;
 import com.utpl.agendadocente.ui.paralelo.DialogAgregarSingleItem;
 import com.utpl.agendadocente.R;
 import com.utpl.agendadocente.Utilidades.utilidades;
+import com.utpl.agendadocente.ui.paralelo.IParalelo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,11 +48,10 @@ import java.util.Objects;
 public class ReplicarActivity extends DialogFragment implements DialogAgregarMultiItems.AgregarItemsListener, DialogAgregarSingleItem.RecibirItemListener {
 
     private static long IdParalelo;
-    private ReplicarParaleloListener replicarParaleloListener;
+    private IParalelo.ReplicarParaleloListener replicarParaleloListener;
 
     private TextInputEditText nombre, alunmos;
     private TextView asignaturaRep, periodoRep, horarioRep;
-    private Button docenteRep;
     private CheckBox checkBoxTar, checkBoxEva;
     private RecyclerView recyclerView;
 
@@ -98,7 +98,7 @@ public class ReplicarActivity extends DialogFragment implements DialogAgregarMul
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         try {
-            replicarParaleloListener = (ReplicarParaleloListener) getTargetFragment();
+            replicarParaleloListener = (IParalelo.ReplicarParaleloListener) getTargetFragment();
         }catch (Exception e){
             throw new ClassCastException(requireActivity().toString() + " must implements ReplicarParaleloListener");
         }
@@ -112,7 +112,7 @@ public class ReplicarActivity extends DialogFragment implements DialogAgregarMul
         Toolbar toolbar = view.findViewById(R.id.toolbarR);
         nombre = view.findViewById(R.id.nomParRep);
         alunmos = view.findViewById(R.id.numAluRep);
-        docenteRep = view.findViewById(R.id.docenteRep);
+        Button docenteRep = view.findViewById(R.id.docenteRep);
         asignaturaRep = view.findViewById(R.id.asignaturaRep);
         periodoRep = view.findViewById(R.id.periodoRep);
         horarioRep = view.findViewById(R.id.horarioRep);

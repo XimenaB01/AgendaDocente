@@ -18,7 +18,7 @@ import com.utpl.agendadocente.Model.Cuestionario;
 import com.utpl.agendadocente.R;
 import com.utpl.agendadocente.Utilidades.utilidades;
 import com.utpl.agendadocente.ui.cuestionario.CrearCuestionario.CuestionarioCrearActivity;
-import com.utpl.agendadocente.ui.cuestionario.CrearCuestionario.CuestionarioCrearListener;
+import com.utpl.agendadocente.ui.cuestionario.ICuestionario;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CuestionarioFragment extends Fragment implements CuestionarioCrearListener {
+public class CuestionarioFragment extends Fragment implements ICuestionario.CuestionarioCrearListener {
 
     private List<Cuestionario> listaCuestionario = new ArrayList<>();
 

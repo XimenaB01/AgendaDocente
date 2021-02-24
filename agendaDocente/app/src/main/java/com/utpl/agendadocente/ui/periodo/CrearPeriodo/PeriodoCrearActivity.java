@@ -21,13 +21,14 @@ import com.utpl.agendadocente.Model.PeriodoAcademico;
 import com.utpl.agendadocente.ui.periodo.DialogDatePicker;
 import com.utpl.agendadocente.R;
 import com.utpl.agendadocente.Utilidades.utilidades;
+import com.utpl.agendadocente.ui.periodo.IPeriodo;
 
 import java.util.Objects;
 
 public class PeriodoCrearActivity extends DialogFragment implements DialogDatePicker.DatePickerListener{
 
-    private static PeriodoCreateListener periodoCreateListener;
-    private PeriodoCreateListener listener;
+    private static IPeriodo.PeriodoCreateListener periodoCreateListener;
+    private IPeriodo.PeriodoCreateListener listener;
 
     private Button btnFechaIn, btnFechaFin;
 
@@ -38,7 +39,7 @@ public class PeriodoCrearActivity extends DialogFragment implements DialogDatePi
 
     public PeriodoCrearActivity(){}
 
-    public static PeriodoCrearActivity  newInstance(String title, PeriodoCreateListener listener){
+    public static PeriodoCrearActivity  newInstance(String title, IPeriodo.PeriodoCreateListener listener){
         periodoCreateListener = listener;
         PeriodoCrearActivity perCreAc = new PeriodoCrearActivity();
         Bundle bundle = new Bundle();
@@ -55,7 +56,7 @@ public class PeriodoCrearActivity extends DialogFragment implements DialogDatePi
         super.onAttach(context);
         try {
             if (periodoCreateListener != context){
-                listener = (PeriodoCreateListener) getTargetFragment();
+                listener = (IPeriodo.PeriodoCreateListener) getTargetFragment();
             }
         }catch (ClassCastException e ){
             throw new ClassCastException(requireActivity().toString() + " must implements DocenteCreateListener");

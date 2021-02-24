@@ -18,7 +18,7 @@ import com.utpl.agendadocente.Model.Tarea;
 import com.utpl.agendadocente.R;
 import com.utpl.agendadocente.Utilidades.utilidades;
 import com.utpl.agendadocente.ui.tarea.CrearTarea.TareaCrearActivity;
-import com.utpl.agendadocente.ui.tarea.CrearTarea.TareaCrearListener;
+import com.utpl.agendadocente.ui.tarea.ITarea;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Tareas extends Fragment implements TareaCrearListener{
+public class Tareas extends Fragment implements ITarea.TareaCrearListener{
 
     private static long IdParalelo;
     private RecyclerView recyclerView;

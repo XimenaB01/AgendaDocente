@@ -22,6 +22,7 @@ import com.utpl.agendadocente.Model.Horario;
 import com.utpl.agendadocente.ui.horario.DialogTimePicker;
 import com.utpl.agendadocente.R;
 import com.utpl.agendadocente.Utilidades.utilidades;
+import com.utpl.agendadocente.ui.horario.IHorario;
 
 import java.util.Objects;
 
@@ -29,7 +30,7 @@ public class HorarioActualizarActivity extends DialogFragment implements DialogT
 
     private static long idHorario;
     private static int horarioItemPosition;
-    private static ActualizarHorarioListener actualizarHorarioListener;
+    private static IHorario.ActualizarHorarioListener actualizarHorarioListener;
 
     private Horario horario;
 
@@ -45,7 +46,7 @@ public class HorarioActualizarActivity extends DialogFragment implements DialogT
 
     public HorarioActualizarActivity(){}
 
-    public static HorarioActualizarActivity newInstance(Integer id, int position, ActualizarHorarioListener listener){
+    public static HorarioActualizarActivity newInstance(Integer id, int position, IHorario.ActualizarHorarioListener listener){
         idHorario = id;
         horarioItemPosition = position;
         actualizarHorarioListener = listener;

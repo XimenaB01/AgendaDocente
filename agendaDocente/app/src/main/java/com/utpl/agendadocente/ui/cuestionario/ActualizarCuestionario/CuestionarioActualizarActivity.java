@@ -16,12 +16,15 @@ import com.utpl.agendadocente.DataBase.OperacionesCuestionario;
 import com.utpl.agendadocente.Model.Cuestionario;
 import com.utpl.agendadocente.R;
 import com.utpl.agendadocente.Utilidades.utilidades;
+import com.utpl.agendadocente.ui.cuestionario.ICuestionario;
+
+import java.util.Objects;
 
 public class CuestionarioActualizarActivity extends DialogFragment {
 
     private static long idCuestionario;
     private static int cuestionarioItemPosition;
-    private static ActualizarCuestionarioListener actualizarCuestionarioListener;
+    private static ICuestionario.ActualizarCuestionarioListener actualizarCuestionarioListener;
 
     private Cuestionario cuestionario;
 
@@ -34,7 +37,7 @@ public class CuestionarioActualizarActivity extends DialogFragment {
 
     public CuestionarioActualizarActivity(){}
 
-    public static CuestionarioActualizarActivity newInstance(long id, int position, ActualizarCuestionarioListener listener){
+    public static CuestionarioActualizarActivity newInstance(long id, int position, ICuestionario.ActualizarCuestionarioListener listener){
         idCuestionario = id;
         cuestionarioItemPosition = position;
         actualizarCuestionarioListener = listener;
@@ -82,8 +85,8 @@ public class CuestionarioActualizarActivity extends DialogFragment {
             toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {
-                    nombreCuestAct = tvNombreAct.getText().toString();
-                    preguntasCuestAct = tvPreguntasAct.getText().toString();
+                    nombreCuestAct = Objects.requireNonNull(tvNombreAct.getText()).toString();
+                    preguntasCuestAct = Objects.requireNonNull(tvPreguntasAct.getText()).toString();
 
                     if (!nombreCuestAct.isEmpty()){
                         cuestionario.setNombreCuestionario(nombreCuestAct);

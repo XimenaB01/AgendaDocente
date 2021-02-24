@@ -34,7 +34,8 @@ import com.utpl.agendadocente.Model.Cuestionario;
 import com.utpl.agendadocente.Model.Evaluacion;
 import com.utpl.agendadocente.Model.Paralelo;
 import com.utpl.agendadocente.ui.cuestionario.CrearCuestionario.CuestionarioCrearActivity;
-import com.utpl.agendadocente.ui.cuestionario.CrearCuestionario.CuestionarioCrearListener;
+import com.utpl.agendadocente.ui.cuestionario.ICuestionario;
+import com.utpl.agendadocente.ui.evaluacion.IEvaluacion;
 import com.utpl.agendadocente.ui.periodo.DialogDatePicker;
 import com.utpl.agendadocente.R;
 import com.utpl.agendadocente.Utilidades.utilidades;
@@ -43,11 +44,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class EvaluacionCrearActivity extends DialogFragment implements DialogDatePicker.DatePickerListener, CuestionarioCrearListener{
+public class EvaluacionCrearActivity extends DialogFragment implements DialogDatePicker.DatePickerListener, ICuestionario.CuestionarioCrearListener{
 
-    private static EvaluacionCrearListener evaluacionCrearListener;
+    private static IEvaluacion.EvaluacionCrearListener evaluacionCrearListener;
     private static Integer IdParalelo;
-    private EvaluacionCrearListener listener;
+    private IEvaluacion.EvaluacionCrearListener listener;
     private OperacionesEvaluacion operacionesEvaluacion = new OperacionesEvaluacion(getContext());
     private OperacionesCuestionario operacionesCuestionario = new OperacionesCuestionario(getContext());
     private OperacionesParalelo operacionesParalelo = new OperacionesParalelo(getContext());
@@ -77,7 +78,7 @@ public class EvaluacionCrearActivity extends DialogFragment implements DialogDat
 
     public EvaluacionCrearActivity (){}
 
-    public static EvaluacionCrearActivity newInstance(String Title, EvaluacionCrearListener listener, Integer Id){
+    public static EvaluacionCrearActivity newInstance(String Title, IEvaluacion.EvaluacionCrearListener listener, Integer Id){
         IdParalelo = Id;
         evaluacionCrearListener = listener;
         EvaluacionCrearActivity evaluacionCrearActivity = new EvaluacionCrearActivity();
@@ -94,7 +95,7 @@ public class EvaluacionCrearActivity extends DialogFragment implements DialogDat
         super.onAttach(context);
         try {
             if (evaluacionCrearListener != context){
-                listener = (EvaluacionCrearListener) getTargetFragment();
+                listener = (IEvaluacion.EvaluacionCrearListener) getTargetFragment();
             }
         }catch (ClassCastException e ){
             throw new ClassCastException(requireActivity().toString() + " must implements DocenteCreateListener");

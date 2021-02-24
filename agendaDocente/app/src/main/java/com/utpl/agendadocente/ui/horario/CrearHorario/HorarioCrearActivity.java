@@ -24,6 +24,7 @@ import com.utpl.agendadocente.Model.Horario;
 import com.utpl.agendadocente.ui.horario.DialogTimePicker;
 import com.utpl.agendadocente.R;
 import com.utpl.agendadocente.Utilidades.utilidades;
+import com.utpl.agendadocente.ui.horario.IHorario;
 
 import java.util.Objects;
 
@@ -37,13 +38,13 @@ public class HorarioCrearActivity extends DialogFragment implements DialogTimePi
     private String HoraEntrada = "";
     private String HoraSalida = "";
 
-    private static HorarioCrearListener horarioCrearListener;
-    private HorarioCrearListener listener;
+    private static IHorario.HorarioCrearListener horarioCrearListener;
+    private IHorario.HorarioCrearListener listener;
     private OperacionesHorario operacionesHorario = new OperacionesHorario(getContext());
 
     public HorarioCrearActivity(){}
 
-    public static HorarioCrearActivity newInstance(String title, HorarioCrearListener listener){
+    public static HorarioCrearActivity newInstance(String title, IHorario.HorarioCrearListener listener){
         horarioCrearListener = listener;
         HorarioCrearActivity horarioCrearActivity = new HorarioCrearActivity();
         Bundle bundle = new Bundle();
@@ -60,7 +61,7 @@ public class HorarioCrearActivity extends DialogFragment implements DialogTimePi
         super.onAttach(context);
         try {
             if (horarioCrearListener != context){
-                listener = (HorarioCrearListener) getTargetFragment();
+                listener = (IHorario.HorarioCrearListener) getTargetFragment();
             }
         }catch (ClassCastException e ){
             throw new ClassCastException(requireActivity().toString() + " must implements DocenteCreateListener");
@@ -128,11 +129,13 @@ public class HorarioCrearActivity extends DialogFragment implements DialogTimePi
                 Aula = Objects.requireNonNull(txtAula.getText()).toString();
                 HoraEntrada = TimeEntradaAdd.getText().toString();
                 HoraSalida = TimeSalidaAdd.getText().toString();
+                Dia = dia.getText().toString();
 
                 if (!Aula.isEmpty() && !HoraEntrada.isEmpty() && !HoraSalida.isEmpty()){
                     if (Aula.length() == 3){
                         Horario horario = new Horario();
                         horario.setAula(Aula);
+                        horario.setDia(Dia);
                         horario.setHora_entrada(HoraEntrada);
                         horario.setHora_salida(HoraSalida);
                         if (!operacionesHorario.HorarioRepetido(Aula, Dia, HoraEntrada, HoraSalida)){

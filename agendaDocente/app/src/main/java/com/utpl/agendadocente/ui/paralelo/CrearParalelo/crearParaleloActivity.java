@@ -30,6 +30,7 @@ import com.utpl.agendadocente.ui.paralelo.DialogAgregarSingleItem;
 import com.utpl.agendadocente.ui.paralelo.DialogAgregarMultiItems;
 import com.utpl.agendadocente.R;
 import com.utpl.agendadocente.Utilidades.utilidades;
+import com.utpl.agendadocente.ui.paralelo.IParalelo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +38,7 @@ import java.util.Objects;
 
 public class crearParaleloActivity extends DialogFragment implements DialogAgregarMultiItems.AgregarItemsListener, DialogAgregarSingleItem.RecibirItemListener {
 
-    private static ParaleloCrearListener paraleloCrearListener;
+    private static IParalelo.ParaleloCrearListener paraleloCrearListener;
 
     private TextInputEditText nombre, alunmos;
     private TextView asignaturaAdd, periodoAdd, horarioAdd;
@@ -65,7 +66,7 @@ public class crearParaleloActivity extends DialogFragment implements DialogAgreg
 
     public crearParaleloActivity(){}
 
-    public static crearParaleloActivity newInstance(String title, ParaleloCrearListener listener){
+    public static crearParaleloActivity newInstance(String title, IParalelo.ParaleloCrearListener listener){
         paraleloCrearListener=listener;
         crearParaleloActivity crearPar = new crearParaleloActivity();
         Bundle bundle = new Bundle();

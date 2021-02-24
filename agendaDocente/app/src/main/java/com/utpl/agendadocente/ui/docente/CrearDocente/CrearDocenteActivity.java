@@ -7,7 +7,6 @@ import androidx.fragment.app.DialogFragment;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,6 +16,7 @@ import android.widget.Toast;
 import com.google.android.material.textfield.TextInputEditText;
 import com.utpl.agendadocente.DataBase.OperacionesDocente;
 import com.utpl.agendadocente.Model.Docente;
+import com.utpl.agendadocente.ui.docente.IDocente;
 import com.utpl.agendadocente.ui.docente.ValidarCorreo;
 import com.utpl.agendadocente.R;
 import com.utpl.agendadocente.Utilidades.utilidades;
@@ -25,8 +25,8 @@ import java.util.Objects;
 
 public class CrearDocenteActivity extends DialogFragment {
 
-    private static DocenteCreateListener docenteCreateListener;
-    private DocenteCreateListener listener;
+    private static IDocente.DocenteCreateListener docenteCreateListener;
+    private IDocente.DocenteCreateListener listener;
 
     private TextInputEditText nombres, apellidos, cedula, correo;
 
@@ -38,7 +38,7 @@ public class CrearDocenteActivity extends DialogFragment {
 
     public CrearDocenteActivity(){}
 
-    public static CrearDocenteActivity newInstance(String title, DocenteCreateListener listener){
+    public static CrearDocenteActivity newInstance(String title, IDocente.DocenteCreateListener listener){
         docenteCreateListener = listener;
         CrearDocenteActivity crearDoc = new CrearDocenteActivity();
         Bundle bundle = new Bundle();
@@ -55,7 +55,7 @@ public class CrearDocenteActivity extends DialogFragment {
         super.onAttach(context);
         try {
             if (docenteCreateListener != context){
-                listener = (DocenteCreateListener) getTargetFragment();
+                listener = (IDocente.DocenteCreateListener) getTargetFragment();
             }
         }catch (ClassCastException e ){
             throw new ClassCastException(requireActivity().toString() + " must implements DocenteCreateListener");

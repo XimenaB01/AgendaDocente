@@ -10,23 +10,21 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.PopupMenu;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.utpl.agendadocente.DataBase.OperacionesEvaluacion;
 import com.utpl.agendadocente.Model.Evaluacion;
 import com.utpl.agendadocente.MainActivity;
-import com.utpl.agendadocente.ui.evaluacion.ActualizarEvaluacion.ActualizarEvaluacionListener;
 import com.utpl.agendadocente.ui.evaluacion.ActualizarEvaluacion.EvaluacionActualizarActivity;
 import com.utpl.agendadocente.R;
 import com.utpl.agendadocente.Utilidades.utilidades;
+import com.utpl.agendadocente.ui.evaluacion.IEvaluacion;
 import com.utpl.agendadocente.ui.paralelo.PresentarParalelo.DetalleParaleloActivity;
 
 import java.util.List;
 
-public class EvaluacionListaRecycleViewAdapter extends RecyclerView.Adapter<EvaluacionListaRecycleViewAdapter.EvaluacionViewHolder> {
+public class EvaluacionListaRecycleViewAdapter extends RecyclerView.Adapter<EvaluacionViewHolder> {
 
     private Context context;
     private String Componente;
@@ -69,7 +67,7 @@ public class EvaluacionListaRecycleViewAdapter extends RecyclerView.Adapter<Eval
                     @Override
                     public boolean onMenuItemClick(MenuItem menuItem) {
                         if (menuItem.getTitle().equals("Editar")){
-                            EvaluacionActualizarActivity actEva = EvaluacionActualizarActivity.newInstance(eva.getId_evaluacion(), itemPosicion, new ActualizarEvaluacionListener(){
+                            EvaluacionActualizarActivity actEva = EvaluacionActualizarActivity.newInstance(eva.getId_evaluacion(), itemPosicion, new IEvaluacion.ActualizarEvaluacionListener(){
                                 @Override
                                 public void onActualizarEvaluacion(Evaluacion evaluacion, int position) {
                                     evaluacionLista.set(position,evaluacion);
@@ -140,18 +138,6 @@ public class EvaluacionListaRecycleViewAdapter extends RecyclerView.Adapter<Eval
     @Override
     public int getItemCount() {
         return evaluacionLista.size();
-    }
-
-    public class EvaluacionViewHolder extends RecyclerView.ViewHolder {
-        TextView fechEva, tipoEva, nombEva;
-        ImageView opcionesEva;
-        EvaluacionViewHolder (View view){
-            super(view);
-            nombEva = view.findViewById(R.id.nomEvaTV);
-            tipoEva = view.findViewById(R.id.TipoEvaTV);
-            fechEva = view.findViewById(R.id.FechEvaTV);
-            opcionesEva = view.findViewById(R.id.opcionesEva);
-        }
     }
 
 }

@@ -18,12 +18,13 @@ import com.utpl.agendadocente.Model.PeriodoAcademico;
 import com.utpl.agendadocente.ui.periodo.DialogDatePicker;
 import com.utpl.agendadocente.R;
 import com.utpl.agendadocente.Utilidades.utilidades;
+import com.utpl.agendadocente.ui.periodo.IPeriodo;
 
 public class PeriodoActualizarActivity extends DialogFragment implements DialogDatePicker.DatePickerListener{
 
     private static long idPeriodo;
     private static int periodoItemPosition;
-    private static ActualizarPeriodoListener actualizarPeriodoListener;
+    private static IPeriodo.ActualizarPeriodoListener actualizarPeriodoListener;
 
     private PeriodoAcademico periodoAcademico;
 
@@ -36,7 +37,7 @@ public class PeriodoActualizarActivity extends DialogFragment implements DialogD
 
     public PeriodoActualizarActivity(){}
 
-    public static PeriodoActualizarActivity newInstance(Integer id, int position, ActualizarPeriodoListener listener){
+    public static PeriodoActualizarActivity newInstance(Integer id, int position, IPeriodo.ActualizarPeriodoListener listener){
         idPeriodo = id;
         periodoItemPosition = position;
         actualizarPeriodoListener = listener;

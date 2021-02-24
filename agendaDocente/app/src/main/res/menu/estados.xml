@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/itemEnviado"
-        android:title="@string/enviada" />
+        android:id="@+id/itemEditar"
+        android:title="@string/editar" />
+    <item
+        android:id="@+id/itemEliminar"
+        android:title="@string/eliminar" />
     <item
         android:id="@+id/itemSinEnviado"
         android:title="@string/sin_enviar" />
     <item
-        android:id="@+id/itemRevisado"
-        android:title="@string/revisada" />
+        android:id="@+id/itemEnviado"
+        android:title="@string/enviada" />
     <item
-        android:id="@+id/itemSinRevisar"
-        android:title="@string/sin_revisar" />
+        android:id="@+id/itemRevisado"
+        android:title="@string/calificada" />
 </menu>

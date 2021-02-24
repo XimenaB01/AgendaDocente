@@ -15,7 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
@@ -29,6 +28,7 @@ import com.utpl.agendadocente.ui.evaluacion.CrearEvaluacion.EvaluacionCrearActiv
 import com.utpl.agendadocente.ui.periodo.DialogDatePicker;
 import com.utpl.agendadocente.R;
 import com.utpl.agendadocente.Utilidades.utilidades;
+import com.utpl.agendadocente.ui.tarea.ITarea;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,9 +36,9 @@ import java.util.Objects;
 
 public class TareaCrearActivity extends DialogFragment implements DialogDatePicker.DatePickerListener {
 
-    private static TareaCrearListener tareaCrearListener;
+    private static ITarea.TareaCrearListener tareaCrearListener;
     private static Integer IdParalelo;
-    private TareaCrearListener listener;
+    private ITarea.TareaCrearListener listener;
     private Button btnFechaEn, btnParaleloA;
     private TextInputEditText nomTarea, descTarea, obsTarea;
     private RecyclerView recyclerViewTar;
@@ -60,7 +60,7 @@ public class TareaCrearActivity extends DialogFragment implements DialogDatePick
 
     public TareaCrearActivity(){}
 
-    public static TareaCrearActivity newInstance(String Title, TareaCrearListener listener, Integer Id){
+    public static TareaCrearActivity newInstance(String Title, ITarea.TareaCrearListener listener, Integer Id){
         tareaCrearListener = listener;
         IdParalelo = Id;
         TareaCrearActivity tarCreAct = new TareaCrearActivity();
@@ -78,7 +78,7 @@ public class TareaCrearActivity extends DialogFragment implements DialogDatePick
 
         try {
             if (tareaCrearListener != context){
-                listener = (TareaCrearListener) getTargetFragment();
+                listener = (ITarea.TareaCrearListener) getTargetFragment();
             }
         }catch (ClassCastException e ){
             throw new ClassCastException(requireActivity().toString() + " must implements DocenteCreateListener");
@@ -97,7 +97,7 @@ public class TareaCrearActivity extends DialogFragment implements DialogDatePick
         descTarea = view.findViewById(R.id.desTar);
         obsTarea = view.findViewById(R.id.obsTar);
         btnFechaEn = view.findViewById(R.id.btnFechEn);
-        final Button estados = view.findViewById(R.id.estadosTarea);
+        //final Button estados = view.findViewById(R.id.estadosTarea);
         btnParaleloA = view.findViewById(R.id.paraleloAsigTar);
         recyclerViewTar = view.findViewById(R.id.paralelosAsignadosTar);
 
@@ -119,7 +119,7 @@ public class TareaCrearActivity extends DialogFragment implements DialogDatePick
             }
         });
 
-        estados.setOnClickListener(new View.OnClickListener() {
+        /*estados.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 PopupMenu popupMenuEstados = new PopupMenu(getContext(),estados);
@@ -135,7 +135,7 @@ public class TareaCrearActivity extends DialogFragment implements DialogDatePick
 
                 popupMenuEstados.show();
             }
-        });
+        });*/
 
         btnParaleloA.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -161,11 +161,12 @@ public class TareaCrearActivity extends DialogFragment implements DialogDatePick
                 desTar = Objects.requireNonNull(descTarea.getText()).toString();
                 obsTar = Objects.requireNonNull(obsTarea.getText()).toString();
                 fecEntTar = btnFechaEn.getText().toString();
-                if (!estados.getText().toString().equals("Estado")){
+                estadoTar = "Sin Enviar";
+                /*if (!estados.getText().toString().equals("Estado")){
                     estadoTar = estados.getText().toString();
                 }else {
                     estadoTar = "Sin Estado";
-                }
+                }*/
 
                 List<Integer> Ids = new ArrayList<>();
                 if (btnParaleloA.getVisibility()==View.GONE && recyclerViewTar.getVisibility()==View.GONE){

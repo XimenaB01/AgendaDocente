@@ -15,19 +15,17 @@ import androidx.annotation.Nullable;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.utpl.agendadocente.DataBase.OperacionesParalelo;
 import com.utpl.agendadocente.Model.Paralelo;
-import com.utpl.agendadocente.ui.paralelo.ActualizarParalelo.ActualizarParaleloListener;
 import com.utpl.agendadocente.ui.paralelo.ActualizarParalelo.ParaleloActualizarActivity;
 import com.utpl.agendadocente.ui.paralelo.PresentarParalelo.DetalleParaleloActivity;
 import com.utpl.agendadocente.ui.paralelo.PresentarParalelo.DialogoOpcionesListener;
 import com.utpl.agendadocente.ui.paralelo.Replicar.ReplicarActivity;
-import com.utpl.agendadocente.ui.paralelo.Replicar.ReplicarParaleloListener;
 import com.utpl.agendadocente.MainActivity;
 import com.utpl.agendadocente.R;
 import com.utpl.agendadocente.Utilidades.utilidades;
 
 import java.util.List;
 
-public class DialogoOpciones extends BottomSheetDialogFragment implements ReplicarParaleloListener{
+public class DialogoOpciones extends BottomSheetDialogFragment implements IParalelo.ReplicarParaleloListener{
 
     private static long IdParalelo;
     private static int paraleloItemPosition;
@@ -63,7 +61,7 @@ public class DialogoOpciones extends BottomSheetDialogFragment implements Replic
             public void onClick(View view) {
                 dismiss();
                 Paralelo paralelo = operacionesParalelo.obtenerPar(IdParalelo);
-                ParaleloActualizarActivity paraleloActualizarActivity = ParaleloActualizarActivity.newInstance(paralelo, paraleloItemPosition, new ActualizarParaleloListener() {
+                ParaleloActualizarActivity paraleloActualizarActivity = ParaleloActualizarActivity.newInstance(paralelo, paraleloItemPosition, new IParalelo.ActualizarParaleloListener() {
                     @Override
                     public void onActualizarParalelo(Paralelo paralelo, int position) {
                         dialogoOpcionesListener.onDialogoOpcionesParalelo(paralelo,position,"Editar");

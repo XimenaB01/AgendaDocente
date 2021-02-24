@@ -17,8 +17,8 @@ import com.utpl.agendadocente.DataBase.OperacionesParalelo;
 import com.utpl.agendadocente.Model.Paralelo;
 import com.utpl.agendadocente.R;
 import com.utpl.agendadocente.Utilidades.utilidades;
-import com.utpl.agendadocente.ui.paralelo.CrearParalelo.ParaleloCrearListener;
 import com.utpl.agendadocente.ui.paralelo.CrearParalelo.crearParaleloActivity;
+import com.utpl.agendadocente.ui.paralelo.IParalelo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ParaleloFragment extends Fragment implements ParaleloCrearListener {
+public class ParaleloFragment extends Fragment implements IParalelo.ParaleloCrearListener {
 
     private TextView ListaParaleloVacia;
 

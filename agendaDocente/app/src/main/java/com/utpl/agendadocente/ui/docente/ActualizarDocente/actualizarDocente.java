@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.google.android.material.textfield.TextInputEditText;
 import com.utpl.agendadocente.DataBase.OperacionesDocente;
 import com.utpl.agendadocente.Model.Docente;
+import com.utpl.agendadocente.ui.docente.IDocente;
 import com.utpl.agendadocente.ui.docente.ValidarCorreo;
 import com.utpl.agendadocente.R;
 import com.utpl.agendadocente.Utilidades.utilidades;
@@ -24,7 +25,7 @@ public class actualizarDocente extends DialogFragment {
 
     private static long idDocent;
     private static int docentItemPosition;
-    private static ActualizarDocenteListener actualizarDocenteListener;
+    private static IDocente.ActualizarDocenteListener actualizarDocenteListener;
 
     private Docente docente;
 
@@ -35,7 +36,7 @@ public class actualizarDocente extends DialogFragment {
     public actualizarDocente(){
     }
 
-    public static actualizarDocente newInstance(long id, int position, ActualizarDocenteListener listener){
+    public static actualizarDocente newInstance(long id, int position, IDocente.ActualizarDocenteListener listener){
         idDocent = id;
         docentItemPosition = position;
         actualizarDocenteListener = listener;

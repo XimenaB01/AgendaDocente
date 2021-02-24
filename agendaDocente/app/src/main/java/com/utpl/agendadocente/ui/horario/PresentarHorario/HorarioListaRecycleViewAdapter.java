@@ -18,10 +18,10 @@ import android.widget.Toast;
 import com.utpl.agendadocente.DataBase.OperacionesHorario;
 import com.utpl.agendadocente.Model.Horario;
 import com.utpl.agendadocente.MainActivity;
-import com.utpl.agendadocente.ui.horario.ActualizarHorario.ActualizarHorarioListener;
 import com.utpl.agendadocente.ui.horario.ActualizarHorario.HorarioActualizarActivity;
 import com.utpl.agendadocente.R;
 import com.utpl.agendadocente.Utilidades.utilidades;
+import com.utpl.agendadocente.ui.horario.IHorario;
 
 import java.util.List;
 
@@ -73,7 +73,7 @@ public class HorarioListaRecycleViewAdapter extends RecyclerView.Adapter<Horario
                     @Override
                     public boolean onMenuItemClick(MenuItem menuItem) {
                         if (menuItem.getTitle().equals("Editar")){
-                            HorarioActualizarActivity actHor = HorarioActualizarActivity.newInstance(hor.getId_horario(), itemPosicion, new ActualizarHorarioListener(){
+                            HorarioActualizarActivity actHor = HorarioActualizarActivity.newInstance(hor.getId_horario(), itemPosicion, new IHorario.ActualizarHorarioListener(){
                                 @Override
                                 public void onActualizarHorario(Horario horario, int position) {
                                     horarioLista.set(position,horario);

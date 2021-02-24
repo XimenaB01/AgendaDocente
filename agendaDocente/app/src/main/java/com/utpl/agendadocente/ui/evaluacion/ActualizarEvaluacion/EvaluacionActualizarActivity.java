@@ -31,6 +31,7 @@ import com.utpl.agendadocente.Model.Cuestionario;
 import com.utpl.agendadocente.Model.Evaluacion;
 import com.utpl.agendadocente.Model.Paralelo;
 import com.utpl.agendadocente.ui.evaluacion.CrearEvaluacion.EvaluacionCrearActivity;
+import com.utpl.agendadocente.ui.evaluacion.IEvaluacion;
 import com.utpl.agendadocente.ui.periodo.DialogDatePicker;
 import com.utpl.agendadocente.R;
 import com.utpl.agendadocente.Utilidades.utilidades;
@@ -44,7 +45,7 @@ public class EvaluacionActualizarActivity extends DialogFragment implements Dial
 
     private static long idEvaluacion;
     private static int evaluacionItemPosition;
-    private static ActualizarEvaluacionListener actualizarEvaluacionListener;
+    private static IEvaluacion.ActualizarEvaluacionListener actualizarEvaluacionListener;
 
     private Evaluacion evaluacion;
 
@@ -75,7 +76,7 @@ public class EvaluacionActualizarActivity extends DialogFragment implements Dial
     public EvaluacionActualizarActivity() {
     }
 
-    public static EvaluacionActualizarActivity newInstance(Integer id, int position, ActualizarEvaluacionListener listener) {
+    public static EvaluacionActualizarActivity newInstance(Integer id, int position, IEvaluacion.ActualizarEvaluacionListener listener) {
         idEvaluacion = id;
         evaluacionItemPosition = position;
         actualizarEvaluacionListener = listener;

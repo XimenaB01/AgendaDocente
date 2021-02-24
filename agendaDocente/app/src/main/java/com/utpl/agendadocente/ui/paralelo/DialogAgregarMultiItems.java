@@ -20,19 +20,19 @@ import com.utpl.agendadocente.Model.Docente;
 import com.utpl.agendadocente.Model.Evaluacion;
 import com.utpl.agendadocente.Model.Tarea;
 import com.utpl.agendadocente.ui.docente.CrearDocente.CrearDocenteActivity;
-import com.utpl.agendadocente.ui.docente.CrearDocente.DocenteCreateListener;
+import com.utpl.agendadocente.ui.docente.IDocente;
 import com.utpl.agendadocente.ui.evaluacion.CrearEvaluacion.EvaluacionCrearActivity;
-import com.utpl.agendadocente.ui.evaluacion.CrearEvaluacion.EvaluacionCrearListener;
+import com.utpl.agendadocente.ui.evaluacion.IEvaluacion;
 import com.utpl.agendadocente.ui.tarea.CrearTarea.TareaCrearActivity;
-import com.utpl.agendadocente.ui.tarea.CrearTarea.TareaCrearListener;
 import com.utpl.agendadocente.R;
 import com.utpl.agendadocente.Utilidades.utilidades;
+import com.utpl.agendadocente.ui.tarea.ITarea;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class DialogAgregarMultiItems extends DialogFragment implements DocenteCreateListener, TareaCrearListener, EvaluacionCrearListener {
+public class DialogAgregarMultiItems extends DialogFragment implements IDocente.DocenteCreateListener, ITarea.TareaCrearListener, IEvaluacion.EvaluacionCrearListener {
 
     private ItemMultiCheckAdapter itemMultiCheckAdapter;
     private static String [] listaItems;

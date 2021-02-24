@@ -18,7 +18,7 @@ import com.utpl.agendadocente.Model.Horario;
 import com.utpl.agendadocente.R;
 import com.utpl.agendadocente.Utilidades.utilidades;
 import com.utpl.agendadocente.ui.horario.CrearHorario.HorarioCrearActivity;
-import com.utpl.agendadocente.ui.horario.CrearHorario.HorarioCrearListener;
+import com.utpl.agendadocente.ui.horario.IHorario;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HorarioFragment extends Fragment implements HorarioCrearListener {
+public class HorarioFragment extends Fragment implements IHorario.HorarioCrearListener {
 
     private TextView ListaHorarioVacia;
 

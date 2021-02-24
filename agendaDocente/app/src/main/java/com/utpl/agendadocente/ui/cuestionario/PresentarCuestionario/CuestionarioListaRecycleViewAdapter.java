@@ -10,22 +10,20 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.PopupMenu;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.utpl.agendadocente.DataBase.OperacionesCuestionario;
 import com.utpl.agendadocente.Model.Cuestionario;
 import com.utpl.agendadocente.MainActivity;
-import com.utpl.agendadocente.ui.cuestionario.ActualizarCuestionario.ActualizarCuestionarioListener;
 import com.utpl.agendadocente.ui.cuestionario.ActualizarCuestionario.CuestionarioActualizarActivity;
 import com.utpl.agendadocente.R;
 import com.utpl.agendadocente.Utilidades.utilidades;
+import com.utpl.agendadocente.ui.cuestionario.ICuestionario;
 
 import java.util.List;
 
-public class CuestionarioListaRecycleViewAdapter extends RecyclerView.Adapter<CuestionarioListaRecycleViewAdapter.CuestionarioViewHolder> {
+public class CuestionarioListaRecycleViewAdapter extends RecyclerView.Adapter<CuestionarioViewHolder> {
 
     private Context context;
     private List<Cuestionario> cuestionarioLista;
@@ -64,7 +62,7 @@ public class CuestionarioListaRecycleViewAdapter extends RecyclerView.Adapter<Cu
                     @Override
                     public boolean onMenuItemClick(MenuItem menuItem) {
                         if (menuItem.getTitle().equals("Editar")){
-                            CuestionarioActualizarActivity actCuest = CuestionarioActualizarActivity.newInstance(cuest.getId_cuestionario(), itemPosicion, new ActualizarCuestionarioListener(){
+                            CuestionarioActualizarActivity actCuest = CuestionarioActualizarActivity.newInstance(cuest.getId_cuestionario(), itemPosicion, new ICuestionario.ActualizarCuestionarioListener(){
                                 @Override
                                 public void onActualizarCuestionario(Cuestionario cuestionario, int position) {
                                     cuestionarioLista.set(position,cuestionario);
@@ -126,16 +124,6 @@ public class CuestionarioListaRecycleViewAdapter extends RecyclerView.Adapter<Cu
     @Override
     public int getItemCount() {
         return cuestionarioLista.size();
-    }
-
-    public class CuestionarioViewHolder extends RecyclerView.ViewHolder {
-        TextView nombCuest;
-        ImageView opcionesCues;
-        CuestionarioViewHolder (View view){
-            super(view);
-            nombCuest = view.findViewById(R.id.txttitleCuestionario);
-            opcionesCues = view.findViewById(R.id.opcionesCues);
-        }
     }
 
 }

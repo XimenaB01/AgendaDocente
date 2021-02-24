@@ -28,6 +28,7 @@ import com.utpl.agendadocente.Model.Tarea;
 import com.utpl.agendadocente.ui.periodo.DialogDatePicker;
 import com.utpl.agendadocente.R;
 import com.utpl.agendadocente.Utilidades.utilidades;
+import com.utpl.agendadocente.ui.tarea.ITarea;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,9 +38,9 @@ public class TareaActualizarActivity extends DialogFragment implements DialogDat
 
     private static long idTarea;
     private static int tareaItemPosition;
-    private static ActualizarTareaListener actualizarTareaListener;
+    private static ITarea.ActualizarTareaListener actualizarTareaListener;
 
-    private Button btnFechAct, estadoTareaAct;
+    private Button btnFechAct;
     private TextInputEditText nomTareaAct, descTareaAct, obsTareaAct;
     private Spinner ParTareaAct;
 
@@ -55,6 +56,7 @@ public class TareaActualizarActivity extends DialogFragment implements DialogDat
     private OperacionesParalelo operacionesParalelo = new OperacionesParalelo(getContext());
     private OperacionesAsignatura operacionesAsignatura = new OperacionesAsignatura(getContext());
 
+
     private Tarea tarea  = operacionesTarea.obtenerTar(idTarea);
 
     private List<Asignatura> ListaAsignaturas = operacionesAsignatura.ListarAsig();
@@ -62,7 +64,7 @@ public class TareaActualizarActivity extends DialogFragment implements DialogDat
 
     public TareaActualizarActivity(){}
 
-    public static TareaActualizarActivity newInstance(Integer id, int position, ActualizarTareaListener listener){
+    public static TareaActualizarActivity newInstance(Integer id, int position, ITarea.ActualizarTareaListener listener){
         idTarea = id;
         tareaItemPosition = position;
         actualizarTareaListener = listener;
@@ -87,7 +89,7 @@ public class TareaActualizarActivity extends DialogFragment implements DialogDat
         descTareaAct = view.findViewById(R.id.desTarAct);
         obsTareaAct = view.findViewById(R.id.obsTarAct);
         btnFechAct = view.findViewById(R.id.btnFechEAct);
-        estadoTareaAct = view.findViewById(R.id.estadosTareaAct);
+        //estadoTareaAct = view.findViewById(R.id.estadosTareaAct);
         ParTareaAct = view.findViewById(R.id.paraleloTareaAct);
 
         String title = null;
@@ -103,11 +105,11 @@ public class TareaActualizarActivity extends DialogFragment implements DialogDat
             descTareaAct.setText(tarea.getDescripcionTarea());
             btnFechAct.setText(tarea.getFechaTarea());
             obsTareaAct.setText(tarea.getObservacionTarea());
-            estadoTareaAct.setText(tarea.getEstadoTarea());
+            //estadoTareaAct.setText(tarea.getEstadoTarea());
 
             obtenerParaleloAsignadoSpinner();
 
-            estadoTareaAct.setOnClickListener(new View.OnClickListener() {
+            /*estadoTareaAct.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     PopupMenu popupMenuEstados = new PopupMenu(getContext(),estadoTareaAct);
@@ -123,7 +125,7 @@ public class TareaActualizarActivity extends DialogFragment implements DialogDat
 
                     popupMenuEstados.show();
                 }
-            });
+            });*/
 
             toolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
@@ -139,7 +141,7 @@ public class TareaActualizarActivity extends DialogFragment implements DialogDat
                     desTarAct = Objects.requireNonNull(descTareaAct.getText()).toString();
                     fecEntTarAct = btnFechAct.getText().toString();
                     obsTarAct = Objects.requireNonNull(obsTareaAct.getText()).toString();
-                    estadoTarAct = estadoTareaAct.getText().toString();
+                    //estadoTarAct = tarea.getEstadoTarea();
                     obtenerIdParaleloAsignado(ParTareaAct.getSelectedItem().toString());
 
                     if (!nomTarAct.isEmpty()){
@@ -147,7 +149,7 @@ public class TareaActualizarActivity extends DialogFragment implements DialogDat
                         tarea.setDescripcionTarea(desTarAct);
                         tarea.setFechaTarea(fecEntTarAct);
                         tarea.setObservacionTarea(obsTarAct);
-                        tarea.setEstadoTarea(estadoTarAct);
+                        //tarea.setEstadoTarea(estadoTarAct);
                         tarea.setParaleloId(IdParalelo);
 
                         long insercion = operacionesTarea.ModificarTar(tarea);

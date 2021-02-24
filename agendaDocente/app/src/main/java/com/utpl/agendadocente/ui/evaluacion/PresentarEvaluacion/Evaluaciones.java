@@ -17,13 +17,13 @@ import com.utpl.agendadocente.Model.Evaluacion;
 import com.utpl.agendadocente.R;
 import com.utpl.agendadocente.Utilidades.utilidades;
 import com.utpl.agendadocente.ui.evaluacion.CrearEvaluacion.EvaluacionCrearActivity;
-import com.utpl.agendadocente.ui.evaluacion.CrearEvaluacion.EvaluacionCrearListener;
+import com.utpl.agendadocente.ui.evaluacion.IEvaluacion;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class Evaluaciones extends Fragment implements EvaluacionCrearListener {
+public class Evaluaciones extends Fragment implements IEvaluacion.EvaluacionCrearListener {
 
 
     private static long IdParalelo;

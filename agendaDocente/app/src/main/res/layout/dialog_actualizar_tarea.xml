@@ -67,40 +67,18 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <LinearLayout
+        <Button
+            android:id="@+id/btnFechEAct"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/btnFechEAct"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textColor="#FFF"
-                android:layout_weight="1"
-                android:drawableStart="@drawable/ic_fecha"
-                android:backgroundTint="#FFC107"
-                android:text="@string/fechaentreda"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="5dp"
-                app:icon="@drawable/ic_fecha"
-                style="?android:attr/buttonBarButtonStyle"/>
-
-            <Button
-                android:id="@+id/estadosTareaAct"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:backgroundTint="#FFC107"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="5dp"
-                android:text="@string/estado"
-                android:textAlignment="textStart"
-                android:textColor="#FFF"
-                style="?android:attr/buttonBarButtonStyle"
-                android:drawableEnd="@android:drawable/arrow_down_float"/>
-        </LinearLayout>
+            android:layout_height="match_parent"
+            android:textColor="#FFF"
+            android:drawableStart="@drawable/ic_fecha"
+            android:backgroundTint="#FFC107"
+            android:text="@string/fechaentreda"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            app:icon="@drawable/ic_fecha"
+            style="?android:attr/buttonBarButtonStyle"/>
 
         <Spinner
             android:id="@+id/paraleloTareaAct"

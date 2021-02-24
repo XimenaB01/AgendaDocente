@@ -19,13 +19,14 @@ import com.utpl.agendadocente.DataBase.OperacionesCuestionario;
 import com.utpl.agendadocente.Model.Cuestionario;
 import com.utpl.agendadocente.R;
 import com.utpl.agendadocente.Utilidades.utilidades;
+import com.utpl.agendadocente.ui.cuestionario.ICuestionario;
 
 import java.util.Objects;
 
 public class CuestionarioCrearActivity extends DialogFragment {
 
-    private static CuestionarioCrearListener cuestionarioCrearListener;
-    private CuestionarioCrearListener listener;
+    private static ICuestionario.CuestionarioCrearListener cuestionarioCrearListener;
+    private ICuestionario.CuestionarioCrearListener listener;
 
     private TextInputEditText tvNombre, tvPreguntas;
 
@@ -36,7 +37,7 @@ public class CuestionarioCrearActivity extends DialogFragment {
 
     public CuestionarioCrearActivity(){}
 
-    public static CuestionarioCrearActivity newInstance (String title, CuestionarioCrearListener listener){
+    public static CuestionarioCrearActivity newInstance (String title, ICuestionario.CuestionarioCrearListener listener){
         if (listener != null){
             cuestionarioCrearListener = listener;
         }
@@ -56,7 +57,7 @@ public class CuestionarioCrearActivity extends DialogFragment {
         super.onAttach(context);
         try {
             if (cuestionarioCrearListener != context){
-                listener = (CuestionarioCrearListener) getTargetFragment();
+                listener = (ICuestionario.CuestionarioCrearListener) getTargetFragment();
             }
         }catch (ClassCastException e ){
             throw new ClassCastException(requireActivity().toString() + " must implements CuestionarioCrearListener");

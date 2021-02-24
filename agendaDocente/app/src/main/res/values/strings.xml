@@ -143,8 +143,7 @@
 
     <string name="enviada">Enviada</string>
     <string name="sin_enviar">Sin Enviar</string>
-    <string name="revisada">Revisada</string>
-    <string name="sin_revisar">Sin Revisar</string>
+    <string name="calificada">Calificada</string>
 
     <string name="dias">Día</string>
     <string name="lunes">Lunes</string>

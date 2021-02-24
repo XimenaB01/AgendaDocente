@@ -18,10 +18,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.utpl.agendadocente.DataBase.OperacionesPeriodo;
 import com.utpl.agendadocente.Model.PeriodoAcademico;
 import com.utpl.agendadocente.MainActivity;
-import com.utpl.agendadocente.ui.periodo.ActualizarPeriodo.ActualizarPeriodoListener;
 import com.utpl.agendadocente.ui.periodo.ActualizarPeriodo.PeriodoActualizarActivity;
 import com.utpl.agendadocente.R;
 import com.utpl.agendadocente.Utilidades.utilidades;
+import com.utpl.agendadocente.ui.periodo.IPeriodo;
 
 import java.util.List;
 
@@ -65,7 +65,7 @@ public class PeriodoListaRecycleViewAdapter extends RecyclerView.Adapter<Periodo
                     @Override
                     public boolean onMenuItemClick(MenuItem menuItem) {
                         if (menuItem.getTitle().equals("Editar")){
-                            PeriodoActualizarActivity actPer = PeriodoActualizarActivity.newInstance(periodo.getId_periodo(), itemPosicion, new ActualizarPeriodoListener(){
+                            PeriodoActualizarActivity actPer = PeriodoActualizarActivity.newInstance(periodo.getId_periodo(), itemPosicion, new IPeriodo.ActualizarPeriodoListener(){
                                 @Override
                                 public void onActualizarPeriodo(PeriodoAcademico periodo, int position) {
                                     periodoLista.set(position,periodo);

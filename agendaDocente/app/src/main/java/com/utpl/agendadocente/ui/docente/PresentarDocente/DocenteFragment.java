@@ -17,12 +17,12 @@ import com.utpl.agendadocente.Model.Docente;
 import com.utpl.agendadocente.R;
 import com.utpl.agendadocente.Utilidades.utilidades;
 import com.utpl.agendadocente.ui.docente.CrearDocente.CrearDocenteActivity;
-import com.utpl.agendadocente.ui.docente.CrearDocente.DocenteCreateListener;
+import com.utpl.agendadocente.ui.docente.IDocente;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DocenteFragment extends Fragment implements DocenteCreateListener {
+public class DocenteFragment extends Fragment implements IDocente.DocenteCreateListener {
 
     private TextView ListaDocentesVacia;
     private DocenteListaRecycleViewAdapter docenteListaRecycleViewAdapter;

@@ -15,11 +15,11 @@ import android.widget.Toast;
 
 import com.utpl.agendadocente.DataBase.OperacionesDocente;
 import com.utpl.agendadocente.Model.Docente;
-import com.utpl.agendadocente.ui.docente.ActualizarDocente.ActualizarDocenteListener;
 import com.utpl.agendadocente.ui.docente.ActualizarDocente.actualizarDocente;
 import com.utpl.agendadocente.MainActivity;
 import com.utpl.agendadocente.R;
 import com.utpl.agendadocente.Utilidades.utilidades;
+import com.utpl.agendadocente.ui.docente.IDocente;
 
 import java.util.List;
 
@@ -64,7 +64,7 @@ public class DocenteListaRecycleViewAdapter extends RecyclerView.Adapter<Docente
                     @Override
                     public boolean onMenuItemClick(MenuItem menuItem) {
                         if (menuItem.getTitle().equals("Editar")){
-                            actualizarDocente actDoc = actualizarDocente.newInstance(docente.getId_docente(), itemPosition, new ActualizarDocenteListener(){
+                            actualizarDocente actDoc = actualizarDocente.newInstance(docente.getId_docente(), itemPosition, new IDocente.ActualizarDocenteListener(){
                                 @Override
                                 public void onActualizarDocente(Docente doc, int position) {
                                     docenteLista.set(position,doc);
