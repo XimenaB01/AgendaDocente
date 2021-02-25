@@ -26,7 +26,7 @@ public class ImageEstadoObserver implements Observer {
                 break;
             case "Enviada":
                 list.add(R.drawable.ic_enviada);
-                list.add(R.color.colorAccent);
+                list.add(R.color.colorPrimaryDark);
                 break;
             case "Calificada":
                 list.add(R.drawable.ic_calificada);
