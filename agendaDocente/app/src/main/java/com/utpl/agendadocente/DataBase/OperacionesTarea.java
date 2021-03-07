@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.utpl.agendadocente.Model.Tarea;
 import com.utpl.agendadocente.Utilidades.utilidades;
+import com.utpl.agendadocente.flyweight.ActividadFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -95,16 +96,15 @@ public class OperacionesTarea {
             cursor = db.rawQuery(query,null);
             if (cursor.moveToFirst()){
                 do {
-                    int id = cursor.getInt(cursor.getColumnIndex(utilidades.CAMPO_ID_TAR));
-                    String tarNom = cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_NOM_TAR));
-                    String tarDes = cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_DES_TAR));
-                    String tarFec = cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_FEC_TAR));
-                    String tarObs = cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_OBS_TAR));
-                    String tarEst = cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_EST_TAR));
-                    Integer tarIdPar = cursor.getInt(cursor.getColumnIndex(utilidades.CAMPO_PARALELO_ID_FK1));
-
-                    Tarea tarea = new Tarea(id, tarNom, tarDes, tarFec, tarObs, tarEst, tarIdPar);
-                    list.add(tarea);
+                    Tarea tarea = (Tarea) ActividadFactory.getTarea(cursor.getColumnName(cursor.getColumnIndex(utilidades.CAMPO_EST_TAR)));
+                    tarea.setId_tarea(cursor.getInt(cursor.getColumnIndex(utilidades.CAMPO_ID_TAR)));
+                    tarea.setNombreTarea(cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_NOM_TAR)));
+                    tarea.setDescripcionTarea(cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_DES_TAR)));
+                    tarea.setFechaTarea(cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_FEC_TAR)));
+                    tarea.setObservacionTarea(cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_OBS_TAR)));
+                    tarea.setEstadoTarea(cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_EST_TAR)));
+                    tarea.setParaleloId(cursor.getInt(cursor.getColumnIndex(utilidades.CAMPO_PARALELO_ID_FK1)));
+                    list.add(tarea.write());
                 }while (cursor.moveToNext());
             }
         }catch (Exception e){

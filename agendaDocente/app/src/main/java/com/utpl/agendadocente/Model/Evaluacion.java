@@ -1,8 +1,8 @@
 package com.utpl.agendadocente.Model;
 
-import java.io.Serializable;
+import com.utpl.agendadocente.ui.evaluacion.IEvaluacion;
 
-public class Evaluacion implements Serializable {
+public class Evaluacion implements IEvaluacion.Prueba {
     private Integer id_evaluacion;
     private String nombreEvaluacion;
     private String tipo;
@@ -21,6 +21,10 @@ public class Evaluacion implements Serializable {
         this.observacion = observacion;
         this.paraleloID = paraleloID;
         this.cuestionarioID = cuestionarioID;
+    }
+
+    public Evaluacion(String bimestre) {
+        this.bimestre = bimestre;
     }
 
     public Evaluacion() {
@@ -88,5 +92,10 @@ public class Evaluacion implements Serializable {
 
     public void setParaleloID(Integer paraleloID) {
         this.paraleloID = paraleloID;
+    }
+
+    @Override
+    public Evaluacion write() {
+        return new Evaluacion(id_evaluacion, nombreEvaluacion, tipo, bimestre, fechaEvaluacion, observacion, paraleloID, cuestionarioID);
     }
 }

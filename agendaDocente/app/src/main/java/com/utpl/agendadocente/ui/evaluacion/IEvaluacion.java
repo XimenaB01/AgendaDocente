@@ -11,4 +11,8 @@ public class IEvaluacion {
     public interface ActualizarEvaluacionListener {
         void onActualizarEvaluacion(Evaluacion evaluacion, int position);
     }
+
+    public interface Prueba{
+        Evaluacion write();
+    }
 }

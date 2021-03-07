@@ -1,11 +1,10 @@
-package com.utpl.agendadocente.intef.impl;
+package com.utpl.agendadocente.decorador.intef.impl;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.utpl.agendadocente.DataBase.OperacionesAsignatura;
 import com.utpl.agendadocente.Model.Asignatura;
-import com.utpl.agendadocente.intef.IAsignatura;
+import com.utpl.agendadocente.decorador.intef.IAsignatura;
 
 public class AsignaturaNormal implements IAsignatura.asignatura {
 

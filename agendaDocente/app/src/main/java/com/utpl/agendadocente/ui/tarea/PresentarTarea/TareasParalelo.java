@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,20 +28,19 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Tareas extends Fragment implements ITarea.TareaCrearListener{
+public class TareasParalelo extends Fragment implements ITarea.TareaCrearListener{
 
     private static long IdParalelo;
-    private RecyclerView recyclerView;
     private TextView ListaTareasVacia;
     private List<Tarea> ListaTareas = new ArrayList<>();
     private TareaListaRecycleViewAdapter tareaListaRecycleViewAdapter = new TareaListaRecycleViewAdapter();
 
-    public static Tareas newInstance (int id){
+    public static TareasParalelo newInstance (int id){
         IdParalelo = id;
-        return new Tareas();
+        return new TareasParalelo();
     }
 
-    public Tareas() {
+    public TareasParalelo() {
         // Required empty public constructor
     }
 
@@ -51,7 +51,7 @@ public class Tareas extends Fragment implements ITarea.TareaCrearListener{
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_tareas, container, false);
 
-        recyclerView = view.findViewById(R.id.RVtareas);
+        RecyclerView recyclerView = view.findViewById(R.id.RVtareas);
         ListaTareasVacia = view.findViewById(R.id.emptyListTaTextView);
 
         OperacionesTarea operacionesTarea = new OperacionesTarea(getContext());

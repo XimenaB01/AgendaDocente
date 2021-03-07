@@ -9,6 +9,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -63,6 +64,7 @@ public class EvaluacionActualizarActivity extends DialogFragment implements Dial
     private String bimEvaAct = "";
     private String obsEvaAct = "";
     private Integer IdParalelo = null;
+    private String texto = "Sin Asignar";
 
     private OperacionesCuestionario operacionesCuestionario = new OperacionesCuestionario(getContext());
     private OperacionesAsignatura operacionesAsignatura = new OperacionesAsignatura(getContext());
@@ -82,7 +84,7 @@ public class EvaluacionActualizarActivity extends DialogFragment implements Dial
         actualizarEvaluacionListener = listener;
         EvaluacionActualizarActivity EvaActActi = new EvaluacionActualizarActivity();
         Bundle bundle = new Bundle();
-        bundle.putString("title","Editar Tarea");
+        bundle.putString("title","Editar Evaluación");
         EvaActActi.setArguments(bundle);
 
         EvaActActi.setStyle(DialogFragment.STYLE_NORMAL,R.style.AppTheme_FullScreenDialog);
@@ -120,7 +122,14 @@ public class EvaluacionActualizarActivity extends DialogFragment implements Dial
         if (evaluacion != null) {
 
             final String Tipo = evaluacion.getTipo();
-            tipoEvaActButton.setText(Tipo);
+            if (!Tipo.equals("Sin Asignar") && !Tipo.equals("Tipo de Evaluación")){
+                tipoEvaActButton.setText(Tipo);
+
+            }else {
+                String texto1 = "Tipo de Evaluación";
+                tipoEvaActButton.setText(texto1);
+            }
+
             tipoEvaActButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -128,6 +137,7 @@ public class EvaluacionActualizarActivity extends DialogFragment implements Dial
                     evaluacionCrearActivity.obtenerTipoEvaluacion(Tipo, getContext());
                 }
             });
+
 
             obtenerspinnercuestio();
 
@@ -138,7 +148,14 @@ public class EvaluacionActualizarActivity extends DialogFragment implements Dial
             }
 
             txtnomEvaAct.setText(evaluacion.getNombreEvaluacion());
-            fechEvaAct1.setText(evaluacion.getFechaEvaluacion());
+
+            if (!evaluacion.getFechaEvaluacion().equals("Sin Asignar") && !evaluacion.getFechaEvaluacion().equals("Fecha de Evaluación")){
+                fechEvaAct1.setText(evaluacion.getFechaEvaluacion());
+            }else {
+                String texto2 = "Fecha de Evaluación";
+                fechEvaAct1.setText(texto2);
+            }
+
             txtObsEvaAct.setText(evaluacion.getObservacion());
 
             if (evaluacion.getParaleloID() != null){
@@ -181,7 +198,10 @@ public class EvaluacionActualizarActivity extends DialogFragment implements Dial
             toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {
+
                     nomEvaAct = Objects.requireNonNull(txtnomEvaAct.getText()).toString();
+
+
                     tipoEvaAct = tipoEvaActButton.getText().toString();
                     fechEvaAct = fechEvaAct1.getText().toString();
 
@@ -247,13 +267,16 @@ public class EvaluacionActualizarActivity extends DialogFragment implements Dial
     }
 
     private void obtenerParaleloAsignado(long paraleloID) {
+        if (paraleloID != 0){
+            Paralelo paralelo = operacionesParalelo.obtenerPar(paraleloID);
+            Asignatura asignatura = operacionesAsignatura.obtenerAsignatura(paralelo.getAsignaturaID());
 
-        Paralelo paralelo = operacionesParalelo.obtenerPar(paraleloID);
-        Asignatura asignatura = operacionesAsignatura.obtenerAsignatura(paralelo.getAsignaturaID());
+            String paraleloAsignado = asignatura.getNombreAsignatura() + " - " + paralelo.getNombreParalelo();
 
-        String paraleloAsignado = asignatura.getNombreAsignatura() + " - " + paralelo.getNombreParalelo();
-
-        parAsignado.setText(paraleloAsignado);
+            parAsignado.setText(paraleloAsignado);
+        }else {
+            parAsignado.setText(texto);
+        }
     }
 
     private void asignarParalelo(List<String> Lista, String PA){
@@ -269,7 +292,7 @@ public class EvaluacionActualizarActivity extends DialogFragment implements Dial
         }
 
         final AlertDialog.Builder dialog = new AlertDialog.Builder(getContext());
-        dialog.setTitle("Tipo de Evaluación");
+        dialog.setTitle("Paralelos");
         dialog.setSingleChoiceItems(par, posicion, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {

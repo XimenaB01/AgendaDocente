@@ -3,7 +3,7 @@ package com.utpl.agendadocente.decorador;
 import android.content.Context;
 
 import com.utpl.agendadocente.Model.Asignatura;
-import com.utpl.agendadocente.intef.IAsignatura;
+import com.utpl.agendadocente.decorador.intef.IAsignatura;
 
 public abstract class AsignaturaDecorador implements IAsignatura.asignatura {
 

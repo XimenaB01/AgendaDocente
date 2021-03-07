@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.utpl.agendadocente.Model.Evaluacion;
 import com.utpl.agendadocente.Utilidades.utilidades;
+import com.utpl.agendadocente.flyweight.PruebasFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +34,7 @@ public class OperacionesEvaluacion {
 
         ContentValues contentValues = new ContentValues();
         contentValues.put(utilidades.CAMPO_NOM_EVA,evaluacion.getNombreEvaluacion());
-        contentValues.put(utilidades.CAMPO_TIPO,evaluacion.getTipo());
+        contentValues.put(utilidades.CAMPO_TIPO_EVA,evaluacion.getTipo());
         contentValues.put(utilidades.CAMPO_FEC_EVA,evaluacion.getFechaEvaluacion());
         contentValues.put(utilidades.CAMPO_BIM_EVA,evaluacion.getBimestre());
         contentValues.put(utilidades.CAMPO_OBS_EVA,evaluacion.getObservacion());
@@ -62,16 +63,15 @@ public class OperacionesEvaluacion {
             if(cursor!=null){
                 if (cursor.moveToFirst()){
                     do{
-                        Evaluacion eva = new Evaluacion();
-                        eva.setId_evaluacion(cursor.getInt(0));
-                        eva.setNombreEvaluacion(cursor.getString(1));
-                        eva.setTipo(cursor.getString(2));
-                        eva.setFechaEvaluacion(cursor.getString(3));
-                        eva.setBimestre(cursor.getString(4));
-                        eva.setObservacion(cursor.getString(5));
-                        eva.setCuestionarioID(cursor.getInt(6));
-
-                        listaEva.add(eva);
+                        Evaluacion eva = (Evaluacion) PruebasFactory.getPrueba(cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_BIM_EVA)));
+                        eva.setId_evaluacion(cursor.getInt(cursor.getColumnIndex(utilidades.CAMPO_ID_EVA)));
+                        eva.setNombreEvaluacion(cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_NOM_EVA)));
+                        eva.setTipo(cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_TIPO_EVA)));
+                        eva.setFechaEvaluacion(cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_FEC_EVA)));
+                        eva.setBimestre(cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_BIM_EVA)));
+                        eva.setObservacion(cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_OBS_EVA)));
+                        eva.setCuestionarioID(cursor.getInt(cursor.getColumnIndex(utilidades.CAMPO_CUES_ID)));
+                        listaEva.add(eva.write());
                     }while (cursor.moveToNext());
                 }
                 cursor.close();
@@ -143,7 +143,7 @@ public class OperacionesEvaluacion {
 
         ContentValues contentValues = new ContentValues();
         contentValues.put(utilidades.CAMPO_NOM_EVA,evaluacion.getNombreEvaluacion());
-        contentValues.put(utilidades.CAMPO_TIPO,evaluacion.getTipo());
+        contentValues.put(utilidades.CAMPO_TIPO_EVA,evaluacion.getTipo());
         contentValues.put(utilidades.CAMPO_FEC_EVA,evaluacion.getFechaEvaluacion());
         contentValues.put(utilidades.CAMPO_BIM_EVA,evaluacion.getBimestre());
         contentValues.put(utilidades.CAMPO_OBS_EVA,evaluacion.getObservacion());
@@ -177,7 +177,7 @@ public class OperacionesEvaluacion {
                 do {
                     int id = cursor.getInt(cursor.getColumnIndex(utilidades.CAMPO_ID_EVA));
                     String evaNom = cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_NOM_EVA));
-                    String evaTip = cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_TIPO));
+                    String evaTip = cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_TIPO_EVA));
                     String evaFec = cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_FEC_EVA));
                     String evaObs = cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_OBS_EVA));
                     String evaBim = cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_BIM_EVA));

@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.utpl.agendadocente.Model.Horario;
 import com.utpl.agendadocente.Utilidades.utilidades;
+import com.utpl.agendadocente.flyweight.TimeFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,14 +61,14 @@ public class OperacionesHorario {
             if(cursor!=null){
                 if (cursor.moveToFirst()){
                     do{
-                        Horario hor = new Horario();
+                        Horario hor = (Horario) TimeFactory.getHorario(cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_DIA)));
                         hor.setId_horario(cursor.getInt(0));
                         hor.setAula(cursor.getString(1));
                         hor.setDia(cursor.getString(2));
                         hor.setHora_entrada(cursor.getString(3));
                         hor.setHora_salida(cursor.getString(4));
 
-                        listaHor.add(hor);
+                        listaHor.add(hor.write());
                     }while (cursor.moveToNext());
                 }
             }
@@ -95,11 +96,11 @@ public class OperacionesHorario {
                     utilidades.CAMPO_ID_HOR + " = ?",new String[]{String.valueOf(idHorario)},
                     null,null,null);
             if (cursor.moveToFirst()){
-                hor.setId_horario(cursor.getInt(0));
-                hor.setAula(cursor.getString(1));
-                hor.setDia(cursor.getString(2));
-                hor.setHora_entrada(cursor.getString(3));
-                hor.setHora_salida(cursor.getString(4));
+                hor.setId_horario(cursor.getInt(cursor.getColumnIndex(utilidades.CAMPO_ID_HOR)));
+                hor.setAula(cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_AULA)));
+                hor.setDia(cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_DIA)));
+                hor.setHora_entrada(cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_HOR_ENT)));
+                hor.setHora_salida(cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_HOR_SAL)));
             }
         }catch (SQLiteException e){
             Toast.makeText(context, "Operacion fallida", Toast.LENGTH_SHORT).show();

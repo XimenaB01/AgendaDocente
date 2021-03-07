@@ -1,6 +1,8 @@
 package com.utpl.agendadocente.Model;
 
-public class Horario {
+import com.utpl.agendadocente.ui.horario.IHorario;
+
+public class Horario implements IHorario.Time {
     private Integer id_horario;
     private String aula;
     private String dia;
@@ -16,6 +18,10 @@ public class Horario {
         this.dia = dia;
         this.hora_entrada = hora_entrada;
         this.hora_salida = hora_salida;
+    }
+
+    public Horario(String dia) {
+        this.dia = dia;
     }
 
     public Integer getId_horario() {
@@ -56,5 +62,11 @@ public class Horario {
 
     public void setDia(String dia) {
         this.dia = dia;
+    }
+
+
+    @Override
+    public Horario write() {
+        return new Horario(id_horario, aula, dia, hora_entrada, hora_salida);
     }
 }

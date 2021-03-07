@@ -1,12 +1,11 @@
 package com.utpl.agendadocente.decorador;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.utpl.agendadocente.DataBase.OperacionesComponente;
 import com.utpl.agendadocente.Model.Asignatura;
 import com.utpl.agendadocente.Model.Componente;
-import com.utpl.agendadocente.intef.IAsignatura;
+import com.utpl.agendadocente.decorador.intef.IAsignatura;
 
 public class NivelDecorador extends AsignaturaDecorador {
 

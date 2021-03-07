@@ -21,6 +21,7 @@ import androidx.appcompat.widget.Toolbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.utpl.agendadocente.DataBase.OperacionesHorario;
 import com.utpl.agendadocente.Model.Horario;
+import com.utpl.agendadocente.flyweight.TimeFactory;
 import com.utpl.agendadocente.ui.horario.DialogTimePicker;
 import com.utpl.agendadocente.R;
 import com.utpl.agendadocente.Utilidades.utilidades;
@@ -133,7 +134,7 @@ public class HorarioCrearActivity extends DialogFragment implements DialogTimePi
 
                 if (!Aula.isEmpty() && !HoraEntrada.isEmpty() && !HoraSalida.isEmpty()){
                     if (Aula.length() == 3){
-                        Horario horario = new Horario();
+                        Horario horario = (Horario) TimeFactory.getHorario(Dia);
                         horario.setAula(Aula);
                         horario.setDia(Dia);
                         horario.setHora_entrada(HoraEntrada);
@@ -144,9 +145,9 @@ public class HorarioCrearActivity extends DialogFragment implements DialogTimePi
                                 int inser = (int)insercion;
                                 horario.setId_horario(inser);
                                 if (horarioCrearListener != null){
-                                    horarioCrearListener.onCrearHorario(horario);
+                                    horarioCrearListener.onCrearHorario(horario.write());
                                 }else {
-                                    listener.onCrearHorario(horario);
+                                    listener.onCrearHorario(horario.write());
                                 }
                                 dismiss();
                             }

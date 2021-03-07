@@ -16,15 +16,17 @@ import androidx.fragment.app.DialogFragment;
 import com.utpl.agendadocente.Model.Horario;
 import com.utpl.agendadocente.R;
 import com.utpl.agendadocente.Utilidades.utilidades;
+import com.utpl.agendadocente.flyweight.TimeFactory;
 
 public class DetalleHorario extends DialogFragment {
 
-    private static Horario horario = new Horario();
+    private static Horario horario;
 
     public DetalleHorario(){}
 
-    public static DetalleHorario newInstance(Horario hor){
+    public static DetalleHorario newInstance(Horario hor, String dia){
         DetalleHorario detalleHorario = new DetalleHorario();
+        horario = (Horario) TimeFactory.getHorario(dia);
         horario = hor;
         Bundle bundle = new Bundle();
         bundle.putString("title", "Detalle Horario");

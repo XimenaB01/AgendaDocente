@@ -28,8 +28,8 @@ import com.utpl.agendadocente.decorador.DescripcionDecorador;
 import com.utpl.agendadocente.decorador.DuracionDecorador;
 import com.utpl.agendadocente.decorador.NivelDecorador;
 import com.utpl.agendadocente.decorador.TemasDecorador;
-import com.utpl.agendadocente.intef.IAsignatura;
-import com.utpl.agendadocente.intef.impl.AsignaturaNormal;
+import com.utpl.agendadocente.decorador.intef.IAsignatura;
+import com.utpl.agendadocente.decorador.intef.impl.AsignaturaNormal;
 
 import java.util.Objects;
 

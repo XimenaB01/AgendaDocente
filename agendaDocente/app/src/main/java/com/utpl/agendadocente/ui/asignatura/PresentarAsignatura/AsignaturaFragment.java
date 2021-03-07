@@ -18,7 +18,7 @@ import com.utpl.agendadocente.Model.Asignatura;
 import com.utpl.agendadocente.ui.asignatura.CrearAsignatura.AsignaturaCrearActivity;
 import com.utpl.agendadocente.R;
 import com.utpl.agendadocente.Utilidades.utilidades;
-import com.utpl.agendadocente.intef.IAsignatura;
+import com.utpl.agendadocente.decorador.intef.IAsignatura;
 
 import java.util.ArrayList;
 import java.util.List;

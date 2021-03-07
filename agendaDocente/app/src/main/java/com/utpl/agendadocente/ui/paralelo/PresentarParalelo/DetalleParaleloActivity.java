@@ -19,8 +19,8 @@ import com.utpl.agendadocente.Model.Horario;
 import com.utpl.agendadocente.Model.Paralelo;
 import com.utpl.agendadocente.Model.PeriodoAcademico;
 import com.utpl.agendadocente.R;
-import com.utpl.agendadocente.ui.evaluacion.PresentarEvaluacion.Evaluaciones;
-import com.utpl.agendadocente.ui.tarea.PresentarTarea.Tareas;
+import com.utpl.agendadocente.ui.evaluacion.PresentarEvaluacion.EvaluacionesParalelo;
+import com.utpl.agendadocente.ui.tarea.PresentarTarea.TareasParalelo;
 
 import java.util.List;
 
@@ -141,8 +141,8 @@ public class DetalleParaleloActivity extends AppCompatActivity {
                     campoNomPer.setText(String.format("%s Periodo",mensaje));
                 }
 
-                Tareas.newInstance(paralelo.getId_paralelo());
-                Evaluaciones.newInstance(paralelo.getId_paralelo());
+                TareasParalelo.newInstance(paralelo.getId_paralelo());
+                EvaluacionesParalelo.newInstance(paralelo.getId_paralelo());
             }
         }
     }

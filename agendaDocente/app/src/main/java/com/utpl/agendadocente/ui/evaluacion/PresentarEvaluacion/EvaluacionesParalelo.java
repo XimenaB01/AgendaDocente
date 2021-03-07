@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Evaluaciones extends Fragment implements IEvaluacion.EvaluacionCrearListener {
+public class EvaluacionesParalelo extends Fragment implements IEvaluacion.EvaluacionCrearListener {
 
 
     private static long IdParalelo;
@@ -31,12 +31,12 @@ public class Evaluaciones extends Fragment implements IEvaluacion.EvaluacionCrea
     private List<Evaluacion> ListaEvaluacion = new ArrayList<>();
     private EvaluacionListaRecycleViewAdapter evaluacionListaRecycleViewAdapter;
 
-    public static Evaluaciones newInstance (int id){
+    public static EvaluacionesParalelo newInstance (int id){
         IdParalelo = id;
-        return new Evaluaciones();
+        return new EvaluacionesParalelo();
     }
 
-    public Evaluaciones() {
+    public EvaluacionesParalelo() {
         // Required empty public constructor
     }
 

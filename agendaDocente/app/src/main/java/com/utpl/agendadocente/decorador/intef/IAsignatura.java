@@ -1,4 +1,4 @@
-package com.utpl.agendadocente.intef;
+package com.utpl.agendadocente.decorador.intef;
 
 import android.content.Context;
 

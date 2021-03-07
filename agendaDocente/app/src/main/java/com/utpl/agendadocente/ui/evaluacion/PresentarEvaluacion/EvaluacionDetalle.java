@@ -23,16 +23,18 @@ import com.utpl.agendadocente.Model.Evaluacion;
 import com.utpl.agendadocente.Model.Paralelo;
 import com.utpl.agendadocente.R;
 import com.utpl.agendadocente.Utilidades.utilidades;
+import com.utpl.agendadocente.flyweight.PruebasFactory;
 
 public class EvaluacionDetalle extends DialogFragment {
 
-    private static long idEvaluacion;
+    private static Evaluacion evaluacion;
 
     public EvaluacionDetalle(){}
 
-    public static EvaluacionDetalle newInstance(int id){
-        idEvaluacion = id;
+    public static EvaluacionDetalle newInstance(Evaluacion eva, String bimestre){
         EvaluacionDetalle evaluacionDetalle = new EvaluacionDetalle();
+        evaluacion = (Evaluacion) PruebasFactory.getPrueba(bimestre);
+        evaluacion = eva;
         Bundle bundle = new Bundle();
         bundle.putString("title", "Detalle Evaluación");
         evaluacionDetalle.setArguments(bundle);
@@ -62,8 +64,6 @@ public class EvaluacionDetalle extends DialogFragment {
         TextView cuestPregEva = view.findViewById(R.id.cuestAnswerEvaDet);
         TextView asigEva = view.findViewById(R.id.asigEva);
         TextView paraEva = view.findViewById(R.id.parEva);
-
-        Evaluacion evaluacion = operacionesEvaluacion.obtenerEva(idEvaluacion);
 
         String title = null;
         if (getArguments() != null) {

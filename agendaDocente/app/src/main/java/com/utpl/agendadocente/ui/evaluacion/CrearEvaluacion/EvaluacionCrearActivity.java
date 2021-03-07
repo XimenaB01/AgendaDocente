@@ -12,6 +12,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,6 +34,7 @@ import com.utpl.agendadocente.Model.Asignatura;
 import com.utpl.agendadocente.Model.Cuestionario;
 import com.utpl.agendadocente.Model.Evaluacion;
 import com.utpl.agendadocente.Model.Paralelo;
+import com.utpl.agendadocente.flyweight.PruebasFactory;
 import com.utpl.agendadocente.ui.cuestionario.CrearCuestionario.CuestionarioCrearActivity;
 import com.utpl.agendadocente.ui.cuestionario.ICuestionario;
 import com.utpl.agendadocente.ui.evaluacion.IEvaluacion;
@@ -175,8 +177,16 @@ public class EvaluacionCrearActivity extends DialogFragment implements DialogDat
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
+                String texto = "Sin Asignar";
+
                 nombEva = Objects.requireNonNull(nomE.getText()).toString();
-                tipoEva = btntipoEvaluacion.getText().toString();
+
+                if (!btntipoEvaluacion.getText().toString().equals("Tipo de Evaluación")){
+                    tipoEva = btntipoEvaluacion.getText().toString();
+                }else {
+                    tipoEva = texto;
+                }
+
                 String cuet = cuest.getSelectedItem().toString();
                 for (int i = 0; i < cuestList.size(); i++){
                     if (cuestList.get(i).getNombreCuestionario().equals(cuet)){
@@ -189,40 +199,35 @@ public class EvaluacionCrearActivity extends DialogFragment implements DialogDat
                 }else if (rb2BimE.isChecked()){
                     bimEva = rb2BimE.getText().toString();
                 }
-                fechEva = btnFechaEva.getText().toString();
-                obserEva = Objects.requireNonNull(obsE.getText()).toString();
+                if (!btnFechaEva.getText().toString().equals("Fecha de Evaluación")){
+                    fechEva = btnFechaEva.getText().toString();
+                }else {
+                    fechEva = texto;
+                }
+
+                if (!Objects.requireNonNull(obsE.getText()).toString().isEmpty()){
+                    obserEva = Objects.requireNonNull(obsE.getText()).toString();
+                }else {
+                    obserEva = texto;
+                }
+
 
                 List<Integer> Ids = new ArrayList<>();
                 if (btnParaleloA.getVisibility()==View.GONE && recyclerView.getVisibility()==View.GONE){
                     Ids.add(IdParalelo);
-                }else {
-                    obtenerIdsParalelos(paralalosAsignados, ListaParalelo, ListaAsignaturas);
-                }
+                }/*else {
+                    Ids = (obtenerIdsParalelos(paralalosAsignados, ListaParalelo, ListaAsignaturas));
+                }*/
 
                 if (!nombEva.isEmpty()){
-                    for (int i = 0; i<Ids.size(); i++){
-                        Evaluacion eva = new Evaluacion();
-                        eva.setNombreEvaluacion(nombEva);
-                        eva.setTipo(tipoEva);
-                        eva.setBimestre(bimEva);
-                        eva.setFechaEvaluacion(fechEva);
-                        eva.setObservacion(obserEva);
-                        eva.setCuestionarioID(idCuestEva);
-                        eva.setParaleloID(Ids.get(i));
-
-                        long insercion = operacionesEvaluacion.InsertarEva(eva);
-                        if (insercion > 0 ){
-                            int inser = (int)insercion;
-                            eva.setId_evaluacion(inser);
-                            if (evaluacionCrearListener != null){
-                                evaluacionCrearListener.onCrearEvaluacion(eva);
-                            }else  {
-                                listener.onCrearEvaluacion(eva);
-                            }
-
-                            dismiss();
+                    if (Ids.size()>0){
+                        for (int i = 0; i<Ids.size(); i++){
+                            EnviarEvaluacion(Ids.get(i));
                         }
+                    }else {
+                        EnviarEvaluacion(null);
                     }
+
                 }else{
                     Toast.makeText(getContext(),"Agregar un nombre",Toast.LENGTH_LONG).show();
                 }
@@ -267,6 +272,30 @@ public class EvaluacionCrearActivity extends DialogFragment implements DialogDat
         });
         AlertDialog dialog1 = dialog.create();
         dialog1.show();
+    }
+
+    private void EnviarEvaluacion(Integer id){
+        Evaluacion eva = (Evaluacion) PruebasFactory.getPrueba(bimEva);
+        eva.setNombreEvaluacion(nombEva);
+        eva.setTipo(tipoEva);
+        eva.setBimestre(bimEva);
+        eva.setFechaEvaluacion(fechEva);
+        eva.setObservacion(obserEva);
+        eva.setCuestionarioID(idCuestEva);
+        eva.setParaleloID(id);
+
+        long insercion = operacionesEvaluacion.InsertarEva(eva.write());
+        if (insercion > 0 ){
+            int inser = (int)insercion;
+            eva.setId_evaluacion(inser);
+            if (evaluacionCrearListener != null){
+                evaluacionCrearListener.onCrearEvaluacion(eva);
+            }else  {
+                listener.onCrearEvaluacion(eva);
+            }
+
+            dismiss();
+        }
     }
 
     public List<String> obtenerParalelos(List<String> lista, List<Paralelo> listaP, List<Asignatura> listaA, final Context context, final RecyclerView RV){

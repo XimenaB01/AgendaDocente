@@ -20,7 +20,7 @@ import com.utpl.agendadocente.Model.Asignatura;
 import com.utpl.agendadocente.Model.Horario;
 import com.utpl.agendadocente.Model.PeriodoAcademico;
 import com.utpl.agendadocente.ui.asignatura.CrearAsignatura.AsignaturaCrearActivity;
-import com.utpl.agendadocente.intef.IAsignatura;
+import com.utpl.agendadocente.decorador.intef.IAsignatura;
 import com.utpl.agendadocente.ui.horario.CrearHorario.HorarioCrearActivity;
 import com.utpl.agendadocente.ui.horario.IHorario;
 import com.utpl.agendadocente.ui.periodo.CrearPeriodo.PeriodoCrearActivity;

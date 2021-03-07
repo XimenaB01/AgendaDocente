@@ -5,8 +5,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.utpl.agendadocente.ui.evaluacion.PresentarEvaluacion.Evaluaciones;
-import com.utpl.agendadocente.ui.tarea.PresentarTarea.Tareas;
+import com.utpl.agendadocente.ui.evaluacion.PresentarEvaluacion.EvaluacionesParalelo;
+import com.utpl.agendadocente.ui.tarea.PresentarTarea.TareasParalelo;
 
 public class PagerController extends FragmentPagerAdapter {
     private int numOfTab;
@@ -21,9 +21,9 @@ public class PagerController extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position){
             case 0:
-                return new Tareas();
+                return new TareasParalelo();
             case 1:
-                return new Evaluaciones();
+                return new EvaluacionesParalelo();
             default:
                 return null;
         }

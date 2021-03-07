@@ -56,7 +56,7 @@ public class HorarioListaRecycleViewAdapter extends RecyclerView.Adapter<Horario
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DetalleHorario detalleHorario = DetalleHorario.newInstance(hor);
+                DetalleHorario detalleHorario = DetalleHorario.newInstance(hor, hor.getDia());
                 detalleHorario.setCancelable(false);
                 detalleHorario.show(((MainActivity)context).getSupportFragmentManager(),"Tag");
             }

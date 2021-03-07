@@ -1,8 +1,10 @@
 package com.utpl.agendadocente.Model;
 
+import com.utpl.agendadocente.ui.tarea.ITarea;
+
 import java.io.Serializable;
 
-public class Tarea implements Serializable {
+public class Tarea implements ITarea.Actividad {
     private Integer id_tarea;
     private String nombreTarea;
     private String descripcionTarea;
@@ -22,6 +24,10 @@ public class Tarea implements Serializable {
     }
 
     public Tarea() {
+    }
+
+    public Tarea(String estadoTarea) {
+        this.estadoTarea = estadoTarea;
     }
 
     public Integer getId_tarea() {
@@ -78,5 +84,10 @@ public class Tarea implements Serializable {
 
     public void setParaleloId(Integer paraleloId) {
         ParaleloId = paraleloId;
+    }
+
+    @Override
+    public Tarea write() {
+        return new Tarea( id_tarea, nombreTarea, descripcionTarea, fechaTarea, observacionTarea, estadoTarea, ParaleloId);
     }
 }

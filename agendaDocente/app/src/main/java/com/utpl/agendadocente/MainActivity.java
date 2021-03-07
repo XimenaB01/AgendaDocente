@@ -92,14 +92,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.nav_host_fragment, new TareaFragment());
                 fragmentTransaction.commit();
-                toolbar.setTitle("Tareas");
+                toolbar.setTitle("TareasParalelo");
                 break;
             case R.id.nav_evaluacion:
                 fragmentManager = getSupportFragmentManager();
                 fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.nav_host_fragment, new EvaluacionFragment());
                 fragmentTransaction.commit();
-                toolbar.setTitle("Evaluaciones");
+                toolbar.setTitle("EvaluacionesParalelo");
                 break;
             case R.id.nav_quiz:
                 fragmentManager = getSupportFragmentManager();

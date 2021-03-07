@@ -12,4 +12,8 @@ public class IHorario {
         void onActualizarHorario(Horario horario, int position);
     }
 
+    public interface Time {
+        Horario write();
+    }
+
 }

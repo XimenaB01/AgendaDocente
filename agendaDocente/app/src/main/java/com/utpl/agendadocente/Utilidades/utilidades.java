@@ -158,7 +158,7 @@ public class utilidades {
     public static final String TABLA_EVALUACION="Evaluacion";
     public static final String CAMPO_ID_EVA="id_evaluacion";
     public static final String CAMPO_NOM_EVA="nombreEvaluacion";
-    public static final String CAMPO_TIPO="tipo";
+    public static final String CAMPO_TIPO_EVA="tipo";
     public static final String CAMPO_FEC_EVA="fecha";
     public static final String CAMPO_BIM_EVA="bimestre";
     public static final String CAMPO_OBS_EVA="observacionEvaluacion";
@@ -169,12 +169,12 @@ public class utilidades {
     public static final String CREAR_TABLA_EVALUACION = "create table "+TABLA_EVALUACION+"("
             + CAMPO_ID_EVA+" INTEGER  PRIMARY KEY AUTOINCREMENT, "
             + CAMPO_NOM_EVA+" TEXT NOT NULL, "
-            + CAMPO_TIPO+" TEXT, "
+            + CAMPO_TIPO_EVA+" TEXT, "
             + CAMPO_FEC_EVA+" TEXT, "
             + CAMPO_BIM_EVA+" TEXT, "
             + CAMPO_OBS_EVA+" TEXT, "
             + CAMPO_CUES_ID+" INTEGER, "
-            + CAMPO_PARALELO_ID_FK2+" INTEGER NOT NULL,"
+            + CAMPO_PARALELO_ID_FK2+" INTEGER,"
             + " CONSTRAINT " + CAMPO_EVALUACION_SUB_CONSTRAINT + " FOREIGN KEY (" + CAMPO_PARALELO_ID_FK2 + ") REFERENCES " + TABLA_PARALELO + " (" + CAMPO_ID_PAR + ") ON UPDATE CASCADE ON DELETE CASCADE "
             + ")";
 }

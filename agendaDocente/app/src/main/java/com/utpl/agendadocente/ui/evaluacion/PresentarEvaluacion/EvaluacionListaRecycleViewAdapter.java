@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -51,7 +52,6 @@ public class EvaluacionListaRecycleViewAdapter extends RecyclerView.Adapter<Eval
     public void onBindViewHolder(final EvaluacionViewHolder holder, int position) {
         final int itemPosicion = position;
         final Evaluacion eva = evaluacionLista.get(position);
-
         holder.nombEva.setText(eva.getNombreEvaluacion());
         holder.tipoEva.setText(eva.getTipo());
         holder.fechEva.setText(eva.getFechaEvaluacion());
@@ -112,7 +112,7 @@ public class EvaluacionListaRecycleViewAdapter extends RecyclerView.Adapter<Eval
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EvaluacionDetalle evaluacionDetalle = EvaluacionDetalle.newInstance(eva.getId_evaluacion());
+                EvaluacionDetalle evaluacionDetalle = EvaluacionDetalle.newInstance(eva, eva.getBimestre());
                 evaluacionDetalle.setCancelable(false);
                 if (Componente.equals("Fragment")){
                     evaluacionDetalle.show(((MainActivity)context).getSupportFragmentManager(),"tag");
