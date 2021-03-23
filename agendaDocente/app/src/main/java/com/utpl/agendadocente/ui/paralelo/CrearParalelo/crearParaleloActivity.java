@@ -223,7 +223,7 @@ public class crearParaleloActivity extends DialogFragment implements DialogAgreg
 
         int hoIdPar = -1;
         for (int i = 0; i < horarioList.size(); i++){
-            String horario = String.format("%s - %s", horarioList.get(i).getHora_entrada(), horarioList.get(i).getHora_salida());
+            String horario = String.format("%s Aula:%s De:%s A:%s", horarioList.get(i).getDia(), horarioList.get(i).getAula(), horarioList.get(i).getHora_entrada(), horarioList.get(i).getHora_salida());
             if (horarioAdd.getText().toString().equals(horario)){
                 hoIdPar = horarioList.get(i).getId_horario();
             }
@@ -313,7 +313,7 @@ public class crearParaleloActivity extends DialogFragment implements DialogAgreg
 
     private void obtenerListaHorario(){
         for (int i = 0; i < horarioList.size();i++){
-            String horario = String.format("%s: %s - %s",horarioList.get(i).getDia(),horarioList.get(i).getHora_entrada(),horarioList.get(i).getHora_salida());
+            String horario = String.format("%s Aula:%s De:%s A:%s",horarioList.get(i).getDia(),horarioList.get(i).getAula(), horarioList.get(i).getHora_entrada(),horarioList.get(i).getHora_salida());
             if (!listItemMultiCkeck.contains(horario)){
                 listItemMultiCkeck.add(horario);
             }

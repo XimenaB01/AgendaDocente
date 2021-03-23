@@ -173,7 +173,7 @@ public class DialogAgregarSingleItem extends DialogFragment implements IAsignatu
 
     @Override
     public void onCrearHorario(Horario horario) {
-        newItem = String.format("%s - %s",horario.getHora_entrada(),horario.getHora_salida());
+        newItem = String.format("%s Aula:%s De:%s A:%s",horario.getDia(), horario.getAula(), horario.getHora_entrada(),horario.getHora_salida());
         ListaItemSingleCkeck.add(newItem);
         itemSingleCheckAdapter.notifyDataSetChanged();
     }

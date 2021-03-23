@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -163,9 +162,9 @@ public class TareaListaRecycleViewAdapter extends RecyclerView.Adapter<TareaList
         if (count > 0){
             tareaLista.remove(position);
             notifyDataSetChanged();
-            Toast.makeText(context, "Periodo eliminado exitosamente", Toast.LENGTH_LONG).show();
+            Toast.makeText(context, "Tarea eliminada exitosamente", Toast.LENGTH_LONG).show();
         } else {
-            Toast.makeText(context, "Periodo no eliminado. ¡Algo salio mal!", Toast.LENGTH_LONG).show();
+            Toast.makeText(context, "Tarea no eliminada. ¡Algo salio mal!", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -189,7 +188,6 @@ public class TareaListaRecycleViewAdapter extends RecyclerView.Adapter<TareaList
     public static void imagen(List<Integer> list){
         mImagen = list.get(0);
         mColor = list.get(1);
-        Log.e("color",mColor+"");
     }
 
 
