@@ -3,7 +3,7 @@
 
     <!--Cadenas Activity Main -->
 
-    <string name="asignatura">Asignatura</string>
+    <string name="AsignaturaListener">Asignatura</string>
     <string name="paralelo">Paralelo</string>
     <string name="docente">Docente</string>
     <string name="horario">Horario</string>
@@ -13,7 +13,6 @@
     <string name="evaluacion">Evaluación</string>
 
     <!-- Asignatura -->
-    <string name="nombre">Nombre</string>
     <string name="creditos">Créditos</string>
     <string name="descripcion">Descripción</string>
     <string name="temas">Temas</string>
@@ -21,8 +20,7 @@
     <string name="nivel">Nivel</string>
     <string name="agregarAsignatura">Agregar Asignatura</string>
     <string name="ms_listaA_vacia">Lista de Asignatura Vacia</string>
-    <string name="aNormal">Normal</string>
-    <string name="aCongreso">Congreso</string>
+
     <!-- Docente-->
     <string name="nombres">Nombres</string>
     <string name="apellidos">Apellidos</string>
@@ -53,7 +51,6 @@
     <!--Tarea -->
     <string name="fechaentreda">Fecha de Entrega </string>
     <string name="ms_listaT_vacia">Lista de Tareas Vacia</string>
-    <string name="agregarTarea">Agregar Tarea</string>
 
     <!--Evaluacion-->
     <string name="rb1B">1er Bimestre</string>
@@ -64,7 +61,6 @@
     <string name="tipoE">Tipo de Evaluación</string>
     <string name="bimestre">Bimestre </string>
     <string name="fechaevaluacion">Fecha de Evaluación </string>
-    <string name="agregarEvaluacion">Agregar Evaluacion</string>
     <string name="paraAsig">Asignar Paralelo</string>
 
     <!-- Paralelo -->
@@ -90,13 +86,6 @@
 
     <string name="selectArea">Seleccionar Area</string>
     <string name="selectCarrera">Seleccionar Carrera</string>
-
-    <string name="btnactualizar">Actualizar paralelo</string>
-    <string name="btneliminar">Eliminar paralelo</string>
-    <string name="eliminarDoc">Eliminar Docente</string>
-    <string name="editarDoc">Editar Docente</string>
-    <string name="editarHor">Editar Horario</string>
-    <string name="eliminarHor">Eliminar Horario</string>
     <string name="estado">Estado</string>
 
     <string-array name="areas">

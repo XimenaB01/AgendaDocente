@@ -3,6 +3,7 @@ package com.utpl.agendadocente.ui.paralelo;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,16 +17,16 @@ import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.utpl.agendadocente.Model.Docente;
-import com.utpl.agendadocente.Model.Evaluacion;
-import com.utpl.agendadocente.Model.Tarea;
-import com.utpl.agendadocente.ui.docente.CrearDocente.CrearDocenteActivity;
+import com.utpl.agendadocente.model.Docente;
+import com.utpl.agendadocente.model.Evaluacion;
+import com.utpl.agendadocente.model.Tarea;
+import com.utpl.agendadocente.ui.docente.crear_docente.CrearDocenteActivity;
 import com.utpl.agendadocente.ui.docente.IDocente;
-import com.utpl.agendadocente.ui.evaluacion.CrearEvaluacion.EvaluacionCrearActivity;
+import com.utpl.agendadocente.ui.evaluacion.crear_evaluacion.EvaluacionCrearActivity;
 import com.utpl.agendadocente.ui.evaluacion.IEvaluacion;
-import com.utpl.agendadocente.ui.tarea.CrearTarea.TareaCrearActivity;
+import com.utpl.agendadocente.ui.tarea.crear_tarea.TareaCrearActivity;
 import com.utpl.agendadocente.R;
-import com.utpl.agendadocente.Utilidades.utilidades;
+import com.utpl.agendadocente.util.Utilidades;
 import com.utpl.agendadocente.ui.tarea.ITarea;
 
 import java.util.ArrayList;
@@ -34,18 +35,22 @@ import java.util.List;
 
 public class DialogAgregarMultiItems extends DialogFragment implements IDocente.DocenteCreateListener, ITarea.TareaCrearListener, IEvaluacion.EvaluacionCrearListener {
 
+    private TextView nuevoItem;
     private ItemMultiCheckAdapter itemMultiCheckAdapter;
     private static String [] listaItems;
-    private static List<String> ListaItemMultiCkecks;
+    private static List<String> listaItemMultiCkecks;
     private List<Boolean> estado = new ArrayList<>();
-    private String Componente;
+    private String componente;
+    private String texto = "Crear ";
 
-    public DialogAgregarMultiItems(){}
+    public DialogAgregarMultiItems(){
+        //required constructor
+    }
 
     public static DialogAgregarMultiItems newInstance(String title, List<String> listaItemMultiCkecks, String [] listaItemsAsignados){
         DialogAgregarMultiItems dialogAgregarMultiItems = new DialogAgregarMultiItems();
         listaItems = listaItemsAsignados;
-        ListaItemMultiCkecks = listaItemMultiCkecks;
+        DialogAgregarMultiItems.listaItemMultiCkecks = listaItemMultiCkecks;
         Bundle bundle = new Bundle();
         bundle.putString("title",title);
         dialogAgregarMultiItems.setArguments(bundle);
@@ -59,48 +64,31 @@ public class DialogAgregarMultiItems extends DialogFragment implements IDocente.
         View view = inflater.inflate(R.layout.dialog_agregar_multi_items,container,false);
 
         Toolbar toolbar = view.findViewById(R.id.toolbarAgreDoc);
-        TextView nuevoItem = view.findViewById(R.id.btnNDocente);
+        nuevoItem = view.findViewById(R.id.btnNDocente);
         RecyclerView listaDocentes = view.findViewById(R.id.checkListDocente);
 
         String title = null;
         if (getArguments() != null) {
-            Componente = getArguments().getString(utilidades.TITULO);
-            title = "Agregar "+ Componente;
+            componente = getArguments().getString(Utilidades.TITULO);
+            title = "Agregar "+ componente;
         }
         toolbar.setTitle(title);
 
-        nuevoItem.setText(String.format("Añadir Nuevo %s",getArguments().getString(utilidades.TITULO)));
-        nuevoItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                switch (Componente){
-                    case "Docente":
-                        llamarDialogoCrearDocente();
-                        break;
-                    case "Tarea":
-                        llamarDialogCrearTarea();
-                        break;
-                    case "Evaluación":
-                        llamarDialogCrearEvaluacion();
-                        break;
-                }
-            }
-        });
+        nuevoItem.setText(String.format("Añadir Nuevo %s",getArguments().getString(Utilidades.TITULO)));
+        llamarTipoItem();
 
-        estado.addAll(Collections.nCopies(ListaItemMultiCkecks.size(),Boolean.FALSE));
-        if (listaItems != null) {
-            if (listaItems.length != 0){
-                for (int j = 0; j < ListaItemMultiCkecks.size();j++){
-                    for (int i= 0; i<listaItems.length;i++){
-                        if (ListaItemMultiCkecks.get(j).equals(listaItems[i])){
-                            estado.set(j,true);
-                        }
+        estado.addAll(Collections.nCopies(listaItemMultiCkecks.size(),Boolean.FALSE));
+        if (listaItems != null && listaItems.length != 0) {
+            for (int j = 0; j < listaItemMultiCkecks.size(); j++){
+                for (int i= 0; i<listaItems.length;i++){
+                    if (listaItemMultiCkecks.get(j).equals(listaItems[i])){
+                        estado.set(j,true);
                     }
                 }
             }
         }
 
-        itemMultiCheckAdapter = new ItemMultiCheckAdapter(getContext(), ListaItemMultiCkecks, estado);
+        itemMultiCheckAdapter = new ItemMultiCheckAdapter(getContext(), listaItemMultiCkecks, estado);
         listaDocentes.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         listaDocentes.setAdapter(itemMultiCheckAdapter);
 
@@ -108,8 +96,13 @@ public class DialogAgregarMultiItems extends DialogFragment implements IDocente.
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                List<String> list = itemMultiCheckAdapter.getSelectedItems();
-                listener.onAgregarItems(list, Componente);
+                List<String> list = new ArrayList<>();
+                for (int i = 0; i < itemMultiCheckAdapter.getSelectedItems().size(); i++){
+                    if (!list.contains(itemMultiCheckAdapter.getSelectedItems().get(i))){
+                        list.add(itemMultiCheckAdapter.getSelectedItems().get(i));
+                    }
+                }
+                listener.onAgregarItems(list, componente);
                 dismiss();
                 return true;
             }
@@ -125,18 +118,40 @@ public class DialogAgregarMultiItems extends DialogFragment implements IDocente.
     }
 
     private void llamarDialogoCrearDocente() {
-        CrearDocenteActivity crearDocenteActivity = CrearDocenteActivity.newInstance("Crear "+Componente, this);
-        crearDocenteActivity.show(getChildFragmentManager(), utilidades.CREAR);
+        CrearDocenteActivity crearDocenteActivity = CrearDocenteActivity.newInstance(texto + componente, this);
+        crearDocenteActivity.show(getChildFragmentManager(), Utilidades.CREAR);
     }
 
     private void llamarDialogCrearTarea(){
-        TareaCrearActivity tareaCrearActivity = TareaCrearActivity.newInstance("Crear "+Componente,this, null);
-        tareaCrearActivity.show(getChildFragmentManager(),utilidades.CREAR);
+        TareaCrearActivity tareaCrearActivity = TareaCrearActivity.newInstance(texto + componente,this, null);
+        tareaCrearActivity.show(getChildFragmentManager(), Utilidades.CREAR);
     }
 
     private void llamarDialogCrearEvaluacion(){
-        EvaluacionCrearActivity evaluacionCrearActivity = EvaluacionCrearActivity.newInstance("Crear "+Componente,this, null);
-        evaluacionCrearActivity.show(getChildFragmentManager(), utilidades.CREAR);
+        EvaluacionCrearActivity evaluacionCrearActivity = EvaluacionCrearActivity.newInstance(texto + componente,this, null);
+        evaluacionCrearActivity.show(getChildFragmentManager(), Utilidades.CREAR);
+    }
+
+    private void llamarTipoItem(){
+        nuevoItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                switch (componente){
+                    case "Docente":
+                        llamarDialogoCrearDocente();
+                        break;
+                    case "Tarea":
+                        llamarDialogCrearTarea();
+                        break;
+                    case "Evaluación":
+                        llamarDialogCrearEvaluacion();
+                        break;
+                    default:
+                        //Ignore this part
+                        break;
+                }
+            }
+        });
     }
 
     @Override
@@ -154,27 +169,27 @@ public class DialogAgregarMultiItems extends DialogFragment implements IDocente.
     @Override
     public void onCrearDocente(Docente docente) {
         String newDocente = String.format("%s %s",docente.getNombreDocente(),docente.getApellidoDocente());
-        ListaItemMultiCkecks.add(newDocente);
+        listaItemMultiCkecks.add(newDocente);
         estado.add(false);
         itemMultiCheckAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void onCrearTarea(Tarea tarea) {
-        ListaItemMultiCkecks.add(tarea.getNombreTarea());
+        listaItemMultiCkecks.add(tarea.getNombreTarea());
         estado.add(false);
         itemMultiCheckAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void onCrearEvaluacion(Evaluacion evaluacion) {
-        ListaItemMultiCkecks.add(evaluacion.getNombreEvaluacion());
+        listaItemMultiCkecks.add(evaluacion.getNombreEvaluacion());
         estado.add(false);
         itemMultiCheckAdapter.notifyDataSetChanged();
     }
 
     public interface AgregarItemsListener {
-        void onAgregarItems(List<String> items, String Componente);
+        void onAgregarItems(List<String> items, String componente);
     }
 
     private AgregarItemsListener listener;

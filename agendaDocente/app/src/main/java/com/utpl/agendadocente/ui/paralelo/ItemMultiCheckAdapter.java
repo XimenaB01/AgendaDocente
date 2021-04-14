@@ -19,14 +19,14 @@ public class ItemMultiCheckAdapter extends RecyclerView.Adapter<ItemMultiCheckAd
     private Context context;
     private List<Boolean> listEstados = new ArrayList<>();
     private List<String> itemsListNew = new ArrayList<>();
-    private List<String> ListaItemMultiCkecks = new ArrayList<>();
+    private List<String> listaItemMultiCkecks = new ArrayList<>();
 
     public ItemMultiCheckAdapter(){}
 
     public ItemMultiCheckAdapter(Context context, List<String> listaItemMultiCkecks, List<Boolean> estados){
         this.context = context;
         this.listEstados = estados;
-        this.ListaItemMultiCkecks = listaItemMultiCkecks;
+        this.listaItemMultiCkecks = listaItemMultiCkecks;
     }
 
     @NonNull
@@ -39,12 +39,12 @@ public class ItemMultiCheckAdapter extends RecyclerView.Adapter<ItemMultiCheckAd
     @Override
     public void onBindViewHolder(@NonNull final ItemMultiCheckAdapter.ItemDocenteViewHolder holder, final int position) {
 
-        holder.docenteItem.setText(ListaItemMultiCkecks.get(position));
+        holder.docenteItem.setText(listaItemMultiCkecks.get(position));
 
         if (listEstados.get(position)){
             holder.checkDocente.setChecked(true);
             if (holder.checkDocente.isChecked()){
-                itemsListNew.add(ListaItemMultiCkecks.get(position));
+                itemsListNew.add(listaItemMultiCkecks.get(position));
             }
         }
 
@@ -53,10 +53,10 @@ public class ItemMultiCheckAdapter extends RecyclerView.Adapter<ItemMultiCheckAd
             public void onClick(View view) {
                 if (holder.checkDocente.isChecked()){
                     holder.checkDocente.setChecked(false);
-                    itemsListNew.remove(ListaItemMultiCkecks.get(position));
+                    itemsListNew.remove(listaItemMultiCkecks.get(position));
                 }else {
                     holder.checkDocente.setChecked(true);
-                    itemsListNew.add(ListaItemMultiCkecks.get(position));
+                    itemsListNew.add(listaItemMultiCkecks.get(position));
                 }
             }
         });
@@ -65,9 +65,9 @@ public class ItemMultiCheckAdapter extends RecyclerView.Adapter<ItemMultiCheckAd
             @Override
             public void onClick(View view) {
                 if (holder.checkDocente.isChecked()){
-                    itemsListNew.add(ListaItemMultiCkecks.get(position));
+                    itemsListNew.add(listaItemMultiCkecks.get(position));
                 }else {
-                    itemsListNew.remove(ListaItemMultiCkecks.get(position));
+                    itemsListNew.remove(listaItemMultiCkecks.get(position));
                 }
             }
         });
@@ -75,7 +75,7 @@ public class ItemMultiCheckAdapter extends RecyclerView.Adapter<ItemMultiCheckAd
 
     @Override
     public int getItemCount() {
-        return ListaItemMultiCkecks.size();
+        return listaItemMultiCkecks.size();
     }
 
     public class ItemDocenteViewHolder extends RecyclerView.ViewHolder {

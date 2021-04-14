@@ -14,14 +14,14 @@ import android.view.MenuItem;
 import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.navigation.NavigationView;
-import com.utpl.agendadocente.ui.asignatura.PresentarAsignatura.AsignaturaFragment;
-import com.utpl.agendadocente.ui.cuestionario.PresentarCuestionario.CuestionarioFragment;
-import com.utpl.agendadocente.ui.docente.PresentarDocente.DocenteFragment;
-import com.utpl.agendadocente.ui.evaluacion.PresentarEvaluacion.EvaluacionFragment;
-import com.utpl.agendadocente.ui.horario.PresentarHorario.HorarioFragment;
-import com.utpl.agendadocente.ui.paralelo.PresentarParalelo.ParaleloFragment;
-import com.utpl.agendadocente.ui.periodo.PresentarPeriodo.PeriodoFragment;
-import com.utpl.agendadocente.ui.tarea.PresentarTarea.TareaFragment;
+import com.utpl.agendadocente.ui.asignatura.presentar_asignatura.AsignaturaFragment;
+import com.utpl.agendadocente.ui.cuestionario.presentar_cuestionario.CuestionarioFragment;
+import com.utpl.agendadocente.ui.docente.presentar_docente.DocenteFragment;
+import com.utpl.agendadocente.ui.evaluacion.presentar_evaluacion.EvaluacionFragment;
+import com.utpl.agendadocente.ui.horario.presentar_horario.HorarioFragment;
+import com.utpl.agendadocente.ui.paralelo.presentar_paralelo.ParaleloFragment;
+import com.utpl.agendadocente.ui.periodo.presentar_periodo.PeriodoFragment;
+import com.utpl.agendadocente.ui.tarea.presentar_tarea.TareaFragment;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
@@ -121,6 +121,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 fragmentTransaction.replace(R.id.nav_host_fragment, new PeriodoFragment());
                 fragmentTransaction.commit();
                 toolbar.setTitle("Periodos");
+                break;
+            default:
+                //Ignore this part
                 break;
         }
         return false;

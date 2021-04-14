@@ -1,6 +1,6 @@
 package com.utpl.agendadocente.ui.evaluacion;
 
-import com.utpl.agendadocente.Model.Evaluacion;
+import com.utpl.agendadocente.model.Evaluacion;
 
 public class IEvaluacion {
 

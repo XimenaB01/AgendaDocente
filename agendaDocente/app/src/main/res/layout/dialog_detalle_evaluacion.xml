@@ -89,7 +89,7 @@
                             android:layout_weight="1"
                             android:layout_marginStart="5dp"
                             android:textColor="#fff"
-                            android:text="@string/asignatura"
+                            android:text="@string/AsignaturaListener"
                             android:textStyle="italic"
                             android:textSize="15sp">
                         </TextView>

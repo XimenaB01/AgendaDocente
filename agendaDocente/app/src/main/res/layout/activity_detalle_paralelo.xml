@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.paralelo.PresentarParalelo.DetalleParaleloActivity">
+    tools:context=".ui.paralelo.presentar_paralelo.DetalleParaleloActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -73,7 +73,7 @@
                             android:id="@+id/titleNomAsig"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/asignatura"
+                            android:text="@string/AsignaturaListener"
                             android:textSize="15sp"
                             android:textStyle="italic" />
 

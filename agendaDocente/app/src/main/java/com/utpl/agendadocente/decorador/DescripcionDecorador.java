@@ -2,25 +2,27 @@ package com.utpl.agendadocente.decorador;
 
 import android.content.Context;
 
-import com.utpl.agendadocente.DataBase.OperacionesComponente;
-import com.utpl.agendadocente.Model.Asignatura;
-import com.utpl.agendadocente.Model.Componente;
+import com.utpl.agendadocente.database.OperacionesComponente;
+import com.utpl.agendadocente.model.Asignatura;
+import com.utpl.agendadocente.model.Componente;
 import com.utpl.agendadocente.decorador.intef.IAsignatura;
 
-public class DescripcionDecorador extends AsignaturaDecorador {
+import java.util.List;
 
-    private static String Descripcion;
-    private String Comp = "Descripcion";
-    private Componente componente = new Componente();
+public class DescripcionDecorador extends AsignaturaListenerDecorador {
 
-    public DescripcionDecorador(IAsignatura.asignatura asignatura) {
-        super(asignatura);
+    private static String descripcion;
+    private String comp = "Descripcion";
+    private EnviarComponente enviarComponente = new EnviarComponente();
+
+    public DescripcionDecorador(IAsignatura.AsignaturaListener asignaturaListener) {
+        super(asignaturaListener);
     }
 
     @Override
     public Asignatura agregarAsignatura(Asignatura asignatura, Context context) {
-        Integer id = asignatura.getId_asignatura();
-        Asignatura a = asignaturaDecoradora.agregarAsignatura(asignatura,context);
+        Integer id = asignatura.getIdAsignatura();
+        Asignatura a = asignaturaListenerDecoradora.agregarAsignatura(asignatura,context);
         if (id != null){
             atualizarDescripcion(a,context);
         }else {
@@ -30,24 +32,22 @@ public class DescripcionDecorador extends AsignaturaDecorador {
     }
 
     public static void recibirDescripcion(String descripcion){
-        DescripcionDecorador.Descripcion = descripcion;
+        DescripcionDecorador.descripcion = descripcion;
     }
 
     private void agregarDescripcion(Asignatura asignatura, Context context){
-        OperacionesComponente operacionesComponente = new OperacionesComponente(context);
-        componente.setComponente(Comp);
-        componente.setValor(Descripcion);
-        componente.setIdAsig(asignatura.getId_asignatura());
-        operacionesComponente.InsertarComponente(componente);
+        enviarComponente.insertarComponente(comp,context,descripcion,asignatura.getIdAsignatura());
     }
 
     private void atualizarDescripcion(Asignatura a, Context context) {
         OperacionesComponente operacionesComponente = new OperacionesComponente(context);
-        componente.setComponente(Comp);
-        componente.setValor(Descripcion);
-        componente.setIdAsig(a.getId_asignatura());
-        operacionesComponente.ActualizarComponente(componente);
-
+        List<Componente> componenteList = operacionesComponente.obtenerComponentes(a.getIdAsignatura());
+        for (int i = 0; i < componenteList.size(); i++){
+            if (componenteList.get(i).getComponente().equals(comp)){
+                enviarComponente.actualizarComponente(comp,context,descripcion,a.getIdAsignatura());
+            }else {
+                agregarDescripcion(a,context);
+            }
+        }
     }
-
 }

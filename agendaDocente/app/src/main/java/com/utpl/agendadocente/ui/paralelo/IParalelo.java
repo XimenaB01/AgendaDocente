@@ -1,6 +1,6 @@
 package com.utpl.agendadocente.ui.paralelo;
 
-import com.utpl.agendadocente.Model.Paralelo;
+import com.utpl.agendadocente.model.Paralelo;
 
 public class IParalelo {
 

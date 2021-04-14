@@ -2,7 +2,7 @@ package com.utpl.agendadocente.decorador.intef;
 
 import android.content.Context;
 
-import com.utpl.agendadocente.Model.Asignatura;
+import com.utpl.agendadocente.model.Asignatura;
 
 public class IAsignatura {
 
@@ -14,7 +14,7 @@ public class IAsignatura {
         void onCrearAsignatura(Asignatura asignatura);
     }
 
-    public interface asignatura {
+    public interface AsignaturaListener {
         Asignatura agregarAsignatura(Asignatura asignatura, Context context);
     }
 

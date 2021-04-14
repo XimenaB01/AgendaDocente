@@ -8,7 +8,7 @@ import java.util.List;
 public class SimpleSubject implements Subject{
 
     private List<Observer> observers;
-    private Integer Id;
+    private Integer id;
     private String estado;
     private ITarea.ActualizarTareaListener listener;
 
@@ -29,13 +29,13 @@ public class SimpleSubject implements Subject{
     @Override
     public void notifyObservers() {
         for (Observer observer : observers){
-            observer.update(Id ,estado, listener);
+            observer.update(id,estado, listener);
         }
     }
 
-    public void setValues(Integer id, String Estado, ITarea.ActualizarTareaListener lis){
-        this.Id = id;
-        this.estado = Estado;
+    public void setValues(Integer id, String estado, ITarea.ActualizarTareaListener lis){
+        this.id = id;
+        this.estado = estado;
         this.listener = lis;
         notifyObservers();
     }

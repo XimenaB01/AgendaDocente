@@ -16,40 +16,43 @@ import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.utpl.agendadocente.Model.Asignatura;
-import com.utpl.agendadocente.Model.Horario;
-import com.utpl.agendadocente.Model.PeriodoAcademico;
-import com.utpl.agendadocente.ui.asignatura.CrearAsignatura.AsignaturaCrearActivity;
+import com.utpl.agendadocente.model.Asignatura;
+import com.utpl.agendadocente.model.Horario;
+import com.utpl.agendadocente.model.PeriodoAcademico;
+import com.utpl.agendadocente.ui.asignatura.crear_asignatura.AsignaturaCrearActivity;
 import com.utpl.agendadocente.decorador.intef.IAsignatura;
-import com.utpl.agendadocente.ui.horario.CrearHorario.HorarioCrearActivity;
+import com.utpl.agendadocente.ui.horario.crear_horario.HorarioCrearActivity;
 import com.utpl.agendadocente.ui.horario.IHorario;
-import com.utpl.agendadocente.ui.periodo.CrearPeriodo.PeriodoCrearActivity;
+import com.utpl.agendadocente.ui.periodo.crear_periodo.PeriodoCrearActivity;
 import com.utpl.agendadocente.R;
-import com.utpl.agendadocente.Utilidades.utilidades;
+import com.utpl.agendadocente.util.Utilidades;
 import com.utpl.agendadocente.ui.periodo.IPeriodo;
 
 import java.util.List;
 
 public class DialogAgregarSingleItem extends DialogFragment implements IAsignatura.AsignaturaCreateListener, IHorario.HorarioCrearListener, IPeriodo.PeriodoCreateListener {
 
-    private static List<String> ListaItemSingleCkeck;
+    private static List<String> listaItemSingleCkeck;
     private int posicion = -1;
     private static String itemAsignado = "";
-    private String Componente;
+    private String texto = "Crear ";
+    private String componente;
     private String newItem;
     private ItemSingleCheckAdapter itemSingleCheckAdapter;
 
-    public static DialogAgregarSingleItem newInstance(String Componente, List<String> ListaItemsComponente, String ItemAsignado){
+    public static DialogAgregarSingleItem newInstance(String componente, List<String> listaItemsComponente, String itemsAsignado){
         DialogAgregarSingleItem agregarSingleItem = new DialogAgregarSingleItem();
-        ListaItemSingleCkeck = ListaItemsComponente;
-        itemAsignado = ItemAsignado;
+        listaItemSingleCkeck = listaItemsComponente;
+        itemAsignado = itemsAsignado;
         Bundle bundle = new Bundle();
-        bundle.putString("title",Componente);
+        bundle.putString("title",componente);
         agregarSingleItem.setArguments(bundle);
         return agregarSingleItem;
     }
 
-    public DialogAgregarSingleItem(){}
+    public DialogAgregarSingleItem(){
+        //required constructor
+    }
 
     @Nullable
     @Override
@@ -61,18 +64,18 @@ public class DialogAgregarSingleItem extends DialogFragment implements IAsignatu
         TextView nuevoItem = view.findViewById(R.id.btnNItemSingleCheck);
         RecyclerView listaItemsSingleCkeck = view.findViewById(R.id.checkListItemsSingleCheck);
 
-        String Title = null;
+        String title = null;
         if (getArguments() != null){
-            Componente = getArguments().getString(utilidades.TITULO);
-            Title = "Agregar "+ Componente;
+            componente = getArguments().getString(Utilidades.TITULO);
+            title = "Agregar "+ componente;
         }
-        toolbar.setTitle(Title);
+        toolbar.setTitle(title);
 
-        nuevoItem.setText(String.format("Nuevo %s",Componente));
+        nuevoItem.setText(String.format("Nuevo %s", componente));
         nuevoItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                switch (Componente){
+                switch (componente){
                     case "Asignatura":
                         llamarDialogCrearAsignatura();
                         break;
@@ -82,21 +85,22 @@ public class DialogAgregarSingleItem extends DialogFragment implements IAsignatu
                     case "Periodo":
                         llamarDialogCrearPeriodo();
                         break;
+                    default:
+                        //Ignore this part
+                        break;
                 }
             }
         });
 
-        if (!itemAsignado.isEmpty()){
-            if (ListaItemSingleCkeck.size() != 0){
-                for (int i = 0; i<ListaItemSingleCkeck.size();i++){
-                    if (itemAsignado.equals(ListaItemSingleCkeck.get(i))){
-                        posicion = i;
-                    }
+        if (!itemAsignado.isEmpty() && !listaItemSingleCkeck.isEmpty()){
+            for (int i = 0; i< listaItemSingleCkeck.size(); i++){
+                if (itemAsignado.equals(listaItemSingleCkeck.get(i))){
+                    posicion = i;
                 }
             }
         }
 
-        itemSingleCheckAdapter = new ItemSingleCheckAdapter(getContext(),ListaItemSingleCkeck,posicion);
+        itemSingleCheckAdapter = new ItemSingleCheckAdapter(getContext(), listaItemSingleCkeck,posicion);
         listaItemsSingleCkeck.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
         listaItemsSingleCkeck.setAdapter(itemSingleCheckAdapter);
 
@@ -104,11 +108,11 @@ public class DialogAgregarSingleItem extends DialogFragment implements IAsignatu
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                String Item = itemSingleCheckAdapter.getSelectedItem();
-                if (Item.equals("")){
-                    Item = String.format("Agregar %s",Componente);
+                String newItems = itemSingleCheckAdapter.getSelectedItem();
+                if (newItems.equals("")){
+                    newItems = String.format("Agregar %s", componente);
                 }
-                listener.onRecibirItemAsignado(Componente, Item);
+                listener.onRecibirItemAsignado(componente, newItems);
                 dismiss();
                 return true;
             }
@@ -124,20 +128,20 @@ public class DialogAgregarSingleItem extends DialogFragment implements IAsignatu
     }
 
     private void llamarDialogCrearAsignatura(){
-        AsignaturaCrearActivity asignaturaCrearActivity = AsignaturaCrearActivity.newInstance("Crear "+Componente,this);
-        asignaturaCrearActivity.show(getParentFragmentManager(), utilidades.CREAR);
+        AsignaturaCrearActivity asignaturaCrearActivity = AsignaturaCrearActivity.newInstance(texto + componente,this);
+        asignaturaCrearActivity.show(getParentFragmentManager(), Utilidades.CREAR);
     }
     private void llamarDialogCrearHorario(){
-        HorarioCrearActivity horarioCrearActivity = HorarioCrearActivity.newInstance("Crear "+Componente,this);
-        horarioCrearActivity.show(getParentFragmentManager(), utilidades.CREAR);
+        HorarioCrearActivity horarioCrearActivity = HorarioCrearActivity.newInstance(texto + componente,this);
+        horarioCrearActivity.show(getParentFragmentManager(), Utilidades.CREAR);
     }
     private void llamarDialogCrearPeriodo(){
-        PeriodoCrearActivity periodoCrearActivity = PeriodoCrearActivity.newInstance("Crear "+Componente, this);
-        periodoCrearActivity.show(getParentFragmentManager(), utilidades.CREAR);
+        PeriodoCrearActivity periodoCrearActivity = PeriodoCrearActivity.newInstance(texto + componente, this);
+        periodoCrearActivity.show(getParentFragmentManager(), Utilidades.CREAR);
     }
 
     public interface RecibirItemListener{
-        void onRecibirItemAsignado(String Componente, String ItemAsignado);
+        void onRecibirItemAsignado(String componente, String itemAsignado);
     }
 
     private RecibirItemListener listener;
@@ -167,21 +171,21 @@ public class DialogAgregarSingleItem extends DialogFragment implements IAsignatu
     @Override
     public void onCrearAsignatura(Asignatura asignatura) {
         newItem = asignatura.getNombreAsignatura();
-        ListaItemSingleCkeck.add(newItem);
+        listaItemSingleCkeck.add(newItem);
         itemSingleCheckAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void onCrearHorario(Horario horario) {
-        newItem = String.format("%s Aula:%s De:%s A:%s",horario.getDia(), horario.getAula(), horario.getHora_entrada(),horario.getHora_salida());
-        ListaItemSingleCkeck.add(newItem);
+        newItem = String.format("%s Aula:%s De:%s A:%s",horario.getDia(), horario.getAula(), horario.getHoraEntrada(),horario.getHoraSalida());
+        listaItemSingleCkeck.add(newItem);
         itemSingleCheckAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void onCrearPeriodo(PeriodoAcademico periodoAcademico) {
         newItem = String.format("%s - %s",periodoAcademico.getFechaInicio(),periodoAcademico.getFechaFin());
-        ListaItemSingleCkeck.add(newItem);
+        listaItemSingleCkeck.add(newItem);
         itemSingleCheckAdapter.notifyDataSetChanged();
     }
 }

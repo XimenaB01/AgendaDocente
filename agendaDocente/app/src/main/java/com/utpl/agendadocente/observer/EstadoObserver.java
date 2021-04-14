@@ -2,15 +2,15 @@ package com.utpl.agendadocente.observer;
 
 import android.content.Context;
 
-import com.utpl.agendadocente.DataBase.OperacionesTarea;
-import com.utpl.agendadocente.Model.Tarea;
+import com.utpl.agendadocente.database.OperacionesTarea;
+import com.utpl.agendadocente.model.Tarea;
 import com.utpl.agendadocente.ui.tarea.ITarea;
 
 public class EstadoObserver implements Observer{
 
-    private String Estado;
+    private String estado;
     private ITarea.ActualizarTareaListener listener;
-    private Integer Id;
+    private Integer id;
     private static int posicion;
     private static Context context;
 
@@ -20,18 +20,18 @@ public class EstadoObserver implements Observer{
 
     @Override
     public void update(Integer id,String estado, ITarea.ActualizarTareaListener lis) {
-        this.Estado = estado;
+        this.estado = estado;
         this.listener = lis;
-        this.Id = id;
+        this.id = id;
         notificacion();
     }
 
     private void notificacion(){
-        OperacionesTarea OT = new OperacionesTarea(context);
-        Tarea tarea = OT.obtenerTar(Id);
-        tarea.setEstadoTarea(Estado);
+        OperacionesTarea operacionesTarea = new OperacionesTarea(context);
+        Tarea tarea = operacionesTarea.obtenerTarea(id);
+        tarea.setEstadoTarea(estado);
         tarea.setParaleloId(null);
-        long op = OT.ModificarTar(tarea);
+        long op = operacionesTarea.modificarTarea(tarea);
         if (op > 0){
             listener.onActualizarTarea(tarea,posicion);
         }

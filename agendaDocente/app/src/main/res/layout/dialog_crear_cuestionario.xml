@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    tools:context=".ui.cuestionario.CrearCuestionario.CuestionarioCrearActivity">
+    tools:context=".ui.cuestionario.crear_cuestionario.CuestionarioCrearActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"

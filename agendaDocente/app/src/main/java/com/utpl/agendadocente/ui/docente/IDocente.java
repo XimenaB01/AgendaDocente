@@ -1,6 +1,6 @@
 package com.utpl.agendadocente.ui.docente;
 
-import com.utpl.agendadocente.Model.Docente;
+import com.utpl.agendadocente.model.Docente;
 
 public class IDocente {
 

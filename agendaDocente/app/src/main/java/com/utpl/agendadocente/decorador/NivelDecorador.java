@@ -2,25 +2,27 @@ package com.utpl.agendadocente.decorador;
 
 import android.content.Context;
 
-import com.utpl.agendadocente.DataBase.OperacionesComponente;
-import com.utpl.agendadocente.Model.Asignatura;
-import com.utpl.agendadocente.Model.Componente;
+import com.utpl.agendadocente.database.OperacionesComponente;
+import com.utpl.agendadocente.model.Asignatura;
+import com.utpl.agendadocente.model.Componente;
 import com.utpl.agendadocente.decorador.intef.IAsignatura;
 
-public class NivelDecorador extends AsignaturaDecorador {
+import java.util.List;
 
-    private static String Nivel;
-    private String Comp = "Nivel";
-    private Componente componente = new Componente();
+public class NivelDecorador extends AsignaturaListenerDecorador {
 
-    public NivelDecorador(IAsignatura.asignatura asignatura) {
-        super(asignatura);
+    private static String nivel;
+    private String comp = "Nivel";
+    private EnviarComponente enviarComponente = new EnviarComponente();
+
+    public NivelDecorador(IAsignatura.AsignaturaListener asignaturaListener) {
+        super(asignaturaListener);
     }
 
     @Override
     public Asignatura agregarAsignatura(Asignatura asignatura, Context context) {
-        Integer id = asignatura.getId_asignatura();
-        asignaturaDecoradora.agregarAsignatura(asignatura,context);
+        Integer id = asignatura.getIdAsignatura();
+        asignaturaListenerDecoradora.agregarAsignatura(asignatura,context);
         if (id != null){
             actualizarNivel(asignatura,context);
         }else {
@@ -30,23 +32,23 @@ public class NivelDecorador extends AsignaturaDecorador {
     }
 
     public static void recibirNivel(String nivel){
-        NivelDecorador.Nivel = nivel;
+        NivelDecorador.nivel = nivel;
     }
 
     private void agregarNivel(Asignatura a, Context context) {
-        OperacionesComponente operacionesComponente = new OperacionesComponente(context);
-        componente.setComponente(Comp);
-        componente.setValor(Nivel);
-        componente.setIdAsig(a.getId_asignatura());
-        operacionesComponente.InsertarComponente(componente);
+        enviarComponente.insertarComponente(comp,context,nivel,a.getIdAsignatura());
     }
 
     private void actualizarNivel(Asignatura a, Context context){
         OperacionesComponente operacionesComponente = new OperacionesComponente(context);
-        componente.setComponente(Comp);
-        componente.setValor(Nivel);
-        componente.setIdAsig(a.getId_asignatura());
-        operacionesComponente.ActualizarComponente(componente);
+        List<Componente> componenteList = operacionesComponente.obtenerComponentes(a.getIdAsignatura());
+        for (int i = 0; i < componenteList.size(); i++){
+            if (componenteList.get(i).getComponente().equals(comp)){
+                enviarComponente.actualizarComponente(comp,context,nivel,a.getIdAsignatura());
+            }else {
+                agregarNivel(a,context);
+            }
+        }
     }
 
 }

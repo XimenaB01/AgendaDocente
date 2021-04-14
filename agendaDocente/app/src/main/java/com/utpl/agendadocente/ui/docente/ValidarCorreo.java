@@ -5,11 +5,11 @@ import java.util.regex.Pattern;
 
 public class ValidarCorreo {
 
-    public boolean validar (String Email){
+    public boolean validar (String email){
         boolean correo = false;
 
         Pattern pattern = Pattern.compile("([a-z0-9]+(\\.?[a-z0-9])*)+@(([a-z]+)\\.([a-z]+))+");
-        Matcher matcher = pattern.matcher(Email);
+        Matcher matcher = pattern.matcher(email);
         if (matcher.find()){
             correo = true;
         }

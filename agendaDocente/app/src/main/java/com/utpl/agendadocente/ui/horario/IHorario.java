@@ -1,6 +1,6 @@
 package com.utpl.agendadocente.ui.horario;
 
-import com.utpl.agendadocente.Model.Horario;
+import com.utpl.agendadocente.model.Horario;
 
 public class IHorario {
 

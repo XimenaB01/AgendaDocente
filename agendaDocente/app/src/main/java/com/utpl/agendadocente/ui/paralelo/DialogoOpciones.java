@@ -13,31 +13,33 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
-import com.utpl.agendadocente.DataBase.OperacionesParalelo;
-import com.utpl.agendadocente.Model.Paralelo;
-import com.utpl.agendadocente.ui.paralelo.ActualizarParalelo.ParaleloActualizarActivity;
-import com.utpl.agendadocente.ui.paralelo.PresentarParalelo.DetalleParaleloActivity;
-import com.utpl.agendadocente.ui.paralelo.PresentarParalelo.DialogoOpcionesListener;
-import com.utpl.agendadocente.ui.paralelo.Replicar.ReplicarActivity;
+import com.utpl.agendadocente.database.OperacionesParalelo;
+import com.utpl.agendadocente.model.Paralelo;
+import com.utpl.agendadocente.ui.paralelo.actualizar_paralelo.ParaleloActualizarActivity;
+import com.utpl.agendadocente.ui.paralelo.presentar_paralelo.DetalleParaleloActivity;
+import com.utpl.agendadocente.ui.paralelo.presentar_paralelo.DialogoOpcionesListener;
+import com.utpl.agendadocente.ui.paralelo.replicar_paralelo.ReplicarActivity;
 import com.utpl.agendadocente.MainActivity;
 import com.utpl.agendadocente.R;
-import com.utpl.agendadocente.Utilidades.utilidades;
+import com.utpl.agendadocente.util.Utilidades;
 
 import java.util.List;
 
 public class DialogoOpciones extends BottomSheetDialogFragment implements IParalelo.ReplicarParaleloListener{
 
-    private static long IdParalelo;
+    private static long idParalelo;
     private static int paraleloItemPosition;
     private static DialogoOpcionesListener dialogoOpcionesListener;
     private static List<Paralelo> paraleloList;
 
     private OperacionesParalelo operacionesParalelo = new OperacionesParalelo(getContext());
 
-    public DialogoOpciones(){}
+    public DialogoOpciones(){
+        //required constructor
+    }
 
-    public static DialogoOpciones newInstance(Integer Id, int posicion, List<Paralelo> list, DialogoOpcionesListener listener){
-        IdParalelo = Id;
+    public static DialogoOpciones newInstance(Integer id, int posicion, List<Paralelo> list, DialogoOpcionesListener listener){
+        idParalelo = id;
         paraleloItemPosition = posicion;
         dialogoOpcionesListener = listener;
         paraleloList = list;
@@ -60,7 +62,7 @@ public class DialogoOpciones extends BottomSheetDialogFragment implements IParal
             @Override
             public void onClick(View view) {
                 dismiss();
-                Paralelo paralelo = operacionesParalelo.obtenerPar(IdParalelo);
+                Paralelo paralelo = operacionesParalelo.obtenerParalelo(idParalelo);
                 ParaleloActualizarActivity paraleloActualizarActivity = ParaleloActualizarActivity.newInstance(paralelo, paraleloItemPosition, new IParalelo.ActualizarParaleloListener() {
                     @Override
                     public void onActualizarParalelo(Paralelo paralelo, int position) {
@@ -68,18 +70,18 @@ public class DialogoOpciones extends BottomSheetDialogFragment implements IParal
                     }
                 });
                 paraleloActualizarActivity.setCancelable(false);
-                paraleloActualizarActivity.show(((MainActivity) requireContext()).getSupportFragmentManager(), utilidades.ACTUALIZAR);
+                paraleloActualizarActivity.show(((MainActivity) requireContext()).getSupportFragmentManager(), Utilidades.ACTUALIZAR);
             }
         });
 
         replicarLL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Integer Id = (int)IdParalelo;
-                ReplicarActivity replicarActivity = ReplicarActivity.newInstance(Id);
+                Integer id = (int) idParalelo;
+                ReplicarActivity replicarActivity = ReplicarActivity.newInstance(id);
                 replicarActivity.setCancelable(false);
                 replicarActivity.setTargetFragment(DialogoOpciones.this,22);
-                replicarActivity.show(getParentFragmentManager(),utilidades.REPLICAR);
+                replicarActivity.show(getParentFragmentManager(), Utilidades.REPLICAR);
                 dismiss();
             }
         });
@@ -126,7 +128,7 @@ public class DialogoOpciones extends BottomSheetDialogFragment implements IParal
 
     private void eliminarParalelo(int position){
         Paralelo paralelo = paraleloList.get(position);
-        long count = operacionesParalelo.eliminarPar(IdParalelo);
+        long count = operacionesParalelo.eliminarParalelo(idParalelo);
         if (count > 0){
             paraleloList.remove(position);
             dialogoOpcionesListener.onDialogoOpcionesParalelo(paralelo,position, "Eliminar");

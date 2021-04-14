@@ -5,18 +5,13 @@ import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.TimePicker;
 import android.text.format.DateFormat;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
-
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Locale;
-import java.util.Objects;
 
 public class DialogTimePicker extends DialogFragment implements TimePickerDialog.OnTimeSetListener{
 

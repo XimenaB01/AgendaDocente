@@ -2,7 +2,7 @@ package com.utpl.agendadocente.observer;
 
 import com.utpl.agendadocente.R;
 import com.utpl.agendadocente.ui.tarea.ITarea;
-import com.utpl.agendadocente.ui.tarea.PresentarTarea.TareaListaRecycleViewAdapter;
+import com.utpl.agendadocente.ui.tarea.presentar_tarea.TareaListaRecycleViewAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +32,10 @@ public class ImageEstadoObserver implements Observer {
                 list.add(R.drawable.ic_calificada);
                 list.add(R.color.colorImagen);
                 break;
+            default:
+                //Ignore this part
+                break;
+
         }
         return list;
     }

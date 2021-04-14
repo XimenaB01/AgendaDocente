@@ -12,8 +12,6 @@ import androidx.fragment.app.DialogFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Locale;
-import java.util.Objects;
 
 public class DialogDatePicker extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 

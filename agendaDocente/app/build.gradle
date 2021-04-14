@@ -36,8 +36,8 @@ dependencies {
 
 sonarqube {
     properties {
-        property "sonar.projectName", "AgendaDocente"
-        property "sonar.projectKey", "AgendaDocente"
+        property "sonar.projectName", "AgendaDocenteODF"
+        property "sonar.projectKey", "AgendaDocenteODF"
         property "sonar.host.url", "http://localhost:9000"
         property "sonar.language", "java"
         property "sonar.sources", "src/main/java"

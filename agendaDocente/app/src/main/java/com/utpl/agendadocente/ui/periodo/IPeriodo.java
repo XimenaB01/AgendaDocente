@@ -1,6 +1,6 @@
 package com.utpl.agendadocente.ui.periodo;
 
-import com.utpl.agendadocente.Model.PeriodoAcademico;
+import com.utpl.agendadocente.model.PeriodoAcademico;
 
 public class IPeriodo {
 

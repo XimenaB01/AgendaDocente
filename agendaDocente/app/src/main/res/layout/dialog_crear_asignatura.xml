@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    tools:context=".ui.asignatura.CrearAsignatura.AsignaturaCrearActivity">
+    tools:context=".ui.AsignaturaListener.crear_asignatura.AsignaturaCrearActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
@@ -42,7 +42,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:startIconDrawable="@drawable/ic_asignatura_black"
-                    android:hint="@string/asignatura"
+                    android:hint="@string/AsignaturaListener"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                     <com.google.android.material.textfield.TextInputEditText

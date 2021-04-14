@@ -16,14 +16,14 @@ import java.util.List;
 public class ItemSingleCheckAdapter extends RecyclerView.Adapter<ItemSingleCheckAdapter.ItemAsignaturaViewHolder> {
 
     private Context context;
-    private List<String> ListItemSingleCheck;
+    private List<String> listItemSingleCheck;
     private int lastSelectedPosition = -1;
-    private int Posicion;
+    private int posicion;
 
     public ItemSingleCheckAdapter (Context context, List<String> listaItemSingleCkecks, int posicion){
         this.context = context;
-        this.ListItemSingleCheck = listaItemSingleCkecks;
-        this.Posicion = posicion;
+        this.listItemSingleCheck = listaItemSingleCkecks;
+        this.posicion = posicion;
     }
 
     public ItemSingleCheckAdapter(){}
@@ -38,20 +38,20 @@ public class ItemSingleCheckAdapter extends RecyclerView.Adapter<ItemSingleCheck
     @Override
     public void onBindViewHolder(@NonNull final ItemAsignaturaViewHolder holder, final int position) {
 
-        holder.RadioButtonCkeck.setText(ListItemSingleCheck.get(position));
-        if (Posicion == position){
-            holder.RadioButtonCkeck.setChecked(true);
-            lastSelectedPosition = Posicion;
+        holder.radioButtonCkeck.setText(listItemSingleCheck.get(position));
+        if (posicion == position){
+            holder.radioButtonCkeck.setChecked(true);
+            lastSelectedPosition = posicion;
         }else {
-            holder.RadioButtonCkeck.setChecked(position == lastSelectedPosition);
+            holder.radioButtonCkeck.setChecked(position == lastSelectedPosition);
         }
 
-        holder.RadioButtonCkeck.setTag(position);
-        holder.RadioButtonCkeck.setOnClickListener(new View.OnClickListener() {
+        holder.radioButtonCkeck.setTag(position);
+        holder.radioButtonCkeck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 lastSelectedPosition = (Integer) view.getTag();
-                Posicion = -1;
+                posicion = -1;
                 notifyDataSetChanged();
             }
         });
@@ -59,23 +59,23 @@ public class ItemSingleCheckAdapter extends RecyclerView.Adapter<ItemSingleCheck
 
     public String getSelectedItem(){
         if (lastSelectedPosition != -1){
-            return ListItemSingleCheck.get(lastSelectedPosition);
+            return listItemSingleCheck.get(lastSelectedPosition);
         }
         return "";
     }
 
     @Override
     public int getItemCount() {
-        return ListItemSingleCheck.size();
+        return listItemSingleCheck.size();
     }
 
     public class ItemAsignaturaViewHolder extends RecyclerView.ViewHolder {
 
-        RadioButton RadioButtonCkeck;
+        RadioButton radioButtonCkeck;
 
         public ItemAsignaturaViewHolder(@NonNull View itemView) {
             super(itemView);
-            RadioButtonCkeck = itemView.findViewById(R.id.radioButtonCkeck);
+            radioButtonCkeck = itemView.findViewById(R.id.radioButtonCkeck);
 
         }
     }

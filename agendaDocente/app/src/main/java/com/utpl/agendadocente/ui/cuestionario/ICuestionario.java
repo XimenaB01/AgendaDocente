@@ -1,6 +1,6 @@
 package com.utpl.agendadocente.ui.cuestionario;
 
-import com.utpl.agendadocente.Model.Cuestionario;
+import com.utpl.agendadocente.model.Cuestionario;
 
 public class ICuestionario {
 
