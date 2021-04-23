@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.utpl.agendadocente.database.OperacionesCuestionario;
+import com.utpl.agendadocente.flyweight.OperacionesFactory;
 import com.utpl.agendadocente.model.Cuestionario;
 import com.utpl.agendadocente.R;
 import com.utpl.agendadocente.model.Evaluacion;
@@ -61,7 +62,7 @@ public class CuestionarioActualizarActivity extends DialogFragment {
 
         View view = inflater.inflate(R.layout.dialog_actualizar_cuestionario,container,false);
 
-        operacionesCuestionario = new OperacionesCuestionario(getContext());
+        operacionesCuestionario = (OperacionesCuestionario) OperacionesFactory.getOperacionCuestionario(getContext());
 
         Toolbar toolbar = view.findViewById(R.id.toolbarC);
         tvNombreAct = view.findViewById(R.id.txtCuestAct);

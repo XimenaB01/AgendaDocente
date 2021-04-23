@@ -21,6 +21,7 @@ import com.utpl.agendadocente.database.OperacionesDocente;
 import com.utpl.agendadocente.database.OperacionesHorario;
 import com.utpl.agendadocente.database.OperacionesParalelo;
 import com.utpl.agendadocente.database.OperacionesPeriodo;
+import com.utpl.agendadocente.flyweight.OperacionesFactory;
 import com.utpl.agendadocente.model.Docente;
 import com.utpl.agendadocente.model.Paralelo;
 import com.utpl.agendadocente.model.PeriodoAcademico;
@@ -49,14 +50,13 @@ public class CrearParaleloActivity extends DialogFragment implements DialogAgreg
     private TextView horarioAdd;
     private RecyclerView recyclerView;
 
-    private OperacionesHorario operacionesHorario = new OperacionesHorario(getContext());
-    private OperacionesParalelo operacionesParalelo = new OperacionesParalelo(getContext());
-    private OperacionesAsignatura operacionesAsignatura = new OperacionesAsignatura(getContext());
-    private OperacionesPeriodo operacionesPeriodo = new OperacionesPeriodo(getContext());
-    private OperacionesDocente operacionesDocente = new OperacionesDocente(getContext());
+    private OperacionesHorario operacionesHorario = (OperacionesHorario) OperacionesFactory.getOperacionHorario(getContext());
+    private OperacionesParalelo operacionesParalelo = (OperacionesParalelo) OperacionesFactory.getOperacionParalelo(getContext());
+    private OperacionesAsignatura operacionesAsignatura = (OperacionesAsignatura) OperacionesFactory.getOperacionAsignatura(getContext());
+    private OperacionesPeriodo operacionesPeriodo = (OperacionesPeriodo) OperacionesFactory.getOperacionPeriodo(getContext());
+    private OperacionesDocente operacionesDocente = (OperacionesDocente) OperacionesFactory.getOperacionDocente(getContext());
 
     private EvaluacionCrearActivity evaluacionCrearActivity = new EvaluacionCrearActivity();
-    private Paralelo paralelo = new Paralelo();
     private String tipoComponente;
     private String [] itemsAgregados = new String[0];
     private String itemAgregado = "";
@@ -64,7 +64,6 @@ public class CrearParaleloActivity extends DialogFragment implements DialogAgreg
     private int hoIdPar = -1;
     private int perIdPar = -1;
     private int alumPar = 0;
-    private String nomPar;
     private List<Integer> idsDoc = new ArrayList<>();
     private List<String> listItemMultiCkeck = new ArrayList<>();
     private List<String> listaDocentesAsignados = new ArrayList<>();
@@ -203,7 +202,7 @@ public class CrearParaleloActivity extends DialogFragment implements DialogAgreg
     }
 
     private void obtenerDatosFormulario(){
-        nomPar = Objects.requireNonNull(nombre.getText()).toString();
+        String nomPar = Objects.requireNonNull(nombre.getText()).toString();
 
         if (!Objects.requireNonNull(alunmos.getText()).toString().isEmpty()){
             alumPar = Integer.parseInt(alunmos.getText().toString());

@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.utpl.agendadocente.database.OperacionesParalelo;
+import com.utpl.agendadocente.flyweight.OperacionesFactory;
 import com.utpl.agendadocente.model.Paralelo;
 import com.utpl.agendadocente.R;
 import com.utpl.agendadocente.util.Utilidades;
@@ -45,7 +46,7 @@ public class ParaleloFragment extends Fragment implements IParalelo.ParaleloCrea
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_paralelo, container, false);
 
-        OperacionesParalelo operacionesParalelo = new OperacionesParalelo(getContext());
+        OperacionesParalelo operacionesParalelo = (OperacionesParalelo) OperacionesFactory.getOperacionParalelo(getContext());
 
         RecyclerView listParRV = view.findViewById(R.id.listaPar);
         listaParaleloVacia = view.findViewById(R.id.emptyListPaTextView);

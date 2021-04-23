@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.utpl.agendadocente.database.OperacionesPeriodo;
+import com.utpl.agendadocente.flyweight.OperacionesFactory;
 import com.utpl.agendadocente.model.PeriodoAcademico;
 import com.utpl.agendadocente.R;
 import com.utpl.agendadocente.util.Utilidades;
@@ -44,7 +45,7 @@ public class PeriodoFragment extends Fragment implements IPeriodo.PeriodoCreateL
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_periodo, container, false);
-        OperacionesPeriodo operacionesPeriodo = new OperacionesPeriodo(getContext());
+        OperacionesPeriodo operacionesPeriodo = (OperacionesPeriodo) OperacionesFactory.getOperacionPeriodo(getContext());
 
         RecyclerView listPerRV = view.findViewById(R.id.listaPer);
         listaPeriodoVacia = view.findViewById(R.id.emptyListPTextView);

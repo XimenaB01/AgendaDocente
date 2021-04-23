@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.google.android.material.card.MaterialCardView;
 import com.utpl.agendadocente.database.OperacionesAsignatura;
 import com.utpl.agendadocente.database.OperacionesComponente;
+import com.utpl.agendadocente.flyweight.OperacionesFactory;
 import com.utpl.agendadocente.model.Asignatura;
 import com.utpl.agendadocente.model.Componente;
 import com.utpl.agendadocente.R;
@@ -64,7 +65,7 @@ public class DetalleAsignatura extends DialogFragment {
 
         View view = inflater.inflate(R.layout.fragment_detalle_asignatura, container, false);
 
-        OperacionesAsignatura operacionesAsignatura = new OperacionesAsignatura(getContext());
+        OperacionesAsignatura operacionesAsignatura =(OperacionesAsignatura) OperacionesFactory.getOperacionAsignatura(getContext());
 
         Toolbar toolbar = view.findViewById(R.id.toolbarDA);
         TextView asignatura = view.findViewById(R.id.nombreAsig);
@@ -112,7 +113,7 @@ public class DetalleAsignatura extends DialogFragment {
     }
 
     private void presetarComponentesAdicionales(Integer idAsignatura) {
-        OperacionesComponente operacionesComponente = new OperacionesComponente(getContext());
+        OperacionesComponente operacionesComponente = (OperacionesComponente) OperacionesFactory.getOperacionComponente(getContext());
         List<Componente> list = operacionesComponente.obtenerComponentes(idAsignatura);
         for (int i = 0; i < list.size(); i++){
             switch (list.get(i).getComponente()) {

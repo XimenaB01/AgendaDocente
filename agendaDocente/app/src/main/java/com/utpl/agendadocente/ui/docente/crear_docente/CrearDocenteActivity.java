@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.utpl.agendadocente.database.OperacionesDocente;
+import com.utpl.agendadocente.flyweight.OperacionesFactory;
 import com.utpl.agendadocente.model.Docente;
 import com.utpl.agendadocente.ui.docente.IDocente;
 import com.utpl.agendadocente.ui.docente.ValidarCorreo;
@@ -113,7 +114,7 @@ public class CrearDocenteActivity extends DialogFragment {
                     docente.setApellidoDocente(apeDoc);
                     docente.setEmail(corDoc);
                     docente.setCedula(cedDoc);
-                    OperacionesDocente operacionesDocente = new OperacionesDocente(getContext());
+                    OperacionesDocente operacionesDocente = (OperacionesDocente) OperacionesFactory.getOperacionDocente(getContext());
                     long insercion = operacionesDocente.insertarDocente(docente);
                     actualizarListaDocentes(insercion, docente);
                 }else {

@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.utpl.agendadocente.database.OperacionesHorario;
+import com.utpl.agendadocente.flyweight.OperacionesFactory;
 import com.utpl.agendadocente.model.Horario;
 import com.utpl.agendadocente.MainActivity;
 import com.utpl.agendadocente.ui.horario.actualizar_horario.HorarioActualizarActivity;
@@ -36,7 +37,7 @@ public class HorarioListaRecycleViewAdapter extends RecyclerView.Adapter<Horario
     public HorarioListaRecycleViewAdapter (Context context, List<Horario> horarioLista){
         this.context = context;
         this.horarioLista = horarioLista;
-        operacionesHorario = new OperacionesHorario(context);
+        operacionesHorario = (OperacionesHorario) OperacionesFactory.getOperacionHorario(context);
     }
 
     @NonNull
@@ -56,7 +57,7 @@ public class HorarioListaRecycleViewAdapter extends RecyclerView.Adapter<Horario
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DetalleHorario detalleHorario = DetalleHorario.newInstance(hor, hor.getDia());
+                DetalleHorario detalleHorario = DetalleHorario.newInstance(hor);
                 detalleHorario.setCancelable(false);
                 detalleHorario.show(((MainActivity)context).getSupportFragmentManager(),"Tag");
             }

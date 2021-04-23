@@ -16,6 +16,7 @@ import androidx.fragment.app.DialogFragment;
 import com.utpl.agendadocente.database.OperacionesAsignatura;
 import com.utpl.agendadocente.database.OperacionesParalelo;
 import com.utpl.agendadocente.database.OperacionesTarea;
+import com.utpl.agendadocente.flyweight.OperacionesFactory;
 import com.utpl.agendadocente.model.Asignatura;
 import com.utpl.agendadocente.model.Paralelo;
 import com.utpl.agendadocente.model.Tarea;
@@ -28,7 +29,7 @@ public class TareaDetalle extends DialogFragment {
     private TextView asignarutaTarea;
 
     private static long idTarea;
-    private OperacionesTarea operacionesTarea = new OperacionesTarea(getContext());
+    private OperacionesTarea operacionesTarea = (OperacionesTarea) OperacionesFactory.getOperacionTarea(getContext());
     private Tarea tarea = operacionesTarea.obtenerTarea(idTarea);
 
     public TareaDetalle(){
@@ -102,11 +103,11 @@ public class TareaDetalle extends DialogFragment {
         String paraleloNull = "Sin Asignar";
 
         if (tarea.getParaleloId() != 0) {
-            OperacionesParalelo operacionesParalelo = new OperacionesParalelo(getContext());
+            OperacionesParalelo operacionesParalelo = (OperacionesParalelo) OperacionesFactory.getOperacionParalelo(getContext());
             Paralelo paralelo = operacionesParalelo.obtenerParalelo(tarea.getParaleloId());
             paraleloTarea.setText(paralelo.getNombreParalelo());
 
-            OperacionesAsignatura operacionesAsignatura = new OperacionesAsignatura(getContext());
+            OperacionesAsignatura operacionesAsignatura = (OperacionesAsignatura) OperacionesFactory.getOperacionAsignatura(getContext());
             Asignatura asignatura = operacionesAsignatura.obtenerAsignatura(paralelo.getAsignaturaID());
             asignarutaTarea.setText(asignatura.getNombreAsignatura());
         }else {

@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteException;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.utpl.agendadocente.flyweight.OperacionesInterfaz;
 import com.utpl.agendadocente.model.Componente;
 import com.utpl.agendadocente.util.Utilidades;
 
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class OperacionesComponente {
+public class OperacionesComponente implements OperacionesInterfaz.OperacionComponente {
 
     private Context context;
     private ConexionSQLiteHelper conexionDB;

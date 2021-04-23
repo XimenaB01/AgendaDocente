@@ -8,15 +8,15 @@ import android.database.sqlite.SQLiteException;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.utpl.agendadocente.flyweight.OperacionesInterfaz;
 import com.utpl.agendadocente.model.Horario;
 import com.utpl.agendadocente.util.Utilidades;
-import com.utpl.agendadocente.flyweight.TimeFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class OperacionesHorario {
+public class OperacionesHorario implements OperacionesInterfaz.OperacionHorario{
 
 	private Context context;
     private String parametro = " = ? ";
@@ -55,14 +55,8 @@ public class OperacionesHorario {
             cursor =  db.query(Utilidades.TABLA_HORARIO_ACADEMICO,null, null, null, null, null, null, null);
             if(cursor!=null && cursor.moveToFirst()){
                 do{
-                    Horario hor = (Horario) TimeFactory.getHorario(cursor.getString(cursor.getColumnIndex(Utilidades.CAMPO_DIA)));
-                    hor.setIdHorario(cursor.getInt(0));
-                    hor.setAula(cursor.getString(1));
-                    hor.setDia(cursor.getString(2));
-                    hor.setHoraEntrada(cursor.getString(3));
-                    hor.setHoraSalida(cursor.getString(4));
-
-                    listaHorario.add(hor.write());
+                    Horario hor = getHorarioForCursor(cursor);
+                    listaHorario.add(hor);
                 }while (cursor.moveToNext());
             }
         }catch (SQLiteException e)

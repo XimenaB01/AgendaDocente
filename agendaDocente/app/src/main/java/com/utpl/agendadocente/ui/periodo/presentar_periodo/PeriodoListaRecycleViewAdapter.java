@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.utpl.agendadocente.database.OperacionesPeriodo;
+import com.utpl.agendadocente.flyweight.OperacionesFactory;
 import com.utpl.agendadocente.model.PeriodoAcademico;
 import com.utpl.agendadocente.MainActivity;
 import com.utpl.agendadocente.ui.periodo.actualizar_periodo.PeriodoActualizarActivity;
@@ -36,7 +37,7 @@ public class PeriodoListaRecycleViewAdapter extends RecyclerView.Adapter<Periodo
     public PeriodoListaRecycleViewAdapter(Context context, List<PeriodoAcademico> periodoLista){
         this.context = context;
         this.periodoLista = periodoLista;
-        operacionesPeriodo = new OperacionesPeriodo(context);
+        operacionesPeriodo = (OperacionesPeriodo) OperacionesFactory.getOperacionPeriodo(context);
     }
 
     @NonNull

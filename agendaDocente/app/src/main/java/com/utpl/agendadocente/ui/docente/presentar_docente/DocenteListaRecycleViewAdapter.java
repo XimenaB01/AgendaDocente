@@ -14,6 +14,7 @@ import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import com.utpl.agendadocente.database.OperacionesDocente;
+import com.utpl.agendadocente.flyweight.OperacionesFactory;
 import com.utpl.agendadocente.model.Docente;
 import com.utpl.agendadocente.ui.docente.actualizar_docente.ActualizarDocente;
 import com.utpl.agendadocente.MainActivity;
@@ -34,7 +35,7 @@ public class DocenteListaRecycleViewAdapter extends RecyclerView.Adapter<Docente
     public DocenteListaRecycleViewAdapter(Context context, List<Docente> docentLisa){
         this.context = context;
         this.docenteLista = docentLisa;
-        operacionesDocente = new OperacionesDocente(context);
+        operacionesDocente = (OperacionesDocente) OperacionesFactory.getOperacionDocente(context);
     }
 
     @NonNull

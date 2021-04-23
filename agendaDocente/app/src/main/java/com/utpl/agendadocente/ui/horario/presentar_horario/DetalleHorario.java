@@ -17,7 +17,6 @@ import com.utpl.agendadocente.model.Horario;
 import com.utpl.agendadocente.R;
 import com.utpl.agendadocente.ui.evaluacion.presentar_evaluacion.EvaluacionDetalle;
 import com.utpl.agendadocente.util.Utilidades;
-import com.utpl.agendadocente.flyweight.TimeFactory;
 
 public class DetalleHorario extends DialogFragment {
 
@@ -27,9 +26,8 @@ public class DetalleHorario extends DialogFragment {
         //required constructor
     }
 
-    public static DetalleHorario newInstance(Horario hor, String dia){
+    public static DetalleHorario newInstance(Horario hor){
         DetalleHorario detalleHorario = new DetalleHorario();
-        horario = (Horario) TimeFactory.getHorario(dia);
         horario = hor;
         Bundle bundle = new Bundle();
         bundle.putString("title", "Detalle Horario");

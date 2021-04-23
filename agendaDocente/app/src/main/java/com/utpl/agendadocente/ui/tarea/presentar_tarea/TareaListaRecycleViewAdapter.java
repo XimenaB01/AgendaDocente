@@ -17,11 +17,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.utpl.agendadocente.database.OperacionesTarea;
+import com.utpl.agendadocente.flyweight.OperacionesFactory;
 import com.utpl.agendadocente.model.Tarea;
 import com.utpl.agendadocente.MainActivity;
 import com.utpl.agendadocente.observer.EstadoObserver;
 import com.utpl.agendadocente.observer.ImageEstadoObserver;
 import com.utpl.agendadocente.observer.SimpleSubject;
+import com.utpl.agendadocente.ui.evaluacion.presentar_evaluacion.EvaluacionListaRecycleViewAdapter;
 import com.utpl.agendadocente.ui.paralelo.presentar_paralelo.DetalleParaleloActivity;
 import com.utpl.agendadocente.ui.tarea.actualizar_tarea.TareaActualizarActivity;
 import com.utpl.agendadocente.R;
@@ -46,7 +48,7 @@ public class TareaListaRecycleViewAdapter extends RecyclerView.Adapter<TareaList
         this.context = context;
         this.tareaLista = tareaLista;
         this.componente = componente;
-        operacionesTarea = new OperacionesTarea(context);
+        operacionesTarea = (OperacionesTarea) OperacionesFactory.getOperacionTarea(context);
     }
 
     @NonNull
@@ -61,10 +63,12 @@ public class TareaListaRecycleViewAdapter extends RecyclerView.Adapter<TareaList
         final int itemPosicion = position;
         final Tarea tarea = tareaLista.get(position);
         final SimpleSubject simpleSubject = new SimpleSubject();
+        EvaluacionListaRecycleViewAdapter evaluacionListaRVA = new EvaluacionListaRecycleViewAdapter();
 
         holder.nombreTar.setText(tarea.getNombreTarea());
         holder.fechaTar.setText(tarea.getFechaTarea());
         holder.estadoTar.setText(tarea.getEstadoTarea());
+        holder.nombrePar.setText(evaluacionListaRVA.getParalelo(tarea.getParaleloId()));
 
         new ImageEstadoObserver(simpleSubject);
         simpleSubject.setValues(tarea.getIdTarea(), tarea.getEstadoTarea(), new ITarea.ActualizarTareaListener(){
@@ -175,12 +179,14 @@ public class TareaListaRecycleViewAdapter extends RecyclerView.Adapter<TareaList
 
     public class TareaViewHolder extends RecyclerView.ViewHolder {
         TextView nombreTar;
+        TextView nombrePar;
         TextView fechaTar;
         TextView estadoTar;
         ImageView opcionesTar;
         TareaViewHolder (View view){
             super(view);
             nombreTar = view.findViewById(R.id.nomTarTV);
+            nombrePar = view.findViewById(R.id.nomParT);
             fechaTar = view.findViewById(R.id.fechTarTV);
             estadoTar = view.findViewById(R.id.estadoTar);
             opcionesTar= view.findViewById(R.id.opcionesTar);

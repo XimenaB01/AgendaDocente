@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.utpl.agendadocente.database.OperacionesDocente;
+import com.utpl.agendadocente.flyweight.OperacionesFactory;
 import com.utpl.agendadocente.model.Docente;
 import com.utpl.agendadocente.R;
 import com.utpl.agendadocente.util.Utilidades;
@@ -39,7 +40,7 @@ public class DocenteFragment extends Fragment implements IDocente.DocenteCreateL
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_docente, container, false);
-        OperacionesDocente operacionesDocente = new OperacionesDocente(getContext());
+        OperacionesDocente operacionesDocente = (OperacionesDocente) OperacionesFactory.getOperacionDocente(getContext());
 
         RecyclerView lisDocRV = view.findViewById(R.id.listaDoc);
         listaDocentesVacia = view.findViewById(R.id.emptyListTextView);

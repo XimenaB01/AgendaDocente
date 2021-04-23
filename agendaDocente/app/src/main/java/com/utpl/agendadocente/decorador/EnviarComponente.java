@@ -3,6 +3,7 @@ package com.utpl.agendadocente.decorador;
 import android.content.Context;
 
 import com.utpl.agendadocente.database.OperacionesComponente;
+import com.utpl.agendadocente.flyweight.OperacionesFactory;
 import com.utpl.agendadocente.model.Componente;
 
 public class EnviarComponente {
@@ -11,7 +12,7 @@ public class EnviarComponente {
     private Componente componente1 = new Componente();
 
     public void insertarComponente(String componente, Context context, String valor, Integer id){
-        operacionesComponente = new OperacionesComponente(context);
+        operacionesComponente = (OperacionesComponente) OperacionesFactory.getOperacionComponente(context);
         componente1.setComponente(componente);
         componente1.setValor(valor);
         componente1.setIdAsig(id);

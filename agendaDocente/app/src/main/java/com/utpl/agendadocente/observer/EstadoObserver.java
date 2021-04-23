@@ -3,6 +3,7 @@ package com.utpl.agendadocente.observer;
 import android.content.Context;
 
 import com.utpl.agendadocente.database.OperacionesTarea;
+import com.utpl.agendadocente.flyweight.OperacionesFactory;
 import com.utpl.agendadocente.model.Tarea;
 import com.utpl.agendadocente.ui.tarea.ITarea;
 
@@ -27,10 +28,9 @@ public class EstadoObserver implements Observer{
     }
 
     private void notificacion(){
-        OperacionesTarea operacionesTarea = new OperacionesTarea(context);
+        OperacionesTarea operacionesTarea = (OperacionesTarea) OperacionesFactory.getOperacionTarea(context);
         Tarea tarea = operacionesTarea.obtenerTarea(id);
         tarea.setEstadoTarea(estado);
-        tarea.setParaleloId(null);
         long op = operacionesTarea.modificarTarea(tarea);
         if (op > 0){
             listener.onActualizarTarea(tarea,posicion);

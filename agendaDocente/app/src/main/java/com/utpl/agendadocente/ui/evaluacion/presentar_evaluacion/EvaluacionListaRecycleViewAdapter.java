@@ -13,9 +13,14 @@ import android.view.ViewGroup;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
+import com.utpl.agendadocente.database.OperacionesAsignatura;
 import com.utpl.agendadocente.database.OperacionesEvaluacion;
+import com.utpl.agendadocente.database.OperacionesParalelo;
+import com.utpl.agendadocente.flyweight.OperacionesFactory;
+import com.utpl.agendadocente.model.Asignatura;
 import com.utpl.agendadocente.model.Evaluacion;
 import com.utpl.agendadocente.MainActivity;
+import com.utpl.agendadocente.model.Paralelo;
 import com.utpl.agendadocente.ui.evaluacion.actualizar_evaluacion.EvaluacionActualizarActivity;
 import com.utpl.agendadocente.R;
 import com.utpl.agendadocente.util.Utilidades;
@@ -37,7 +42,7 @@ public class EvaluacionListaRecycleViewAdapter extends RecyclerView.Adapter<Eval
         this.context = context;
         this.componente = componente;
         this.evaluacionLista = evaluacionLista;
-        operacionesEvaluacion = new OperacionesEvaluacion(context);
+        operacionesEvaluacion = (OperacionesEvaluacion)OperacionesFactory.getOperacionEvaluacion(context);
     }
 
     @NonNull
@@ -54,6 +59,7 @@ public class EvaluacionListaRecycleViewAdapter extends RecyclerView.Adapter<Eval
         holder.nombEva.setText(eva.getNombreEvaluacion());
         holder.tipoEva.setText(eva.getTipo());
         holder.fechEva.setText(eva.getFechaEvaluacion());
+        holder.nombrePar.setText(getParalelo(eva.getParaleloID()));
 
         holder.opcionesEva.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -99,8 +105,25 @@ public class EvaluacionListaRecycleViewAdapter extends RecyclerView.Adapter<Eval
         });
     }
 
+    public String getParalelo(Integer paraleloID) {
+        String nombreParalelo;
+        if (paraleloID != null && paraleloID != 0){
+            OperacionesAsignatura opA =(OperacionesAsignatura) OperacionesFactory.getOperacionAsignatura(context);
+            OperacionesParalelo opP = (OperacionesParalelo) OperacionesFactory.getOperacionParalelo(context);
+
+            Paralelo paralelo = opP.obtenerParalelo(paraleloID);
+            Asignatura asignatura = opA.obtenerAsignatura(paralelo.getAsignaturaID());
+            String formato = "%s - %s";
+            nombreParalelo = String.format(formato, asignatura.getNombreAsignatura(), paralelo.getNombreParalelo());
+        }else {
+            nombreParalelo = "Sin Asignar";
+        }
+
+        return nombreParalelo;
+    }
+
     private void getDialogForDetalleItemEvaluacion(Evaluacion evaluacion) {
-        EvaluacionDetalle evaluacionDetalle = EvaluacionDetalle.newInstance(evaluacion, evaluacion.getBimestre());
+        EvaluacionDetalle evaluacionDetalle = EvaluacionDetalle.newInstance(evaluacion);
         evaluacionDetalle.setCancelable(false);
         if (componente.equals("Fragment")){
             evaluacionDetalle.show(((MainActivity)context).getSupportFragmentManager(),"tag");

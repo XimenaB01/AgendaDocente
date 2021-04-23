@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.utpl.agendadocente.database.OperacionesCuestionario;
+import com.utpl.agendadocente.flyweight.OperacionesFactory;
 import com.utpl.agendadocente.model.Cuestionario;
 import com.utpl.agendadocente.R;
 import com.utpl.agendadocente.util.Utilidades;
@@ -43,7 +44,7 @@ public class CuestionarioFragment extends Fragment implements ICuestionario.Cues
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_cuestionario, container, false);
-        OperacionesCuestionario operacionesCuestionario = new OperacionesCuestionario(getContext());
+        OperacionesCuestionario operacionesCuestionario = (OperacionesCuestionario) OperacionesFactory.getOperacionCuestionario(getContext());
 
         RecyclerView lisCuestRV = view.findViewById(R.id.RVCuestionario);
         listaCuestionarioVacia = view.findViewById(R.id.emptyListCTextView);

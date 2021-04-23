@@ -30,11 +30,11 @@ import com.utpl.agendadocente.database.OperacionesAsignatura;
 import com.utpl.agendadocente.database.OperacionesCuestionario;
 import com.utpl.agendadocente.database.OperacionesEvaluacion;
 import com.utpl.agendadocente.database.OperacionesParalelo;
+import com.utpl.agendadocente.flyweight.OperacionesFactory;
 import com.utpl.agendadocente.model.Asignatura;
 import com.utpl.agendadocente.model.Cuestionario;
 import com.utpl.agendadocente.model.Evaluacion;
 import com.utpl.agendadocente.model.Paralelo;
-import com.utpl.agendadocente.flyweight.PruebasFactory;
 import com.utpl.agendadocente.ui.cuestionario.crear_cuestionario.CuestionarioCrearActivity;
 import com.utpl.agendadocente.ui.cuestionario.ICuestionario;
 import com.utpl.agendadocente.ui.evaluacion.IEvaluacion;
@@ -51,10 +51,10 @@ public class EvaluacionCrearActivity extends DialogFragment implements DialogDat
     private static IEvaluacion.EvaluacionCrearListener evaluacionCrearListener;
     private static Integer idParalelo;
     private IEvaluacion.EvaluacionCrearListener listener;
-    private OperacionesEvaluacion operacionesEvaluacion = new OperacionesEvaluacion(getContext());
-    private OperacionesCuestionario operacionesCuestionario = new OperacionesCuestionario(getContext());
-    private OperacionesParalelo operacionesParalelo = new OperacionesParalelo(getContext());
-    private OperacionesAsignatura operacionesAsignatura = new OperacionesAsignatura(getContext());
+    private OperacionesEvaluacion operacionesEvaluacion =(OperacionesEvaluacion)OperacionesFactory.getOperacionEvaluacion(getContext());
+    private OperacionesCuestionario operacionesCuestionario = (OperacionesCuestionario) OperacionesFactory.getOperacionCuestionario(getContext());
+    private OperacionesParalelo operacionesParalelo = (OperacionesParalelo) OperacionesFactory.getOperacionParalelo(getContext());
+    private OperacionesAsignatura operacionesAsignatura =(OperacionesAsignatura) OperacionesFactory.getOperacionAsignatura(getContext());
 
     private TextInputEditText nomE;
     private TextInputEditText obsE;
@@ -310,7 +310,7 @@ public class EvaluacionCrearActivity extends DialogFragment implements DialogDat
     }
 
     private void enviarEvaluacion(Integer id){
-        Evaluacion eva = (Evaluacion) PruebasFactory.getPrueba(bimEva);
+        Evaluacion eva = new Evaluacion();
         eva.setNombreEvaluacion(nombEva);
         eva.setTipo(tipoEva);
         eva.setBimestre(bimEva);
@@ -319,7 +319,7 @@ public class EvaluacionCrearActivity extends DialogFragment implements DialogDat
         eva.setCuestionarioID(idCuestEva);
         eva.setParaleloID(id);
 
-        long insercion = operacionesEvaluacion.insertarEvaluacion(eva.write());
+        long insercion = operacionesEvaluacion.insertarEvaluacion(eva);
         if (insercion > 0 ){
             int inser = (int)insercion;
             eva.setIdEvaluacion(inser);
@@ -408,23 +408,23 @@ public class EvaluacionCrearActivity extends DialogFragment implements DialogDat
         List<Integer> ids = new ArrayList<>();
 
         if (!lista.isEmpty()){
-            for (int i = 0; i <paraleloList.size(); i++){
-                for (int j = 0; j < asignaturaList.size(); j++){
-                    String nombreParalelo = asignaturaList.get(j).getNombreAsignatura()+" - "+paraleloList.get(i).getNombreParalelo();
-                    ids.add(obtenerIdParalelo(lista, nombreParalelo, paraleloList.get(i).getAsignaturaID(), asignaturaList.get(j).getIdAsignatura(), paraleloList.get(i).getIdParalelo()));
-                }
-            }
+            ids = llenarListaIdParalelo(lista, paraleloList, asignaturaList);
         }else {
             ids.add(null);
         }
         return ids;
     }
 
-    private Integer obtenerIdParalelo(List<String> lista, String nombrePalelo, Integer idAsignaturaForParalelo, Integer idAsignatura, Integer idParalelo){
-        Integer ids = null;
-        for (int y = 0; y < lista.size(); y++){
-            if (idAsignaturaForParalelo.equals(idAsignatura) && lista.get(y).equals(nombrePalelo)){
-                ids = idParalelo;
+    private List<Integer> llenarListaIdParalelo(List<String> lista, List<Paralelo> paraleloList, List<Asignatura> asignaturaList){
+        List<Integer> ids = new ArrayList<>();
+        for (int i = 0; i <paraleloList.size(); i++){
+            for (int j = 0; j < asignaturaList.size(); j++){
+                String nombreParalelo = asignaturaList.get(j).getNombreAsignatura()+" - "+paraleloList.get(i).getNombreParalelo();
+                for (int y = 0; y < lista.size(); y++){
+                    if (paraleloList.get(i).getAsignaturaID().equals(asignaturaList.get(j).getIdAsignatura()) && lista.get(y).equals(nombreParalelo)){
+                        ids.add(paraleloList.get(i).getIdParalelo());
+                    }
+                }
             }
         }
         return ids;

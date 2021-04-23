@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.utpl.agendadocente.database.OperacionesEvaluacion;
+import com.utpl.agendadocente.flyweight.OperacionesFactory;
 import com.utpl.agendadocente.model.Evaluacion;
 import com.utpl.agendadocente.R;
 import com.utpl.agendadocente.util.Utilidades;
@@ -44,7 +45,7 @@ public class EvaluacionFragment extends Fragment implements IEvaluacion.Evaluaci
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_evaluacion, container, false);
-        OperacionesEvaluacion operacionesEvaluacion = new OperacionesEvaluacion(getContext());
+        OperacionesEvaluacion operacionesEvaluacion = (OperacionesEvaluacion) OperacionesFactory.getOperacionEvaluacion(getContext());
 
         RecyclerView listEvaRV = view.findViewById(R.id.listaEva);
         listaPeriodoVacia = view.findViewById(R.id.emptyListETextView);

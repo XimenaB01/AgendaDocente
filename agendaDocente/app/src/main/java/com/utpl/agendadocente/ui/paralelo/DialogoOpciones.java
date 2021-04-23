@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.utpl.agendadocente.database.OperacionesParalelo;
+import com.utpl.agendadocente.flyweight.OperacionesFactory;
 import com.utpl.agendadocente.model.Paralelo;
 import com.utpl.agendadocente.ui.paralelo.actualizar_paralelo.ParaleloActualizarActivity;
 import com.utpl.agendadocente.ui.paralelo.presentar_paralelo.DetalleParaleloActivity;
@@ -32,7 +33,7 @@ public class DialogoOpciones extends BottomSheetDialogFragment implements IParal
     private static DialogoOpcionesListener dialogoOpcionesListener;
     private static List<Paralelo> paraleloList;
 
-    private OperacionesParalelo operacionesParalelo = new OperacionesParalelo(getContext());
+    private OperacionesParalelo operacionesParalelo = (OperacionesParalelo) OperacionesFactory.getOperacionParalelo(getContext());
 
     public DialogoOpciones(){
         //required constructor

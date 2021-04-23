@@ -7,13 +7,14 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.widget.Toast;
 
+import com.utpl.agendadocente.flyweight.OperacionesInterfaz;
 import com.utpl.agendadocente.model.Docente;
 import com.utpl.agendadocente.util.Utilidades;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class OperacionesDocente {
+public class OperacionesDocente implements OperacionesInterfaz.OperacionDocente{
 
     private Context context;
     private String parametro = " = ? ";

@@ -14,11 +14,12 @@ import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.utpl.agendadocente.database.OperacionesAsignatura;
+import com.utpl.agendadocente.flyweight.OperacionesFactory;
 import com.utpl.agendadocente.model.Asignatura;
 import com.utpl.agendadocente.ui.asignatura.crear_asignatura.AsignaturaCrearActivity;
 import com.utpl.agendadocente.R;
 import com.utpl.agendadocente.util.Utilidades;
-import com.utpl.agendadocente.decorador.intef.IAsignatura;
+import com.utpl.agendadocente.ui.asignatura.IAsignatura;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +40,7 @@ public class AsignaturaFragment extends Fragment implements IAsignatura.Asignatu
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_asignatura, container, false);
-        OperacionesAsignatura operacionesAsignatura = new OperacionesAsignatura(getContext());
+        OperacionesAsignatura operacionesAsignatura = (OperacionesAsignatura) OperacionesFactory.getOperacionAsignatura(getContext());
 
         listaAginaturaVacia = view.findViewById(R.id.emptyListATextView);
         RecyclerView lisAsigRV = view.findViewById(R.id.listaAsig);

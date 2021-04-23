@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.utpl.agendadocente.database.OperacionesTarea;
+import com.utpl.agendadocente.flyweight.OperacionesFactory;
 import com.utpl.agendadocente.model.Tarea;
 import com.utpl.agendadocente.R;
 import com.utpl.agendadocente.util.Utilidades;
@@ -53,7 +54,7 @@ public class TareasParalelo extends Fragment implements ITarea.TareaCrearListene
         RecyclerView recyclerView = view.findViewById(R.id.RVtareas);
         listaTareasVacia = view.findViewById(R.id.emptyListTaTextView);
 
-        OperacionesTarea operacionesTarea = new OperacionesTarea(getContext());
+        OperacionesTarea operacionesTarea = (OperacionesTarea) OperacionesFactory.getOperacionTarea(getContext());
         listaTareas = operacionesTarea.obtenerTareasId(idParalelo);
 
         tareaListaRecycleViewAdapter = new TareaListaRecycleViewAdapter(getContext(), listaTareas, "Activity");

@@ -1,8 +1,6 @@
 package com.utpl.agendadocente.model;
 
-import com.utpl.agendadocente.ui.evaluacion.IEvaluacion;
-
-public class Evaluacion implements IEvaluacion.Prueba {
+public class Evaluacion {
     private Integer idEvaluacion;
     private String nombreEvaluacion;
     private String tipo;
@@ -94,8 +92,4 @@ public class Evaluacion implements IEvaluacion.Prueba {
         this.paraleloID = paraleloID;
     }
 
-    @Override
-    public Evaluacion write() {
-        return new Evaluacion(idEvaluacion, nombreEvaluacion, tipo, bimestre, fechaEvaluacion, observacion, paraleloID, cuestionarioID);
-    }
 }

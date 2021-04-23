@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.utpl.agendadocente.database.OperacionesEvaluacion;
+import com.utpl.agendadocente.flyweight.OperacionesFactory;
 import com.utpl.agendadocente.model.Evaluacion;
 import com.utpl.agendadocente.R;
 import com.utpl.agendadocente.util.Utilidades;
@@ -49,7 +50,7 @@ public class EvaluacionesParalelo extends Fragment implements IEvaluacion.Evalua
         RecyclerView recyclerView = view.findViewById(R.id.RVevaluaciones);
         listaPeriodoVacia = view.findViewById(R.id.emptyListEvTextView);
 
-        OperacionesEvaluacion operacionesEvaluacion = new OperacionesEvaluacion(getContext());
+        OperacionesEvaluacion operacionesEvaluacion = (OperacionesEvaluacion) OperacionesFactory.getOperacionEvaluacion(getContext());
         evaluacionList = operacionesEvaluacion.obtenerEvaluacionesId(idParalelo);
 
         evaluacionListaRecycleViewAdapter = new EvaluacionListaRecycleViewAdapter(getContext(), evaluacionList, "Activity");

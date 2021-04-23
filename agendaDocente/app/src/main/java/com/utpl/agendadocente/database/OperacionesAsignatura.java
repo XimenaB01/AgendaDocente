@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteException;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.utpl.agendadocente.flyweight.OperacionesInterfaz;
 import com.utpl.agendadocente.model.Asignatura;
 import com.utpl.agendadocente.util.Utilidades;
 
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class OperacionesAsignatura {
+public class OperacionesAsignatura implements OperacionesInterfaz.OperacionAsignatura{
 
     private Context context;
     private String parametro = " = ? ";

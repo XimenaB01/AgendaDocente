@@ -29,7 +29,6 @@
                 android:textStyle="bold"
                 tools:text="Evaluación Metodologías Agiles" />
 
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -37,18 +36,43 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/FechEvaTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="@string/fechaevaluacion"
+                    android:text="@string/paralelo"
                     android:textSize="16sp"
                     android:textColor="#FFFFFF"
-                    android:textStyle="italic"/>
+                    android:textStyle="italic" />
+
+                <TextView
+                    android:id="@+id/nomParE"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF"
+                    tools:text="Matematicas - A" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.1"
+                    android:tint="#fff"
+                    android:contentDescription="@string/fechaentreda"
+                    android:src="@drawable/ic_horario"/>
 
                 <TextView
                     android:id="@+id/FechEvaTV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:layout_marginStart="10dp"
                     android:textSize="18sp"
                     android:textColor="#FFFFFF"

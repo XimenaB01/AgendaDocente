@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.utpl.agendadocente.database.OperacionesDocente;
+import com.utpl.agendadocente.flyweight.OperacionesFactory;
 import com.utpl.agendadocente.model.Docente;
 import com.utpl.agendadocente.ui.docente.IDocente;
 import com.utpl.agendadocente.ui.docente.ValidarCorreo;
@@ -60,7 +61,7 @@ public class ActualizarDocente extends DialogFragment {
 
         View view = inflater.inflate(R.layout.dialog_actualizar_docente,container,false);
 
-        operacionesDocente = new OperacionesDocente(getContext());
+        operacionesDocente = (OperacionesDocente) OperacionesFactory.getOperacionDocente(getContext());
 
         Toolbar toolbar = view.findViewById(R.id.toolbarDA);
         nomAct = view.findViewById(R.id.nomDocAct);

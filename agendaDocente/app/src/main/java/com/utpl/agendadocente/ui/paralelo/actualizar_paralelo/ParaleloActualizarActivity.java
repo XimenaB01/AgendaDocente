@@ -20,6 +20,7 @@ import com.utpl.agendadocente.database.OperacionesDocente;
 import com.utpl.agendadocente.database.OperacionesHorario;
 import com.utpl.agendadocente.database.OperacionesParalelo;
 import com.utpl.agendadocente.database.OperacionesPeriodo;
+import com.utpl.agendadocente.flyweight.OperacionesFactory;
 import com.utpl.agendadocente.model.Asignatura;
 import com.utpl.agendadocente.model.Docente;
 import com.utpl.agendadocente.model.Horario;
@@ -55,11 +56,11 @@ public class ParaleloActualizarActivity extends DialogFragment implements Dialog
 
     private EvaluacionCrearActivity evaluacionCrearActivity = new EvaluacionCrearActivity();
 
-    private OperacionesDocente operacionesDocente = new OperacionesDocente(getContext());
-    private OperacionesPeriodo operacionesPeriodo = new OperacionesPeriodo(getContext());
-    private OperacionesParalelo operacionesParalelo = new OperacionesParalelo(getContext());
-    private OperacionesAsignatura operacionesAsignatura = new OperacionesAsignatura(getContext());
-    private OperacionesHorario operacionesHorario = new OperacionesHorario(getContext());
+    private OperacionesDocente operacionesDocente = (OperacionesDocente) OperacionesFactory.getOperacionDocente(getContext());
+    private OperacionesPeriodo operacionesPeriodo = (OperacionesPeriodo) OperacionesFactory.getOperacionPeriodo(getContext());
+    private OperacionesParalelo operacionesParalelo = (OperacionesParalelo) OperacionesFactory.getOperacionParalelo(getContext());
+    private OperacionesAsignatura operacionesAsignatura = (OperacionesAsignatura) OperacionesFactory.getOperacionAsignatura(getContext());
+    private OperacionesHorario operacionesHorario = (OperacionesHorario) OperacionesFactory.getOperacionHorario(getContext());
 
     private List<Docente> docenteList = operacionesDocente.listarDocente();
     private List<Asignatura> asigList = operacionesAsignatura.listarAsignatura();

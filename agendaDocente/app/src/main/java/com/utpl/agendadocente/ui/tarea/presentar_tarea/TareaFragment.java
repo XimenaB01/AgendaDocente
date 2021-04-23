@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.utpl.agendadocente.database.OperacionesTarea;
+import com.utpl.agendadocente.flyweight.OperacionesFactory;
 import com.utpl.agendadocente.model.Tarea;
 import com.utpl.agendadocente.R;
 import com.utpl.agendadocente.util.Utilidades;
@@ -44,7 +45,7 @@ public class TareaFragment extends Fragment implements ITarea.TareaCrearListener
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_tarea, container, false);
-        OperacionesTarea operacionesTarea = new OperacionesTarea(getContext());
+        OperacionesTarea operacionesTarea = (OperacionesTarea) OperacionesFactory.getOperacionTarea(getContext());
 
         RecyclerView listTarRV = view.findViewById(R.id.listaTar);
         listaTareaVacia = view.findViewById(R.id.emptyListTTextView);

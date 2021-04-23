@@ -21,6 +21,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.utpl.agendadocente.database.OperacionesAsignatura;
 import com.utpl.agendadocente.database.OperacionesParalelo;
 import com.utpl.agendadocente.database.OperacionesTarea;
+import com.utpl.agendadocente.flyweight.OperacionesFactory;
 import com.utpl.agendadocente.model.Asignatura;
 import com.utpl.agendadocente.model.Paralelo;
 import com.utpl.agendadocente.model.Tarea;
@@ -53,9 +54,9 @@ public class TareaActualizarActivity extends DialogFragment implements DialogDat
     private Integer idParalelo = null;
     private List<String> paralelos = new ArrayList<>();
 
-    private OperacionesTarea operacionesTarea = new OperacionesTarea(getContext());
-    private OperacionesParalelo operacionesParalelo = new OperacionesParalelo(getContext());
-    private OperacionesAsignatura operacionesAsignatura = new OperacionesAsignatura(getContext());
+    private OperacionesTarea operacionesTarea = (OperacionesTarea) OperacionesFactory.getOperacionTarea(getContext());
+    private OperacionesParalelo operacionesParalelo = (OperacionesParalelo) OperacionesFactory.getOperacionParalelo(getContext());
+    private OperacionesAsignatura operacionesAsignatura = (OperacionesAsignatura) OperacionesFactory.getOperacionAsignatura(getContext());
 
 
     private Tarea tarea  = operacionesTarea.obtenerTarea(idTarea);

@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.utpl.agendadocente.database.OperacionesHorario;
+import com.utpl.agendadocente.flyweight.OperacionesFactory;
 import com.utpl.agendadocente.model.Horario;
 import com.utpl.agendadocente.R;
 import com.utpl.agendadocente.util.Utilidades;
@@ -44,7 +45,7 @@ public class HorarioFragment extends Fragment implements IHorario.HorarioCrearLi
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_horario, container, false);
-        OperacionesHorario operacionesHorario = new OperacionesHorario(getContext());
+        OperacionesHorario operacionesHorario = (OperacionesHorario) OperacionesFactory.getOperacionHorario(getContext());
 
         RecyclerView listHorRV = view.findViewById(R.id.listaHor);
         listaHorarioVacia = view.findViewById(R.id.emptyListHTextView);

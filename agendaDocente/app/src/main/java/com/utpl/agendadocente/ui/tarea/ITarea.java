@@ -11,8 +11,4 @@ public class ITarea {
     public interface ActualizarTareaListener {
         void onActualizarTarea(Tarea tarea, int position);
     }
-
-    public interface Actividad{
-        Tarea write();
-    }
 }

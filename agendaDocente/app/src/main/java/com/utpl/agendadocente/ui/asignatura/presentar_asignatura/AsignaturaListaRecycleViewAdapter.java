@@ -14,12 +14,13 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.utpl.agendadocente.database.OperacionesAsignatura;
+import com.utpl.agendadocente.flyweight.OperacionesFactory;
 import com.utpl.agendadocente.model.Asignatura;
 import com.utpl.agendadocente.ui.asignatura.actualizar_asignatura.AsignaturaActualizarActivity;
 import com.utpl.agendadocente.MainActivity;
 import com.utpl.agendadocente.R;
 import com.utpl.agendadocente.util.Utilidades;
-import com.utpl.agendadocente.decorador.intef.IAsignatura;
+import com.utpl.agendadocente.ui.asignatura.IAsignatura;
 
 import java.util.List;
 
@@ -35,7 +36,7 @@ public class AsignaturaListaRecycleViewAdapter extends RecyclerView.Adapter<Asig
     public AsignaturaListaRecycleViewAdapter(Context context, List<Asignatura> asignaturaLista){
         this.context = context;
         this.asignaturaLista = asignaturaLista;
-        operacionesAsignatura = new OperacionesAsignatura(context);
+        operacionesAsignatura = (OperacionesAsignatura) OperacionesFactory.getOperacionAsignatura(context);
     }
 
     @NonNull

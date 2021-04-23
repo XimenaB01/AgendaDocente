@@ -35,6 +35,32 @@
                 android:layout_marginTop="5dp"
                 android:orientation="horizontal">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/paralelo"
+                    android:textSize="16sp"
+                    android:textColor="#FFFFFF"
+                    android:textStyle="italic" />
+
+                <TextView
+                    android:id="@+id/nomParT"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF"
+                    tools:text="Matematicas - A" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -47,6 +73,7 @@
                     android:id="@+id/fechTarTV"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
                     android:layout_weight="1"
                     android:textColor="#FFFFFF"
                     android:textSize="18sp"

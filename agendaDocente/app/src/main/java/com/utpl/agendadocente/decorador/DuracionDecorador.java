@@ -3,9 +3,10 @@ package com.utpl.agendadocente.decorador;
 import android.content.Context;
 
 import com.utpl.agendadocente.database.OperacionesComponente;
+import com.utpl.agendadocente.flyweight.OperacionesFactory;
 import com.utpl.agendadocente.model.Asignatura;
 import com.utpl.agendadocente.model.Componente;
-import com.utpl.agendadocente.decorador.intef.IAsignatura;
+import com.utpl.agendadocente.ui.asignatura.IAsignatura;
 
 import java.util.List;
 
@@ -40,7 +41,7 @@ public class DuracionDecorador extends AsignaturaListenerDecorador {
     }
 
     private void actualizarDuracion(Asignatura a, Context context){
-        OperacionesComponente operacionesComponente = new OperacionesComponente(context);
+        OperacionesComponente operacionesComponente = (OperacionesComponente) OperacionesFactory.getOperacionComponente(context);
         List<Componente> componenteList = operacionesComponente.obtenerComponentes(a.getIdAsignatura());
         for (int i = 0; i < componenteList.size(); i++){
             if (componenteList.get(i).getComponente().equals(comp)){

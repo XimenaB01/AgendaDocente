@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.utpl.agendadocente.database.OperacionesHorario;
+import com.utpl.agendadocente.flyweight.OperacionesFactory;
 import com.utpl.agendadocente.model.Horario;
 import com.utpl.agendadocente.ui.horario.DialogTimePicker;
 import com.utpl.agendadocente.R;
@@ -63,7 +64,7 @@ public class HorarioActualizarActivity extends DialogFragment implements DialogT
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_actualizar_horario, container, false);
 
-        operacionesHorario = new OperacionesHorario(getContext());
+        operacionesHorario = (OperacionesHorario) OperacionesFactory.getOperacionHorario(getContext());
 
         Toolbar toolbar = view.findViewById(R.id.toolbarAH);
         timeEntradaAddAct = view.findViewById(R.id.in_time1Act);

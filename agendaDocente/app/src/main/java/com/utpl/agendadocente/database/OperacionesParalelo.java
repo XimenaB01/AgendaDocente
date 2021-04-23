@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteException;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.utpl.agendadocente.flyweight.OperacionesInterfaz;
 import com.utpl.agendadocente.model.Docente;
 import com.utpl.agendadocente.model.Paralelo;
 import com.utpl.agendadocente.util.Utilidades;
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class OperacionesParalelo {
+public class OperacionesParalelo implements OperacionesInterfaz.OperacionParalelo{
 
     private Context context;
     private String parametro = " = ? ";

@@ -17,6 +17,7 @@ import android.widget.DatePicker;
 import android.widget.Toast;
 
 import com.utpl.agendadocente.database.OperacionesPeriodo;
+import com.utpl.agendadocente.flyweight.OperacionesFactory;
 import com.utpl.agendadocente.model.PeriodoAcademico;
 import com.utpl.agendadocente.ui.evaluacion.presentar_evaluacion.EvaluacionDetalle;
 import com.utpl.agendadocente.ui.periodo.DialogDatePicker;
@@ -66,7 +67,7 @@ public class PeriodoCrearActivity extends DialogFragment implements DialogDatePi
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_crear_periodo,container,false);
 
-        operacionesPeriodo = new OperacionesPeriodo(getContext());
+        operacionesPeriodo = (OperacionesPeriodo) OperacionesFactory.getOperacionPeriodo(getContext());
 
         Toolbar toolbar = view.findViewById(R.id.toolbarP);
         btnFechaIn = view.findViewById(R.id.btnFInicio);

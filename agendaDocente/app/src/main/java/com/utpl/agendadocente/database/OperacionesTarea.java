@@ -8,15 +8,15 @@ import android.database.sqlite.SQLiteException;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.utpl.agendadocente.flyweight.OperacionesInterfaz;
 import com.utpl.agendadocente.model.Tarea;
 import com.utpl.agendadocente.util.Utilidades;
-import com.utpl.agendadocente.flyweight.ActividadFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class OperacionesTarea {
+public class OperacionesTarea implements OperacionesInterfaz.OperacionTarea{
 
     private Context context;
     private String parametro = " = ? ";
@@ -83,15 +83,8 @@ public class OperacionesTarea {
             cursor = db.rawQuery(query,null);
             if (cursor.moveToFirst()){
                 do {
-                    Tarea tarea = (Tarea) ActividadFactory.getTarea(cursor.getColumnName(cursor.getColumnIndex(Utilidades.CAMPO_EST_TAR)));
-                    tarea.setIdTarea(cursor.getInt(cursor.getColumnIndex(Utilidades.CAMPO_ID_TAR)));
-                    tarea.setNombreTarea(cursor.getString(cursor.getColumnIndex(Utilidades.CAMPO_NOM_TAR)));
-                    tarea.setDescripcionTarea(cursor.getString(cursor.getColumnIndex(Utilidades.CAMPO_DES_TAR)));
-                    tarea.setFechaTarea(cursor.getString(cursor.getColumnIndex(Utilidades.CAMPO_FEC_TAR)));
-                    tarea.setObservacionTarea(cursor.getString(cursor.getColumnIndex(Utilidades.CAMPO_OBS_TAR)));
-                    tarea.setEstadoTarea(cursor.getString(cursor.getColumnIndex(Utilidades.CAMPO_EST_TAR)));
-                    tarea.setParaleloId(cursor.getInt(cursor.getColumnIndex(Utilidades.CAMPO_PARALELO_ID_FK1)));
-                    listaTarea.add(tarea.write());
+                    Tarea tarea = getTareaForCursor(cursor);
+                    listaTarea.add(tarea);
                 }while (cursor.moveToNext());
             }
         }catch (Exception e){

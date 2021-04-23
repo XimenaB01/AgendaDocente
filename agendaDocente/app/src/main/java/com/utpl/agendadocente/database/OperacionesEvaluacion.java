@@ -8,15 +8,15 @@ import android.database.sqlite.SQLiteException;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.utpl.agendadocente.flyweight.OperacionesInterfaz;
 import com.utpl.agendadocente.model.Evaluacion;
 import com.utpl.agendadocente.util.Utilidades;
-import com.utpl.agendadocente.flyweight.PruebasFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class OperacionesEvaluacion {
+public class OperacionesEvaluacion implements OperacionesInterfaz.OperacionEvaluacion {
 
 	private Context context;
     private String parametro = " = ? ";
@@ -54,15 +54,8 @@ public class OperacionesEvaluacion {
             cursor =  db.query(Utilidades.TABLA_EVALUACION, null, null, null, null, null, null, null);
             if(cursor!=null && cursor.moveToFirst()){
                     do{
-                        Evaluacion eva = (Evaluacion) PruebasFactory.getPrueba(cursor.getString(cursor.getColumnIndex(Utilidades.CAMPO_BIM_EVA)));
-                        eva.setIdEvaluacion(cursor.getInt(cursor.getColumnIndex(Utilidades.CAMPO_ID_EVA)));
-                        eva.setNombreEvaluacion(cursor.getString(cursor.getColumnIndex(Utilidades.CAMPO_NOM_EVA)));
-                        eva.setTipo(cursor.getString(cursor.getColumnIndex(Utilidades.CAMPO_TIPO_EVA)));
-                        eva.setFechaEvaluacion(cursor.getString(cursor.getColumnIndex(Utilidades.CAMPO_FEC_EVA)));
-                        eva.setBimestre(cursor.getString(cursor.getColumnIndex(Utilidades.CAMPO_BIM_EVA)));
-                        eva.setObservacion(cursor.getString(cursor.getColumnIndex(Utilidades.CAMPO_OBS_EVA)));
-                        eva.setCuestionarioID(cursor.getInt(cursor.getColumnIndex(Utilidades.CAMPO_CUES_ID)));
-                        listaEvaluacion.add(eva.write());
+                        Evaluacion eva = getEvaluacionForCursor(cursor);
+                        listaEvaluacion.add(eva);
                     }while (cursor.moveToNext());
                 cursor.close();
             }

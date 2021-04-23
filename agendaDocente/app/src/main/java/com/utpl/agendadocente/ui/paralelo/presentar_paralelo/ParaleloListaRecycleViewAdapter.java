@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.utpl.agendadocente.database.OperacionesAsignatura;
+import com.utpl.agendadocente.flyweight.OperacionesFactory;
 import com.utpl.agendadocente.model.Asignatura;
 import com.utpl.agendadocente.model.Paralelo;
 import com.utpl.agendadocente.ui.paralelo.DialogoOpciones;
@@ -23,7 +24,7 @@ import java.util.List;
 public class ParaleloListaRecycleViewAdapter extends RecyclerView.Adapter<ParaleloListaRecycleViewAdapter.ParaleloViewHolder> {
     private Context context;
     private List<Paralelo> listaParalelo;
-    private OperacionesAsignatura operacionesAsignatura= new OperacionesAsignatura(context);
+    private OperacionesAsignatura operacionesAsignatura= (OperacionesAsignatura) OperacionesFactory.getOperacionAsignatura(context);
 
     public ParaleloListaRecycleViewAdapter(){}
 

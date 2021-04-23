@@ -21,7 +21,7 @@ import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-import com.utpl.agendadocente.decorador.intef.impl.AsignaturaListenerNormal;
+import com.utpl.agendadocente.decorador.imple.AsignaturaListenerNormal;
 import com.utpl.agendadocente.model.Asignatura;
 import com.utpl.agendadocente.R;
 import com.utpl.agendadocente.ui.evaluacion.presentar_evaluacion.EvaluacionDetalle;
@@ -30,7 +30,7 @@ import com.utpl.agendadocente.decorador.DescripcionDecorador;
 import com.utpl.agendadocente.decorador.DuracionDecorador;
 import com.utpl.agendadocente.decorador.NivelDecorador;
 import com.utpl.agendadocente.decorador.TemasDecorador;
-import com.utpl.agendadocente.decorador.intef.IAsignatura;
+import com.utpl.agendadocente.ui.asignatura.IAsignatura;
 
 import java.util.Objects;
 

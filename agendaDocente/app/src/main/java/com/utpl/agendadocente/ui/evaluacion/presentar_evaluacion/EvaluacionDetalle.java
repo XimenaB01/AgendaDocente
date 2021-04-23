@@ -16,13 +16,13 @@ import androidx.fragment.app.DialogFragment;
 import com.utpl.agendadocente.database.OperacionesAsignatura;
 import com.utpl.agendadocente.database.OperacionesCuestionario;
 import com.utpl.agendadocente.database.OperacionesParalelo;
+import com.utpl.agendadocente.flyweight.OperacionesFactory;
 import com.utpl.agendadocente.model.Asignatura;
 import com.utpl.agendadocente.model.Cuestionario;
 import com.utpl.agendadocente.model.Evaluacion;
 import com.utpl.agendadocente.model.Paralelo;
 import com.utpl.agendadocente.R;
 import com.utpl.agendadocente.util.Utilidades;
-import com.utpl.agendadocente.flyweight.PruebasFactory;
 
 public class EvaluacionDetalle extends DialogFragment {
 
@@ -36,9 +36,8 @@ public class EvaluacionDetalle extends DialogFragment {
         //Required constructor
     }
 
-    public static EvaluacionDetalle newInstance(Evaluacion eva, String bimestre){
+    public static EvaluacionDetalle newInstance(Evaluacion eva){
         EvaluacionDetalle evaluacionDetalle = new EvaluacionDetalle();
-        evaluacion = (Evaluacion) PruebasFactory.getPrueba(bimestre);
         evaluacion = eva;
         Bundle bundle = new Bundle();
         bundle.putString("title", "Detalle Evaluación");
@@ -105,7 +104,7 @@ public class EvaluacionDetalle extends DialogFragment {
 
     private void obtenerCuestionarioAsignado() {
         if (evaluacion.getCuestionarioID() != -1){
-            OperacionesCuestionario operacionesCuestionario = new OperacionesCuestionario(getContext());
+            OperacionesCuestionario operacionesCuestionario = (OperacionesCuestionario) OperacionesFactory.getOperacionCuestionario(getContext());
             long idCues = evaluacion.getCuestionarioID();
 
             Cuestionario cuestionario = operacionesCuestionario.obtenerCuestionario(idCues);
@@ -119,9 +118,9 @@ public class EvaluacionDetalle extends DialogFragment {
     }
 
     private void obtenerParaleloAsignado(){
-        if (evaluacion.getParaleloID() != null){
-            OperacionesParalelo operacionesParalelo = new OperacionesParalelo(getContext());
-            OperacionesAsignatura operacionesAsignatura = new OperacionesAsignatura(getContext());
+        if (evaluacion.getParaleloID() != null && evaluacion.getParaleloID() != 0){
+            OperacionesParalelo operacionesParalelo = (OperacionesParalelo) OperacionesFactory.getOperacionParalelo(getContext());
+            OperacionesAsignatura operacionesAsignatura = (OperacionesAsignatura) OperacionesFactory.getOperacionAsignatura(getContext());
 
             Paralelo paralelo = operacionesParalelo.obtenerParalelo(evaluacion.getParaleloID());
             Asignatura asignatura = operacionesAsignatura.obtenerAsignatura(paralelo.getAsignaturaID());

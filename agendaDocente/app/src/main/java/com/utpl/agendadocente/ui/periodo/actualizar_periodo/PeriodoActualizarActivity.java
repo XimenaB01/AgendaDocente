@@ -14,6 +14,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.DialogFragment;
 
 import com.utpl.agendadocente.database.OperacionesPeriodo;
+import com.utpl.agendadocente.flyweight.OperacionesFactory;
 import com.utpl.agendadocente.model.PeriodoAcademico;
 import com.utpl.agendadocente.ui.periodo.DialogDatePicker;
 import com.utpl.agendadocente.R;
@@ -31,7 +32,7 @@ public class PeriodoActualizarActivity extends DialogFragment implements DialogD
     private Button btnPerIn;
     private Button btnPerFin;
 
-    private OperacionesPeriodo operacionesPeriodo;
+    private OperacionesPeriodo operacionesPeriodo = (OperacionesPeriodo) OperacionesFactory.getOperacionPeriodo(getContext());
 
     public PeriodoActualizarActivity(){
         //Required constructor
@@ -54,7 +55,6 @@ public class PeriodoActualizarActivity extends DialogFragment implements DialogD
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_actualizar_periodo,container,false);
 
-        operacionesPeriodo = new OperacionesPeriodo(getContext());
         Toolbar toolbar = view.findViewById(R.id.toolbarPer);
         btnPerIn = view.findViewById(R.id.btnFInicioA);
         btnPerFin = view.findViewById(R.id.btnFFinA);

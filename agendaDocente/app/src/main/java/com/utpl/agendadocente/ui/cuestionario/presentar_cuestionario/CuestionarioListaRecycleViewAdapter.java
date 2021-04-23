@@ -14,6 +14,7 @@ import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import com.utpl.agendadocente.database.OperacionesCuestionario;
+import com.utpl.agendadocente.flyweight.OperacionesFactory;
 import com.utpl.agendadocente.model.Cuestionario;
 import com.utpl.agendadocente.MainActivity;
 import com.utpl.agendadocente.ui.cuestionario.actualizar_cuestionario.CuestionarioActualizarActivity;
@@ -34,7 +35,7 @@ public class CuestionarioListaRecycleViewAdapter extends RecyclerView.Adapter<Cu
     public CuestionarioListaRecycleViewAdapter (Context context, List<Cuestionario> cuestionarioLista){
         this.context = context;
         this.cuestionarioLista = cuestionarioLista;
-        operacionesCuestionario = new OperacionesCuestionario(context);
+        operacionesCuestionario = (OperacionesCuestionario) OperacionesFactory.getOperacionCuestionario(context);
     }
 
     @NonNull

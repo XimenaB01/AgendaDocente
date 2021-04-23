@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.utpl.agendadocente.database.OperacionesCuestionario;
+import com.utpl.agendadocente.flyweight.OperacionesFactory;
 import com.utpl.agendadocente.model.Cuestionario;
 import com.utpl.agendadocente.R;
 import com.utpl.agendadocente.ui.evaluacion.presentar_evaluacion.EvaluacionDetalle;
@@ -105,7 +106,7 @@ public class CuestionarioCrearActivity extends DialogFragment {
                     cuest.setNombreCuestionario(nombreC);
                     cuest.setPreguntas(preguntasC);
 
-                    operacionesCuestionario = new OperacionesCuestionario(getContext());
+                    operacionesCuestionario = (OperacionesCuestionario) OperacionesFactory.getOperacionCuestionario(getContext());
 
                     long insercion = operacionesCuestionario.insertarCuestionario(cuest);
 

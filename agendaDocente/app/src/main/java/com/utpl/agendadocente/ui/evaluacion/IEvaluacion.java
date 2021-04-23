@@ -12,7 +12,4 @@ public class IEvaluacion {
         void onActualizarEvaluacion(Evaluacion evaluacion, int position);
     }
 
-    public interface Prueba{
-        Evaluacion write();
-    }
 }

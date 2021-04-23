@@ -21,6 +21,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.utpl.agendadocente.database.OperacionesAsignatura;
 import com.utpl.agendadocente.database.OperacionesComponente;
+import com.utpl.agendadocente.flyweight.OperacionesFactory;
 import com.utpl.agendadocente.model.Asignatura;
 import com.utpl.agendadocente.model.Componente;
 import com.utpl.agendadocente.R;
@@ -29,8 +30,8 @@ import com.utpl.agendadocente.decorador.DescripcionDecorador;
 import com.utpl.agendadocente.decorador.DuracionDecorador;
 import com.utpl.agendadocente.decorador.NivelDecorador;
 import com.utpl.agendadocente.decorador.TemasDecorador;
-import com.utpl.agendadocente.decorador.intef.IAsignatura;
-import com.utpl.agendadocente.decorador.intef.impl.AsignaturaListenerNormal;
+import com.utpl.agendadocente.ui.asignatura.IAsignatura;
+import com.utpl.agendadocente.decorador.imple.AsignaturaListenerNormal;
 
 import java.util.List;
 import java.util.Objects;
@@ -76,7 +77,7 @@ public class AsignaturaActualizarActivity extends DialogFragment implements Adap
     private String temas = "";
     private String textDuracion = "Duración";
 
-    private OperacionesComponente operacionesComponente = new OperacionesComponente(getContext());
+    private OperacionesComponente operacionesComponente = (OperacionesComponente) OperacionesFactory.getOperacionComponente(getContext());
     private List<Componente> list = operacionesComponente.obtenerComponentes(idAsignatura);
 
     public AsignaturaActualizarActivity(){
@@ -102,7 +103,7 @@ public class AsignaturaActualizarActivity extends DialogFragment implements Adap
 
         View view = inflater.inflate(R.layout.dialog_actualizar_asignatura,container,false);
 
-        OperacionesAsignatura operacionesAsignatura = new OperacionesAsignatura(getContext());
+        OperacionesAsignatura operacionesAsignatura = (OperacionesAsignatura) OperacionesFactory.getOperacionAsignatura(getContext());
 
         Toolbar toolbar = view.findViewById(R.id.toolbarAsA);
         nomAct = view.findViewById(R.id.nomAsigAct);

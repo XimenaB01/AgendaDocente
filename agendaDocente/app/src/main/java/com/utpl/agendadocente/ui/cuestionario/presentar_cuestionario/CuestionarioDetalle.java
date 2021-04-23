@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.utpl.agendadocente.database.OperacionesCuestionario;
+import com.utpl.agendadocente.flyweight.OperacionesFactory;
 import com.utpl.agendadocente.model.Cuestionario;
 import com.utpl.agendadocente.R;
 import com.utpl.agendadocente.util.Utilidades;
@@ -46,7 +47,7 @@ public class CuestionarioDetalle extends DialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_detalle_cuestionario, container, false);
 
-        OperacionesCuestionario operacionesCuestionario = new OperacionesCuestionario(getContext());
+        OperacionesCuestionario operacionesCuestionario = (OperacionesCuestionario) OperacionesFactory.getOperacionCuestionario(getContext());
 
         Toolbar toolbar = view.findViewById(R.id.toolbarDC);
         TextView nombreCuest = view.findViewById(R.id.nomCuesDet);

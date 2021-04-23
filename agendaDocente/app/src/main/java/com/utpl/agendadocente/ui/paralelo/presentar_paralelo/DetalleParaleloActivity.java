@@ -14,6 +14,7 @@ import com.utpl.agendadocente.database.OperacionesAsignatura;
 import com.utpl.agendadocente.database.OperacionesHorario;
 import com.utpl.agendadocente.database.OperacionesParalelo;
 import com.utpl.agendadocente.database.OperacionesPeriodo;
+import com.utpl.agendadocente.flyweight.OperacionesFactory;
 import com.utpl.agendadocente.model.Asignatura;
 import com.utpl.agendadocente.model.Docente;
 import com.utpl.agendadocente.model.Horario;
@@ -52,10 +53,10 @@ public class DetalleParaleloActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalle_paralelo);
 
-        operacionesAsignatura = new OperacionesAsignatura(this);
-        operacionesPeriodo = new OperacionesPeriodo(this);
-        operacionesParalelo = new OperacionesParalelo(this);
-        operacionesHorario = new OperacionesHorario(this);
+        operacionesAsignatura = (OperacionesAsignatura) OperacionesFactory.getOperacionAsignatura(this);
+        operacionesPeriodo = (OperacionesPeriodo) OperacionesFactory.getOperacionPeriodo(this);
+        operacionesParalelo = (OperacionesParalelo) OperacionesFactory.getOperacionParalelo(this);
+        operacionesHorario = (OperacionesHorario) OperacionesFactory.getOperacionHorario(this);
 
         campoParalelo = findViewById(R.id.campoNombreParalelo);
         campoAlumnos = findViewById(R.id.campoNumAlumnos);

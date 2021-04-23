@@ -1,8 +1,6 @@
 package com.utpl.agendadocente.model;
 
-import com.utpl.agendadocente.ui.tarea.ITarea;
-
-public class Tarea implements ITarea.Actividad {
+public class Tarea {
     private Integer idTarea;
     private String nombreTarea;
     private String descripcionTarea;
@@ -84,8 +82,4 @@ public class Tarea implements ITarea.Actividad {
         this.paraleloId = paraleloId;
     }
 
-    @Override
-    public Tarea write() {
-        return new Tarea(idTarea, nombreTarea, descripcionTarea, fechaTarea, observacionTarea, estadoTarea, paraleloId);
-    }
 }

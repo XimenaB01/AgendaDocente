@@ -26,6 +26,7 @@ import com.utpl.agendadocente.database.OperacionesHorario;
 import com.utpl.agendadocente.database.OperacionesParalelo;
 import com.utpl.agendadocente.database.OperacionesPeriodo;
 import com.utpl.agendadocente.database.OperacionesTarea;
+import com.utpl.agendadocente.flyweight.OperacionesFactory;
 import com.utpl.agendadocente.model.Asignatura;
 import com.utpl.agendadocente.model.Docente;
 import com.utpl.agendadocente.model.Evaluacion;
@@ -62,11 +63,13 @@ public class ReplicarActivity extends DialogFragment implements DialogAgregarMul
     private Toolbar toolbar;
     private Button docenteRep;
 
-    private OperacionesDocente operacionesDocente = new OperacionesDocente(getContext());
-    private OperacionesHorario operacionesHorario = new OperacionesHorario(getContext());
-    private OperacionesPeriodo operacionesPeriodo = new OperacionesPeriodo(getContext());
-    private OperacionesAsignatura  operacionesAsignatura = new OperacionesAsignatura(getContext());
-    private OperacionesParalelo operacionesParalelo = new OperacionesParalelo(getContext());
+    private OperacionesDocente operacionesDocente = (OperacionesDocente) OperacionesFactory.getOperacionDocente(getContext());
+    private OperacionesHorario operacionesHorario = (OperacionesHorario) OperacionesFactory.getOperacionHorario(getContext());
+    private OperacionesPeriodo operacionesPeriodo = (OperacionesPeriodo) OperacionesFactory.getOperacionPeriodo(getContext());
+    private OperacionesAsignatura operacionesAsignatura = (OperacionesAsignatura) OperacionesFactory.getOperacionAsignatura(getContext());
+    private OperacionesEvaluacion operacionesEvaluacion = (OperacionesEvaluacion)OperacionesFactory.getOperacionEvaluacion(getContext());
+    private OperacionesParalelo operacionesParalelo = (OperacionesParalelo) OperacionesFactory.getOperacionParalelo(getContext());
+    private OperacionesTarea operacionesTarea = (OperacionesTarea) OperacionesFactory.getOperacionTarea(getContext());
 
     private Paralelo paralelo;
     private ParaleloActualizarActivity actualizarActivity = new ParaleloActualizarActivity();
@@ -209,12 +212,10 @@ public class ReplicarActivity extends DialogFragment implements DialogAgregarMul
                     obtenerIdPeriodo();
 
                     if (checkBoxTar.isChecked()){
-                        OperacionesTarea operacionesTarea = new OperacionesTarea(getContext());
                         listTarerasReply = operacionesTarea.obtenerTareasId(idParalelo);
                     }
 
                     if (checkBoxEva.isChecked()){
-                        OperacionesEvaluacion operacionesEvaluacion = new OperacionesEvaluacion(getContext());
                         listEvaluacionesReply = operacionesEvaluacion.obtenerEvaluacionesId(idParalelo);
                     }
 
@@ -297,7 +298,6 @@ public class ReplicarActivity extends DialogFragment implements DialogAgregarMul
 
     private void replicarTareasForParalelo(int id){
         for (int i = 0; i < listTarerasReply.size(); i++){
-            OperacionesTarea operacionesTarea = new OperacionesTarea(getContext());
             Tarea tarea = new Tarea();
             tarea.setNombreTarea(listTarerasReply.get(i).getNombreTarea());
             tarea.setDescripcionTarea(listTarerasReply.get(i).getDescripcionTarea());
@@ -312,7 +312,6 @@ public class ReplicarActivity extends DialogFragment implements DialogAgregarMul
 
     private void replicarEvaluacionesForParalelo(int id){
         for (int i = 0; i < listEvaluacionesReply.size(); i++){
-            OperacionesEvaluacion operacionesEvaluacion = new OperacionesEvaluacion(getContext());
             Evaluacion evaluacion = new Evaluacion();
             evaluacion.setNombreEvaluacion(listEvaluacionesReply.get(i).getNombreEvaluacion());
             evaluacion.setBimestre(listEvaluacionesReply.get(i).getBimestre());

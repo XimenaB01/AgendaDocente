@@ -26,6 +26,7 @@ import com.utpl.agendadocente.database.OperacionesAsignatura;
 import com.utpl.agendadocente.database.OperacionesCuestionario;
 import com.utpl.agendadocente.database.OperacionesEvaluacion;
 import com.utpl.agendadocente.database.OperacionesParalelo;
+import com.utpl.agendadocente.flyweight.OperacionesFactory;
 import com.utpl.agendadocente.model.Asignatura;
 import com.utpl.agendadocente.model.Cuestionario;
 import com.utpl.agendadocente.model.Evaluacion;
@@ -66,9 +67,9 @@ public class EvaluacionActualizarActivity extends DialogFragment implements Dial
     private String texto = "Sin Asignar";
     private Integer idParalelo = null;
 
-    private OperacionesCuestionario operacionesCuestionario = new OperacionesCuestionario(getContext());
-    private OperacionesAsignatura operacionesAsignatura = new OperacionesAsignatura(getContext());
-    private OperacionesParalelo operacionesParalelo = new OperacionesParalelo(getContext());
+    private OperacionesCuestionario operacionesCuestionario = (OperacionesCuestionario) OperacionesFactory.getOperacionCuestionario(getContext());
+    private OperacionesAsignatura operacionesAsignatura = (OperacionesAsignatura) OperacionesFactory.getOperacionAsignatura(getContext());
+    private OperacionesParalelo operacionesParalelo = (OperacionesParalelo) OperacionesFactory.getOperacionParalelo(getContext());
     private List<Cuestionario> cuestListAct = operacionesCuestionario.listarCuestionario();
     private ArrayList<String> listCuetAct = new ArrayList<>();
     private List<String> paralalosAsignados = new ArrayList<>();
@@ -98,7 +99,7 @@ public class EvaluacionActualizarActivity extends DialogFragment implements Dial
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_actualizar_evaluacion, container,false);
 
-        operacionesEvaluacion = new OperacionesEvaluacion(getContext());
+        operacionesEvaluacion = (OperacionesEvaluacion)OperacionesFactory.getOperacionEvaluacion(getContext());
 
         toolbar = view.findViewById(R.id.toolbarEv);
         String title = null;
