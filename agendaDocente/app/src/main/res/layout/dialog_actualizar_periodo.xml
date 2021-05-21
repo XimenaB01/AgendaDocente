@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    tools:context=".ui.periodo.actualizar_periodo.PeriodoActualizarActivity">
+    tools:context=".features.periodo.actualizar_periodo.PeriodoActualizarActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"

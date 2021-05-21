@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteException;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.utpl.agendadocente.flyweight.OperacionesInterfaz;
+import com.utpl.agendadocente.features.flyweight.OperacionesInterfaz;
 import com.utpl.agendadocente.model.Horario;
 import com.utpl.agendadocente.util.Utilidades;
 
@@ -150,9 +150,9 @@ public class OperacionesHorario implements OperacionesInterfaz.OperacionHorario{
         Cursor cursor =db.rawQuery(query,null);
         try {
             while (cursor.moveToNext()){
-                String a = cursor.getString(0);
-                String h1 = cursor.getString(1);
-                String h2 = cursor.getString( 2);
+                String a = cursor.getString(cursor.getColumnIndex(Utilidades.CAMPO_AULA));
+                String h1 = cursor.getString(cursor.getColumnIndex(Utilidades.CAMPO_HOR_ENT));
+                String h2 = cursor.getString(cursor.getColumnIndex(Utilidades.CAMPO_HOR_SAL));
 
                 if (horario.getAula().equals(a) && horario.getHoraEntrada().equals(h1) && horario.getHoraSalida().equals(h2)){
                     operacion = true;

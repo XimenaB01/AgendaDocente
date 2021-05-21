@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.paralelo.presentar_paralelo.DetalleParaleloActivity">
+    tools:context=".features.paralelo.presentar_paralelo.DetalleParaleloActivity">
 
     <ScrollView
         android:layout_width="match_parent"

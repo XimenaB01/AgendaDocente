@@ -37,7 +37,7 @@ public class Utilidades {
 
     public static final String CREAR_TABLA_ASIGNATURA = CREATE_TABLE + TABLA_ASIGNATURA + " ("
             + CAMPO_ID_ASI + INTEGER_PK
-            + CAMPO_NOM_ASI + TEXT_NOT_NULL_UNIQUE
+            + CAMPO_NOM_ASI + TEXT_COMA
             + CAMPO_AREA + TEXT_COMA
             + CAMPO_CREDITOS + TEXT_COMA
             + CAMPO_HORARIO + TEXT_COMA

@@ -12,36 +12,36 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity" android:theme="@style/AppTheme.NoActionBar">
+        <activity android:name=".util.MainActivity" android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.paralelo.crear_paralelo.CrearParaleloActivity" />
-        <activity android:name=".ui.AsignaturaListener.crear_asignatura.AsignaturaCrearActivity" />
-        <activity android:name=".ui.docente.crear_docente.CrearDocenteActivity" />
-        <activity android:name=".ui.cuestionario.crear_cuestionario.CuestionarioCrearActivity" />
-        <activity android:name=".ui.cuestionario.actualizar_cuestionario.CuestionarioActualizarActivity" />
-        <activity android:name=".ui.cuestionario.presentar_cuestionario.CuestionarioListaRecycleViewAdapter" />
-        <activity android:name=".ui.evaluacion.actualizar_evaluacion.EvaluacionActualizarActivity" />
-        <activity android:name=".ui.evaluacion.presentar_evaluacion.EvaluacionListaRecycleViewAdapter" />
-        <activity android:name=".ui.tarea.presentar_tarea.TareaListaRecycleViewAdapter" />
-        <activity android:name=".ui.tarea.crear_tarea.TareaCrearActivity" />
-        <activity android:name=".ui.tarea.actualizar_tarea.TareaActualizarActivity" />
-        <activity android:name=".ui.horario.presentar_horario.HorarioListaRecycleViewAdapter" />
-        <activity android:name=".ui.horario.actualizar_horario.HorarioActualizarActivity" />
-        <activity android:name=".ui.horario.crear_horario.HorarioCrearActivity" />
-        <activity android:name=".ui.periodo.crear_periodo.PeriodoCrearActivity" />
-        <activity android:name=".ui.AsignaturaListener.actualizar_asignatura.AsignaturaActualizarActivity" />
-        <activity android:name=".ui.docente.actualizar_docente.ActualizarDocente" />
-        <activity android:name=".ui.docente.presentar_docente.DocenteListaRecycleViewAdapter" />
-        <activity android:name=".ui.evaluacion.crear_evaluacion.EvaluacionCrearActivity" />
-        <activity android:name=".ui.paralelo.presentar_paralelo.DetalleParaleloActivity" />
-        <activity android:name=".ui.periodo.actualizar_periodo.PeriodoActualizarActivity" />
-        <activity android:name=".ui.paralelo.actualizar_paralelo.ParaleloActualizarActivity"/>
-        <activity android:name=".ui.paralelo.replicar_paralelo.ReplicarActivity" />
+        <activity android:name=".features.paralelo.crear_paralelo.CrearParaleloActivity" />
+        <activity android:name=".features.asignatura.crear_asignatura.AsignaturaCrearActivity" />
+        <activity android:name=".features.docente.crear_docente.CrearDocenteActivity" />
+        <activity android:name=".features.cuestionario.crear_cuestionario.CuestionarioCrearActivity" />
+        <activity android:name=".features.cuestionario.actualizar_cuestionario.CuestionarioActualizarActivity" />
+        <activity android:name=".features.cuestionario.presentar_cuestionario.CuestionarioListaRecycleViewAdapter" />
+        <activity android:name=".features.evaluacion.actualizar_evaluacion.EvaluacionActualizarActivity" />
+        <activity android:name=".features.evaluacion.presentar_evaluacion.EvaluacionListaRecycleViewAdapter" />
+        <activity android:name=".features.tarea.presentar_tarea.TareaListaRecycleViewAdapter" />
+        <activity android:name=".features.tarea.crear_tarea.TareaCrearActivity" />
+        <activity android:name=".features.tarea.actualizar_tarea.TareaActualizarActivity" />
+        <activity android:name=".features.horario.presentar_horario.HorarioListaRecycleViewAdapter" />
+        <activity android:name=".features.horario.actualizar_horario.HorarioActualizarActivity" />
+        <activity android:name=".features.horario.crear_horario.HorarioCrearActivity" />
+        <activity android:name=".features.periodo.crear_periodo.PeriodoCrearActivity" />
+        <activity android:name=".features.asignatura.actualizar_asignatura.AsignaturaActualizarActivity" />
+        <activity android:name=".features.docente.actualizar_docente.ActualizarDocente" />
+        <activity android:name=".features.docente.presentar_docente.DocenteListaRecycleViewAdapter" />
+        <activity android:name=".features.evaluacion.crear_evaluacion.EvaluacionCrearActivity" />
+        <activity android:name=".features.paralelo.presentar_paralelo.DetalleParaleloActivity" />
+        <activity android:name=".features.periodo.actualizar_periodo.PeriodoActualizarActivity" />
+        <activity android:name=".features.paralelo.actualizar_paralelo.ParaleloActualizarActivity"/>
+        <activity android:name=".features.paralelo.replicar_paralelo.ReplicarActivity" />
     </application>
 
 </manifest>

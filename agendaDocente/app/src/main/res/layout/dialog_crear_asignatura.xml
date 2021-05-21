@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    tools:context=".ui.AsignaturaListener.crear_asignatura.AsignaturaCrearActivity">
+    tools:context=".features.AsignaturaListener.crear_asignatura.AsignaturaCrearActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"

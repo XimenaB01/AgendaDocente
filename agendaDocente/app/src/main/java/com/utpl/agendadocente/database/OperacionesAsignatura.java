@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteException;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.utpl.agendadocente.flyweight.OperacionesInterfaz;
+import com.utpl.agendadocente.features.flyweight.OperacionesInterfaz;
 import com.utpl.agendadocente.model.Asignatura;
 import com.utpl.agendadocente.util.Utilidades;
 
@@ -142,6 +142,43 @@ public class OperacionesAsignatura implements OperacionesInterfaz.OperacionAsign
             db.close();
         }
         return operacion;
+    }
+
+    public boolean asignaturaExistente(Asignatura asignatura){
+        conexionDB = ConexionSQLiteHelper.getInstance(context);
+        SQLiteDatabase db = conexionDB.getReadableDatabase();
+
+        String operadorAnd = "' AND ";
+        String query = "SELECT * FROM " + Utilidades.TABLA_ASIGNATURA + " WHERE "
+                + Utilidades.CAMPO_NOM_ASI + " = '" + asignatura.getNombreAsignatura() + operadorAnd
+                + Utilidades.CAMPO_CARRERA + " = '" + asignatura.getCarrera() + "'";
+
+        boolean operacion = false;
+        Cursor cursor =db.rawQuery(query,null);
+        try {
+            while (cursor.moveToNext()){
+                Integer id = cursor.getInt(cursor.getColumnIndex(Utilidades.CAMPO_ID_ASI));
+                String nombre = cursor.getString(cursor.getColumnIndex(Utilidades.CAMPO_NOM_ASI));
+                String carrera = cursor.getString(cursor.getColumnIndex(Utilidades.CAMPO_CARRERA));
+                if (asignatura.getIdAsignatura() == null){
+                    if (asignatura.getNombreAsignatura().equals(nombre) && asignatura.getCarrera().equals(carrera)){
+                        operacion = true;
+                    }
+                }else {
+                    if (asignatura.getNombreAsignatura().equals(nombre) && asignatura.getCarrera().equals(carrera) && !asignatura.getIdAsignatura().equals(id)){
+                        operacion = true;
+                    }
+                }
+            }
+        }catch (SQLiteException e){
+            Log.e("e", Objects.requireNonNull(e.getMessage()));
+        }finally {
+            if ((cursor != null) && (cursor.getCount() > 0)){
+                cursor.close();
+            }
+            db.close();
+        }
+        return !operacion;
     }
 
     private ContentValues contentValues(Asignatura asignatura){

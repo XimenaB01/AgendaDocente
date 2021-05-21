@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteException;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.utpl.agendadocente.flyweight.OperacionesInterfaz;
+import com.utpl.agendadocente.features.flyweight.OperacionesInterfaz;
 import com.utpl.agendadocente.model.Docente;
 import com.utpl.agendadocente.model.Paralelo;
 import com.utpl.agendadocente.util.Utilidades;
