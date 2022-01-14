@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2022-01-14T21:50:09.827Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36 OPR/82.0.4227.43" etag="Xi7E8WY7dSN8nzi__yby" version="16.2.6" type="github">
+<mxfile host="app.diagrams.net" modified="2022-01-14T21:50:30.435Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36 OPR/82.0.4227.43" etag="IFjhInFSAT6SzKkGD5tC" version="16.2.6" type="github">
   <diagram id="eEOeQ3wFOLhqtyGdeRPp" name="Page-1">
     <mxGraphModel dx="1068" dy="452" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -72,6 +72,9 @@
         </mxCell>
         <mxCell id="btFXKuTsMhjcYXzBrM8O-20" value="&lt;b&gt;Presentar Guía&amp;nbsp;de Buenas Practicas&lt;/b&gt;" style="whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;rounded=0;" vertex="1" parent="1">
           <mxGeometry x="320" y="840" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="btFXKuTsMhjcYXzBrM8O-22" value="si" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="550" y="760" width="20" height="20" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
